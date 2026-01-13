@@ -239,7 +239,7 @@ function countRow($data)
             $where .= " $key=:$key AND ";
             $execute[$key] = $value;
         }
-        $where = substr($where, 0, -3);
+        $where = substr($where, 0, -5);
         $row = $conn->prepare("SELECT * FROM " . $data['table'] . " $where ");
     else:
         $execute = array();
@@ -265,7 +265,7 @@ function getRows($data)
             $where .= " $key=:$key AND ";
             $execute[$key] = $value;
         }
-        $where = substr($where, 0, -3);
+        $where = substr($where, 0, -5);
     endif;
 
     if ($data["order"]):
@@ -292,7 +292,7 @@ function getRow($data)
         $where .= " $key=:$key AND ";
         $execute[$key] = $value;
     }
-    $where = substr($where, 0, -3);
+    $where = substr($where, 0, -5);
     $row = $conn->prepare("SELECT * FROM {$data['table']} $where ");
     $row->execute($execute);
     if ($row->rowCount()):
@@ -562,11 +562,11 @@ function dayPayments($day, $ay, $year, $extra = null)
 {
     global $conn;
     if (count($extra["methods"])):
-        $where = "&& ( ";
+        $where = "AND ( ";
         foreach ($extra["methods"] as $method):
-            $where .= "payment_method='$method' || ";
+            $where .= "payment_method='$method' OR ";
         endforeach;
-        $where = substr($where, 0, -3);
+        $where = substr($where, 0, -4);
         $where .= ") ";
     else:
         $where = "";
@@ -582,11 +582,11 @@ function monthPayments($ay, $year, $extra = null)
 {
     global $conn;
     if (count($extra["methods"])):
-        $where = "&& ( ";
+        $where = "AND ( ";
         foreach ($extra["methods"] as $method):
-            $where .= "payment_method='$method' || ";
+            $where .= "payment_method='$method' OR ";
         endforeach;
-        $where = substr($where, 0, -3);
+        $where = substr($where, 0, -4);
         $where .= ") ";
     else:
         $where = "";
@@ -602,29 +602,29 @@ function dayCharge($day, $ay, $year, $extra = null)
 {
     global $conn;
     if (count($extra["status"])):
-        $where = "&& ( ";
+        $where = "AND ( ";
         if (in_array("cron", $extra["status"])):
-            $where .= "order_detail='cronpending' || ";
+            $where .= "order_detail='cronpending' OR ";
         endif;
         if (in_array("fail", $extra["status"])):
-            $where .= "order_error!='-' || ";
+            $where .= "order_error!='-' OR ";
         endif;
         foreach ($extra["status"] as $statu):
             if ($statu != "cron" || $statu != "fail"):
-                $where .= "order_status='$statu' || ";
+                $where .= "order_status='$statu' OR ";
             endif;
         endforeach;
-        $where = substr($where, 0, -3);
+        $where = substr($where, 0, -4);
         $where .= ") ";
     else:
         $where = "";
     endif;
     if (count($_POST["services"])):
-        $where .= "&& ( ";
+        $where .= "AND ( ";
         foreach ($extra["services"] as $service):
-            $where .= " service_id='$service' || ";
+            $where .= " service_id='$service' OR ";
         endforeach;
-        $where = substr($where, 0, -3);
+        $where = substr($where, 0, -4);
         $where .= ") ";
     endif;
     $first = $year . "-" . $ay . "-" . $day . " 00:00:00";
@@ -640,29 +640,29 @@ function monthCharge($month, $year, $extra = null)
 {
     global $conn;
     if (count($extra["status"])):
-        $where = "&& ( ";
+        $where = "AND ( ";
         if (in_array("cron", $extra["status"])):
-            $where .= "order_detail='cronpending' || ";
+            $where .= "order_detail='cronpending' OR ";
         endif;
         if (in_array("fail", $extra["status"])):
-            $where .= "order_error!='-' || ";
+            $where .= "order_error!='-' OR ";
         endif;
         foreach ($extra["status"] as $statu):
             if ($statu != "cron" || $statu != "fail"):
-                $where .= "order_status='$statu' || ";
+                $where .= "order_status='$statu' OR ";
             endif;
         endforeach;
-        $where = substr($where, 0, -3);
+        $where = substr($where, 0, -4);
         $where .= ")";
     else:
         $where = "";
     endif;
     if (count($_POST["services"])):
-        $where .= "&& ( ";
+        $where .= "AND ( ";
         foreach ($extra["services"] as $service):
-            $where .= " service_id='$service' || ";
+            $where .= " service_id='$service' OR ";
         endforeach;
-        $where = substr($where, 0, -3);
+        $where = substr($where, 0, -4);
         $where .= ") ";
     endif;
     $first = $year . "-" . $month . "-1 00:00:00";
@@ -678,29 +678,29 @@ function monthChargeNet($month, $year, $extra = null)
 {
     global $conn;
     if (count($extra["status"])):
-        $where = "&& ( ";
+        $where = "AND ( ";
         if (in_array("cron", $extra["status"])):
-            $where .= "order_detail='cronpending' || ";
+            $where .= "order_detail='cronpending' OR ";
         endif;
         if (in_array("fail", $extra["status"])):
-            $where .= "order_error!='-' || ";
+            $where .= "order_error!='-' OR ";
         endif;
         foreach ($extra["status"] as $statu):
             if ($statu != "cron" || $statu != "fail"):
-                $where .= "order_status='$statu' || ";
+                $where .= "order_status='$statu' OR ";
             endif;
         endforeach;
-        $where = substr($where, 0, -3);
+        $where = substr($where, 0, -4);
         $where .= ")";
     else:
         $where = "";
     endif;
     if (count($_POST["services"])):
-        $where .= "&& ( ";
+        $where .= "AND ( ";
         foreach ($extra["services"] as $service):
-            $where .= " service_id='$service' || ";
+            $where .= " service_id='$service' OR ";
         endforeach;
-        $where = substr($where, 0, -3);
+        $where = substr($where, 0, -4);
         $where .= ") ";
     endif;
     $first = $year . "-" . $month . "-1 00:00:00";
@@ -719,29 +719,29 @@ function dayOrders($day, $month, $year, $extra = null)
 {
     global $conn;
     if (count($extra["status"])):
-        $where = "&& ( ";
+        $where = "AND ( ";
         if (in_array("cron", $extra["status"])):
-            $where .= "order_detail='cronpending' || ";
+            $where .= "order_detail='cronpending' OR ";
         endif;
         if (in_array("fail", $extra["status"])):
-            $where .= "order_error!='-' || ";
+            $where .= "order_error!='-' OR ";
         endif;
         foreach ($extra["status"] as $statu):
             if ($statu != "cron" || $statu != "fail"):
-                $where .= "order_status='$statu' || ";
+                $where .= "order_status='$statu' OR ";
             endif;
         endforeach;
-        $where = substr($where, 0, -3);
+        $where = substr($where, 0, -4);
         $where .= ") ";
     else:
         $where = "";
     endif;
     if (count($_POST["services"])):
-        $where .= "&& ( ";
+        $where .= "AND ( ";
         foreach ($extra["services"] as $service):
-            $where .= " service_id='$service' || ";
+            $where .= " service_id='$service' OR ";
         endforeach;
-        $where = substr($where, 0, -3);
+        $where = substr($where, 0, -4);
         $where .= ") ";
     endif;
     $first = $year . "-" . $month . "-" . $day . " 00:00:00";
@@ -753,29 +753,29 @@ function monthOrders($month, $year, $extra = null)
 {
     global $conn;
     if (count($extra["status"])):
-        $where = "&& ( ";
+        $where = "AND ( ";
         if (in_array("cron", $extra["status"])):
-            $where .= "order_detail='cronpending' || ";
+            $where .= "order_detail='cronpending' OR ";
         endif;
         if (in_array("fail", $extra["status"])):
-            $where .= "order_error!='-' || ";
+            $where .= "order_error!='-' OR ";
         endif;
         foreach ($extra["status"] as $statu):
             if ($statu != "cron" || $statu != "fail"):
-                $where .= "order_status='$statu' || ";
+                $where .= "order_status='$statu' OR ";
             endif;
         endforeach;
-        $where = substr($where, 0, -3);
+        $where = substr($where, 0, -4);
         $where .= ")";
     else:
         $where = "";
     endif;
     if (count($_POST["services"])):
-        $where .= "&& ( ";
+        $where .= "AND ( ";
         foreach ($extra["services"] as $service):
-            $where .= " service_id='$service' || ";
+            $where .= " service_id='$service' OR ";
         endforeach;
-        $where = substr($where, 0, -3);
+        $where = substr($where, 0, -4);
         $where .= ") ";
     endif;
     $first = $year . "-" . $month . "-1 00:00:00";
