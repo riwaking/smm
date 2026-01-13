@@ -4,6 +4,8 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-13: Added modern mobile-first admin UI (css/admin/admin-modern.css)
+- 2026-01-13: Added modern login page design (css/admin/login-modern.css)
 - 2026-01-13: Fixed theme editor file paths - changed app/views/ to app/front/ for twig templates
 - 2026-01-13: Fixed blog page PostgreSQL integer error - added numeric validation for route(4)
 - 2026-01-13: Fixed theme editor PHP 8 compatibility (file existence check before fopen/fread)
