@@ -683,10 +683,13 @@ elseif (route(2) == "themes"):
 
     }
 
-    $theme = $conn->prepare("SELECT * FROM themes WHERE id=:id");
-    $theme->execute(array("id" => route(4)));
-    $theme = $theme->fetch(PDO::FETCH_ASSOC);
-    if (route(3) == "active" AND countRow(["table" => "themes", "where" => ["theme_dirname" => $theme["theme_dirname"]]])):
+    $theme = null;
+    if (route(4) && is_numeric(route(4))) {
+      $themeQuery = $conn->prepare("SELECT * FROM themes WHERE id=:id");
+      $themeQuery->execute(array("id" => route(4)));
+      $theme = $themeQuery->fetch(PDO::FETCH_ASSOC);
+    }
+    if ($theme && route(3) == "active" AND countRow(["table" => "themes", "where" => ["theme_dirname" => $theme["theme_dirname"]]])):
       $update = $conn->prepare("UPDATE settings SET site_theme=:theme WHERE id=:id ");
       $update->execute(array("id" => 1, "theme" => $theme["theme_dirname"]));
       $update = $conn->prepare("UPDATE settings SET site_theme_alt=:site_theme_alt WHERE id=:id ");
