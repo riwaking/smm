@@ -13,8 +13,22 @@ $paymentBtn = '<button type="submit" class="btn btn-block btn-primary">[text]</b
 
 if($selectedMethod == 1){
     $formData .= $amountField;
+    $formData .= '<div class="form-group">
+    <label class="control-label">Transaction Reference / Receipt Number</label>
+    <input type="text" class="form-control" name="transaction_ref" required placeholder="Enter your transaction reference or receipt number" />
+    </div>';
+    $formData .= '<div class="form-group">
+    <label class="control-label">Additional Notes (Optional)</label>
+    <textarea class="form-control" name="payment_note" rows="3" placeholder="Any additional information about your payment"></textarea>
+    </div>';
     $formData .= $feeField;
-    $formData .= replaceText($paymentBtn,"Initiate Payment");
+    $formData .= replaceText($paymentBtn,"Submit Payment Request");
+}
+
+if($selectedMethod == 20){
+    $formData .= $amountField;
+    $formData .= $feeField;
+    $formData .= replaceText($paymentBtn,"Pay with Khalti");
 }
 
 if($selectedMethod == 2){

@@ -107,9 +107,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($paymentAmount > $methodMax) {
             errorExit("Maximum amount : $methodCurrencySymbol $methodMax");
         }
-        if ($method["methodId"] == 1) {
-            require("addfunds/Initiators/payTMCheckout.php");
-        }
         if ($method["methodId"] == 2) {
             require("addfunds/Initiators/payTMMerchant.php");
         }
@@ -176,6 +173,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
          if ($method["methodId"] == 55) {
             require("addfunds/Initiators/mercadopago.php");
+        }
+        if ($method["methodId"] == 1) {
+            require("addfunds/Initiators/manual.php");
+        }
+        if ($method["methodId"] == 20) {
+            require("addfunds/Initiators/khalti.php");
         }
         header("Content-Type: application/json; charset=utf-8");
         echo json_encode($response, true);

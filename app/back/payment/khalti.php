@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $paidAmount = $paidAmountPaisa / 100;
             $transactionId = $result['transaction_id'];
             
-            $insert = $conn->prepare("INSERT INTO payments (client_id, payment_amount, payment_method, payment_mode, payment_create_date, payment_ip, payment_extra) VALUES (:client_id, :amount, :method, :mode, :date, :ip, :extra)");
+            $insert = $conn->prepare("INSERT INTO payments (client_id, payment_amount, payment_method, payment_mode, payment_create_date, payment_ip, payment_extra) VALUES (:client_id, :amount, :method, :mode, :date, :ip, :extra) RETURNING payment_id");
             $insert->execute([
                 "client_id" => $user["client_id"],
                 "amount" => $paidAmount,
@@ -63,7 +63,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "ip" => GetIP(),
                 "extra" => $pidx
             ]);
-            $paymentId = $conn->lastInsertId();
+            $paymentResult = $insert->fetch(PDO::FETCH_ASSOC);
+            $paymentId = $paymentResult['payment_id'];
             
             $finalAmount = $paidAmount;
             if ($paymentFee > 0) {

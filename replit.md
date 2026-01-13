@@ -4,6 +4,14 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-13: Fixed ajax_data.php PostgreSQL integer validation error for empty category
+- 2026-01-13: Added missing Khalti and Manual Payment initiators in addfunds.php
+- 2026-01-13: Created app/back/addfunds/Initiators/khalti.php for Khalti payment initiation
+- 2026-01-13: Created app/back/addfunds/Initiators/manual.php for manual payment initiation
+- 2026-01-13: Fixed Khalti payment callback lastInsertId() -> RETURNING clause for PostgreSQL
+- 2026-01-13: Added transaction reference and notes fields to manual payment form
+- 2026-01-13: Fixed account.php currency update missing commit() call
+- 2026-01-13: Set default currency to NPR (Nepali Rupees) in settings
 - 2026-01-13: Added modern mobile-first admin UI (css/admin/admin-modern.css)
 - 2026-01-13: Added modern login page design (css/admin/login-modern.css)
 - 2026-01-13: Fixed theme editor file paths - changed app/views/ to app/front/ for twig templates

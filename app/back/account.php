@@ -80,7 +80,7 @@ $conn->beginTransaction();
     $currency    = $_POST["currency"];
     $update = $conn->prepare("UPDATE clients SET currency=:type WHERE client_id=:id ");
     $update = $update->execute(array("id"=>$user["client_id"],"type"=>$currency ));
-    
+    $conn->commit();
     header("Location:".site_url('account'));
 }elseif( route(1) == "timezone" && $_POST ){
 

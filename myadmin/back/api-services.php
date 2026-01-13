@@ -164,14 +164,15 @@ $language["language_code"] =>  $category_name[$check]
                     $MultiCatName = json_encode($MultiCatName);
 
                 //make a new category    
-                $insert = $conn->prepare("INSERT INTO categories (category_name, category_name_lang, category_line, category_type, category_secret) VALUES (:category_name, :category_name_lang, :category_line, 2, 2)");
-                $insert = $insert->execute(array(
+                $insert = $conn->prepare("INSERT INTO categories (category_name, category_name_lang, category_line, category_type, category_secret) VALUES (:category_name, :category_name_lang, :category_line, 2, 2) RETURNING category_id");
+                $insert->execute(array(
                     "category_name" => $category_name[$check],
                     "category_name_lang" => $MultiCatName,
                     "category_line" => $categoryLine + 1
                 ));
-                //insert in data
-                $cat_id = $conn->lastInsertId();
+                //insert in data - use RETURNING for PostgreSQL
+                $result = $insert->fetch(PDO::FETCH_ASSOC);
+                $cat_id = $result['category_id'];
                 $i++;
  //           }
         } else {
