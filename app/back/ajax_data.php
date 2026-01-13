@@ -28,17 +28,16 @@ $final_service_price = format_amount_string($user["currency_type"],from_to(get_c
 $search = $conn->prepare("SELECT * FROM clients_service WHERE service_id=:service AND client_id=:c_id ");
 $search->execute(array("service" => $service["service_id"], "c_id" => $user["client_id"]));
 if ($service["service_secret"] == 2 || $search->rowCount()):
-$serviceList.= "<option data-content=\"".htmlentities("<span class=\"badge badge-secondary style-text-primary badge-rounded\">".$service["service_id"]."</span>")." ".$service["service_name"] . " - <b>" .$final_service_price."</b>\" value='" . $service['service_id'] . "' ";
+$optionText = $service["service_id"] . " - " . $service["service_name"] . " - " . $final_service_price;
+$serviceList.= '<option value="' . $service['service_id'] . '"';
 if ($i == 0):
-$serviceList.= "selected";
+$serviceList.= ' selected';
 endif;
-
-
-$serviceList.= "></option>";
+$serviceList.= '>' . htmlspecialchars($optionText, ENT_QUOTES, 'UTF-8') . '</option>';
 $i++;
 endif;
 }
-    echo json_encode(['services' => $serviceList]);
+    echo json_encode(['services' => $serviceList], JSON_UNESCAPED_UNICODE);
 elseif ($action == "service_detail"):
     $s_id = isset($_POST["service"]) && $_POST["service"] !== '' ? intval($_POST["service"]) : 0;
     if ($s_id <= 0) {
