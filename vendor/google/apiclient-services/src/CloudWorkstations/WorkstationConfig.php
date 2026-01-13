@@ -19,7 +19,7 @@ namespace Google\Service\CloudWorkstations;
 
 class WorkstationConfig extends \Google\Collection
 {
-  protected $collection_key = 'persistentDirectories';
+  protected $collection_key = 'replicaZones';
   /**
    * @var string[]
    */
@@ -41,6 +41,10 @@ class WorkstationConfig extends \Google\Collection
    */
   public $deleteTime;
   /**
+   * @var bool
+   */
+  public $disableTcpConnections;
+  /**
    * @var string
    */
   public $displayName;
@@ -50,6 +54,8 @@ class WorkstationConfig extends \Google\Collection
   public $enableAuditAgent;
   protected $encryptionKeyType = CustomerEncryptionKey::class;
   protected $encryptionKeyDataType = '';
+  protected $ephemeralDirectoriesType = EphemeralDirectory::class;
+  protected $ephemeralDirectoriesDataType = 'array';
   /**
    * @var string
    */
@@ -70,10 +76,16 @@ class WorkstationConfig extends \Google\Collection
   public $name;
   protected $persistentDirectoriesType = PersistentDirectory::class;
   protected $persistentDirectoriesDataType = 'array';
+  protected $readinessChecksType = ReadinessCheck::class;
+  protected $readinessChecksDataType = 'array';
   /**
    * @var bool
    */
   public $reconciling;
+  /**
+   * @var string[]
+   */
+  public $replicaZones;
   /**
    * @var string
    */
@@ -172,6 +184,20 @@ class WorkstationConfig extends \Google\Collection
     return $this->deleteTime;
   }
   /**
+   * @param bool
+   */
+  public function setDisableTcpConnections($disableTcpConnections)
+  {
+    $this->disableTcpConnections = $disableTcpConnections;
+  }
+  /**
+   * @return bool
+   */
+  public function getDisableTcpConnections()
+  {
+    return $this->disableTcpConnections;
+  }
+  /**
    * @param string
    */
   public function setDisplayName($displayName)
@@ -212,6 +238,20 @@ class WorkstationConfig extends \Google\Collection
   public function getEncryptionKey()
   {
     return $this->encryptionKey;
+  }
+  /**
+   * @param EphemeralDirectory[]
+   */
+  public function setEphemeralDirectories($ephemeralDirectories)
+  {
+    $this->ephemeralDirectories = $ephemeralDirectories;
+  }
+  /**
+   * @return EphemeralDirectory[]
+   */
+  public function getEphemeralDirectories()
+  {
+    return $this->ephemeralDirectories;
   }
   /**
    * @param string
@@ -298,6 +338,20 @@ class WorkstationConfig extends \Google\Collection
     return $this->persistentDirectories;
   }
   /**
+   * @param ReadinessCheck[]
+   */
+  public function setReadinessChecks($readinessChecks)
+  {
+    $this->readinessChecks = $readinessChecks;
+  }
+  /**
+   * @return ReadinessCheck[]
+   */
+  public function getReadinessChecks()
+  {
+    return $this->readinessChecks;
+  }
+  /**
    * @param bool
    */
   public function setReconciling($reconciling)
@@ -310,6 +364,20 @@ class WorkstationConfig extends \Google\Collection
   public function getReconciling()
   {
     return $this->reconciling;
+  }
+  /**
+   * @param string[]
+   */
+  public function setReplicaZones($replicaZones)
+  {
+    $this->replicaZones = $replicaZones;
+  }
+  /**
+   * @return string[]
+   */
+  public function getReplicaZones()
+  {
+    return $this->replicaZones;
   }
   /**
    * @param string

@@ -23,7 +23,9 @@ use Google\Client;
  * Service definition for WorkloadManager (v1).
  *
  * <p>
-</p>
+ * Workload Manager is a service that provides tooling for enterprise workloads
+ * to automate the deployment and validation of your workloads against best
+ * practices and recommendations.</p>
  *
  * <p>
  * For more information about this service, see the API
@@ -46,6 +48,7 @@ class WorkloadManager extends \Google\Service
   public $projects_locations_insights;
   public $projects_locations_operations;
   public $projects_locations_rules;
+  public $rootUrlTemplate;
 
   /**
    * Constructs the internal representation of the WorkloadManager service.
@@ -58,6 +61,7 @@ class WorkloadManager extends \Google\Service
   {
     parent::__construct($clientOrConfig);
     $this->rootUrl = $rootUrl ?: 'https://workloadmanager.googleapis.com/';
+    $this->rootUrlTemplate = $rootUrl ?: 'https://workloadmanager.UNIVERSE_DOMAIN/';
     $this->servicePath = '';
     $this->batchPath = 'batch';
     $this->version = 'v1';
@@ -129,6 +133,24 @@ class WorkloadManager extends \Google\Service
                   'type' => 'string',
                 ],
               ],
+            ],'delete' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'DELETE',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'force' => [
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ],
+                'requestId' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
             ],'get' => [
               'path' => 'v1/{+name}',
               'httpMethod' => 'GET',
@@ -175,7 +197,21 @@ class WorkloadManager extends \Google\Service
         'executions',
         [
           'methods' => [
-            'get' => [
+            'delete' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'DELETE',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'requestId' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'get' => [
               'path' => 'v1/{+name}',
               'httpMethod' => 'GET',
               'parameters' => [
@@ -393,6 +429,10 @@ class WorkloadManager extends \Google\Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ],
+                'customRulesBucket' => [
+                  'location' => 'query',
+                  'type' => 'string',
                 ],
                 'filter' => [
                   'location' => 'query',

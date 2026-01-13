@@ -45,6 +45,7 @@ class DatabaseMigrationService extends \Google\Service
   public $projects_locations_migrationJobs;
   public $projects_locations_operations;
   public $projects_locations_privateConnections;
+  public $rootUrlTemplate;
 
   /**
    * Constructs the internal representation of the DatabaseMigrationService
@@ -58,6 +59,7 @@ class DatabaseMigrationService extends \Google\Service
   {
     parent::__construct($clientOrConfig);
     $this->rootUrl = $rootUrl ?: 'https://datamigration.googleapis.com/';
+    $this->rootUrlTemplate = $rootUrl ?: 'https://datamigration.UNIVERSE_DOMAIN/';
     $this->servicePath = '';
     $this->batchPath = 'batch';
     $this->version = 'v1';
@@ -336,6 +338,10 @@ class DatabaseMigrationService extends \Google\Service
                   'type' => 'string',
                   'required' => true,
                 ],
+                'force' => [
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ],
                 'requestId' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -387,6 +393,10 @@ class DatabaseMigrationService extends \Google\Service
                 'uncommitted' => [
                   'location' => 'query',
                   'type' => 'boolean',
+                ],
+                'view' => [
+                  'location' => 'query',
+                  'type' => 'string',
                 ],
               ],
             ],'get' => [
@@ -525,7 +535,49 @@ class DatabaseMigrationService extends \Google\Service
         'mappingRules',
         [
           'methods' => [
-            'import' => [
+            'create' => [
+              'path' => 'v1/{+parent}/mappingRules',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'mappingRuleId' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'requestId' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'delete' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'DELETE',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'requestId' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'get' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'import' => [
               'path' => 'v1/{+parent}/mappingRules:import',
               'httpMethod' => 'POST',
               'parameters' => [
@@ -533,6 +585,24 @@ class DatabaseMigrationService extends \Google\Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ],
+              ],
+            ],'list' => [
+              'path' => 'v1/{+parent}/mappingRules',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'pageSize' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'pageToken' => [
+                  'location' => 'query',
+                  'type' => 'string',
                 ],
               ],
             ],
@@ -581,8 +651,28 @@ class DatabaseMigrationService extends \Google\Service
                   'type' => 'string',
                 ],
               ],
+            ],'demoteDestination' => [
+              'path' => 'v1/{+name}:demoteDestination',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
             ],'generateSshScript' => [
               'path' => 'v1/{+migrationJob}:generateSshScript',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'migrationJob' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'generateTcpProxyScript' => [
+              'path' => 'v1/{+migrationJob}:generateTcpProxyScript',
               'httpMethod' => 'POST',
               'parameters' => [
                 'migrationJob' => [
@@ -857,6 +947,20 @@ class DatabaseMigrationService extends \Google\Service
                   'required' => true,
                 ],
               ],
+            ],'getIamPolicy' => [
+              'path' => 'v1/{+resource}:getIamPolicy',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'resource' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'options.requestedPolicyVersion' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+              ],
             ],'list' => [
               'path' => 'v1/{+parent}/privateConnections',
               'httpMethod' => 'GET',
@@ -881,6 +985,26 @@ class DatabaseMigrationService extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
+                ],
+              ],
+            ],'setIamPolicy' => [
+              'path' => 'v1/{+resource}:setIamPolicy',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'resource' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'testIamPermissions' => [
+              'path' => 'v1/{+resource}:testIamPermissions',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'resource' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ],
               ],
             ],

@@ -18,6 +18,8 @@
 namespace Google\Service\CloudDataplex\Resource;
 
 use Google\Service\CloudDataplex\GoogleCloudDataplexV1DataScanJob;
+use Google\Service\CloudDataplex\GoogleCloudDataplexV1GenerateDataQualityRulesRequest;
+use Google\Service\CloudDataplex\GoogleCloudDataplexV1GenerateDataQualityRulesResponse;
 use Google\Service\CloudDataplex\GoogleCloudDataplexV1ListDataScanJobsResponse;
 
 /**
@@ -31,6 +33,24 @@ use Google\Service\CloudDataplex\GoogleCloudDataplexV1ListDataScanJobsResponse;
 class ProjectsLocationsDataScansJobs extends \Google\Service\Resource
 {
   /**
+   * Generates recommended DataQualityRule from a data profiling DataScan.
+   * (jobs.generateDataQualityRules)
+   *
+   * @param string $name Required. The name should be either * the name of a
+   * datascan with at least one successful completed data profiling job, or * the
+   * name of a successful completed data profiling datascan job.
+   * @param GoogleCloudDataplexV1GenerateDataQualityRulesRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return GoogleCloudDataplexV1GenerateDataQualityRulesResponse
+   * @throws \Google\Service\Exception
+   */
+  public function generateDataQualityRules($name, GoogleCloudDataplexV1GenerateDataQualityRulesRequest $postBody, $optParams = [])
+  {
+    $params = ['name' => $name, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('generateDataQualityRules', [$params], GoogleCloudDataplexV1GenerateDataQualityRulesResponse::class);
+  }
+  /**
    * Gets a DataScanJob resource. (jobs.get)
    *
    * @param string $name Required. The resource name of the DataScanJob: projects/
@@ -42,6 +62,7 @@ class ProjectsLocationsDataScansJobs extends \Google\Service\Resource
    * @opt_param string view Optional. Select the DataScanJob view to return.
    * Defaults to BASIC.
    * @return GoogleCloudDataplexV1DataScanJob
+   * @throws \Google\Service\Exception
    */
   public function get($name, $optParams = [])
   {
@@ -59,6 +80,14 @@ class ProjectsLocationsDataScansJobs extends \Google\Service\Resource
    * GCP region.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string filter Optional. An expression for filtering the results of
+   * the ListDataScanJobs request.If unspecified, all datascan jobs will be
+   * returned. Multiple filters can be applied (with AND, OR logical operators).
+   * Filters are case-sensitive.Allowed fields are: start_time end_timestart_time
+   * and end_time expect RFC-3339 formatted strings (e.g.
+   * 2018-10-08T18:30:00-07:00).For instance, 'start_time >
+   * 2018-10-08T00:00:00.123456789Z AND end_time < 2018-10-09T00:00:00.123456789Z'
+   * limits results to DataScanJobs between specified start and end times.
    * @opt_param int pageSize Optional. Maximum number of DataScanJobs to return.
    * The service may return fewer than this value. If unspecified, at most 10
    * DataScanJobs will be returned. The maximum value is 1000; values above 1000
@@ -68,6 +97,7 @@ class ProjectsLocationsDataScansJobs extends \Google\Service\Resource
    * paginating, all other parameters provided to ListDataScanJobs must match the
    * call that provided the page token.
    * @return GoogleCloudDataplexV1ListDataScanJobsResponse
+   * @throws \Google\Service\Exception
    */
   public function listProjectsLocationsDataScansJobs($parent, $optParams = [])
   {

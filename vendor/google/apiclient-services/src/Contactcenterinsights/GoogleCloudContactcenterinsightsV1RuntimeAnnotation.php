@@ -27,6 +27,8 @@ class GoogleCloudContactcenterinsightsV1RuntimeAnnotation extends \Google\Model
   protected $answerFeedbackDataType = '';
   protected $articleSuggestionType = GoogleCloudContactcenterinsightsV1ArticleSuggestionData::class;
   protected $articleSuggestionDataType = '';
+  protected $conversationSummarizationSuggestionType = GoogleCloudContactcenterinsightsV1ConversationSummarizationSuggestionData::class;
+  protected $conversationSummarizationSuggestionDataType = '';
   /**
    * @var string
    */
@@ -37,6 +39,12 @@ class GoogleCloudContactcenterinsightsV1RuntimeAnnotation extends \Google\Model
   protected $endBoundaryDataType = '';
   protected $faqAnswerType = GoogleCloudContactcenterinsightsV1FaqAnswerData::class;
   protected $faqAnswerDataType = '';
+  protected $generatorSuggestionResultType = GoogleCloudContactcenterinsightsV1GetGeneratorSuggestionResponse::class;
+  protected $generatorSuggestionResultDataType = '';
+  protected $knowledgeAssistResultType = GoogleCloudContactcenterinsightsV1GetKnowledgeAssistResponse::class;
+  protected $knowledgeAssistResultDataType = '';
+  protected $knowledgeSearchResultType = GoogleCloudContactcenterinsightsV1SearchKnowledgeAnswer::class;
+  protected $knowledgeSearchResultDataType = '';
   protected $smartComposeSuggestionType = GoogleCloudContactcenterinsightsV1SmartComposeSuggestionData::class;
   protected $smartComposeSuggestionDataType = '';
   protected $smartReplyType = GoogleCloudContactcenterinsightsV1SmartReplyData::class;
@@ -85,6 +93,20 @@ class GoogleCloudContactcenterinsightsV1RuntimeAnnotation extends \Google\Model
   public function getArticleSuggestion()
   {
     return $this->articleSuggestion;
+  }
+  /**
+   * @param GoogleCloudContactcenterinsightsV1ConversationSummarizationSuggestionData
+   */
+  public function setConversationSummarizationSuggestion(GoogleCloudContactcenterinsightsV1ConversationSummarizationSuggestionData $conversationSummarizationSuggestion)
+  {
+    $this->conversationSummarizationSuggestion = $conversationSummarizationSuggestion;
+  }
+  /**
+   * @return GoogleCloudContactcenterinsightsV1ConversationSummarizationSuggestionData
+   */
+  public function getConversationSummarizationSuggestion()
+  {
+    return $this->conversationSummarizationSuggestion;
   }
   /**
    * @param string
@@ -141,6 +163,48 @@ class GoogleCloudContactcenterinsightsV1RuntimeAnnotation extends \Google\Model
   public function getFaqAnswer()
   {
     return $this->faqAnswer;
+  }
+  /**
+   * @param GoogleCloudContactcenterinsightsV1GetGeneratorSuggestionResponse
+   */
+  public function setGeneratorSuggestionResult(GoogleCloudContactcenterinsightsV1GetGeneratorSuggestionResponse $generatorSuggestionResult)
+  {
+    $this->generatorSuggestionResult = $generatorSuggestionResult;
+  }
+  /**
+   * @return GoogleCloudContactcenterinsightsV1GetGeneratorSuggestionResponse
+   */
+  public function getGeneratorSuggestionResult()
+  {
+    return $this->generatorSuggestionResult;
+  }
+  /**
+   * @param GoogleCloudContactcenterinsightsV1GetKnowledgeAssistResponse
+   */
+  public function setKnowledgeAssistResult(GoogleCloudContactcenterinsightsV1GetKnowledgeAssistResponse $knowledgeAssistResult)
+  {
+    $this->knowledgeAssistResult = $knowledgeAssistResult;
+  }
+  /**
+   * @return GoogleCloudContactcenterinsightsV1GetKnowledgeAssistResponse
+   */
+  public function getKnowledgeAssistResult()
+  {
+    return $this->knowledgeAssistResult;
+  }
+  /**
+   * @param GoogleCloudContactcenterinsightsV1SearchKnowledgeAnswer
+   */
+  public function setKnowledgeSearchResult(GoogleCloudContactcenterinsightsV1SearchKnowledgeAnswer $knowledgeSearchResult)
+  {
+    $this->knowledgeSearchResult = $knowledgeSearchResult;
+  }
+  /**
+   * @return GoogleCloudContactcenterinsightsV1SearchKnowledgeAnswer
+   */
+  public function getKnowledgeSearchResult()
+  {
+    return $this->knowledgeSearchResult;
   }
   /**
    * @param GoogleCloudContactcenterinsightsV1SmartComposeSuggestionData

@@ -20,7 +20,7 @@ namespace Google\Service;
 use Google\Client;
 
 /**
- * Service definition for PublicCertificateAuthority (v1beta1).
+ * Service definition for PublicCertificateAuthority (v1).
  *
  * <p>
  * The Public Certificate Authority API may be used to create and manage ACME
@@ -41,6 +41,7 @@ class PublicCertificateAuthority extends \Google\Service
       "https://www.googleapis.com/auth/cloud-platform";
 
   public $projects_locations_externalAccountKeys;
+  public $rootUrlTemplate;
 
   /**
    * Constructs the internal representation of the PublicCertificateAuthority
@@ -54,9 +55,10 @@ class PublicCertificateAuthority extends \Google\Service
   {
     parent::__construct($clientOrConfig);
     $this->rootUrl = $rootUrl ?: 'https://publicca.googleapis.com/';
+    $this->rootUrlTemplate = $rootUrl ?: 'https://publicca.UNIVERSE_DOMAIN/';
     $this->servicePath = '';
     $this->batchPath = 'batch';
-    $this->version = 'v1beta1';
+    $this->version = 'v1';
     $this->serviceName = 'publicca';
 
     $this->projects_locations_externalAccountKeys = new PublicCertificateAuthority\Resource\ProjectsLocationsExternalAccountKeys(
@@ -66,7 +68,7 @@ class PublicCertificateAuthority extends \Google\Service
         [
           'methods' => [
             'create' => [
-              'path' => 'v1beta1/{+parent}/externalAccountKeys',
+              'path' => 'v1/{+parent}/externalAccountKeys',
               'httpMethod' => 'POST',
               'parameters' => [
                 'parent' => [

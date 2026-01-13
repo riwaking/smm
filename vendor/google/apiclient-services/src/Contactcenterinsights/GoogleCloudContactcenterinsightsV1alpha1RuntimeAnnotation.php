@@ -27,6 +27,8 @@ class GoogleCloudContactcenterinsightsV1alpha1RuntimeAnnotation extends \Google\
   protected $answerFeedbackDataType = '';
   protected $articleSuggestionType = GoogleCloudContactcenterinsightsV1alpha1ArticleSuggestionData::class;
   protected $articleSuggestionDataType = '';
+  protected $conversationSummarizationSuggestionType = GoogleCloudContactcenterinsightsV1alpha1ConversationSummarizationSuggestionData::class;
+  protected $conversationSummarizationSuggestionDataType = '';
   /**
    * @var string
    */
@@ -37,6 +39,12 @@ class GoogleCloudContactcenterinsightsV1alpha1RuntimeAnnotation extends \Google\
   protected $endBoundaryDataType = '';
   protected $faqAnswerType = GoogleCloudContactcenterinsightsV1alpha1FaqAnswerData::class;
   protected $faqAnswerDataType = '';
+  protected $generatorSuggestionResultType = GoogleCloudContactcenterinsightsV1alpha1GetGeneratorSuggestionResponse::class;
+  protected $generatorSuggestionResultDataType = '';
+  protected $knowledgeAssistResultType = GoogleCloudContactcenterinsightsV1alpha1GetKnowledgeAssistResponse::class;
+  protected $knowledgeAssistResultDataType = '';
+  protected $knowledgeSearchResultType = GoogleCloudContactcenterinsightsV1alpha1SearchKnowledgeAnswer::class;
+  protected $knowledgeSearchResultDataType = '';
   protected $smartComposeSuggestionType = GoogleCloudContactcenterinsightsV1alpha1SmartComposeSuggestionData::class;
   protected $smartComposeSuggestionDataType = '';
   protected $smartReplyType = GoogleCloudContactcenterinsightsV1alpha1SmartReplyData::class;
@@ -85,6 +93,20 @@ class GoogleCloudContactcenterinsightsV1alpha1RuntimeAnnotation extends \Google\
   public function getArticleSuggestion()
   {
     return $this->articleSuggestion;
+  }
+  /**
+   * @param GoogleCloudContactcenterinsightsV1alpha1ConversationSummarizationSuggestionData
+   */
+  public function setConversationSummarizationSuggestion(GoogleCloudContactcenterinsightsV1alpha1ConversationSummarizationSuggestionData $conversationSummarizationSuggestion)
+  {
+    $this->conversationSummarizationSuggestion = $conversationSummarizationSuggestion;
+  }
+  /**
+   * @return GoogleCloudContactcenterinsightsV1alpha1ConversationSummarizationSuggestionData
+   */
+  public function getConversationSummarizationSuggestion()
+  {
+    return $this->conversationSummarizationSuggestion;
   }
   /**
    * @param string
@@ -141,6 +163,48 @@ class GoogleCloudContactcenterinsightsV1alpha1RuntimeAnnotation extends \Google\
   public function getFaqAnswer()
   {
     return $this->faqAnswer;
+  }
+  /**
+   * @param GoogleCloudContactcenterinsightsV1alpha1GetGeneratorSuggestionResponse
+   */
+  public function setGeneratorSuggestionResult(GoogleCloudContactcenterinsightsV1alpha1GetGeneratorSuggestionResponse $generatorSuggestionResult)
+  {
+    $this->generatorSuggestionResult = $generatorSuggestionResult;
+  }
+  /**
+   * @return GoogleCloudContactcenterinsightsV1alpha1GetGeneratorSuggestionResponse
+   */
+  public function getGeneratorSuggestionResult()
+  {
+    return $this->generatorSuggestionResult;
+  }
+  /**
+   * @param GoogleCloudContactcenterinsightsV1alpha1GetKnowledgeAssistResponse
+   */
+  public function setKnowledgeAssistResult(GoogleCloudContactcenterinsightsV1alpha1GetKnowledgeAssistResponse $knowledgeAssistResult)
+  {
+    $this->knowledgeAssistResult = $knowledgeAssistResult;
+  }
+  /**
+   * @return GoogleCloudContactcenterinsightsV1alpha1GetKnowledgeAssistResponse
+   */
+  public function getKnowledgeAssistResult()
+  {
+    return $this->knowledgeAssistResult;
+  }
+  /**
+   * @param GoogleCloudContactcenterinsightsV1alpha1SearchKnowledgeAnswer
+   */
+  public function setKnowledgeSearchResult(GoogleCloudContactcenterinsightsV1alpha1SearchKnowledgeAnswer $knowledgeSearchResult)
+  {
+    $this->knowledgeSearchResult = $knowledgeSearchResult;
+  }
+  /**
+   * @return GoogleCloudContactcenterinsightsV1alpha1SearchKnowledgeAnswer
+   */
+  public function getKnowledgeSearchResult()
+  {
+    return $this->knowledgeSearchResult;
   }
   /**
    * @param GoogleCloudContactcenterinsightsV1alpha1SmartComposeSuggestionData

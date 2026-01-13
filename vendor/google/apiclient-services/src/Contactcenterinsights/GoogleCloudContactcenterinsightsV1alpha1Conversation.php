@@ -52,6 +52,8 @@ class GoogleCloudContactcenterinsightsV1alpha1Conversation extends \Google\Colle
   public $languageCode;
   protected $latestAnalysisType = GoogleCloudContactcenterinsightsV1alpha1Analysis::class;
   protected $latestAnalysisDataType = '';
+  protected $latestSummaryType = GoogleCloudContactcenterinsightsV1alpha1ConversationSummarizationSuggestionData::class;
+  protected $latestSummaryDataType = '';
   /**
    * @var string
    */
@@ -64,6 +66,8 @@ class GoogleCloudContactcenterinsightsV1alpha1Conversation extends \Google\Colle
    * @var string
    */
   public $obfuscatedUserId;
+  protected $qualityMetadataType = GoogleCloudContactcenterinsightsV1alpha1ConversationQualityMetadata::class;
+  protected $qualityMetadataDataType = '';
   protected $runtimeAnnotationsType = GoogleCloudContactcenterinsightsV1alpha1RuntimeAnnotation::class;
   protected $runtimeAnnotationsDataType = 'array';
   /**
@@ -226,6 +230,20 @@ class GoogleCloudContactcenterinsightsV1alpha1Conversation extends \Google\Colle
     return $this->latestAnalysis;
   }
   /**
+   * @param GoogleCloudContactcenterinsightsV1alpha1ConversationSummarizationSuggestionData
+   */
+  public function setLatestSummary(GoogleCloudContactcenterinsightsV1alpha1ConversationSummarizationSuggestionData $latestSummary)
+  {
+    $this->latestSummary = $latestSummary;
+  }
+  /**
+   * @return GoogleCloudContactcenterinsightsV1alpha1ConversationSummarizationSuggestionData
+   */
+  public function getLatestSummary()
+  {
+    return $this->latestSummary;
+  }
+  /**
    * @param string
    */
   public function setMedium($medium)
@@ -266,6 +284,20 @@ class GoogleCloudContactcenterinsightsV1alpha1Conversation extends \Google\Colle
   public function getObfuscatedUserId()
   {
     return $this->obfuscatedUserId;
+  }
+  /**
+   * @param GoogleCloudContactcenterinsightsV1alpha1ConversationQualityMetadata
+   */
+  public function setQualityMetadata(GoogleCloudContactcenterinsightsV1alpha1ConversationQualityMetadata $qualityMetadata)
+  {
+    $this->qualityMetadata = $qualityMetadata;
+  }
+  /**
+   * @return GoogleCloudContactcenterinsightsV1alpha1ConversationQualityMetadata
+   */
+  public function getQualityMetadata()
+  {
+    return $this->qualityMetadata;
   }
   /**
    * @param GoogleCloudContactcenterinsightsV1alpha1RuntimeAnnotation[]
