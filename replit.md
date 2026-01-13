@@ -4,6 +4,8 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-14: Changed default currency display to NPR in header1.twig dropdown (was showing USD)
+- 2026-01-14: Updated existing users with empty currency_type to NPR
 - 2026-01-13: Fixed fund-add-history.php missing transaction handling for balance add/deduct operations
 - 2026-01-13: Added bulk delete functionality for categories in admin services page
 - 2026-01-13: Added missing price_profit (NUMERIC), name_lang (TEXT), description_lang (TEXT) columns to services table
