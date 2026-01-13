@@ -21,6 +21,34 @@
    ========================================================================== */
 
 :root {
+    /* ========================================
+       THEME COLORS - Easy to customize
+       Change these values to update the entire theme
+       ======================================== */
+    
+    /* Primary theme colors */
+    --theme-primary: #ff6b35;           /* Main brand color - orange */
+    --theme-primary-dark: #e55a2b;      /* Darker shade for hover */
+    --theme-primary-light: #ff8c5a;     /* Lighter shade for highlights */
+    
+    /* Secondary theme colors */
+    --theme-secondary: #7c3aed;         /* Purple accent */
+    --theme-secondary-dark: #6d28d9;    /* Darker purple for hover */
+    
+    /* Gradient colors for buttons */
+    --gradient-start: #ff6b35;          /* Gradient start - orange */
+    --gradient-end: #ff8c5a;            /* Gradient end - light orange */
+    --gradient-hover-start: #e55a2b;    /* Hover gradient start */
+    --gradient-hover-end: #ff6b35;      /* Hover gradient end */
+    
+    /* Alternative gradient (purple) */
+    --gradient-alt-start: #7c3aed;
+    --gradient-alt-end: #a78bfa;
+    
+    /* Text colors */
+    --text-on-primary: #ffffff;         /* Text on primary buttons */
+    --text-muted: #6b7280;              /* Muted/secondary text */
+    
     /* Mobile-specific spacing */
     --mobile-spacing-xs: 0.5rem;
     --mobile-spacing-sm: 1rem;
@@ -32,10 +60,203 @@
     --mobile-font-size-lg: 16px;
     --mobile-line-height: 1.6;
     
-    /* Touch-friendly sizes */
-    --touch-target-min: 44px;  /* Apple's recommended minimum touch target */
-    --button-padding-mobile: 12px 24px;
-    --input-height-mobile: 48px;
+    /* Touch-friendly sizes - reduced for compact buttons */
+    --touch-target-min: 40px;
+    --button-padding-mobile: 10px 20px;
+    --input-height-mobile: 46px;
+    
+    /* Button specific */
+    --button-border-radius: 20px;
+    --button-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    --button-shadow-hover: 0 6px 20px rgba(255, 107, 53, 0.4);
+}
+
+/* ==========================================================================
+   ATTRACTIVE BUTTON STYLES
+   Smaller, modern buttons with gradients and animations
+   ========================================================================== */
+
+/* Base button - Smaller and more refined */
+.btn {
+    min-height: 38px !important;
+    padding: 8px 20px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.3px;
+    border-radius: var(--button-border-radius) !important;
+    border: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Primary button - Gradient with glow effect */
+.btn-primary {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)) !important;
+    color: var(--text-on-primary) !important;
+    box-shadow: var(--button-shadow) !important;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--gradient-hover-start), var(--gradient-hover-end)) !important;
+    box-shadow: var(--button-shadow-hover) !important;
+    transform: translateY(-2px) !important;
+}
+
+.btn-primary:active {
+    transform: translateY(0) scale(0.98) !important;
+    box-shadow: 0 2px 10px rgba(255, 107, 53, 0.3) !important;
+}
+
+/* Shimmer effect on hover */
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: left 0.5s ease;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+/* Login button specific - in the capsule form */
+.capsole-cont .btn-primary,
+.form-cont .btn-primary {
+    min-width: 100px !important;
+    padding: 10px 24px !important;
+    font-size: 14px !important;
+    border-radius: 25px !important;
+}
+
+/* Sign in with Google button - styled differently */
+.custom-btn,
+#allow_google_login_div {
+    background: linear-gradient(135deg, var(--gradient-alt-start), var(--gradient-alt-end)) !important;
+    color: var(--text-on-primary) !important;
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border-radius: var(--button-border-radius) !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px;
+}
+
+.custom-btn:hover,
+#allow_google_login_div:hover {
+    background: linear-gradient(135deg, var(--theme-secondary-dark), var(--gradient-alt-start)) !important;
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4) !important;
+    transform: translateY(-2px) !important;
+    color: var(--text-on-primary) !important;
+}
+
+.custom-btn:active,
+#allow_google_login_div:active {
+    transform: translateY(0) scale(0.98) !important;
+}
+
+/* Secondary/outline buttons */
+.btn-secondary,
+.btn-outline-primary {
+    background: transparent !important;
+    border: 2px solid var(--theme-primary) !important;
+    color: var(--theme-primary) !important;
+    padding: 8px 18px !important;
+    font-size: 14px !important;
+}
+
+.btn-secondary:hover,
+.btn-outline-primary:hover {
+    background: var(--theme-primary) !important;
+    color: var(--text-on-primary) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Success button */
+.btn-success {
+    background: linear-gradient(135deg, #10b981, #34d399) !important;
+    color: var(--text-on-primary) !important;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3) !important;
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #059669, #10b981) !important;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Danger button */
+.btn-danger {
+    background: linear-gradient(135deg, #ef4444, #f87171) !important;
+    color: var(--text-on-primary) !important;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3) !important;
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #dc2626, #ef4444) !important;
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Small button variant */
+.btn-sm {
+    min-height: 32px !important;
+    padding: 6px 14px !important;
+    font-size: 12px !important;
+    border-radius: 16px !important;
+}
+
+/* Large button variant */
+.btn-lg {
+    min-height: 46px !important;
+    padding: 12px 28px !important;
+    font-size: 16px !important;
+    border-radius: 25px !important;
+}
+
+/* Block button */
+.btn-block {
+    width: 100% !important;
+}
+
+/* Button with icon */
+.btn i,
+.btn .fa,
+.btn .fas,
+.btn .fab,
+.btn .far,
+.btn .fal {
+    font-size: 0.9em;
+}
+
+/* Navbar buttons - Register Now */
+.navbar .btn-primary,
+.navbar-nav .btn {
+    padding: 8px 16px !important;
+    font-size: 13px !important;
+    min-height: 36px !important;
+    border-radius: 18px !important;
 }
 
 /* ==========================================================================
@@ -360,47 +581,22 @@ p {
 }
 
 /* ==========================================================================
-   BUTTONS - Touch-Friendly with Proper Sizing
+   BUTTONS - Mobile Adjustments Only
+   (Main button styles defined in ATTRACTIVE BUTTON STYLES section above)
    ========================================================================== */
 
-/* Base button styling */
-.btn {
-    min-height: var(--touch-target-min) !important;
-    min-width: var(--touch-target-min) !important;
-    padding: var(--button-padding-mobile) !important;
-    font-size: 16px !important;
-    font-weight: 600 !important;
-    border-radius: 25px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 8px;
-    cursor: pointer;
-    touch-action: manipulation;  /* Improves touch response */
-    -webkit-tap-highlight-color: transparent;
-}
-
-/* Primary button */
-.btn-primary {
-    transition: transform 0.15s ease, box-shadow 0.15s ease !important;
-}
-
-/* Button active state for touch feedback */
-.btn:active {
-    transform: scale(0.98) !important;
-}
-
 @media (max-width: 767.98px) {
-    .btn {
-        width: 100% !important;
-        padding: 14px 24px !important;
-        font-size: 15px !important;
-    }
-    
-    /* Button in form context */
+    /* Login form button - keep compact on mobile */
     .capsole-cont .btn,
     .form-cont .btn {
+        width: auto !important;
+        min-width: 120px !important;
         margin-top: 8px;
+    }
+    
+    /* Full-width buttons only for standalone actions */
+    .btn-block {
+        width: 100% !important;
     }
     
     /* Button groups - stack vertically */
@@ -411,7 +607,7 @@ p {
     }
     
     .btn-group .btn {
-        border-radius: 25px !important;
+        border-radius: var(--button-border-radius) !important;
     }
 }
 
