@@ -312,6 +312,34 @@ elseif ($action == "category_enable"):
   );
 
   echo json_encode($array, true);
+elseif ($action == "bulk_delete_categories"):
+  $category_ids = isset($_POST["category_ids"]) ? $_POST["category_ids"] : array();
+  
+  if (empty($category_ids) || !is_array($category_ids)) {
+    echo json_encode(array("status" => "error", "message" => "No categories selected"));
+    exit;
+  }
+  
+  $conn->beginTransaction();
+  try {
+    foreach ($category_ids as $category_id) {
+      $category_id = intval($category_id);
+      if ($category_id > 0) {
+        $update = $conn->prepare("UPDATE categories SET category_deleted=1 WHERE category_id=:id");
+        $update->execute(array("id" => $category_id));
+        
+        $updateServices = $conn->prepare("UPDATE services SET service_deleted=1 WHERE category_id=:id");
+        $updateServices->execute(array("id" => $category_id));
+      }
+    }
+    $conn->commit();
+    insertAdminLog("Bulk Delete Categories", "Deleted " . count($category_ids) . " categories");
+    echo json_encode(array("status" => "success", "message" => count($category_ids) . " categories deleted"));
+  } catch (Exception $e) {
+    $conn->rollBack();
+    echo json_encode(array("status" => "error", "message" => "Database error: " . $e->getMessage()));
+  }
+  exit;
 elseif ($action == "next_order_id"):
 
   $next_order_id = $_POST["order_id"];

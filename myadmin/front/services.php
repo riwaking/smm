@@ -5,6 +5,9 @@
         <li class="p-b"><button class="btn btn-default" data-toggle="modal" data-target="#modalDiv" data-action="new_service">New Service</button></li>
         <li class="p-b"><button class="btn btn-default m-l" data-toggle="modal" data-target="#modalDiv" data-action="new_subscriptions">New Subscription</button></li>
         <li class="p-b"><button class="btn btn-default m-l" data-toggle="modal" data-target="#modalDiv" data-action="new_category">New Category</button></li>
+        <li class="p-b" id="bulkCategoryActions" style="display:none;">
+            <button class="btn btn-danger m-l" id="bulkDeleteCategories"><i class="fas fa-trash"></i> Delete Selected Categories (<span id="categoryCount">0</span>)</button>
+        </li>
 
 <li class="pull-right">
 <a class="btn btn-primary" href="<?= site_url('admin/api-services') ?>"><i class="fas fa-plus-circle"></i> Import Services</a>
@@ -83,6 +86,7 @@
 <div class="categories" data-id="<?=$services[0]["category_id"] ?>">
     <div class="<?php if ($services[0]["category_type"] == 1): echo 'grey'; endif; ?>  service-block__category ">
         <div class="service-block__category-title" class="categorySortable" data-category="<?=$category ?>" id="category-<?=$c ?>">
+            <input type="checkbox" class="selectCategory" name="category[<?=$services[0]["category_id"] ?>]" value="1" style="margin-right:10px;width:18px;height:18px;cursor:pointer;">
             <div class="service-block__drag handle">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 <title>Drag-Handle</title>
@@ -395,5 +399,71 @@ endif;
         </div>
     </div>
 
+    <div class="modal modal-center fade" id="confirmCategoryDelete" tabindex="-1" role="dialog" aria-labelledby="categoryDeleteModal" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-center" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <h4>Are you sure you want to delete <span id="deleteCategoryCount">0</span> categories?</h4>
+                    <p class="text-danger">This will also delete all services in these categories!</p>
+                    <div align="center">
+                        <button type="button" class="btn btn-danger" id="confirmCategoryDeleteYes">Yes, Delete</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    $(document).ready(function() {
+        $('.selectCategory').on('change', function() {
+            var count = $('.selectCategory').filter(':checked').length;
+            $('#categoryCount').text(count);
+            $('#deleteCategoryCount').text(count);
+            if (count > 0) {
+                $('#bulkCategoryActions').show();
+            } else {
+                $('#bulkCategoryActions').hide();
+            }
+        });
+
+        $('#bulkDeleteCategories').on('click', function() {
+            var count = $('.selectCategory').filter(':checked').length;
+            if (count > 0) {
+                $('#deleteCategoryCount').text(count);
+                $('#confirmCategoryDelete').modal('show');
+            }
+        });
+
+        $('#confirmCategoryDeleteYes').on('click', function() {
+            var categoryIds = [];
+            $('.selectCategory:checked').each(function() {
+                var name = $(this).attr('name');
+                var id = name.match(/\d+/)[0];
+                categoryIds.push(id);
+            });
+
+            $.ajax({
+                url: '<?php echo site_url("admin/ajax_data"); ?>',
+                type: 'POST',
+                data: {
+                    action: 'bulk_delete_categories',
+                    category_ids: categoryIds
+                },
+                success: function(response) {
+                    var data = JSON.parse(response);
+                    if (data.status === 'success') {
+                        location.reload();
+                    } else {
+                        alert(data.message || 'Error deleting categories');
+                    }
+                },
+                error: function() {
+                    alert('Error deleting categories');
+                }
+            });
+        });
+    });
+    </script>
 
     <?php include 'footer.php'; ?>
