@@ -5,7 +5,8 @@ define('URL', 'https://' . ($_SERVER['HTTP_HOST'] ?? getenv('REPLIT_DEV_DOMAIN')
 define('STYLESHEETS_URL', '//' . ($_SERVER['HTTP_HOST'] ?? getenv('REPLIT_DEV_DOMAIN') ?: 'localhost:5000'));
 date_default_timezone_set('UTC');
 
-error_reporting(0);
+ini_set('display_errors', 0);
+error_reporting(E_ERROR | E_PARSE);
 
 $database_url = getenv('DATABASE_URL');
 $db_config = [];

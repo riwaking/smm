@@ -674,7 +674,7 @@ if (route(0) != "admin" && route(0) != "ajax_data") {
   if (route(0) != 'admin' && route(1) != 'v2' && route(0) != 'ajax_data') {
 
 
-    $int1 = $conn->prepare('SELECT * FROM integrations WHERE status=:status && visibility=:visibility');
+    $int1 = $conn->prepare('SELECT * FROM integrations WHERE status=:status AND visibility=:visibility');
     $int1->execute(
       array(
         'status' => 2,
@@ -690,7 +690,7 @@ if (route(0) != "admin" && route(0) != "ajax_data") {
 
     if ($_SESSION['msmbilisim_userlogin'] != 1) {
 
-      $int2 = $conn->prepare('SELECT * FROM integrations WHERE status=:status && visibility=:visibility');
+      $int2 = $conn->prepare('SELECT * FROM integrations WHERE status=:status AND visibility=:visibility');
       $int2->execute(
         array(
           'status' => 2,
@@ -707,7 +707,7 @@ if (route(0) != "admin" && route(0) != "ajax_data") {
 
     if ($_SESSION['msmbilisim_userlogin'] == 1) {
 
-      $int3 = $conn->prepare('SELECT * FROM integrations WHERE status=:status && visibility=:visibility');
+      $int3 = $conn->prepare('SELECT * FROM integrations WHERE status=:status AND visibility=:visibility');
       $int3->execute(
         array(
           'status' => 2,
