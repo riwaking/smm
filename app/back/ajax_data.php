@@ -40,9 +40,13 @@ endif;
 }
     echo json_encode(['services' => $serviceList]);
 elseif ($action == "service_detail"):
-    $s_id = $_POST["service"];
+    $s_id = isset($_POST["service"]) && $_POST["service"] !== '' ? intval($_POST["service"]) : 0;
+    if ($s_id <= 0) {
+        echo json_encode(['error' => 'Invalid service ID']);
+        exit;
+    }
     $service = $conn->prepare("SELECT * FROM services WHERE service_id=:s_id AND service_deleted=:deleted");
-    $service->execute(array('s_id' => $s_id,"deleted" => 0));
+    $service->execute(array('s_id' => $s_id,"deleted" => '0'));
     $service = $service->fetch(PDO::FETCH_ASSOC);
     $service["service_price"] = service_price($service["service_id"]);
     $service["service_price"] = ($service["service_price"]  - ($service["service_price"]  * $discount_percent));
@@ -57,13 +61,7 @@ elseif ($action == "service_detail"):
             </div>';
     endif;
 
-$s_id = $_POST["service"];
-    $service = $conn->prepare("SELECT * FROM services WHERE service_id=:s_id AND service_deleted=:deleted");
-    $service->execute(array('s_id' => $s_id,"deleted" => 0));
-    $service = $service->fetch(PDO::FETCH_ASSOC);
-    $service["service_price"] = service_price($service["service_id"]);
-   $service["service_price"] = ($service["service_price"] - ($service["service_price"] * $discount_percent));
-      $multiDesc  =  json_decode($service["description_lang"],true);
+$multiDesc  =  json_decode($service["description_lang"],true);
         if( $multiDesc[$user["lang"]] ):
           $desc = $multiDesc[$user["lang"]];
         else:
