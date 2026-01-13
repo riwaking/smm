@@ -49,14 +49,7 @@ $checkOutURL = $gatewayResponse["payment_request"]["longurl"];
 if($status){
     
 $insert = $conn->prepare(
-    "INSERT INTO payments SET
-client_id=:client_id,
-payment_amount=:amount,
-payment_method=:method,
-payment_mode=:mode,
-payment_create_date=:date,
-payment_ip=:ip,
-payment_extra=:extra"
+    "INSERT INTO payments (client_id, payment_amount, payment_method, payment_mode, payment_create_date, payment_ip, payment_extra) VALUES (:client_id, :amount, :method, :mode, :date, :ip, :extra)"
 );
 
 $insert->execute([

@@ -82,7 +82,7 @@ $update_panel_service_price->execute(array(
 // INSERT PRICE CHANGE LOGS
 
 
-$insert_rate_changed_log = $conn->prepare("INSERT INTO sync_logs SET service_id=:service_id, api_id=:api_id, action=:action,  description=:description, date=:date");
+$insert_rate_changed_log = $conn->prepare("INSERT INTO sync_logs (service_id, api_id, action, description, date) VALUES (:service_id, :api_id, :action, :description, :date)");
 
 $insert_rate_changed_log = $insert_rate_changed_log->execute(array(
 "service_id" => $PANEL_SERVICE_ID,
@@ -117,7 +117,7 @@ $update_service_min_quantity->execute(array(
 
 
 
-$insert_min_changed_log = $conn->prepare("INSERT INTO sync_logs SET service_id=:service_id, api_id=:api_id, action=:action,  description=:description, date=:date");
+$insert_min_changed_log = $conn->prepare("INSERT INTO sync_logs (service_id, api_id, action, description, date) VALUES (:service_id, :api_id, :action, :description, :date)");
 
 $insert_min_changed_log = $insert_min_changed_log->execute(array(
 "service_id" => $PANEL_SERVICE_ID,
@@ -152,7 +152,7 @@ $update_service_max_quantity->execute(array(
 
 
 
-$insert_max_changed_log = $conn->prepare("INSERT INTO sync_logs SET service_id=:service_id, api_id=:api_id, action=:action,  description=:description, date=:date");
+$insert_max_changed_log = $conn->prepare("INSERT INTO sync_logs (service_id, api_id, action, description, date) VALUES (:service_id, :api_id, :action, :description, :date)");
 
 $insert_max_changed_log = $insert_max_changed_log->execute(array(
 "service_id" => $PANEL_SERVICE_ID,
@@ -188,7 +188,7 @@ $update_service_type->execute(array(
 ));
 }
 
-$insert_service_type_changed_log = $conn->prepare("INSERT INTO sync_logs SET service_id=:service_id, api_id=:api_id, action=:action,  description=:description, date=:date");
+$insert_service_type_changed_log = $conn->prepare("INSERT INTO sync_logs (service_id, api_id, action, description, date) VALUES (:service_id, :api_id, :action, :description, :date)");
 
 $insert_service_type_changed_log = $insert_service_type_changed_log->execute(array(
 "service_id" => $PANEL_SERVICE_ID,
@@ -219,7 +219,7 @@ $update_service_type->execute(array(
 "service_type" => 1
 ));
 
-$insert_service_type_changed_log = $conn->prepare("INSERT INTO sync_logs SET service_id=:service_id, api_id=:api_id, action=:action,  description=:description, date=:date");
+$insert_service_type_changed_log = $conn->prepare("INSERT INTO sync_logs (service_id, api_id, action, description, date) VALUES (:service_id, :api_id, :action, :description, :date)");
 
 $insert_service_type_changed_log = $insert_service_type_changed_log->execute(array(
 "service_id" => $PANEL_SERVICE_ID,
