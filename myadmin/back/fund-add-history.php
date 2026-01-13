@@ -93,6 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     if ($action == "add") {
+        $conn->beginTransaction();
         $insert = $conn->prepare("INSERT INTO payments (client_id, client_balance, payment_amount, payment_method, payment_status, payment_delivery, payment_mode, payment_create_date, payment_ip, payment_extra) VALUES (:cid, :balance, :amount, :method, :status, :delivery, :mode, :date, :ip, :extra)");
         $insert->execute([
             "cid" => $client["client_id"],
@@ -111,27 +112,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "id" => $client["client_id"],
             "balance" => $client["balance"] + $amount
         ]);
+        $conn->commit();
         success_response_exit("Record added and amount added to balance.");
     }
     if ($action == "deduct") {
+        $conn->beginTransaction();
         $insert = $conn->prepare("INSERT INTO payments (client_id, client_balance, payment_amount, payment_method, payment_status, payment_delivery, payment_mode, payment_create_date, payment_ip, payment_extra) VALUES (:cid, :balance, :amount, :method, :status, :delivery, :mode, :date, :ip, :extra)");
-    $insert->execute([
-        "cid" => $client["client_id"],
-        "balance" => $client["balance"],
-        "amount" => -$amount,
-        "method" => $methodId,
-        "status" => 3,
-        "delivery" => 2,
-        "mode" => "Manual",
-        "date" => date("Y-m-d H:i:s"),
-        "ip" => GetIP(),
-        "extra" => $orderId
-    ]);
+        $insert->execute([
+            "cid" => $client["client_id"],
+            "balance" => $client["balance"],
+            "amount" => -$amount,
+            "method" => $methodId,
+            "status" => 3,
+            "delivery" => 2,
+            "mode" => "Manual",
+            "date" => date("Y-m-d H:i:s"),
+            "ip" => GetIP(),
+            "extra" => $orderId
+        ]);
         $update = $conn->prepare("UPDATE clients SET balance=:balance WHERE client_id=:id");
         $update->execute([
             "id" => $client["client_id"],
             "balance" => $client["balance"] - $amount
         ]);
+        $conn->commit();
         success_response_exit("Record added and amount deducted from balance.");
     }
 
