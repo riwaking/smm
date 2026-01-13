@@ -1,0 +1,1012 @@
+/*
+ * Mobile-Responsive CSS for SMM Panel
+ * Author: Replit Agent
+ * Date: 2026-01-13
+ * 
+ * This stylesheet adds comprehensive mobile responsiveness using modern CSS:
+ * - Flexbox for flexible layouts
+ * - CSS Grid for complex grid structures
+ * - CSS Custom Properties for consistent theming
+ * - Media queries for all device breakpoints
+ * 
+ * Breakpoints used:
+ * - Extra small devices (phones): < 576px
+ * - Small devices (phones landscape): 576px - 767px
+ * - Medium devices (tablets): 768px - 991px
+ * - Large devices (desktops): 992px+
+ */
+
+/* ==========================================================================
+   CSS CUSTOM PROPERTIES (Variables) for Mobile
+   ========================================================================== */
+
+:root {
+    /* Mobile-specific spacing */
+    --mobile-spacing-xs: 0.5rem;
+    --mobile-spacing-sm: 1rem;
+    --mobile-spacing-md: 1.5rem;
+    --mobile-spacing-lg: 2rem;
+    
+    /* Mobile-specific typography */
+    --mobile-font-size-base: 14px;
+    --mobile-font-size-lg: 16px;
+    --mobile-line-height: 1.6;
+    
+    /* Touch-friendly sizes */
+    --touch-target-min: 44px;  /* Apple's recommended minimum touch target */
+    --button-padding-mobile: 12px 24px;
+    --input-height-mobile: 48px;
+}
+
+/* ==========================================================================
+   BASE MOBILE TYPOGRAPHY
+   Using clamp() for fluid responsive typography
+   ========================================================================== */
+
+/* Fluid typography that scales smoothly between breakpoints */
+h1 {
+    /* Min: 24px, Preferred: 5vw, Max: 48px */
+    font-size: clamp(1.5rem, 5vw, 3rem) !important;
+    line-height: 1.2 !important;
+}
+
+h2 {
+    /* Min: 20px, Preferred: 4vw, Max: 36px */
+    font-size: clamp(1.25rem, 4vw, 2.25rem) !important;
+    line-height: 1.3 !important;
+}
+
+h3 {
+    /* Min: 18px, Preferred: 3.5vw, Max: 28px */
+    font-size: clamp(1.125rem, 3.5vw, 1.75rem) !important;
+    line-height: 1.4 !important;
+}
+
+p {
+    /* Fluid paragraph text */
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+    line-height: var(--mobile-line-height);
+}
+
+/* ==========================================================================
+   FLEXBOX UTILITIES
+   Modern flexbox classes for flexible layouts
+   ========================================================================== */
+
+/* Flex container utilities */
+.d-flex-mobile {
+    display: flex !important;
+}
+
+.flex-column-mobile {
+    flex-direction: column !important;
+}
+
+.flex-wrap-mobile {
+    flex-wrap: wrap !important;
+}
+
+.justify-center-mobile {
+    justify-content: center !important;
+}
+
+.align-center-mobile {
+    align-items: center !important;
+}
+
+.gap-1 { gap: 0.5rem; }
+.gap-2 { gap: 1rem; }
+.gap-3 { gap: 1.5rem; }
+
+/* ==========================================================================
+   CSS GRID UTILITIES
+   Modern grid classes for complex layouts
+   ========================================================================== */
+
+.grid-mobile {
+    display: grid !important;
+    gap: var(--mobile-spacing-sm);
+}
+
+/* Auto-fit grid that adjusts columns based on available space */
+.grid-auto-fit {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+    gap: var(--mobile-spacing-sm);
+}
+
+/* Auto-fill grid for consistent column sizes */
+.grid-auto-fill {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+    gap: var(--mobile-spacing-sm);
+}
+
+/* ==========================================================================
+   NAVBAR / HEADER - Mobile Optimizations
+   ========================================================================== */
+
+/* Mobile-first navbar styling */
+@media (max-width: 767.98px) {
+    /* Make navbar more compact on mobile */
+    .navbar {
+        padding: 0.5rem 1rem !important;
+    }
+    
+    /* Ensure navbar brand fits on small screens */
+    .navbar-brand img {
+        max-width: 150px !important;
+        height: auto !important;
+    }
+    
+    /* Mobile menu toggle button - larger touch target */
+    .navbar-toggle,
+    .navbar-toggler {
+        min-width: var(--touch-target-min) !important;
+        min-height: var(--touch-target-min) !important;
+        padding: 10px !important;
+    }
+    
+    /* Mobile dropdown menu */
+    .navbar-collapse {
+        background: var(--main-bg, #fff);
+        padding: 1rem;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Stack nav items vertically on mobile */
+    .navbar-nav {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        width: 100%;
+    }
+    
+    /* Mobile nav links - larger touch targets */
+    .navbar-nav .nav-link {
+        padding: 12px 16px !important;
+        min-height: var(--touch-target-min) !important;
+        display: flex !important;
+        align-items: center !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .navbar-nav .nav-link:last-child {
+        border-bottom: none;
+    }
+}
+
+/* ==========================================================================
+   HERO SECTION - Mobile Optimizations
+   ========================================================================== */
+
+/* Hero section responsive adjustments */
+.heroSec {
+    padding: 60px 0 80px !important;
+    min-height: auto !important;
+    overflow: hidden;
+}
+
+@media (max-width: 767.98px) {
+    .heroSec {
+        padding: 40px 0 60px !important;
+        text-align: center;
+    }
+    
+    /* Center hero content on mobile */
+    .heroSec .container {
+        padding-left: var(--mobile-spacing-sm) !important;
+        padding-right: var(--mobile-spacing-sm) !important;
+    }
+    
+    .heroSec h1,
+    .heroSec h2 {
+        text-align: center !important;
+        margin-bottom: var(--mobile-spacing-sm) !important;
+    }
+    
+    .heroSec p {
+        text-align: center !important;
+        padding: 0 10px;
+        font-size: 14px !important;
+        margin-bottom: var(--mobile-spacing-md) !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .heroSec {
+        padding: 30px 0 50px !important;
+    }
+    
+    .heroSec h1 {
+        font-size: 1.5rem !important;
+    }
+    
+    .heroSec h2 {
+        font-size: 1.1rem !important;
+        line-height: 1.4 !important;
+    }
+    
+    .heroSec p {
+        font-size: 13px !important;
+        line-height: 1.5 !important;
+    }
+}
+
+/* ==========================================================================
+   LOGIN FORM - Mobile Optimizations
+   Using Flexbox for flexible form layout
+   ========================================================================== */
+
+/* Form container - Flexbox layout */
+.form-cont {
+    width: 100%;
+    max-width: 100%;
+    padding: var(--mobile-spacing-md);
+    border-radius: 20px;
+}
+
+/* Capsule container using Flexbox */
+.capsole-cont {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--mobile-spacing-sm);
+    padding: var(--mobile-spacing-md);
+    border-radius: 30px;
+}
+
+@media (max-width: 767.98px) {
+    .form-cont {
+        padding: var(--mobile-spacing-sm);
+        margin: 0 var(--mobile-spacing-xs);
+        border-radius: 15px;
+    }
+    
+    .capsole-cont {
+        /* Stack form elements vertically on mobile */
+        flex-direction: column !important;
+        padding: var(--mobile-spacing-sm);
+        gap: var(--mobile-spacing-sm);
+        border-radius: 20px;
+    }
+    
+    /* Make form columns full width on mobile */
+    .capsole-cont .col-sm-4,
+    .capsole-cont .col-sm-3,
+    .capsole-cont .col-md-4 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    
+    /* Center the row elements below the form */
+    .form-cont .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    .form-cont .row .col-sm-4 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        text-align: center !important;
+        padding: 8px 0 !important;
+    }
+    
+    /* Center checkbox and links on mobile */
+    .form-cont .checkbox,
+    .form-cont .forgetlast {
+        text-align: center !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .capsole-cont {
+        padding: 15px;
+        border-radius: 15px;
+    }
+    
+    .form-cont {
+        padding: 10px;
+    }
+}
+
+/* ==========================================================================
+   FORM INPUTS - Touch-Friendly Sizing
+   ========================================================================== */
+
+/* Base input styling for mobile */
+.form-control {
+    height: var(--input-height-mobile) !important;
+    font-size: 16px !important;  /* Prevents iOS zoom on focus */
+    padding: 12px 16px !important;
+    border-radius: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Input focus states for accessibility */
+.form-control:focus {
+    outline: 2px solid var(--main-color, #319cff) !important;
+    outline-offset: 2px;
+}
+
+@media (max-width: 767.98px) {
+    .form-control {
+        height: 50px !important;
+        font-size: 16px !important;
+        padding: 14px 18px !important;
+    }
+    
+    .form-group {
+        margin-bottom: var(--mobile-spacing-sm) !important;
+        width: 100% !important;
+    }
+    
+    /* Select dropdowns */
+    select.form-control {
+        height: 50px !important;
+        padding-right: 40px !important;
+    }
+    
+    /* Textarea */
+    textarea.form-control {
+        height: auto !important;
+        min-height: 120px !important;
+    }
+}
+
+/* ==========================================================================
+   BUTTONS - Touch-Friendly with Proper Sizing
+   ========================================================================== */
+
+/* Base button styling */
+.btn {
+    min-height: var(--touch-target-min) !important;
+    min-width: var(--touch-target-min) !important;
+    padding: var(--button-padding-mobile) !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    border-radius: 25px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px;
+    cursor: pointer;
+    touch-action: manipulation;  /* Improves touch response */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Primary button */
+.btn-primary {
+    transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+/* Button active state for touch feedback */
+.btn:active {
+    transform: scale(0.98) !important;
+}
+
+@media (max-width: 767.98px) {
+    .btn {
+        width: 100% !important;
+        padding: 14px 24px !important;
+        font-size: 15px !important;
+    }
+    
+    /* Button in form context */
+    .capsole-cont .btn,
+    .form-cont .btn {
+        margin-top: 8px;
+    }
+    
+    /* Button groups - stack vertically */
+    .btn-group {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px;
+    }
+    
+    .btn-group .btn {
+        border-radius: 25px !important;
+    }
+}
+
+/* ==========================================================================
+   COUNTERS SECTION - CSS Grid Layout
+   ========================================================================== */
+
+.countersSec {
+    padding: 40px 0;
+}
+
+.countersSec .row {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+    gap: var(--mobile-spacing-md);
+}
+
+.singleCount {
+    display: flex;
+    align-items: center;
+    gap: var(--mobile-spacing-sm);
+    padding: var(--mobile-spacing-md);
+    background: var(--main-bg, #fff);
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 767.98px) {
+    .countersSec {
+        padding: 30px 15px;
+    }
+    
+    .countersSec .row {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: var(--mobile-spacing-sm);
+    }
+    
+    .singleCount {
+        flex-direction: column;
+        text-align: center;
+        padding: var(--mobile-spacing-sm);
+    }
+    
+    .singleCount .icon {
+        font-size: 24px !important;
+    }
+    
+    .singleCount h4 {
+        font-size: 1.25rem !important;
+    }
+    
+    .singleCount p {
+        font-size: 12px !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .countersSec .row {
+        grid-template-columns: 1fr 1fr !important;
+    }
+    
+    .singleCount {
+        padding: 12px;
+    }
+    
+    .singleCount h4 {
+        font-size: 1rem !important;
+    }
+}
+
+/* ==========================================================================
+   SOCIAL ICONS SECTION - Responsive Slider
+   ========================================================================== */
+
+.socialSec {
+    padding: 20px 0;
+    overflow: hidden;
+}
+
+.social-icons-slider {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    padding: 10px;
+}
+
+.social-icons-slider div {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+}
+
+.social-icons-slider img {
+    max-width: 60px !important;
+    height: auto !important;
+    object-fit: contain;
+}
+
+@media (max-width: 767.98px) {
+    .social-icons-slider img {
+        max-width: 40px !important;
+    }
+    
+    .social-icons-slider {
+        gap: 15px;
+    }
+}
+
+/* ==========================================================================
+   CARDS AND CONTENT BOXES
+   ========================================================================== */
+
+.card,
+.panel,
+.box {
+    border-radius: 15px !important;
+    overflow: hidden;
+}
+
+@media (max-width: 767.98px) {
+    .card,
+    .panel,
+    .box {
+        margin-bottom: var(--mobile-spacing-sm);
+        border-radius: 12px !important;
+    }
+    
+    .card-body,
+    .panel-body {
+        padding: var(--mobile-spacing-sm) !important;
+    }
+}
+
+/* ==========================================================================
+   TABLES - Responsive Horizontal Scroll
+   ========================================================================== */
+
+.table-responsive-mobile {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 767.98px) {
+    /* Make tables scrollable horizontally */
+    .table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    .table th,
+    .table td {
+        padding: 10px 12px !important;
+        font-size: 13px !important;
+    }
+    
+    /* Alternatively, stack table cells vertically */
+    .table-stack-mobile thead {
+        display: none;
+    }
+    
+    .table-stack-mobile tr {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: var(--mobile-spacing-sm);
+        border: 1px solid var(--main-border, #e5e7eb);
+        border-radius: 10px;
+        padding: var(--mobile-spacing-sm);
+    }
+    
+    .table-stack-mobile td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0 !important;
+        border: none !important;
+    }
+    
+    .table-stack-mobile td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        margin-right: 10px;
+    }
+}
+
+/* ==========================================================================
+   FOOTER - Mobile Optimizations
+   ========================================================================== */
+
+footer,
+.footer {
+    padding: 40px 0 20px;
+}
+
+@media (max-width: 767.98px) {
+    footer,
+    .footer {
+        padding: 30px 15px 20px;
+        text-align: center;
+    }
+    
+    footer .row {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: var(--mobile-spacing-md);
+    }
+    
+    footer [class*="col-"] {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        margin-bottom: var(--mobile-spacing-md);
+    }
+    
+    /* Footer links - touch friendly */
+    footer a {
+        display: inline-block;
+        padding: 8px 0;
+        min-height: var(--touch-target-min);
+    }
+    
+    /* Footer social icons */
+    footer .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: var(--mobile-spacing-sm);
+    }
+    
+    footer .social-icons a {
+        width: var(--touch-target-min);
+        height: var(--touch-target-min);
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* ==========================================================================
+   MODALS / POPUPS - Mobile Optimizations
+   ========================================================================== */
+
+@media (max-width: 767.98px) {
+    .modal-dialog {
+        margin: 10px !important;
+        max-width: calc(100% - 20px) !important;
+    }
+    
+    .modal-content {
+        border-radius: 15px !important;
+    }
+    
+    .modal-header {
+        padding: var(--mobile-spacing-sm) !important;
+    }
+    
+    .modal-body {
+        padding: var(--mobile-spacing-sm) !important;
+    }
+    
+    .modal-footer {
+        padding: var(--mobile-spacing-sm) !important;
+        flex-direction: column !important;
+        gap: 10px;
+    }
+    
+    .modal-footer .btn {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+}
+
+/* ==========================================================================
+   ALERTS AND NOTIFICATIONS
+   ========================================================================== */
+
+@media (max-width: 767.98px) {
+    .alert {
+        padding: 12px 15px !important;
+        font-size: 14px !important;
+        border-radius: 10px !important;
+        margin-bottom: var(--mobile-spacing-sm) !important;
+    }
+    
+    .alert .close {
+        padding: 12px !important;
+        font-size: 18px !important;
+    }
+}
+
+/* ==========================================================================
+   IMAGES - Responsive and Optimized
+   ========================================================================== */
+
+/* Make all images responsive by default */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Payment icons slider */
+.payIcons-slider img {
+    max-width: 80px !important;
+    height: auto !important;
+}
+
+@media (max-width: 767.98px) {
+    .payIcons-slider img {
+        max-width: 50px !important;
+    }
+}
+
+/* ==========================================================================
+   SPACING UTILITIES - Mobile Specific
+   ========================================================================== */
+
+@media (max-width: 767.98px) {
+    /* Reduce spacing on mobile */
+    .h-section {
+        margin: 40px 0 !important;
+    }
+    
+    .h-section.section-50 {
+        margin: 30px 0 50px 0 !important;
+    }
+    
+    .h-section.section-0 {
+        margin: 25px 0 !important;
+    }
+    
+    /* Mobile-specific padding */
+    .py-mobile-sm { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+    .py-mobile-md { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+    .py-mobile-lg { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+    
+    .px-mobile-sm { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+    .px-mobile-md { padding-left: 1rem !important; padding-right: 1rem !important; }
+    .px-mobile-lg { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+    
+    /* Mobile-specific margins */
+    .my-mobile-sm { margin-top: 0.5rem !important; margin-bottom: 0.5rem !important; }
+    .my-mobile-md { margin-top: 1rem !important; margin-bottom: 1rem !important; }
+    .my-mobile-lg { margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+}
+
+/* ==========================================================================
+   VISIBILITY UTILITIES
+   ========================================================================== */
+
+/* Hide on mobile */
+@media (max-width: 767.98px) {
+    .hide-mobile {
+        display: none !important;
+    }
+}
+
+/* Show only on mobile */
+@media (min-width: 768px) {
+    .show-mobile-only {
+        display: none !important;
+    }
+}
+
+/* Hide on very small screens */
+@media (max-width: 575.98px) {
+    .hide-xs {
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
+   DROPDOWN MENUS - Touch Friendly
+   ========================================================================== */
+
+@media (max-width: 767.98px) {
+    .dropdown-menu {
+        position: static !important;
+        float: none !important;
+        width: 100% !important;
+        border-radius: 10px !important;
+        margin-top: 5px !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    .dropdown-item {
+        padding: 12px 16px !important;
+        min-height: var(--touch-target-min) !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+}
+
+/* ==========================================================================
+   PAGINATION - Mobile Friendly
+   ========================================================================== */
+
+@media (max-width: 767.98px) {
+    .pagination {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 5px;
+    }
+    
+    .pagination .page-link {
+        min-width: var(--touch-target-min) !important;
+        min-height: var(--touch-target-min) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 8px !important;
+        font-size: 14px !important;
+    }
+    
+    .pagination .page-item:first-child .page-link,
+    .pagination .page-item:last-child .page-link {
+        border-radius: 8px !important;
+    }
+}
+
+/* ==========================================================================
+   SLIDERS / CAROUSELS - Touch Optimized
+   ========================================================================== */
+
+/* Slick slider mobile adjustments */
+@media (max-width: 767.98px) {
+    .slick-slider {
+        touch-action: pan-y !important;
+    }
+    
+    .slick-slide {
+        padding: 0 5px;
+    }
+    
+    .slick-dots {
+        bottom: -25px !important;
+    }
+    
+    .slick-dots li button:before {
+        font-size: 10px !important;
+    }
+    
+    .slick-prev,
+    .slick-next {
+        width: var(--touch-target-min) !important;
+        height: var(--touch-target-min) !important;
+    }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY IMPROVEMENTS
+   ========================================================================== */
+
+/* Focus visible for keyboard navigation */
+*:focus-visible {
+    outline: 2px solid var(--main-color, #319cff) !important;
+    outline-offset: 2px !important;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ==========================================================================
+   PRINT STYLES
+   ========================================================================== */
+
+@media print {
+    .navbar,
+    .footer,
+    .btn,
+    .hide-print {
+        display: none !important;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+    
+    a {
+        text-decoration: underline;
+    }
+}
+
+/* ==========================================================================
+   FIX BOOTSTRAP COLUMNS FOR MOBILE
+   Override col-sm-* to stack on very small screens
+   ========================================================================== */
+
+@media (max-width: 575.98px) {
+    /* Make all small columns full width on extra small screens */
+    .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, 
+    .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, 
+    .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Row adjustments */
+    .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    .row > [class*="col-"] {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+    
+    /* Container padding */
+    .container {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+}
+
+/* ==========================================================================
+   SPECIFIC PAGE FIXES
+   ========================================================================== */
+
+/* Services page */
+@media (max-width: 767.98px) {
+    .service-card,
+    .service-item {
+        margin-bottom: var(--mobile-spacing-sm);
+    }
+    
+    .service-price {
+        font-size: 1.25rem !important;
+    }
+}
+
+/* Add funds page */
+@media (max-width: 767.98px) {
+    .payment-method {
+        padding: var(--mobile-spacing-sm);
+    }
+    
+    .payment-method img {
+        max-width: 60px !important;
+    }
+}
+
+/* Orders page */
+@media (max-width: 767.98px) {
+    .order-status {
+        font-size: 12px !important;
+        padding: 6px 12px !important;
+    }
+}
+
+/* Account page */
+@media (max-width: 767.98px) {
+    .profile-card {
+        padding: var(--mobile-spacing-md);
+    }
+    
+    .profile-avatar {
+        width: 80px !important;
+        height: 80px !important;
+    }
+}
+
+/* ==========================================================================
+   LANDSCAPE ORIENTATION FIXES
+   ========================================================================== */
+
+@media (max-width: 767.98px) and (orientation: landscape) {
+    .heroSec {
+        min-height: auto !important;
+        padding: 20px 0 40px !important;
+    }
+    
+    .heroSec h1 {
+        font-size: 1.5rem !important;
+    }
+    
+    .heroSec h2 {
+        font-size: 1rem !important;
+    }
+    
+    /* Reduce vertical spacing in landscape */
+    .h-section {
+        margin: 30px 0 !important;
+    }
+}
+
+/* ==========================================================================
+   END OF MOBILE RESPONSIVE STYLES
+   ========================================================================== */
