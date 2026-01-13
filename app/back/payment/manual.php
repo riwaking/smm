@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <?php endif; ?>
     
-    <form method="POST" action="<?php echo site_url('manual/pay'); ?>" id="manualPaymentForm">
+    <form method="POST" action="<?php echo site_url('payment/manual'); ?>" id="manualPaymentForm">
         <div class="mb-3">
             <label class="form-label">Amount (<?php echo $methodCurrencySymbol; ?>)</label>
             <input type="number" name="paymentAmount" class="form-control" 
