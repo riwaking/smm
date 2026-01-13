@@ -4,6 +4,7 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-13: Added missing price_profit (NUMERIC), name_lang (TEXT), description_lang (TEXT) columns to services table
 - 2026-01-13: Added missing show_refill column (VARCHAR) to services table for adding services via API
 - 2026-01-13: Updated settings.twig form actions to use /settings routes (change_lang, password, newapikey)
 - 2026-01-13: Created app/back/settings.php backend handler for user settings
