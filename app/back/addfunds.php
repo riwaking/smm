@@ -13,8 +13,8 @@ if ($settings["email_confirmation"] == 1 && $user["email_type"] == 1) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $paymentMethods = $conn->prepare("SELECT * FROM paymentmethods WHERE methodStatus=:status ORDER BY methodPosition ASC");
-    $paymentMethods->execute(["status" => 1]);
+    $paymentMethods = $conn->prepare("SELECT * FROM paymentmethods WHERE methodstatus=:status ORDER BY methodposition ASC");
+    $paymentMethods->execute(["status" => '1']);
 
     $methodsList = array();
 
@@ -22,10 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $paymentMethods = $paymentMethods->fetchAll(PDO::FETCH_ASSOC);
         for ($i = 0; $i < count($paymentMethods); $i++) {
             $methodsList[] = [
-                "id" => $paymentMethods[$i]["methodId"],
-                "name" => $paymentMethods[$i]["methodVisibleName"],
-                "instructions" => trim(htmlspecialchars_decode($paymentMethods[$i]["methodInstructions"])),
-                "fee" => $paymentMethods[$i]["methodFee"]
+                "id" => $paymentMethods[$i]["methodid"],
+                "name" => $paymentMethods[$i]["methodvisiblename"],
+                "instructions" => trim(htmlspecialchars_decode($paymentMethods[$i]["methodinstructions"] ?? '')),
+                "fee" => $paymentMethods[$i]["methodfee"]
             ];
             $paymentMethodsJSON = json_encode(array_group_by($methodsList, "id"), 1);
         }
@@ -38,10 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 
 
-    $methodNames = $conn->prepare("SELECT methodId,methodVisibleName FROM paymentmethods");
+    $methodNames = $conn->prepare("SELECT methodid,methodvisiblename FROM paymentmethods");
     $methodNames->execute();
     $methodNames = $methodNames->fetchAll(PDO::FETCH_ASSOC);
-    $methodNames = array_group_by($methodNames, "methodId");
+    $methodNames = array_group_by($methodNames, "methodid");
 
 
     $transactions = $conn->prepare("SELECT payment_id,payment_create_date,payment_method,payment_amount FROM payments WHERE payment_status=:status AND payment_delivery=:delivery AND client_id=:id ORDER BY payment_id DESC");
@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $paymentHistory[] = [
             "id" => $transactions[$i]["payment_id"],
             "date" => $transactions[$i]["payment_create_date"],
-            "name" => $methodNames[$transactions[$i]["payment_method"]][0]["methodVisibleName"],
+            "name" => $methodNames[$transactions[$i]["payment_method"]][0]["methodvisiblename"] ?? 'Unknown',
             "amount" => format_amount_string($user["currency_type"], from_to($currencies_array, $settings["site_base_currency"], $user["currency_type"], $transactions[$i]["payment_amount"]))
         ];
     }
@@ -76,23 +76,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["action"] == "getForm") {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $methodId = intval($_POST["payment_type"] ?: 0);
 
-    $method = $conn->prepare("SELECT * FROM paymentmethods WHERE methodId=:id AND methodStatus=:status");
+    $method = $conn->prepare("SELECT * FROM paymentmethods WHERE methodid=:id AND methodstatus=:status");
     $method->execute([
         "id" => $methodId,
-        "status" => 1
+        "status" => '1'
     ]);
     if ($method->rowCount()) {
         $method = $method->fetch(PDO::FETCH_ASSOC);
-        $methodId = $method["methodId"];
-        $methodMin = number_format($method["methodMin"], 2, '.', '');
-        $methodMax = number_format($method["methodMax"], 2, '.', '');
-        $methodCurrency = $method["methodCurrency"];
-        $methodCurrencySymbol = $currencies_array[$methodCurrency][0]["currency_symbol"] ?: $methodCurrency;
-        $methodCallback = $method["methodCallback"];
-        $methodExtras = json_decode($method["methodExtras"], 1);
-        $paymentFee = $method["methodFee"];
-        $paymentBonus = $method["methodBonusPercentage"];
-        $paymentBonusStartAmount = $method["methodBonusStartAmount"];
+        $methodId = $method["methodid"];
+        $methodMin = number_format($method["methodmin"], 2, '.', '');
+        $methodMax = number_format($method["methodmax"], 2, '.', '');
+        $methodCurrency = $method["methodcurrency"];
+        $methodCurrencySymbol = $currencies_array[$methodCurrency][0]["currency_symbol"] ?? $methodCurrency;
+        $methodCallback = $method["methodcallback"];
+        $methodExtras = json_decode($method["methodextras"], 1);
+        $paymentFee = $method["methodfee"];
+        $paymentBonus = $method["methodbonuspercentage"];
+        $paymentBonusStartAmount = $method["methodbonusstartamount"];
 
         $paymentAmount = floatval($_POST["payment_amount"] ?: 0);
         if ($paymentFee > 0) {
@@ -107,77 +107,77 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($paymentAmount > $methodMax) {
             errorExit("Maximum amount : $methodCurrencySymbol $methodMax");
         }
-        if ($method["methodId"] == 2) {
+        if ($method["methodid"] == 2) {
             require("addfunds/Initiators/payTMMerchant.php");
         }
-        if ($method["methodId"] == 3) {
+        if ($method["methodid"] == 3) {
             require("addfunds/Initiators/perfectMoney.php");
         }
-        if ($method["methodId"] == 4) {
+        if ($method["methodid"] == 4) {
             require("addfunds/Initiators/coinbaseCommerce.php");
         }
-        if ($method["methodId"] == 5) {
+        if ($method["methodid"] == 5) {
             require("addfunds/Initiators/kashier.php");
         }
-        if ($method["methodId"] == 6) {
+        if ($method["methodid"] == 6) {
             require("addfunds/Initiators/razorPay.php");
         }
-        if ($method["methodId"] == 54) {
+        if ($method["methodid"] == 54) {
             require("addfunds/Initiators/paypal.php");
         }
-        if ($method["methodId"] == 7) {
+        if ($method["methodid"] == 7) {
             require("addfunds/Initiators/phonepe.php");
         }
-        if ($method["methodId"] == 8) {
+        if ($method["methodid"] == 8) {
             require("addfunds/Initiators/easypaisa.php");
         }
-        if ($method["methodId"] == 9) {
+        if ($method["methodid"] == 9) {
             require("addfunds/Initiators/jazzcash.php");
         }
-        if ($method["methodId"] == 10) {
+        if ($method["methodid"] == 10) {
             require("addfunds/Initiators/instamojo.php");
         }
-        if ($method["methodId"] == 56) {
+        if ($method["methodid"] == 56) {
             require("addfunds/Initiators/binance_auto.php");
         }
-        if ($method["methodId"] == 11) {
+        if ($method["methodid"] == 11) {
             require("addfunds/Initiators/cashmaal.php");
         }
-        if ($method["methodId"] == 12) {
+        if ($method["methodid"] == 12) {
             require("addfunds/Initiators/alipay.php");
         }
-        if ($method["methodId"] == 13) {
+        if ($method["methodid"] == 13) {
             require("addfunds/Initiators/payU.php");
         }
-        if ($method["methodId"] == 14) {
+        if ($method["methodid"] == 14) {
             require("addfunds/Initiators/upiapi.php");
         }
-         if ($method["methodId"] == 14) {
+         if ($method["methodid"] == 14) {
             require("addfunds/Initiators/binance.php");
         }
-        if ($method["methodId"] == 15) {
+        if ($method["methodid"] == 15) {
             require("addfunds/Initiators/opay.php");
         }
-        if ($method["methodId"] == 16) {
+        if ($method["methodid"] == 16) {
             require("addfunds/Initiators/flutterwave.php");
         }
-        if ($method["methodId"] == 17) {
+        if ($method["methodid"] == 17) {
             require("addfunds/Initiators/stripe.php");
         }
-        if ($method["methodId"] == 18) {
+        if ($method["methodid"] == 18) {
             require("addfunds/Initiators/payeer.php");
         }
-         if ($method["methodId"] == 29) {
+         if ($method["methodid"] == 29) {
             require("addfunds/Initiators/heleket.php");
         }
         
-         if ($method["methodId"] == 55) {
+         if ($method["methodid"] == 55) {
             require("addfunds/Initiators/mercadopago.php");
         }
-        if ($method["methodId"] == 1) {
+        if ($method["methodid"] == 1) {
             require("addfunds/Initiators/manual.php");
         }
-        if ($method["methodId"] == 20) {
+        if ($method["methodid"] == 20) {
             require("addfunds/Initiators/khalti.php");
         }
         header("Content-Type: application/json; charset=utf-8");
