@@ -333,7 +333,6 @@ elseif ($action == "bulk_delete_categories"):
       }
     }
     $conn->commit();
-    insertAdminLog("Bulk Delete Categories", "Deleted " . count($category_ids) . " categories");
     echo json_encode(array("status" => "success", "message" => count($category_ids) . " categories deleted"));
   } catch (Exception $e) {
     $conn->rollBack();
