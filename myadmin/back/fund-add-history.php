@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     if ($action == "add") {
-        $insert = $conn->prepare("INSERT INTO payments SET client_id=:cid, client_balance=:balance, payment_amount=:amount, payment_method=:method, payment_status=:status, payment_delivery=:delivery, payment_mode=:mode, payment_create_date=:date, payment_ip=:ip, payment_extra=:extra");
+        $insert = $conn->prepare("INSERT INTO payments (client_id, client_balance, payment_amount, payment_method, payment_status, payment_delivery, payment_mode, payment_create_date, payment_ip, payment_extra) VALUES (:cid, :balance, :amount, :method, :status, :delivery, :mode, :date, :ip, :extra)");
         $insert->execute([
             "cid" => $client["client_id"],
             "balance" => $client["balance"],
@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         success_response_exit("Record added and amount added to balance.");
     }
     if ($action == "deduct") {
-        $insert = $conn->prepare("INSERT INTO payments SET client_id=:cid, client_balance=:balance, payment_amount=:amount, payment_method=:method, payment_status=:status, payment_delivery=:delivery, payment_mode=:mode, payment_create_date=:date, payment_ip=:ip, payment_extra=:extra");
+        $insert = $conn->prepare("INSERT INTO payments (client_id, client_balance, payment_amount, payment_method, payment_status, payment_delivery, payment_mode, payment_create_date, payment_ip, payment_extra) VALUES (:cid, :balance, :amount, :method, :status, :delivery, :mode, :date, :ip, :extra)");
     $insert->execute([
         "cid" => $client["client_id"],
         "balance" => $client["balance"],

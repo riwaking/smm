@@ -48,7 +48,7 @@ endif;
   $pageCount      = ceil($count/$to); if( $page > $pageCount ): $page = 1; endif;
   $where          = ($page*$to)-$to;
   $paginationArr  = ["count"=>$pageCount,"current"=>$page,"next"=>$page+1,"previous"=>$page-1];
-  $logs = $conn->prepare("SELECT * FROM updates $search ORDER BY updates.u_id DESC LIMIT $where,$to ");
+  $logs = $conn->prepare("SELECT * FROM updates $search ORDER BY updates.u_id DESC LIMIT $to OFFSET $where ");
   $logs->execute(array());
   $logs = $logs->fetchAll(PDO::FETCH_ASSOC);
 

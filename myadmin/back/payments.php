@@ -148,7 +148,7 @@ endif;
             $user->execute(array("username" => $username));
             $user = $user->fetch(PDO::FETCH_ASSOC);
             $conn->beginTransaction();
-            $insert = $conn->prepare("INSERT INTO payments SET payment_status=:status, payment_mode=:mode, payment_amount=:amount, payment_bank=:bank, payment_method=:method, payment_delivery=:delivery, payment_note=:note, payment_update_date=:date, payment_create_date=:date2, client_id=:client_id, client_balance=:balance ");
+            $insert = $conn->prepare("INSERT INTO payments (payment_status, payment_mode, payment_amount, payment_bank, payment_method, payment_delivery, payment_note, payment_update_date, payment_create_date, client_id, client_balance) VALUES (:status, :mode, :amount, :bank, :method, :delivery, :note, :date, :date2, :client_id, :balance)");
             $insert = $insert->execute(array("status" => 3, "delivery" => 2, "bank" => $bank, "mode" => "Manuel", "amount" => $amount, "method" => 6, "note" => $note, "date" => date("Y-m-d H:i:s"), "date2" => date("Y-m-d H:i:s"), "balance" => $user["balance"], "client_id" => $user["client_id"]));
             $update2 = $conn->prepare("UPDATE clients SET balance=:balance WHERE client_id=:id ");
             $update2 = $update2->execute(array("id" => $user["client_id"], "balance" => $amount + $user["balance"]));
@@ -205,7 +205,7 @@ endif;
                     );
                     //print_r($insert_array); die;
                 
-            $insert = $conn->prepare("INSERT INTO payments SET payment_status=:status, payment_mode=:mode, payment_amount=:amount, payment_method=:method, payment_delivery=:delivery, payment_privatecode=:payment_privatecode,payment_note=:note, payment_update_date=:date, payment_create_date=:date2, client_id=:client_id, client_balance=:balance,payment_ip=:payment_ip,payment_extra=:payment_extra,payment_bank=:payment_bank ");
+            $insert = $conn->prepare("INSERT INTO payments (payment_status, payment_mode, payment_amount, payment_method, payment_delivery, payment_privatecode, payment_note, payment_update_date, payment_create_date, client_id, client_balance, payment_ip, payment_extra, payment_bank) VALUES (:status, :mode, :amount, :method, :delivery, :payment_privatecode, :note, :date, :date2, :client_id, :balance, :payment_ip, :payment_extra, :payment_bank)");
             $insert = $insert->execute($insert_array);
           
             
@@ -311,7 +311,7 @@ endif;
     endif;
     $where = ($page * $to) - $to;
     $paginationArr = ["count" => $pageCount, "current" => $page, "next" => $page + 1, "previous" => $page - 1];
-    $payments = $conn->prepare("SELECT * FROM payments INNER JOIN bank_accounts ON bank_accounts.id=payments.payment_bank INNER JOIN clients ON clients.client_id=payments.client_id $search ORDER BY payments.payment_id DESC LIMIT $where,$to ");
+    $payments = $conn->prepare("SELECT * FROM payments INNER JOIN bank_accounts ON bank_accounts.id=payments.payment_bank INNER JOIN clients ON clients.client_id=payments.client_id $search ORDER BY payments.payment_id DESC LIMIT $to OFFSET $where ");
     $payments->execute(array());
     $payments = $payments->fetchAll(PDO::FETCH_ASSOC);
     require admin_view('payments_bank');
@@ -340,7 +340,7 @@ endif;
       $pageCount      = ceil($count/$to); if( $page > $pageCount ): $page = 1; endif;
       $where          = ($page*$to)-$to;
       $paginationArr  = ["count"=>$pageCount,"current"=>$page,"next"=>$page+1,"previous"=>$page-1];
-      $payments       = $conn->prepare("SELECT * FROM payments INNER JOIN payment_methods ON payment_methods.id=payments.payment_method INNER JOIN clients ON clients.client_id=payments.client_id $search ORDER BY payments.payment_id DESC LIMIT $where,$to ");
+      $payments       = $conn->prepare("SELECT * FROM payments INNER JOIN payment_methods ON payment_methods.id=payments.payment_method INNER JOIN clients ON clients.client_id=payments.client_id $search ORDER BY payments.payment_id DESC LIMIT $to OFFSET $where ");
       $payments       -> execute(array());
       $payments       = $payments->fetchAll(PDO::FETCH_ASSOC);
       require admin_view('payments');

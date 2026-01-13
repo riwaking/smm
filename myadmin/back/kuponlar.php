@@ -33,47 +33,47 @@ if(!defined('BASEPATH')) {
     $kupon_kullananlar        -> execute(array());
     $kupon_kullananlar        = $kupon_kullananlar->fetchAll(PDO::FETCH_ASSOC);
     require admin_view('kuponlar');
-	
-	
-	
-	
-	elseif( $action == "delete" ):
-	
-	if( $_POST ):
-		 
-		 foreach ($_POST as $key => $value) {
-			$$key = $value;
-		  }
-		  
-		  
-		  
-		  
-		   $delete = $conn->prepare("DELETE FROM kuponlar WHERE id=:kupon_id");
+        
+        
+        
+        
+        elseif( $action == "delete" ):
+        
+        if( $_POST ):
+                 
+                 foreach ($_POST as $key => $value) {
+                        $$key = $value;
+                  }
+                  
+                  
+                  
+                  
+                   $delete = $conn->prepare("DELETE FROM kuponlar WHERE id=:kupon_id");
           $delete->execute(array("kupon_id"=>$kupon_id));
             if( $delete ):
-			
+                        
               header("Location:".site_url("admin/kuponlar"));
             else:
-			
+                        
               header("Location:".site_url("admin/kuponlar"));
             endif;
-			
-			
-	  
-	endif;
-	
-	
+                        
+                        
+          
+        endif;
+        
+        
   elseif( $action == "new" ):
     if( $_POST ):
       foreach ($_POST as $key => $value) {
         $$key = $value;
       }
-	  
-	  
-	  
-	    $stmt = $conn->prepare("SELECT count(*) FROM kuponlar WHERE kuponadi = ?");
-		$stmt->execute([$kuponadi]);
-		$count = $stmt->fetchColumn();
+          
+          
+          
+            $stmt = $conn->prepare("SELECT count(*) FROM kuponlar WHERE kuponadi = ?");
+                $stmt->execute([$kuponadi]);
+                $count = $stmt->fetchColumn();
 
 
       if($count>0):
@@ -82,7 +82,7 @@ if(!defined('BASEPATH')) {
         $icon     = "error";
       else:
           $conn->beginTransaction();
-          $insert = $conn->prepare("INSERT INTO kuponlar SET kuponadi=:kuponadi, adet=:adet, tutar=:tutar");
+          $insert = $conn->prepare("INSERT INTO kuponlar (kuponadi, adet, tutar) VALUES (:kuponadi, :adet, :tutar)");
           $insert = $insert->execute(array("kuponadi"=>$kuponadi,"adet"=>$adet,"tutar"=>$tutar));
           
           if( $insert ):

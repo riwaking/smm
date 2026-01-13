@@ -27,12 +27,12 @@ if(!defined('BASEPATH')) {
     $kupon_kullananlar        = $kupon_kullananlar->fetchAll(PDO::FETCH_ASSOC);
     
     require admin_view('broadcasts');
-	
-	
-	
-	
+        
+        
+        
+        
     elseif( $action == "edit" ):
-	
+        
       if( $_POST ):
             $nId = $_POST['id'];
             $title = $_POST['title'];
@@ -61,10 +61,10 @@ $type = $_POST["broadcast_type"];
               }
               
 
-		 
-			
-	else:
-	    $link = $_SERVER['REQUEST_URI'];
+                 
+                        
+        else:
+            $link = $_SERVER['REQUEST_URI'];
         $link_array = explode('/',$link);
         $nId = end($link_array);
         $pages        = $conn->prepare("SELECT * FROM pages ");
@@ -75,37 +75,37 @@ $type = $_POST["broadcast_type"];
         $notifications        -> execute(array());
         $notifData        = $notifications->fetchAll(PDO::FETCH_ASSOC)[0];   
         
-	    require admin_view('editbroadcasts');
-	  
-	endif;
-	
-	elseif( $action == "delete" ):
-	
-	if( $_POST ):
-	 $notification_id =  $_POST['notification_id'];
+            require admin_view('editbroadcasts');
+          
+        endif;
+        
+        elseif( $action == "delete" ):
+        
+        if( $_POST ):
+         $notification_id =  $_POST['notification_id'];
 
 $delete = $conn->prepare("DELETE FROM notifications_popup WHERE id=:id");
 $delete->execute(array("id"=>$notification_id));
 
 if( $delete ):
-			
+                        
 header("Location: ".site_url("admin/broadcasts"));
 else:
 header("Location: ".site_url("admin/broadcasts"));
 endif;
-			
-			
-	  
-	endif;
-	
-	elseif( $action == "create" ):
-	    
-	    $pages        = $conn->prepare("SELECT * FROM pages ");
+                        
+                        
+          
+        endif;
+        
+        elseif( $action == "create" ):
+            
+            $pages        = $conn->prepare("SELECT * FROM pages ");
         $pages        -> execute(array());
         $pages        = $pages->fetchAll(PDO::FETCH_ASSOC);
-	  require admin_view('createbroadcasts');
+          require admin_view('createbroadcasts');
 
-	
+        
   elseif( $action == "new" ):
             
           $title = @$_POST['title'];
@@ -118,7 +118,7 @@ endif;
           $isAllUser = @$_POST['isAllUser'];
           
 if(date("Y-m-d H:i:s") < $expiry_date){
-$insert = $conn->prepare("INSERT INTO notifications_popup SET title=:title,type=:type,description=:desc,action_link=:link,action_text=:text,expiry_date=:expiry,status=:status,isAllUser=:isAllUser");
+$insert = $conn->prepare("INSERT INTO notifications_popup (title, type, description, action_link, action_text, expiry_date, status, isAllUser) VALUES (:title, :type, :desc, :link, :text, :expiry, :status, :isAllUser)");
 $insert->execute(
 array("title"=>$title,
 "type"=>$type,

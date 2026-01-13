@@ -76,7 +76,7 @@ if (empty($action)):
     endif;
     $where = ($page * $to) - $to;
     $paginationArr = ["count" => $pageCount, "current" => $page, "next" => $page + 1, "previous" => $page - 1];
-    $tickets = $conn->prepare("SELECT * FROM tickets INNER JOIN clients ON clients.client_id = tickets.client_id $search ORDER BY FIELD(status, 'pending', 'answered', 'closed'),lastupdate_time DESC LIMIT $where,$to ");
+    $tickets = $conn->prepare("SELECT * FROM tickets INNER JOIN clients ON clients.client_id = tickets.client_id $search ORDER BY CASE status WHEN 'pending' THEN 1 WHEN 'answered' THEN 2 WHEN 'closed' THEN 3 END, lastupdate_time DESC LIMIT $to OFFSET $where ");
     $tickets->execute(array());
     $tickets = $tickets->fetchAll(PDO::FETCH_ASSOC);
     require admin_view('tickets');
@@ -112,7 +112,7 @@ endif;
                 "client_id"=>'0'
                 );
            // print_r($tr_arr); die;
-                   $insert = $conn->prepare("INSERT INTO ticket_reply SET ticket_id=:t_id, time=:time, support=:support, message=:message, client_id=:client_id");
+                   $insert = $conn->prepare("INSERT INTO ticket_reply (ticket_id, time, support, message, client_id) VALUES (:t_id, :time, :support, :message, :client_id)");
             $insert = $insert->execute($tr_arr);
            // echo $update->debugDumpParams(); die;
             if ($insert AND $update):
@@ -347,7 +347,7 @@ elseif ($action == "new"):
             $icon = "error";
         else:
             $conn->beginTransaction();
-            $insert = $conn->prepare("INSERT INTO tickets SET client_id=:c_id, subject=:subject, support_new=:support_new, client_new=:client_new, time=:time, lastupdate_time=:last_time ");
+            $insert = $conn->prepare("INSERT INTO tickets (client_id, subject, support_new, client_new, time, lastupdate_time) VALUES (:c_id, :subject, :support_new, :client_new, :time, :last_time)");
             $insert = $insert->execute(array("c_id" => $userDetail["client_id"], "subject" => htmlspecialchars($subject), "support_new" => 2, "client_new" => 1, "time" => date("Y.m.d H:i:s"), "last_time" => date("Y.m.d H:i:s")));
 
 
@@ -374,7 +374,7 @@ $headers .= 'Bcc: '.$from . "\r\n";
 
 } 
             }
-            $insert2 = $conn->prepare("INSERT INTO ticket_reply SET ticket_id=:t_id, client_id=:c_id, support=:support, message=:message, time=:time ");
+            $insert2 = $conn->prepare("INSERT INTO ticket_reply (ticket_id, client_id, support, message, time) VALUES (:t_id, :c_id, :support, :message, :time)");
             $insert2 = $insert2->execute(array("t_id" => $ticket_id, "c_id" => $user["client_id"], "support" => 2, "message" => htmlspecialchars($message), "time" => date("Y.m.d H:i:s")));
             if ($insert AND $insert2):
                 $conn->commit();

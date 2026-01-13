@@ -48,7 +48,7 @@ if(empty($special_price_for_service)){
 error_exit("Please set a special price.");
 }
 
-$insert = $conn->prepare("INSERT INTO clients_price SET client_id=:client_id, service_price=:service_price, service_id=:service_id");
+$insert = $conn->prepare("INSERT INTO clients_price (client_id, service_price, service_id) VALUES (:client_id, :service_price, :service_id)");
 $insert->execute(array(
     "service_id"=>$special_price_service,
     "client_id"=>$special_price_user,

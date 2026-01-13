@@ -34,17 +34,12 @@ if ($_GET["approve"]) :
         // exit();
 
         $conn->beginTransaction();
-        $update = $conn->prepare("UPDATE referral_payouts SET 	r_p_status=:r_p_status , 
+        $update = $conn->prepare("UPDATE referral_payouts SET   r_p_status=:r_p_status , 
         r_p_updated_at=:r_p_updated_at WHERE r_p_id=:r_p_id");
         $update = $update->execute(array("r_p_id" => $r_p_id, "r_p_status" => 2, "r_p_updated_at" =>  date("Y-m-d H:i:s")));
 
 
-        $insert = $conn->prepare("INSERT INTO payments SET client_id=:client_id , client_balance=:client_balance , 
-            payment_amount=:payment_amount , payment_method=:payment_method ,
-            payment_status=:payment_status , payment_delivery=:payment_delivery , payment_note=:payment_note,
-            payment_create_date=:payment_create_date ,
-             payment_update_date=:payment_update_date, 	payment_ip=:payment_ip , 
-             payment_extra=:payment_extra ");
+        $insert = $conn->prepare("INSERT INTO payments (client_id, client_balance, payment_amount, payment_method, payment_status, payment_delivery, payment_note, payment_create_date, payment_update_date, payment_ip, payment_extra) VALUES (:client_id, :client_balance, :payment_amount, :payment_method, :payment_status, :payment_delivery, :payment_note, :payment_create_date, :payment_update_date, :payment_ip, :payment_extra)");
         $insert = $insert->execute(array(
             "client_id" => $r_payout[0]["client_id"],
             "client_balance" => $r_payout[0]["balance"],
@@ -95,8 +90,7 @@ if ($_GET["approve"]) :
           $amount = $r_payout[0]['r_p_amount_requested'];  
             
         //cleints_report
-        $insert5 = $conn->prepare("INSERT INTO client_report SET client_id=:client_id
-         ,action=:action, report_ip=:report_ip , report_date=:report_date");
+        $insert5 = $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:client_id, :action, :report_ip, :report_date)");
         $insert5 = $insert5->execute(array(
             "client_id" => $user["client_id"],
             "action" => "Amount added :  $amount , #Referral Payout id : $r_p_id " , 
@@ -217,8 +211,7 @@ elseif ($_GET["reject"]) :
             $amount = $r_payout[0]['r_p_amount_requested'];  
             
             //cleints_report
-            $insert5 = $conn->prepare("INSERT INTO client_report SET client_id=:client_id
-             ,action=:action, report_ip=:report_ip , report_date=:report_date");
+            $insert5 = $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:client_id, :action, :report_ip, :report_date)");
             $insert5 = $insert5->execute(array(
                 "client_id" => $user["client_id"],
                 "action" => "Amount rejected :  $amount ,#Referral Payout id : $r_p_id " , 

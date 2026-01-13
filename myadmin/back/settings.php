@@ -86,28 +86,28 @@ elseif (route(2) == "general"):
         $error = 1;
       else:
         $update = $conn->prepare("UPDATE settings SET 
-			site_maintenance=:site_maintenance,
-			resetpass_page=:resetpass_page,
+                        site_maintenance=:site_maintenance,
+                        resetpass_page=:resetpass_page,
 skype_feilds=:skype_feilds,
 name_fileds=:name_fileds,
-			resetpass_sms=:resetpass_sms,
-			resetpass_email=:resetpass_email,
-			site_name=:name,
-			site_logo=:logo,
+                        resetpass_sms=:resetpass_sms,
+                        resetpass_email=:resetpass_email,
+                        site_name=:name,
+                        site_logo=:logo,
 email_confirmation=:email_confirmation,
-			resend_max=:resend_max, 
-			favicon=:fv,
-			ticket_system=:ticket_system,
-			tickets_per_user=:tickets_per_user, 
-			register_page=:registration_page, 
-			service_list=:service_list, 
-			custom_header=:custom_header, 
-			custom_footer=:custom_footer,
-			bronz_statu=:bronz_statu,
-			silver_statu=:silver_statu,
-			gold_statu=:gold_statu,
-			bayi_statu=:bayi_statu,
-			fundstransfer_fees=:fundstransfer_fees,services_average_time=:avg_time WHERE id=:id ");
+                        resend_max=:resend_max, 
+                        favicon=:fv,
+                        ticket_system=:ticket_system,
+                        tickets_per_user=:tickets_per_user, 
+                        register_page=:registration_page, 
+                        service_list=:service_list, 
+                        custom_header=:custom_header, 
+                        custom_footer=:custom_footer,
+                        bronz_statu=:bronz_statu,
+                        silver_statu=:silver_statu,
+                        gold_statu=:gold_statu,
+                        bayi_statu=:bayi_statu,
+                        fundstransfer_fees=:fundstransfer_fees,services_average_time=:avg_time WHERE id=:id ");
 
         $update->execute(
           array(
@@ -257,7 +257,7 @@ elseif (route(2) == "currency-manager"):
           $cur_inv_rate = $b[strtolower($code)]["inverseRate"];
           $cur_hash = sha1(md5(RAND_STRING(10)));
 
-          $insert = $conn->prepare("INSERT INTO currencies SET currency_name=:name,currency_code=:code,currency_symbol=:symbol,currency_rate=:rate,currency_inverse_rate=:inv_rate,is_enable=:enable,currency_hash=:hash");
+          $insert = $conn->prepare("INSERT INTO currencies (currency_name, currency_code, currency_symbol, currency_rate, currency_inverse_rate, is_enable, currency_hash) VALUES (:name, :code, :symbol, :rate, :inv_rate, :enable, :hash)");
           $insert->execute(
             array(
               "name" => $cur_name,
@@ -389,7 +389,7 @@ elseif (route(2) == "currency-manager"):
             $cur_inv_rate = $b[strtolower($code)]["inverseRate"];
             $cur_hash = sha1(md5(RAND_STRING(10)));
 
-            $insert = $conn->prepare("INSERT INTO currencies SET currency_name=:name,currency_code=:code,currency_symbol=:symbol,currency_rate=:rate,currency_inverse_rate=:inv_rate,is_enable=:enable,currency_hash=:hash");
+            $insert = $conn->prepare("INSERT INTO currencies (currency_name, currency_code, currency_symbol, currency_rate, currency_inverse_rate, is_enable, currency_hash) VALUES (:name, :code, :symbol, :rate, :inv_rate, :enable, :hash)");
             $insert->execute(
               array(
                 "name" => $cur_name,
@@ -704,7 +704,7 @@ elseif (route(2) == "payment-bonuses"):
         $icon = "error";
       else:
         $conn->beginTransaction();
-        $insert = $conn->prepare("INSERT INTO payments_bonus SET bonus_method=:method, bonus_from=:from, bonus_amount=:amount, bonus_type=:type ");
+        $insert = $conn->prepare("INSERT INTO payments_bonus (bonus_method, bonus_from, bonus_amount, bonus_type) VALUES (:method, :from, :amount, :type)");
         $insert = $insert->execute(array("method" => $method_type, "from" => $from, "amount" => $amount, "type" => 2));
         if ($insert):
           $conn->commit();
@@ -1133,7 +1133,7 @@ elseif (route(2) == "providers"):
         $order = explode("/", $url);
         $name = $order[2];
         $conn->beginTransaction();
-        $insert = $conn->prepare("INSERT INTO service_api SET api_name=:name, api_alert=:api_alert, status=:status, api_key=:key, api_url=:url, api_limit=:limit, currency=:currency, api_type=:type,api_sync=:sync,api_login_credentials=:credentials");
+        $insert = $conn->prepare("INSERT INTO service_api (api_name, api_alert, status, api_key, api_url, api_limit, currency, api_type, api_sync, api_login_credentials) VALUES (:name, :api_alert, :status, :key, :url, :limit, :currency, :type, :sync, :credentials)");
         $insert = $insert->execute(
           array(
             "name" => $name,
@@ -1310,7 +1310,7 @@ elseif (route(2) == "bank-accounts"):
         $icon = "error";
       else:
         $conn->beginTransaction();
-        $insert = $conn->prepare("INSERT INTO bank_accounts SET bank_name=:name, bank_sube=:sube, bank_hesap=:hesap, bank_iban=:iban, bank_alici=:alici ");
+        $insert = $conn->prepare("INSERT INTO bank_accounts (bank_name, bank_sube, bank_hesap, bank_iban, bank_alici) VALUES (:name, :sube, :hesap, :iban, :alici)");
         $insert = $insert->execute(
           array(
             "name" => $bank_name,
@@ -1479,7 +1479,7 @@ elseif (route(2) == "currency"):
         $icon = "error";
       else:
         $conn->beginTransaction();
-        $insert = $conn->prepare("INSERT INTO currency SET name=:name, value=:value, symbol=:symbol  ");
+        $insert = $conn->prepare("INSERT INTO currency (name, value, symbol) VALUES (:name, :value, :symbol)");
         $insert = $insert->execute(array("name" => $name, "value" => $value, "symbol" => $symbol));
         if ($insert):
           $conn->commit();
@@ -1618,7 +1618,7 @@ elseif (route(2) == "subject"):
           $icon = "error";
         else:
 
-          $insert = $conn->prepare("INSERT INTO ticket_subjects SET subject=:subject, content=:content, auto_reply=:auto_reply");
+          $insert = $conn->prepare("INSERT INTO ticket_subjects (subject, content, auto_reply) VALUES (:subject, :content, :auto_reply)");
 
           $insert = $insert->execute(
             array(

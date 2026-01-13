@@ -79,6 +79,7 @@ endif;
       endif;
 
     $to             = $units["unit"];
+    if (!$to || $to <= 0) { $to = 10; }
 
 
     $pageCount      = ceil($count/$to); if( $page > $pageCount ): $page = 1; endif;
@@ -90,7 +91,7 @@ $where = ($page*$to)-$to;
  
  
  
-    $clients        = $conn->prepare("SELECT * FROM clients $search ORDER BY client_id DESC LIMIT $where,$to ");
+    $clients        = $conn->prepare("SELECT * FROM clients $search ORDER BY client_id DESC LIMIT $to OFFSET $where ");
     $clients        -> execute(array());
     $clients        = $clients->fetchAll(PDO::FETCH_ASSOC);
     require admin_view('clients');
@@ -177,7 +178,7 @@ $_SESSION["msmbilisim_userlogin"]      = 1;
         }else{
           $apikey = CreateApiKey($_POST);
           $conn->beginTransaction();
-          $insert = $conn->prepare("INSERT INTO clients SET name=:name, username=:username, email=:email, password=:pass, lang=:lang, telephone=:phone, register_date=:date, apikey=:key, access=:access, tel_type=:tel_type, email_type=:email_type ");
+          $insert = $conn->prepare("INSERT INTO clients (name, username, email, password, lang, telephone, register_date, apikey, access, tel_type, email_type) VALUES (:name, :username, :email, :pass, :lang, :phone, :date, :key, :access, :tel_type, :email_type)");
           $insert = $insert-> execute(array("lang"=>"en","name"=>$name,"username"=>$username,"email"=>$email,"pass"=>md5($pass),"phone"=>$tel,"date"=>date("Y.m.d H:i:s"),'key'=>$apikey,'access'=>json_encode($access),'tel_type'=>$tel_type,'email_type'=>$email_type ));
           if( $insert ):
             $conn->commit();
@@ -325,7 +326,7 @@ $_SESSION["msmbilisim_userlogin"]      = 1;
           $update = $conn->prepare("UPDATE clients_price SET client_id=:client, service_price=:price WHERE service_id=:service AND client_id=:clientt ");
           $update->execute(array("service"=>$id,"client"=>$client,"clientt"=>$client,"price"=>$price));
         else:
-          $insert = $conn->prepare("INSERT INTO clients_price SET client_id=:client, service_price=:price, service_id=:service ");
+          $insert = $conn->prepare("INSERT INTO clients_price (client_id, service_price, service_id) VALUES (:client, :price, :service)");
           $insert->execute(array("service"=>$id,"client"=>$client,"price"=>$price));
         endif;
       endforeach;
@@ -409,7 +410,7 @@ $_SESSION["msmbilisim_userlogin"]      = 1;
       if( $type == "on" ):
         $search   = $conn->query("SELECT * FROM clients_category WHERE client_id='$client' AND category_id='$id' ");
         if( !$search->rowCount() ):
-          $insert = $conn->prepare("INSERT INTO clients_category SET client_id=:client, category_id=:c_id  ");
+          $insert = $conn->prepare("INSERT INTO clients_category (client_id, category_id) VALUES (:client, :c_id)");
           $insert->execute(array("client"=>$client,"c_id"=>$id));
             if( $insert ):
               echo "1";
@@ -440,7 +441,7 @@ $_SESSION["msmbilisim_userlogin"]      = 1;
       if( $type == "on" ):
         $search   = $conn->query("SELECT * FROM clients_service WHERE client_id='$client' AND service_id='$id' ");
         if( !$search->rowCount() ):
-          $insert = $conn->prepare("INSERT INTO clients_service SET client_id=:client, service_id=:c_id   ");
+          $insert = $conn->prepare("INSERT INTO clients_service (client_id, service_id) VALUES (:client, :c_id)");
           $insert->execute(array("client"=>$client,"c_id"=>$id));
             if( $insert ):
               echo "1";

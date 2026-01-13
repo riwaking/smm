@@ -198,8 +198,7 @@ elseif ($action == "new") :
         
 
         $conn->beginTransaction();
-        $insert2 = $conn->prepare("INSERT INTO admins SET admin_name=:name, admin_email=:email, telephone=:telephone ,
-        access=:access , username=:username , password=:password ,client_type=:client_type , admin_type=:admin_type,register_date=:register_date");
+        $insert2 = $conn->prepare("INSERT INTO admins (admin_name, admin_email, telephone, access, username, password, client_type, admin_type, register_date) VALUES (:name, :email, :telephone, :access, :username, :password, :client_type, :admin_type, :register_date)");
     $insert2->execute(array(
             "name" => $name, "username" => $username, "email" => $email,
             "telephone" => $telephone, "admin_type" => 2, "password" => $password,

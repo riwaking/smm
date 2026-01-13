@@ -321,10 +321,7 @@ elseif ($action == "next_order_id"):
 
     $conn->beginTransaction();
 
-    $insert = $conn->prepare("INSERT INTO orders SET order_start=:count, order_error=:error,order_id=:order_id,order_status=:order_status, client_id=:c_id, api_orderid=:order_id, service_id=:s_id, order_quantity=:quantity, order_charge=:price,
-order_url=:url,
-order_create=:create, order_extras=:extra, last_check=:last_check, order_api=:api, api_serviceid=:api_serviceid, dripfeed=:drip, dripfeed_totalcharges=:totalcharges, dripfeed_runs=:runs,
-dripfeed_interval=:interval, dripfeed_totalquantity=:totalquantity, dripfeed_delivery=:delivery");
+    $insert = $conn->prepare("INSERT INTO orders (order_start, order_error, order_id, order_status, client_id, api_orderid, service_id, order_quantity, order_charge, order_url, order_create, order_extras, last_check, order_api, api_serviceid, dripfeed, dripfeed_totalcharges, dripfeed_runs, dripfeed_interval, dripfeed_totalquantity, dripfeed_delivery) VALUES (:count, :error, :order_id, :order_status, :c_id, :order_id, :s_id, :quantity, :price, :url, :create, :extra, :last_check, :api, :api_serviceid, :drip, :totalcharges, :runs, :interval, :totalquantity, :delivery)");
     $insert = $insert->execute(
       array(
         "count" => $fake_order,
@@ -1391,7 +1388,7 @@ elseif ($action == "edit_user"):
             <label>How Much Negative Balance?</label>
             <input type="text" name="debit_limit" class="form-control" value="' . $user["debit_limit"] . '">
           </div>
-		   <div class="form-group" id="balance">
+                   <div class="form-group" id="balance">
             <label>Balance</label>
             <input type="text" name="balance" class="form-control" value="' . $user["balance"] . '">
           </div>
@@ -1471,7 +1468,7 @@ elseif ($action == "edit_user"):
                 }
             });
           </script>
-		 
+                 
           ';
   echo json_encode(["content" => $return, "title" => "Edit User"]);
 
@@ -1730,9 +1727,9 @@ elseif ($action == "new_service"):
                   </div>
                 </div>
               </div>
-			
+                        
           </div>
-		
+                
           <div class="form-group">
             <label class="form-group__service-name">Service price (1000 pieces) <span class="badge badge-secondary">' . $settings["site_base_currency"] . " (" . get_currency_symbol_by_code($settings["site_base_currency"]) . ')</span></label>
             <input type="text" class="form-control" name="price" value="">
@@ -2201,7 +2198,7 @@ if( type == "11" || type == "12" ){
     foreach ($languages as $language):
       if ($language["default_language"]):
         $return .= '
-				  <div class="form-group">
+                                  <div class="form-group">
 <label class="form-group__service-name">Service name <span class="badge">' . $language["language_name"] . '</span> ' . $translationList . ' </label>
 <input type="text" class="form-control" name="name[' . $language["language_code"] . ']" value="' . $multiName[$language["language_code"]] . '">
                   </div>';
@@ -3357,7 +3354,7 @@ elseif ($action == "download_category_icon_images"):
       $db_link = site_url("img/files/" . $save_name . ".png");
       file_put_contents($_SERVER["DOCUMENT_ROOT"] . "/img/files/" . $save_name . ".png", $binary_image);
 
-      $insert = $conn->prepare("INSERT INTO files SET name=:name,link=:link,date=:date");
+      $insert = $conn->prepare("INSERT INTO files (name, link, date) VALUES (:name, :link, :date)");
       $insert->execute(
         array(
           "name" => $name,
@@ -3585,7 +3582,7 @@ elseif ($action == "import_services_list"):
                  <div>
 <div class="services-import__list-wrap">
    <div class="services-import__scroll-wrap">
-					   <label class="btn btn-primary"> <input id="checkk" type="checkbox"> Select All</label>';
+                                           <label class="btn btn-primary"> <input id="checkk" type="checkbox"> Select All</label>';
       foreach ($grouped as $category):
         $category_id++;
         echo '
@@ -3610,7 +3607,7 @@ elseif ($action == "import_services_list"):
 </div>
                  </div>
               </div>
-			   <script> $("#checkk").click(function () {$("#secondStep :checkbox").not(this).prop("checked", this.checked);});</script>
+                           <script> $("#checkk").click(function () {$("#secondStep :checkbox").not(this).prop("checked", this.checked);});</script>
               <script>
               $(\'[id^="checkAll-"]\').click(function () {
                 var id = $(this).attr("data-id");
@@ -3642,7 +3639,7 @@ elseif ($action == "import_services_last"):
                    
                    <div class="services-import__step3-field">
   <div class="services-import__placeholder-title">Select Currency</div><br>
-					  <select id="raise-currency" name="currency">
+                                          <select id="raise-currency" name="currency">
         <option value="" disabled selected>Choose Provider Currency</option>
         <option value="0.0139">INR</option>
         <option value="1">USD</option>
@@ -3654,7 +3651,7 @@ elseif ($action == "import_services_last"):
   <div class="services-import__placeholder-title">Percent (%)</div>
   <input type="number" placeholder="0" id="raise-percent" name="percent" value="">
                    </div>
-				   
+                                   
                    <div class="services-import__step3-actions"><span class="btn btn-danger">Reset calculations</span></div>
                 </div>
                 <div class="services-import__list-wrap services-import__list-active">
@@ -3731,7 +3728,7 @@ elseif ($action == "import_services_last"):
           function chargeService(){
             var add_fixed       = $("#raise-fixed").val();
             var add_percent     = $("#raise-percent").val();
-			var add_currency     = $("#raise-currency").val();
+                        var add_currency     = $("#raise-currency").val();
             $(".services-import__price").each(function(){
               if( $(this).attr("readonly") != "readonly" ){
                 var rate        = $(this).attr("data-rate");
@@ -3767,7 +3764,7 @@ elseif ($action == "import_services_last"):
             $(".services-import__step3-actions").click(function(){
               var add_fixed       = $("#raise-fixed").val("");
               var add_percent     = $("#raise-percent").val("");
-			  var add_currency     = $("#raise-currency").val("");
+                          var add_currency     = $("#raise-currency").val("");
               $(".services-import__price").each(function(){
                 if( $(this).attr("readonly") != "readonly" ){
                   var rate        = $(this).attr("data-rate");
@@ -3784,7 +3781,7 @@ $("#servicePriceCal"+service).val(rate);
             $("#raise-percent").on("keyup", function(){
               chargeService();
             });
-			 $("#raise-currency").on("keyup", function(){
+                         $("#raise-currency").on("keyup", function(){
               chargeService();
             });
 
@@ -3981,7 +3978,7 @@ elseif ($action == "import_services_last"):
                    
                    <div class="services-import__step3-field">
   <div class="services-import__placeholder-title">Select Currency</div><br>
-					  <select id="raise-currency" name="currency">
+                                          <select id="raise-currency" name="currency">
         <option value="" disabled selected>Choose Provider Currency</option>
         <option value="0.0139">INR</option>
         <option value="1">USD</option>
@@ -3993,7 +3990,7 @@ elseif ($action == "import_services_last"):
   <div class="services-import__placeholder-title">Percent (%)</div>
   <input type="number" placeholder="0" id="raise-percent" name="percent" value="">
                    </div>
-				   
+                                   
                    <div class="services-import__step3-actions"><span class="btn btn-danger">Reset calculations</span></div>
                 </div>
                 <div class="services-import__list-wrap services-import__list-active">
@@ -4070,7 +4067,7 @@ elseif ($action == "import_services_last"):
           function chargeService(){
             var add_fixed       = $("#raise-fixed").val();
             var add_percent     = $("#raise-percent").val();
-			var add_currency     = $("#raise-currency").val();
+                        var add_currency     = $("#raise-currency").val();
             $(".services-import__price").each(function(){
               if( $(this).attr("readonly") != "readonly" ){
                 var rate        = $(this).attr("data-rate");
@@ -4106,7 +4103,7 @@ elseif ($action == "import_services_last"):
             $(".services-import__step3-actions").click(function(){
               var add_fixed       = $("#raise-fixed").val("");
               var add_percent     = $("#raise-percent").val("");
-			  var add_currency     = $("#raise-currency").val("");
+                          var add_currency     = $("#raise-currency").val("");
               $(".services-import__price").each(function(){
                 if( $(this).attr("readonly") != "readonly" ){
                   var rate        = $(this).attr("data-rate");
@@ -4123,7 +4120,7 @@ $("#servicePriceCal"+service).val(rate);
             $("#raise-percent").on("keyup", function(){
               chargeService();
             });
-			 $("#raise-currency").on("keyup", function(){
+                         $("#raise-currency").on("keyup", function(){
               chargeService();
             });
 
@@ -5895,37 +5892,37 @@ elseif ($action == "details"):
 
   $return = '<form>
         <div class="modal-body">
-		
+                
           <div class="service-mode__block">
             <div class="form-group">
             <label>Total Users : ' . $toplamkullanici . '</label>
             </div>
           </div>
-		  
-		  <div class="service-mode__block">
+                  
+                  <div class="service-mode__block">
             <div class="form-group">
             <label>Total Available Balance : ' . $query['toplambakiye'] . '</label>
             </div>
           </div>
-		  
-		  <div class="service-mode__block">
+                  
+                  <div class="service-mode__block">
             <div class="form-group">
             <label>Total Spent Balance : ' . $query2['order_charge'] . '</label>
             </div>
           </div>
-		  
-		  <div class="service-mode__block">
+                  
+                  <div class="service-mode__block">
             <div class="form-group">
             <label>Negative Balance User : ' . $negatifbakiye . '</label>
             </div>
           </div>
-		  
-		  <div class="service-mode__block">
+                  
+                  <div class="service-mode__block">
             <div class="form-group">
             <label>Zero Balance User : ' . $bakiyesiz . '</label>
             </div>
           </div>
-		  
+                  
 
         </div>
 

@@ -53,47 +53,47 @@ endif;
     $kupon_kullananlar        -> execute(array());
     $kupon_kullananlar        = $kupon_kullananlar->fetchAll(PDO::FETCH_ASSOC);
     require admin_view('earn');
-	
-	
-	
-	
-	elseif( $action == "delete" ):
-	
-	if( $_POST ):
-		 
-		 foreach ($_POST as $key => $value) {
-			$$key = $value;
-		  }
-		  
-		  
-		  
-		  
-		   $delete = $conn->prepare("DELETE FROM kuponlar WHERE id=:kupon_id");
+        
+        
+        
+        
+        elseif( $action == "delete" ):
+        
+        if( $_POST ):
+                 
+                 foreach ($_POST as $key => $value) {
+                        $$key = $value;
+                  }
+                  
+                  
+                  
+                  
+                   $delete = $conn->prepare("DELETE FROM kuponlar WHERE id=:kupon_id");
           $delete->execute(array("kupon_id"=>$kupon_id));
             if( $delete ):
-			
+                        
               header("Location:".site_url("admin/kuponlar"));
             else:
-			
+                        
               header("Location:".site_url("admin/kuponlar"));
             endif;
-			
-			
-	  
-	endif;
-	
-	
+                        
+                        
+          
+        endif;
+        
+        
   elseif( $action == "new" ):
     if( $_POST ):
       foreach ($_POST as $key => $value) {
         $$key = $value;
       }
-	  
-	  
-	  
-	    $stmt = $conn->prepare("SELECT count(*) FROM broadcasts WHERE title= ?");
-		$stmt->execute([$title]);
-		$count = $stmt->fetchColumn();
+          
+          
+          
+            $stmt = $conn->prepare("SELECT count(*) FROM broadcasts WHERE title= ?");
+                $stmt->execute([$title]);
+                $count = $stmt->fetchColumn();
 
 
       if($count>0):
@@ -102,7 +102,7 @@ endif;
         $icon     = "error";
       else:
           $conn->beginTransaction();
-          $insert = $conn->prepare("INSERT INTO broadcasts SET title=:title, status=:status, description=:description");
+          $insert = $conn->prepare("INSERT INTO broadcasts (title, status, description) VALUES (:title, :status, :description)");
           $insert = $insert->execute(array("title"=>$title,"status"=>$status,"description"=>$description));
           
           if( $insert ):

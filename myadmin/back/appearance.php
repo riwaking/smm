@@ -111,7 +111,7 @@ elseif (route(2) == "pages"):
           $html = "";
           //  file_put_contents('app/controller/'.$code.'.php', $html);
 
-          $insert = $conn->prepare("INSERT INTO pages SET last_modified=:last_modified,   page_content=:content,   page_content2=:content2, seo_title=:title, seo_keywords=:keywords, seo_description=:description, page_get=:get , page_name=:name");
+          $insert = $conn->prepare("INSERT INTO pages (last_modified, page_content, page_content2, seo_title, seo_keywords, seo_description, page_get, page_name) VALUES (:last_modified, :content, :content2, :title, :keywords, :description, :get, :name)");
           $insert = $insert->execute(
             array(
               "content" => $content,
@@ -206,13 +206,13 @@ elseif (route(2) == "menu"):
         $row = $conn->query("SELECT * FROM menus ORDER BY menu_line DESC LIMIT 1 ")->fetch(PDO::FETCH_ASSOC);
         $conn->beginTransaction();
         if ($slug == "/neworder"):
-          $insert = $conn->prepare("INSERT INTO menus SET name=:name,menu_name_lang=:lang, active=:active,  slug=:url, menu_line=:line, visible=:visible, icon=:icon ");
+          $insert = $conn->prepare("INSERT INTO menus (name, menu_name_lang, active, slug, menu_line, visible, icon) VALUES (:name, :lang, :active, :url, :line, :visible, :icon)");
           $insert = $insert->execute(array("name" => $menu_name,"lang" => $multiMenuName, "active" => "neworder", "url" => "/", "visible" => "Internal", "icon" => $icon, "line" => ($row["menu_line"] + 1)));
         elseif ($slug == "/login"):
-          $insert = $conn->prepare("INSERT INTO menus SET name=:name, menu_name_lang=:lang, active=:active,  slug=:url, menu_line=:line, visible=:visible, icon=:icon ");
+          $insert = $conn->prepare("INSERT INTO menus (name, menu_name_lang, active, slug, menu_line, visible, icon) VALUES (:name, :lang, :active, :url, :line, :visible, :icon)");
           $insert = $insert->execute(array("name" => $menu_name,"lang" => $multiMenuName, "active" => "login", "url" => "/", "visible" => "External", "icon" => $icon, "line" => ($row["menu_line"] + 1)));
         else:
-          $insert = $conn->prepare("INSERT INTO menus SET name=:name, menu_name_lang=:lang, active=:active,  slug=:url, menu_line=:line, visible=:visible, icon=:icon ");
+          $insert = $conn->prepare("INSERT INTO menus (name, menu_name_lang, active, slug, menu_line, visible, icon) VALUES (:name, :lang, :active, :url, :line, :visible, :icon)");
           $insert = $insert->execute(array("name" => $menu_name,"lang" => $multiMenuName, "active" => $active, "url" => $slug, "visible" => $visible, "icon" => $icon, "line" => ($row["menu_line"] + 1)));
         endif;
         if ($insert):
@@ -464,10 +464,7 @@ elseif (route(2) == "news"):
       else:
 
         $conn->beginTransaction();
-        $insert = $conn->prepare("INSERT INTO news SET news_icon=:icon, news_title=:title,
-        news_title_lang=:news_title_lang,
-        news_content_lang=:news_content_lang,
-        news_content=:content, news_date=:date ");
+        $insert = $conn->prepare("INSERT INTO news (news_icon, news_title, news_title_lang, news_content_lang, news_content, news_date) VALUES (:icon, :title, :news_title_lang, :news_content_lang, :content, :date)");
 $insert = $insert->execute(array(
     "icon" => $icon,
     "title" => $announcement_title,
@@ -621,7 +618,7 @@ elseif (route(2) == "language"):
         $error = 1;
         $errorText = "This language code is already in use.";
       else:
-        $insert = $conn->prepare("INSERT INTO languages SET language_name=:name, language_code=:code ");
+        $insert = $conn->prepare("INSERT INTO languages (language_name, language_code) VALUES (:name, :code)");
         $insert->execute(array("name" => $name, "code" => $code));
         if ($insert):
           $html = '<?php ' . PHP_EOL . PHP_EOL;
@@ -767,9 +764,9 @@ elseif (route(2) == "themes"):
         }
 
         $update = $conn->prepare("UPDATE settings SET 
-			
-			site_theme_alt=:site_theme_alt
-			 WHERE id=:id ");
+                        
+                        site_theme_alt=:site_theme_alt
+                         WHERE id=:id ");
         $update->execute(
           array(
             "id" => 1,
@@ -811,10 +808,10 @@ elseif (route(2) == "meta"):
       }
       $conn->beginTransaction();
       $update = $conn->prepare("UPDATE settings SET site_seo=:seo,
-			site_title=:title,
-			
-			site_keywords=:keys,
-			site_description=:desc WHERE id=:id ");
+                        site_title=:title,
+                        
+                        site_keywords=:keys,
+                        site_description=:desc WHERE id=:id ");
       $update = $update->execute(
         array(
           "id" => 1,
@@ -877,7 +874,7 @@ elseif (route(2) == "blog"):
         $conn->beginTransaction();
 
 
-        $insert = $conn->prepare("INSERT INTO blogs SET title=:title , status=:status , content=:content , image_file=:link, published_at=:published_at , blog_get=:get ");
+        $insert = $conn->prepare("INSERT INTO blogs (title, status, content, image_file, published_at, blog_get) VALUES (:title, :status, :content, :link, :published_at, :get)");
         $insert = $insert->execute(array("title" => $title, "status" => $status, "get" => $blogurl, "content" => $content, "link" => $url, "published_at" => date('Y-m-d h:i:s')));
         if ($insert):
           $conn->commit();
@@ -976,7 +973,7 @@ elseif (route(2) == "files"):
 
         $url = site_url($logo_newname);
 
-        $insert = $conn->prepare("INSERT INTO files SET link=:link, date=:date");
+        $insert = $conn->prepare("INSERT INTO files (link, date) VALUES (:link, :date)");
         $insert = $insert->execute(array("link" => $url, "date" => date("Y-m-d H:i:s")));
 
       endif;

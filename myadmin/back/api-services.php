@@ -164,8 +164,7 @@ $language["language_code"] =>  $category_name[$check]
                     $MultiCatName = json_encode($MultiCatName);
 
                 //make a new category    
-                $insert = $conn->prepare("INSERT INTO categories SET category_name=:category_name,category_name_lang=:category_name_lang, 
-            category_line=:category_line, category_type=2,  category_secret=2");
+                $insert = $conn->prepare("INSERT INTO categories (category_name, category_name_lang, category_line, category_type, category_secret) VALUES (:category_name, :category_name_lang, :category_line, 2, 2)");
                 $insert = $insert->execute(array(
                     "category_name" => $category_name[$check],
                     "category_name_lang" => $MultiCatName,
@@ -388,13 +387,7 @@ endif;
 
             //insert a new service with data
 
-            $insert = $conn->prepare("INSERT INTO services SET service_api=:api,
-                 api_service=:api_service, api_detail=:detail, category_id=:category,
-                  service_line=:line, service_type=:type, service_package=:package, 
-                  service_name=:name, service_description=:desc , service_price=:price, 
-                  service_min=:min, service_max=:max , show_refill=:refill , price_profit=:price_profit, 
-name_lang=:multiName, 
-description_lang=:multi");
+            $insert = $conn->prepare("INSERT INTO services (service_api, api_service, api_detail, category_id, service_line, service_type, service_package, service_name, service_description, service_price, service_min, service_max, show_refill, price_profit, name_lang, description_lang) VALUES (:api, :api_service, :detail, :category, :line, :type, :package, :name, :desc, :price, :min, :max, :refill, :price_profit, :multiName, :multi)");
             $insert = $insert->execute(array(
                 "api" => $provider_id, "api_service" => $service_api_id,
                 "detail" => json_encode($detail), "category" => $cat_id, "line" => $serviceLine + 1, "type" => 2,

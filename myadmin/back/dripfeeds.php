@@ -74,7 +74,7 @@ if(!defined('BASEPATH')) {
     $pageCount      = ceil($count/$to); if( $page > $pageCount ): $page = 1; endif;
     $where          = ($page*$to)-$to;
     $paginationArr  = ["count"=>$pageCount,"current"=>$page,"next"=>$page+1,"previous"=>$page-1];
-    $orders         = $conn->prepare("SELECT * FROM orders INNER JOIN clients ON clients.client_id=orders.client_id INNER JOIN services ON services.service_id=orders.service_id $search ORDER BY orders.order_id DESC LIMIT $where,$to ");
+    $orders         = $conn->prepare("SELECT * FROM orders INNER JOIN clients ON clients.client_id=orders.client_id INNER JOIN services ON services.service_id=orders.service_id $search ORDER BY orders.order_id DESC LIMIT $to OFFSET $where ");
     $orders         -> execute(array());
     $orders         = $orders->fetchAll(PDO::FETCH_ASSOC);
     function orderStatu($statu){

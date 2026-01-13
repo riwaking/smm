@@ -43,7 +43,7 @@ if(!defined('BASEPATH')) {
     
     $where          = ($page*$to)-$to;
     $paginationArr  = ["count"=>$pageCount,"current"=>$page,"next"=>$page+1,"previous"=>$page-1];
-    $orders         = $conn->prepare("SELECT * FROM tasks LEFT JOIN clients ON clients.client_id=tasks.client_id LEFT JOIN orders ON orders.order_id=tasks.order_id LEFT JOIN services ON services.service_id=tasks.service_id $search ORDER BY tasks.task_id DESC LIMIT $where,$to ");
+    $orders         = $conn->prepare("SELECT * FROM tasks LEFT JOIN clients ON clients.client_id=tasks.client_id LEFT JOIN orders ON orders.order_id=tasks.order_id LEFT JOIN services ON services.service_id=tasks.service_id $search ORDER BY tasks.task_id DESC LIMIT $to OFFSET $where ");
     $orders         -> execute(array());
     $orders         = $orders->fetchAll(PDO::FETCH_ASSOC);
 
