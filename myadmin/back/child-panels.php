@@ -10,7 +10,7 @@ if(!defined('BASEPATH')) {
 
 
   if( route(2)  ==  "counter" ):
-    $count          = $conn->prepare("SELECT * FROM childpanels WHERE 1");
+    $count          = $conn->prepare("SELECT * FROM childpanels WHERE TRUE");
     $count        ->execute();
     $count          = $count->rowCount();
   endif;
@@ -51,10 +51,10 @@ if(!defined('BASEPATH')) {
         $search_link = "?search=" . $search_word . "&search_type=" . $search_where;
     else:
          
-        $count = $conn->prepare("SELECT * FROM childpanels WHERE 1");
+        $count = $conn->prepare("SELECT * FROM childpanels WHERE TRUE");
         $count->execute();
         $count = $count->rowCount();
-        $search = "WHERE 1";
+        $search = "WHERE TRUE";
     endif;
     // $to = 50;
     // $pageCount = ceil($count / $to);
@@ -63,7 +63,7 @@ if(!defined('BASEPATH')) {
     // endif;
     // $where = ($page * $to) - $to;
     $paginationArr = ["count" => $pageCount, "current" => $page, "next" => $page + 1, "previous" => $page - 1];
-    $payments = $conn->prepare("SELECT * FROM childpanels INNER JOIN clients ON clients.client_id = childpanels.client_id WHERE 1");
+    $payments = $conn->prepare("SELECT * FROM childpanels INNER JOIN clients ON clients.client_id = childpanels.client_id WHERE TRUE");
     $payments->execute(array());
     $payments = $payments->fetchAll(PDO::FETCH_ASSOC);
 

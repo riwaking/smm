@@ -154,8 +154,8 @@ endif;
       $count          = $count->rowCount();
       $search         = "WHERE orders.dripfeed='1' AND orders.subscriptions_type='1' $search_add ";
     endif;
-    $to             = $units["unit"];
-    $pageCount      = ceil($count/$to); if( $page > $pageCount ): $page = 1; endif;
+    $to             = $units["unit"] ?: 10;
+    $pageCount      = ($to > 0) ? ceil($count/$to) : 1; if( $page > $pageCount ): $page = 1; endif;
     $where          = ($page*$to)-$to;
     $paginationArr  = ["count"=>$pageCount,"current"=>$page,"next"=>$page+1,"previous"=>$page-1];
     $orders         = $conn->prepare("SELECT * FROM orders INNER JOIN clients ON clients.client_id=orders.client_id INNER JOIN services ON services.service_id=orders.service_id $search ORDER BY orders.order_id DESC LIMIT $to OFFSET $where ");
@@ -164,47 +164,47 @@ endif;
     $failCount      = $conn->prepare("SELECT * FROM orders WHERE orders.dripfeed='1' AND orders.subscriptions_type='1' AND order_error!=:error ");
     $failCount     -> execute(array("error"=>"-"));
     $failCount      = $failCount->rowCount();
-	
-	
-	//Cron bekleniyor
-	$cronpendingcount      = $conn->prepare("SELECT * FROM orders WHERE orders.dripfeed='2' AND orders.subscriptions_type='2' AND dripfeed_status=:dripfeed_status");
+        
+        
+        //Cron bekleniyor
+        $cronpendingcount      = $conn->prepare("SELECT * FROM orders WHERE orders.dripfeed='2' AND orders.subscriptions_type='2' AND dripfeed_status=:dripfeed_status");
     $cronpendingcount     -> execute(array("dripfeed_status"=>"active"));
     $cronpendingcount      = $cronpendingcount->rowCount();
-	
-	
-	/// Yükleniyor
-	$inprogresscount      = $conn->prepare("SELECT * FROM orders WHERE order_status=:order_status");
+        
+        
+        /// Yükleniyor
+        $inprogresscount      = $conn->prepare("SELECT * FROM orders WHERE order_status=:order_status");
     $inprogresscount     -> execute(array("order_status"=>"inprogress"));
     $inprogresscount      = $inprogresscount->rowCount();
-	
-	//Tamamlandı
-	$completedcount      = $conn->prepare("SELECT * FROM orders WHERE order_status=:order_status");
+        
+        //Tamamlandı
+        $completedcount      = $conn->prepare("SELECT * FROM orders WHERE order_status=:order_status");
     $completedcount     -> execute(array("order_status"=>"completed"));
     $completedcount      = $completedcount->rowCount();
-	
-	//Kısmen Tamamlandı
-	$partialcount      = $conn->prepare("SELECT * FROM orders WHERE order_status=:order_status");
+        
+        //Kısmen Tamamlandı
+        $partialcount      = $conn->prepare("SELECT * FROM orders WHERE order_status=:order_status");
     $partialcount     -> execute(array("order_status"=>"partial"));
     $partialcount      = $partialcount->rowCount();
-	
-	//Sırada / Sipariş Alındı
-	$pendingcount      = $conn->prepare("SELECT * FROM orders WHERE order_status=:order_status");
+        
+        //Sırada / Sipariş Alındı
+        $pendingcount      = $conn->prepare("SELECT * FROM orders WHERE order_status=:order_status");
     $pendingcount     -> execute(array("order_status"=>"pending"));
     $pendingcount      = $pendingcount->rowCount();
-	
-	//Gönderim Sırasında
-	$processingcount      = $conn->prepare("SELECT * FROM orders WHERE order_status=:order_status");
+        
+        //Gönderim Sırasında
+        $processingcount      = $conn->prepare("SELECT * FROM orders WHERE order_status=:order_status");
     $processingcount     -> execute(array("order_status"=>"processing"));
     $processingcount      = $processingcount->rowCount();
-	
-	
-	//İptal Edildi
-	$canceledcount      = $conn->prepare("SELECT * FROM orders WHERE order_status=:order_status");
+        
+        
+        //İptal Edildi
+        $canceledcount      = $conn->prepare("SELECT * FROM orders WHERE order_status=:order_status");
     $canceledcount     -> execute(array("order_status"=>"canceled"));
     $canceledcount      = $canceledcount->rowCount();
-	
-	
-	
+        
+        
+        
 
     function orderStatu($statu,$error,$cron){
       if( $cron == "cronpending" ):

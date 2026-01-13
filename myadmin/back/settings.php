@@ -780,7 +780,7 @@ elseif (route(2) == "payment-bonuses"):
       echo json_encode(["t" => "error", "m" => $errorText, "s" => $icon, "r" => $referrer, "time" => 0]);
       exit();
     elseif (!route(3)):
-      $bonusList = $conn->prepare("SELECT * FROM payments_bonus INNER JOIN payment_methods WHERE payment_methods.id = payments_bonus.bonus_method ORDER BY payment_methods.id DESC ");
+      $bonusList = $conn->prepare("SELECT * FROM payments_bonus INNER JOIN payment_methods ON payment_methods.id = payments_bonus.bonus_method ORDER BY payment_methods.id DESC ");
       $bonusList->execute(array());
       $bonusList = $bonusList->fetchAll(PDO::FETCH_ASSOC);
     else:
