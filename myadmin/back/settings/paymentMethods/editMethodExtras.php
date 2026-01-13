@@ -205,6 +205,13 @@ if ($methodId == 29) {
         "merchant" => $merchant
     ];
 }
+
+if ($methodId == 20) {
+    $liveSecretKey = htmlspecialchars($_POST["liveSecretKey"]);
+    $methodExtras = [
+        "liveSecretKey" => $liveSecretKey
+    ];
+}
 $methodExtras = json_encode($methodExtras);
 $update = $conn->prepare("UPDATE paymentmethods SET methodExtras=:extras WHERE methodId=:id");
 $update->execute([

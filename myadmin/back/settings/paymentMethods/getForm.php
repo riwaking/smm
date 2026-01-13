@@ -248,6 +248,13 @@ if ($method["methodId"] == 29) {
     
 }
 
+if ($method["methodId"] == 20) {
+    $form .= '<div class="form-group mb-3"><label class="form-label">Live Secret Key</label>
+    <input type="text"  name="liveSecretKey" class="form-control" value="' . $methodExtras["liveSecretKey"] . '" placeholder="live_secret_key_XXXXXX"/></div>';
+    $form .= '<div class="form-group mb-3"><label class="form-label">Callback URL</label>
+    <input type="text" class="form-control" disabled value="' . site_url('khalti/callback') . '"/></div>';
+}
+
 $form .= '<div class="custom-modal-footer"><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>&nbsp;&nbsp;<button type="submit" data-loading-text="Updating..." class="btn btn-primary">Edit</button></div></form>';
 
 ?>
