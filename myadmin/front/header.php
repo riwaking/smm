@@ -20,8 +20,8 @@
     <link rel="stylesheet" type="text/css" href="public/admin/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="public/admin/style.css">
     <link rel="stylesheet" type="text/css" href="public/admin/toastDemo.css">
-	<link rel="stylesheet" type="text/css" href="public/admin/tooltip.css">
-	
+        <link rel="stylesheet" type="text/css" href="public/admin/tooltip.css">
+        
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.css">
@@ -39,7 +39,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/css/bootstrap-select.css">
 <link rel="stylesheet" href="https://itsjavi.com/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css">
 <link rel="stylesheet" href="css/admin/image-picker.css">
-	<link href="css/admin/main.css" type="text/css" rel="stylesheet">
+        <link href="css/admin/main.css" type="text/css" rel="stylesheet">
+    <link href="css/admin/admin-modern.css" type="text/css" rel="stylesheet">
     <style>
  @import url("https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@600&display=swap");
 #loading {

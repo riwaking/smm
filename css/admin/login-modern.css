@@ -1,0 +1,282 @@
+/* ==========================================================================
+   SMM Panel Admin - Modern Login Page
+   Mobile-first SaaS-style login design
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary: #2176FF;
+  --primary-hover: #1a5fd9;
+  --primary-light: rgba(33, 118, 255, 0.1);
+  --success: #10b981;
+  --danger: #ef4444;
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-gradient-start: #667eea;
+  --bg-gradient-end: #764ba2;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --border-color: #e2e8f0;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --touch-target: 48px;
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+#container {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-height: 100vh !important;
+  padding: var(--space-lg) !important;
+  background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%) !important;
+  background-image: none !important;
+  overflow: auto !important;
+}
+
+.box {
+  width: 100% !important;
+  max-width: 420px !important;
+  margin: auto !important;
+}
+
+.form-box {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 100% !important;
+  padding: var(--space-xl) var(--space-lg) !important;
+  background: var(--bg-secondary) !important;
+  border-radius: var(--radius-xl) !important;
+  border: none !important;
+  box-shadow: var(--shadow-xl) !important;
+  backdrop-filter: none !important;
+}
+
+@media (min-width: 480px) {
+  .form-box {
+    padding: 48px 40px !important;
+  }
+}
+
+.ic-account {
+  width: 80px !important;
+  height: 80px !important;
+  margin-bottom: var(--space-lg) !important;
+  border: 3px solid var(--primary-light) !important;
+  border-radius: 50% !important;
+  background-color: var(--primary-light) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 24 24' fill='none' stroke='%232176FF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E") !important;
+  background-position: center !important;
+  background-size: 40px !important;
+  background-repeat: no-repeat !important;
+}
+
+.login-form-input {
+  width: 100% !important;
+  height: var(--touch-target) !important;
+  margin: var(--space-sm) auto !important;
+  padding: var(--space-md) var(--space-lg) !important;
+  border: 2px solid var(--border-color) !important;
+  border-radius: var(--radius-md) !important;
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 1rem !important;
+  transition: all var(--transition-fast) !important;
+}
+
+.login-form-input:focus {
+  outline: none !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 4px var(--primary-light) !important;
+}
+
+.login-form-input::placeholder {
+  color: var(--text-muted) !important;
+  font-weight: 400 !important;
+}
+
+.two_factor_input {
+  font-size: 1rem !important;
+  letter-spacing: 0.1em !important;
+}
+
+.two_factor_input::placeholder {
+  font-size: 0.9rem !important;
+  letter-spacing: normal !important;
+}
+
+.login-form-btn {
+  width: 100% !important;
+  height: 52px !important;
+  margin: var(--space-lg) auto var(--space-md) !important;
+  border: none !important;
+  border-radius: var(--radius-md) !important;
+  background: var(--primary) !important;
+  color: #fff !important;
+  font-family: var(--font-sans) !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all var(--transition-fast) !important;
+  box-shadow: 0 4px 14px 0 rgba(33, 118, 255, 0.39) !important;
+}
+
+.login-form-btn:hover {
+  background: var(--primary-hover) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px 0 rgba(33, 118, 255, 0.5) !important;
+}
+
+.login-form-btn:active {
+  transform: translateY(0) !important;
+}
+
+.text {
+  margin-top: var(--space-md) !important;
+  color: var(--text-secondary) !important;
+  font-size: 0.875rem !important;
+  text-align: center !important;
+}
+
+.text a {
+  color: var(--primary) !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  transition: color var(--transition-fast) !important;
+}
+
+.text a:hover {
+  color: var(--primary-hover) !important;
+  text-decoration: underline !important;
+}
+
+.form-check {
+  display: flex !important;
+  align-items: center !important;
+  gap: var(--space-sm) !important;
+  width: 100% !important;
+  margin: var(--space-md) 0 !important;
+}
+
+.form-check-input {
+  width: 20px !important;
+  height: 20px !important;
+  accent-color: var(--primary) !important;
+  cursor: pointer !important;
+}
+
+.form-check-label {
+  color: var(--text-secondary) !important;
+  font-size: 0.875rem !important;
+  cursor: pointer !important;
+}
+
+.alert {
+  width: 100% !important;
+  padding: var(--space-md) !important;
+  margin-bottom: var(--space-md) !important;
+  border-radius: var(--radius-md) !important;
+  font-size: 0.875rem !important;
+}
+
+.alert-danger {
+  background: rgba(239, 68, 68, 0.1) !important;
+  color: #991b1b !important;
+  border-left: 4px solid var(--danger) !important;
+}
+
+.alert-success {
+  background: rgba(16, 185, 129, 0.1) !important;
+  color: #065f46 !important;
+  border-left: 4px solid var(--success) !important;
+}
+
+@media (max-width: 480px) {
+  #container {
+    padding: var(--space-md) !important;
+  }
+  
+  .form-box {
+    padding: var(--space-lg) var(--space-md) !important;
+    border-radius: var(--radius-lg) !important;
+  }
+  
+  .ic-account {
+    width: 64px !important;
+    height: 64px !important;
+    background-size: 32px !important;
+  }
+  
+  .login-form-input {
+    height: 44px !important;
+    font-size: 16px !important;
+  }
+  
+  .login-form-btn {
+    height: 48px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-secondary: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border-color: #334155;
+  }
+  
+  .form-box {
+    background: var(--bg-secondary) !important;
+  }
+  
+  .login-form-input {
+    background: #0f172a !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+  }
+}
