@@ -10,7 +10,7 @@ if ($action == "services_list"):
 
 $category = isset($_POST["category"]) && $_POST["category"] !== '' ? intval($_POST["category"]) : 0;
 $services = $conn->prepare("SELECT * FROM services WHERE category_id=:c_id AND service_type=:type AND service_deleted=:deleted ORDER BY service_line ");
-$services->execute(array('c_id' => $category, 'type' => 2,"deleted" => 0));
+$services->execute(array('c_id' => $category, 'type' => '2', "deleted" => '0'));
 $services = $services->fetchAll(PDO::FETCH_ASSOC);
 if ($services):
 $serviceList = "";
