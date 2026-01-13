@@ -19,7 +19,7 @@ if( $admin["access"]["admin_access"] != 1  ){
 
 
 
-$failCount      = $conn->prepare("SELECT * FROM orders WHERE orders.dripfeed='1' && orders.subscriptions_type='1' && order_error!=:error ");
+$failCount      = $conn->prepare("SELECT * FROM orders WHERE orders.dripfeed='1' AND orders.subscriptions_type='1' AND order_error!=:error ");
   $failCount     -> execute(array("error"=>"-"));
   $failCount      = $failCount->rowCount();
 $todayCount      = $conn->prepare("SELECT * FROM orders WHERE last_check=:error ");

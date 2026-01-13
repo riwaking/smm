@@ -941,7 +941,7 @@ aria-expanded="false" aria-controls="navbar">
 <div id="navbar" class="collapse navbar-collapse">
 
 <ul class="nav navbar-nav navbar-left-block">
-<?php if ($admin["access"]["admin_access"]  && $_SESSION["msmbilisim_adminlogin"]) : ?>
+<?php if ($admin["access"]["admin_access"]  AND $_SESSION["msmbilisim_adminlogin"]) : ?>
 
 
 
@@ -955,7 +955,7 @@ href="<?php echo site_url("admin") ?>"><img height="15" width="15" src="img/admi
 
 
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["users"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["users"]): ?>
 <li class="" class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
 aria-haspopup="true" aria-expanded="false"><i class="fa fa-users"></i>
@@ -971,7 +971,7 @@ href="<?php echo site_url("admin/clients") ?>"><i class="fas fa-users"></i><span
 <?php endif; ?>
 
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["services"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["services"]): ?>
 
 <li class="" class="dropdown">
 
@@ -981,25 +981,25 @@ Services<span class="caret"></span></a>
 
 <ul class="dropdown-menu dropdown-max-height">
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["services"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["services"]): ?>
 <li class="<?php if (route(1) == "services") : echo 'active' ; endif; ?>"><a
 class="ajax-link" href="<?php echo site_url("admin/services") ?>"><i
 class="glyphicon glyphicon-list"></i><span> Services</span></a></li>
 <?php endif; ?>
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["update-prices"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["update-prices"]): ?>
 <li class="<?php if (route(1) == "update-prices") : echo 'active' ; endif; ?>"><a
 class="ajax-link" href="<?php echo site_url("admin/update-prices") ?>"><i
 class="fa fa-cloud-upload"></i><span> Update Prices</span></a></li>
 <?php endif; ?>
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["bulk"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["bulk"]): ?>
 <li class="<?php if (route(1) == "bulk") : echo 'active' ; endif; ?>"><a
 class="ajax-link" href="<?php echo site_url("admin/bulk") ?>"><i
 class="fa fa-list-ul"></i><span> Bulk Services Editor</span></a></li>
 <?php endif; ?>
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["bulk"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["bulk"]): ?>
 
 <li class="<?php if (route(1) == "bulk") : echo 'active' ; endif; ?>"><a
 
@@ -1009,14 +1009,14 @@ class="fa fa-list-ul"></i><span> Category Sort</span></a></li>
 
 
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["bulkc"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["bulkc"]): ?>
 <li class="<?php if (route(1) == "bulkc") : echo 'active' ; endif; ?>"><a
 class="ajax-link" href="<?php echo site_url("admin/bulkc") ?>"><i
 class="fa fa-list-ol"></i><span> Bulk Category Editor</span></a></li>
 <?php endif; ?>
 
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["synced-logs"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["synced-logs"]): ?>
 <li class="<?php if (route(1) == "synced_logs") : echo 'active' ;endif; ?>"><a
 class="ajax-link" href="<?php echo site_url("admin/synced_logs") ?>"><i
 class="fa fa-refresh"></i><span> Synced Logs</span></a></li>
@@ -1026,7 +1026,7 @@ class="fa fa-refresh"></i><span> Synced Logs</span></a></li>
 </ul></li>
 <?php endif; ?>
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["orders"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["orders"]): ?>
 <li class="" class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
 aria-haspopup="true" aria-expanded="false"><i class="fas fa-shopping-bag"></i>
@@ -1034,18 +1034,18 @@ Orders<span class="caret"></span></a>
 <ul class="dropdown-menu dropdown-max-height">
 
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["orders"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["orders"]): ?>
 <li class="<?php if (route(1) == "orders") : echo 'active' ; endif; ?>"><a
 class="ajax-link" href="<?php echo site_url("admin/orders") ?>"><i
 class="fas fa-shopping-bag"></i><span> Orders</span></a></li>
 <?php endif; ?>
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["tasks"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["tasks"]): ?>
 <li class="<?php if (route(1) == "tasks") : echo 'active' ; endif; ?>"><a class="ajax-link" href="<?php echo site_url("admin/tasks") ?>"><i class="fas fa-tasks"></i><span> <b>Order Refill and Cancel Tasks</b></span></a></li>
 <?php endif; ?>
 
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["dripfeed"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["dripfeed"]): ?>
 <?php if(countRow(["table"=>"orders","where"=>["dripfeed"=>2]])>0){   ?>
 <li class="<?php if (route(1) == " dripfeed") : echo 'active' ; endif; ?>"><a
 class="ajax-link" href="<?php echo site_url("admin/dripfeed") ?>"><i
@@ -1083,7 +1083,7 @@ class="ajax-link" href="<?php echo site_url("admin/subscriptions") ?>"><i class=
 
 
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["tickets"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["tickets"]): ?>
 <li class="<?php if (route(1) == "tickets") : echo 'active' ; endif; ?>"><a class="ajax-link"
 href="<?php echo site_url("admin/tickets") ?>"><i class="fas fa-headset"></i><span> Tickets
 <?php if(countRow(["table"=>"tickets","where"=>["client_new"=>2]])>0){
@@ -1100,7 +1100,7 @@ href="<?php echo site_url("admin/tickets") ?>"><i class="fas fa-headset"></i><sp
 <?php endif; ?>
 
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["additionals"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["additionals"]): ?>
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 aria-expanded="false"><i class="fa fa-question-circle"></i> Additionals <span
@@ -1108,7 +1108,7 @@ class="caret"></span></a>
 
 <ul class="dropdown-menu dropdown-max-height">
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["referral"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["referral"]): ?>
 <li class="<?php if (route(1) == "payouts") : echo 'active' ; endif; ?>"><a
     class="ajax-link" href="<?php echo site_url("admin/referrals") ?>"><i
 class="fas fa-bezier-curve"></i><span> Affiliates</span></a></li>
@@ -1116,7 +1116,7 @@ class="fas fa-bezier-curve"></i><span> Affiliates</span></a></li>
 
 
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["broadcast"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["broadcast"]): ?>
 <li class="<?php if (route(1) == "broadcasts") : echo 'active' ; endif; ?>"><a
     class="ajax-link" href="<?php echo site_url("admin/broadcasts") ?>"><i
 class="fas fa-bullhorn"></i><span> Broadcasts</span></a>
@@ -1125,47 +1125,47 @@ class="fas fa-bullhorn"></i><span> Broadcasts</span></a>
 
 
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["logs"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["logs"]): ?>
 <li><a class="ajax-link" href="<?php echo site_url("admin/logs") ?>"><span><i
 class="fas fa-file-text"></i> Logs</span></a>
 </li>
 <?php endif; ?>
 
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["reports"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["reports"]): ?>
 <li><a class="ajax-link" href="<?php echo site_url("admin/reports") ?>"><span><i
 class="fas fa-chart-line"></i> Reports</span></a>
 </li>
 <?php endif; ?>
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["videop"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["videop"]): ?>
 <li class="<?php if (route(1) == "earn") : echo 'active' ; endif; ?>"><a class="ajax-link"
     href="<?php echo site_url("admin/earn") ?>"><i class="fas fa-video"></i><span>
 Promotion</span></a></li>
 <?php endif; ?>
 
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["coupon"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["coupon"]): ?>
 <li class="<?php if (route(1) == "kuponlar") : echo 'active' ; endif; ?>"><a
     class="ajax-link" href="<?php echo site_url("admin/kuponlar") ?>"><i
 class="fas fa-tags"></i><span> Coupon Code</span></a></li>
 <?php endif; ?>
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["child-panels"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["child-panels"]): ?>
 <li class="<?php if (route(1) == "child-panels") : echo 'active' ; endif; ?>"><a
     class="ajax-link" href="<?php echo site_url("admin/child-panels") ?>"><i
 class="fas fa-child"></i><span> Child Panels</span></a></li>
 <?php endif; ?>
 
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["updates"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["updates"]): ?>
 <li class="<?php if (route(1) == "updates") : echo 'active' ; endif; ?>"><a class="ajax-link" href="<?php echo site_url("admin/updates") ?>"><i
 class="fas fa-bell"></i><span> Updates</span></a></li>
 <?php endif; ?>
 
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["news"]): ?>
-<li class="<?php if( route(1) == "payments" && route(2)=="bank" ): echo 'active' ; endif;
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["news"]): ?>
+<li class="<?php if( route(1) == "payments" AND route(2)=="bank" ): echo 'active' ; endif;
 ?>"><a href="<?php echo site_url("admin/payments/bank") ?>"><i class="fa fa-bank"></i>
     Payment Notificaions <span class="badge" style="background-color: #f0ad4e">
 <?=countRow(["table"=>"payments","where"=>["payment_method"=>4,"payment_status"=>1]]);?>
@@ -1178,7 +1178,7 @@ class="fas fa-bell"></i><span> Updates</span></a></li>
 <?php endif; ?>
 
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["appearance"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["appearance"]): ?>
 <li class="<?php if (route(1) == "appearance") : echo 'active' ; endif; ?>"><a class="ajax-link"
 href="<?php echo site_url("admin/appearance") ?>"><i class="fas fa-sun"></i><span>
 Appearance</span></a>
@@ -1187,7 +1187,7 @@ Appearance</span></a>
 
 
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["users"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["users"]): ?>
 <li class="<?php if (route(1) == "settings") : echo 'active' ; endif; ?>"><a class="ajax-link"
 href="<?php echo site_url("admin/settings") ?>"><i
 class="glyphicon glyphicon-cog"></i><span> Settings</span></a>
@@ -1216,7 +1216,7 @@ class="glyphicon glyphicon-cog"></i><span> Settings</span></a>
 
 
 
-<?php if ($admin["access"]["admin_access"] && $admin["access"]["manager"]): ?>
+<?php if ($admin["access"]["admin_access"] AND $admin["access"]["manager"]): ?>
 <li class="<?php if(route(1) == "manager") : echo "active" ; endif;?>"><a href="<?php echo site_url("admin/manager"); ?>" class="ajax-link"><i
 
     class="fas fa-shield-alt"></i> Manager</a></li>

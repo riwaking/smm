@@ -7,7 +7,7 @@ if (!$admin["access"]["super_admin"]){
 header("Location:" . site_url(""));
 }
 
-if( route(1) == "account" && $_POST ){
+if( route(1) == "account" AND $_POST ){
 
   $pass     = md5(sha1(md5($_POST["current_password"])));
   $new_pass = $_POST["password"];

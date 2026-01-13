@@ -104,7 +104,7 @@ $accessArray = json_encode($accessArray);
         $error      = 1;
         $errorText  = "The username must contain a minimum of 4 and a maximum of 32 characters, including letters and numbers..";
         $icon     = "error";
-    } elseif (!empty($phone) && $conn->query("SELECT * FROM admins WHERE username!='$username' && telephone='$telephone' ")->rowCount()) {
+    } elseif (!empty($phone) AND $conn->query("SELECT * FROM admins WHERE username!='$username' AND telephone='$telephone' ")->rowCount()) {
         $error      = 1;
         $errorText  = "The phone number you specified is used.";
         $icon     = "error";
@@ -173,7 +173,7 @@ elseif ($action == "new") :
         $error      = 1;
         $errorText  = "Please enter valid email format.";
         $icon     = "error";
-    } elseif ($conn->query("SELECT * FROM admins WHERE username!='$username' && admin_email='$email' ")->rowCount()) {
+    } elseif ($conn->query("SELECT * FROM admins WHERE username!='$username' AND admin_email='$email' ")->rowCount()) {
         $error      = 1;
         $errorText  = "The email address you entered is used.";
         $icon     = "error";
@@ -189,7 +189,7 @@ elseif ($action == "new") :
         $error      = 1;
         $errorText  = "The username you specified is used.";
         $icon     = "error";
-    } elseif (!empty($phone) && $conn->query("SELECT * FROM admins WHERE username!='$username' && telephone='$telephone' ")->rowCount()) {
+    } elseif (!empty($phone) AND $conn->query("SELECT * FROM admins WHERE username!='$username' AND telephone='$telephone' ")->rowCount()) {
         $error      = 1;
         $errorText  = "The phone number you specified is used.";
         $icon     = "error";
@@ -237,7 +237,7 @@ elseif ($action == "username") :
         $error      = 1;
         $errorText  = "The username must contain a minimum of 4 and a maximum of 32 characters, including letters and numbers..";
         $icon     = "error";
-    } elseif (($current_username != $username) && $conn->query("SELECT * FROM admins WHERE username='$username'")->rowCount()) {
+    } elseif (($current_username != $username) AND $conn->query("SELECT * FROM admins WHERE username='$username'")->rowCount()) {
         $error      = 1;
         $errorText  = "The username you specified is used.";
         $icon     = "error";

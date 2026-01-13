@@ -176,10 +176,10 @@ echo '<span class="category-name">'.$icon.$category.'</span>'; ?>
 <?php
 $api_price = $api_detail["rate"];
 ?>
-<div style="width:100px;<?php if (!$api_detail["rate"]): echo "Empty"; elseif ($services[$i]["service_api"] != 0 && from_to(get_currencies_array("all"), $settings["site_base_currency"], "INR", $services[$i]["service_price"]) > from_to(get_currencies_array("enabled"), $services[$i]["currency"], "INR", $api_price)):
+<div style="width:100px;<?php if (!$api_detail["rate"]): echo "Empty"; elseif ($services[$i]["service_api"] != 0 AND from_to(get_currencies_array("all"), $settings["site_base_currency"], "INR", $services[$i]["service_price"]) > from_to(get_currencies_array("enabled"), $services[$i]["currency"], "INR", $api_price)):
     echo "color: #38E54D;";
-    elseif ($services[$i]["service_api"] != 0 && from_to(get_currencies_array("all"), $settings["site_base_currency"], "INR", $services[$i]["service_price"]) < from_to(get_currencies_array("all"), $services[$i]["currency"], "INR", $api_price)):
-echo "color: #D2001A;";elseif($services[$i]["service_api"] != 0 && from_to(get_currencies_array("all"), $settings["site_base_currency"], "INR", $services[$i]["service_price"]) == from_to(get_currencies_array("all"), $services[$i]["currency"], "INR", $api_price)):
+    elseif ($services[$i]["service_api"] != 0 AND from_to(get_currencies_array("all"), $settings["site_base_currency"], "INR", $services[$i]["service_price"]) < from_to(get_currencies_array("all"), $services[$i]["currency"], "INR", $api_price)):
+echo "color: #D2001A;";elseif($services[$i]["service_api"] != 0 AND from_to(get_currencies_array("all"), $settings["site_base_currency"], "INR", $services[$i]["service_price"]) == from_to(get_currencies_array("all"), $services[$i]["currency"], "INR", $api_price)):
 echo "color: #FFB200;";
 endif;?>">
     <?php if ($settings["site_base_currency"] !== $services[$i]["currency"]) {
@@ -190,7 +190,7 @@ endif;?>">
     ?>
 </div>
 <div class="service-block__provider-value">
-    <?php if ($services[$i]["service_api"] != 0 && $api_detail["rate"]):
+    <?php if ($services[$i]["service_api"] != 0 AND $api_detail["rate"]):
     if ($settings["site_base_currency"] !== $services[$i]["currency"]) {
         echo "≈ ".format_amount_string($settings["site_base_currency"], from_to(get_currencies_array("all"), $services[$i]["currency"], $settings["site_base_currency"], $api_detail["rate"]));
     } elseif ($settings["site_base_currency"] == $services[$i]["currency"]) {
@@ -295,7 +295,7 @@ if ($api_detail["currency"] == "USD"):
 $api_price = $api_detail["rate"];
 endif;
 ?>
-<div style="<?php if ($service["service_api"] != 0 && $service["service_price"] > $api_price): echo "color: green"; elseif ($service["service_api"] != 0 && $service["service_price"] < $api_price): echo "color: red"; endif ?>">
+<div style="<?php if ($service["service_api"] != 0 AND $service["service_price"] > $api_price): echo "color: green"; elseif ($service["service_api"] != 0 AND $service["service_price"] < $api_price): echo "color: red"; endif ?>">
 <?php echo $service["service_price"] ?>
 </div>
 <?php if ($service["service_api"] != 0): echo '<div class="service-block__provider-value"><i class="fa fa-'.strtolower($api_detail["currency"]).'"></i> '.priceFormat($api_detail["rate"]).'</div>'; endif; ?>

@@ -31,7 +31,7 @@ endif;
     unset($_SESSION["client"]);
   endif;
 
-    if( route(3) && is_numeric(route(3)) ):
+    if( route(3) AND is_numeric(route(3)) ):
       $page = route(3);
     else:
       $page = 1;
@@ -86,19 +86,19 @@ endif;
             $error = 1;
             $errorText = "Bank can not be empty";
             $icon = "error";
-        elseif (empty($status) && $payment["payment_delivery"] == 1):
+        elseif (empty($status) AND $payment["payment_delivery"] == 1):
             $error = 1;
             $errorText = "Payment status can not be empty";
             $icon = "error";
         else:
            
-            if ($status == "3" && $payment["payment_delivery"] == 1):
+            if ($status == "3" AND $payment["payment_delivery"] == 1):
                 $conn->beginTransaction();
                 $update = $conn->prepare("UPDATE payments SET payment_status=:status, payment_bank=:bank, payment_delivery=:delivery, payment_note=:note, payment_update_date=:date, client_balance=:balance WHERE payment_id=:id ");
                 $update = $update->execute(array("id" => $id, "status" => 3, "delivery" => 2, "bank" => $bank, "note" => $note, "date" => date("Y-m-d H:i:s"), "balance" => $payment["balance"]));
                 $update2 = $conn->prepare("UPDATE clients SET balance=:balance WHERE client_id=:id ");
                 $update2 = $update2->execute(array("id" => $payment["client_id"], "balance" => $payment["payment_amount"] + $payment["balance"]));
-                if ($update2 && $update):
+                if ($update2 AND $update):
                     $conn->commit();
                     $error = 1;
                     $errorText = "Successful";
@@ -152,7 +152,7 @@ endif;
             $insert = $insert->execute(array("status" => 3, "delivery" => 2, "bank" => $bank, "mode" => "Manuel", "amount" => $amount, "method" => 6, "note" => $note, "date" => date("Y-m-d H:i:s"), "date2" => date("Y-m-d H:i:s"), "balance" => $user["balance"], "client_id" => $user["client_id"]));
             $update2 = $conn->prepare("UPDATE clients SET balance=:balance WHERE client_id=:id ");
             $update2 = $update2->execute(array("id" => $user["client_id"], "balance" => $amount + $user["balance"]));
-            if ($update2 && $insert):
+            if ($update2 AND $insert):
                 $conn->commit();
                 $error = 1;
                 $errorText = "Successful";
@@ -216,7 +216,7 @@ endif;
          if($_POST["add-remove"] == "remove"){
           $update2->execute(array("id" => $user["client_id"], "balance" => $user["balance"] - $amount));
          }
-            if ($update2 && $insert):
+            if ($update2 AND $insert):
                 
                 $conn->commit();
                 $error = 1;
@@ -268,12 +268,12 @@ endif;
 
    if (route(2) == "bank"):
     $statusList = ["all", "pending", "canceled", "completed"];
-    if (route(4) && in_array(route(4), $statusList)):
+    if (route(4) AND in_array(route(4), $statusList)):
         $status = route(4);
     elseif (!route(4) || !in_array(route(4), $statusList)):
         $status = "all";
     endif;
-    if ($_GET["search_type"] == "username" && $_GET["search"]):
+    if ($_GET["search_type"] == "username" AND $_GET["search"]):
         $search_where = $_GET["search_type"];
         $search_word = $_GET["search"];
         $clients = $conn->prepare("SELECT client_id FROM clients WHERE username LIKE '%" . $search_word . "%' ");
@@ -288,16 +288,16 @@ endif;
         endif;
         $id.= ")";
         $search = " payments.client_id IN " . $id;
-        $count = $conn->prepare("SELECT * FROM payments INNER JOIN clients ON clients.client_id = payments.client_id WHERE {$search} && payments.payment_method='6' ");
+        $count = $conn->prepare("SELECT * FROM payments INNER JOIN clients ON clients.client_id = payments.client_id WHERE {$search} AND payments.payment_method='6' ");
         $count->execute(array());
         $count = $count->rowCount();
-        $search = "WHERE {$search} && payments.payment_method='6' ";
+        $search = "WHERE {$search} AND payments.payment_method='6' ";
         $search_link = "?search=" . $search_word . "&search_type=" . $search_where;
     elseif ($status != "all"):
-        $count = $conn->prepare("SELECT * FROM payments WHERE payment_method=:method && payment_status=:status ");
+        $count = $conn->prepare("SELECT * FROM payments WHERE payment_method=:method AND payment_status=:status ");
         $count->execute(array("method" => 6, "status" => searchStatu($status)));
         $count = $count->rowCount();
-        $search = "WHERE payments.payment_status='" . searchStatu($status) . "' && payments.payment_method='6' ";
+        $search = "WHERE payments.payment_status='" . searchStatu($status) . "' AND payments.payment_method='6' ";
     elseif ($status == "all"):
         $count = $conn->prepare("SELECT * FROM payments WHERE payment_method=:method ");
         $count->execute(array("method" => 6));
@@ -317,7 +317,7 @@ endif;
     require admin_view('payments_bank');
     elseif( route(2) == "online" ):
 
-      if( $_GET["search_type"] == "username" && $_GET["search"] && countRow(["table"=>"clients","where"=>["username"=>$_GET["search"]]]) ):
+      if( $_GET["search_type"] == "username" AND $_GET["search"] AND countRow(["table"=>"clients","where"=>["username"=>$_GET["search"]]]) ):
         $search_where = $_GET["search_type"];
         $search_word  = urldecode($_GET["search"]);
         $clients      = $conn->prepare("SELECT client_id FROM clients WHERE username LIKE '%".$search_word."%' ");
@@ -325,13 +325,13 @@ endif;
         $clients      = $clients->fetchAll(PDO::FETCH_ASSOC);
         $id=  "("; foreach ($clients as $client) { $id.=$client["client_id"].","; } if( substr($id,-1) == "," ):  $id = substr($id,0,-1); endif; $id.=")";
         $search       = " payments.client_id IN ".$id;
-        $count        = $conn->prepare("SELECT * FROM payments INNER JOIN clients ON clients.client_id = payments.client_id WHERE {$search} && payments.payment_method!='7' && payments.payment_status='3' ");
+        $count        = $conn->prepare("SELECT * FROM payments INNER JOIN clients ON clients.client_id = payments.client_id WHERE {$search} AND payments.payment_method!='7' AND payments.payment_status='3' ");
         $count        -> execute(array());
         $count        = $count->rowCount();
-        $search       = "WHERE {$search} && payments.payment_method!='7' ";
+        $search       = "WHERE {$search} AND payments.payment_method!='7' ";
         $search_link  = "?search=".$search_word."&search_type=".$search_where;
       else:
-        $count          = $conn->prepare("SELECT * FROM payments WHERE payment_method!=:method && payment_status=:status ");
+        $count          = $conn->prepare("SELECT * FROM payments WHERE payment_method!=:method AND payment_status=:status ");
         $count        ->execute(array("method"=>7,"status"=>3));
         $count          = $count->rowCount();
         $search         = "WHERE payments.payment_method!='7' ";

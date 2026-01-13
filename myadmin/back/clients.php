@@ -166,7 +166,7 @@ $_SESSION["msmbilisim_userlogin"]      = 1;
           $error      = 1;
           $errorText  = "The username you specified is used.";
           $icon     = "error";
-        }elseif( !empty($phone) && userdata_check("telephone",$phone) ){
+        }elseif( !empty($phone) AND userdata_check("telephone",$phone) ){
           $error      = 1;
           $errorText  = "The phone number you specified is used.";
           $icon     = "error";
@@ -216,7 +216,7 @@ $_SESSION["msmbilisim_userlogin"]      = 1;
             $error      = 1;
             $errorText  = "Please enter a valid email format.";
             $icon     = "error";
-          }elseif( $conn->query("SELECT * FROM clients WHERE client_id!='$user_id' && email='$email' ")->rowCount() ){
+          }elseif( $conn->query("SELECT * FROM clients WHERE client_id!='$user_id' AND email='$email' ")->rowCount() ){
             $error      = 1;
             $errorText  = "The email address you entered is used.";
             $icon     = "error";
@@ -224,7 +224,7 @@ $_SESSION["msmbilisim_userlogin"]      = 1;
             $error      = 1;
             $errorText  = "The username must contain a minimum of 4 and a maximum of 32 characters, including letters and numbers.";
             $icon     = "error";
-          }elseif( !empty($phone) && $conn->query("SELECT * FROM clients WHERE client_id!='$user_id' && telephone='$telephone' ")->rowCount() ){
+          }elseif( !empty($phone) AND $conn->query("SELECT * FROM clients WHERE client_id!='$user_id' AND telephone='$telephone' ")->rowCount() ){
             $error      = 1;
             $errorText  = "The phone number you specified is used.";
             $icon     = "error";
@@ -295,8 +295,8 @@ $_SESSION["msmbilisim_userlogin"]      = 1;
         $colum  = rtrim($colum,",");
 
         $where  = "WHERE ";
-        if( $export_status != "all" ): $where.="client_type=".$export_status." &&"; endif;
-        if( $email_status != "all" ): $where.="email_type=".$email_status; else: if( substr($where,-2) == "&&" ): $where = substr($where,0,-2); endif; endif;
+        if( $export_status != "all" ): $where.="client_type=".$export_status." AND "; endif;
+        if( $email_status != "all" ): $where.="email_type=".$email_status; else: if( substr($where,-5) == " AND " ): $where = substr($where,0,-5); endif; endif;
         if( $where == "WHERE " ): $where = ""; endif;
 
           $row  = $conn->prepare("SELECT $colum FROM clients $where ORDER BY client_id DESC ");
@@ -319,10 +319,10 @@ $_SESSION["msmbilisim_userlogin"]      = 1;
       $client = route(3);
       foreach( $_POST["price"] as $id => $price ):
         if( $price == null ):
-          $delete = $conn->prepare("DELETE FROM clients_price WHERE client_id=:client && service_id=:service ");
+          $delete = $conn->prepare("DELETE FROM clients_price WHERE client_id=:client AND service_id=:service ");
           $delete->execute(array("service"=>$id,"client"=>$client));
         elseif( getRow(["table"=>"clients_price","where"=>["client_id"=>$client,"service_id"=>$id] ]) ):
-          $update = $conn->prepare("UPDATE clients_price SET client_id=:client, service_price=:price WHERE service_id=:service && client_id=:clientt ");
+          $update = $conn->prepare("UPDATE clients_price SET client_id=:client, service_price=:price WHERE service_id=:service AND client_id=:clientt ");
           $update->execute(array("service"=>$id,"client"=>$client,"clientt"=>$client,"price"=>$price));
         else:
           $insert = $conn->prepare("INSERT INTO clients_price SET client_id=:client, service_price=:price, service_id=:service ");
@@ -407,7 +407,7 @@ $_SESSION["msmbilisim_userlogin"]      = 1;
     $type   = $_GET["type"];
     $id     = $_GET["id"];
       if( $type == "on" ):
-        $search   = $conn->query("SELECT * FROM clients_category WHERE client_id='$client' && category_id='$id' ");
+        $search   = $conn->query("SELECT * FROM clients_category WHERE client_id='$client' AND category_id='$id' ");
         if( !$search->rowCount() ):
           $insert = $conn->prepare("INSERT INTO clients_category SET client_id=:client, category_id=:c_id  ");
           $insert->execute(array("client"=>$client,"c_id"=>$id));
@@ -420,9 +420,9 @@ $_SESSION["msmbilisim_userlogin"]      = 1;
           echo "0";
         endif;
       elseif( $type == "off" ):
-        $search   = $conn->query("SELECT * FROM clients_category WHERE client_id='$client' && category_id='$id' ");
+        $search   = $conn->query("SELECT * FROM clients_category WHERE client_id='$client' AND category_id='$id' ");
         if( $search->rowCount() ):
-          $delete = $conn->prepare("DELETE FROM clients_category WHERE client_id=:client && category_id=:c_id  ");
+          $delete = $conn->prepare("DELETE FROM clients_category WHERE client_id=:client AND category_id=:c_id  ");
           $delete->execute(array("client"=>$client,"c_id"=>$id));
             if( $delete ):
               echo "1";
@@ -438,7 +438,7 @@ $_SESSION["msmbilisim_userlogin"]      = 1;
     $type   = $_GET["type"];
     $id     = $_GET["id"];
       if( $type == "on" ):
-        $search   = $conn->query("SELECT * FROM clients_service WHERE client_id='$client' && service_id='$id' ");
+        $search   = $conn->query("SELECT * FROM clients_service WHERE client_id='$client' AND service_id='$id' ");
         if( !$search->rowCount() ):
           $insert = $conn->prepare("INSERT INTO clients_service SET client_id=:client, service_id=:c_id   ");
           $insert->execute(array("client"=>$client,"c_id"=>$id));
@@ -451,9 +451,9 @@ $_SESSION["msmbilisim_userlogin"]      = 1;
             echo "0";
         endif;
       elseif( $type == "off" ):
-        $search   = $conn->query("SELECT * FROM clients_service WHERE client_id='$client' && service_id='$id' ");
+        $search   = $conn->query("SELECT * FROM clients_service WHERE client_id='$client' AND service_id='$id' ");
         if( $search->rowCount() ):
-          $delete = $conn->prepare("DELETE FROM clients_service WHERE client_id=:client && service_id=:c_id  ");
+          $delete = $conn->prepare("DELETE FROM clients_service WHERE client_id=:client AND service_id=:c_id  ");
           $delete->execute(array("client"=>$client,"c_id"=>$id));
             if( $delete ):
               echo "1";
@@ -470,7 +470,7 @@ $_SESSION["msmbilisim_userlogin"]      = 1;
     $message  = $_POST["message"];
     $user     = $_POST["user_type"];
     $username = $_POST["username"];
-      if( $user == "secret" && !getRow(["table"=>"clients","where"=>["username"=>$username]]) ):
+      if( $user == "secret" AND !getRow(["table"=>"clients","where"=>["username"=>$username]]) ):
         $error    = 1;
         $errorText= "User not found";
         $icon     = "error";
@@ -478,7 +478,7 @@ $_SESSION["msmbilisim_userlogin"]      = 1;
         $error    = 1;
         $errorText= "Notification Message cannot be empty";
         $icon     = "error";
-      elseif( $type == "email" && $user == "all" ):
+      elseif( $type == "email" AND $user == "all" ):
         $users  = $conn->prepare("SELECT * FROM clients ");
         $users->execute(array());
         $users  = $users->fetchAll(PDO::FETCH_ASSOC);
@@ -503,7 +503,7 @@ endforeach;
         $error    = 1;
         $errorText= "Success";
         $icon     = "success";
-      elseif( $type == "email" && $user == "secret" ):
+      elseif( $type == "email" AND $user == "secret" ):
         $user= getRow(["table"=>"clients","where"=>["username"=>$username]]);
 
         $to = $user['email']; 
@@ -523,7 +523,7 @@ $headers .= 'Bcc: '.$from . "\r\n";
           $errorText= "Failed";
           $icon     = "error";
 } 
-      elseif( $type == "sms" && $user == "secret" ):
+      elseif( $type == "sms" AND $user == "secret" ):
           $user= getRow(["table"=>"clients","where"=>["username"=>$username]]);
           $sms = SMSUser($user["telephone"],$message);
             if( $sms ):
@@ -535,7 +535,7 @@ $headers .= 'Bcc: '.$from . "\r\n";
               $errorText= "Failed";
               $icon     = "error";
             endif;
-      elseif( $type == "sms" && $user == "all" ):
+      elseif( $type == "sms" AND $user == "all" ):
         $users  = $conn->prepare("SELECT * FROM clients ");
         $users->execute(array());
         $users  = $users->fetchAll(PDO::FETCH_ASSOC);

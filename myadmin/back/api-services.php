@@ -7,7 +7,7 @@ if( $admin["access"]["services"] != 1  ){
     exit();
 }
 session_start();
-if (route(2) && is_numeric(route(2))) :
+if (route(2) AND is_numeric(route(2))) :
     $page = route(2);
 else :
     $page = 1;
@@ -15,7 +15,7 @@ endif;
 
 $smmapi = new SMMApi();
 
-if (route(2) == "ajax_services_update" && !$_POST) {
+if (route(2) == "ajax_services_update" AND !$_POST) {
     $information = array(
         'type' => 'error',
         'message' => 'No data available, Please try again!',
@@ -26,7 +26,7 @@ if (route(2) == "ajax_services_update" && !$_POST) {
     Header("Location:" . site_url('admin/api-services'));
 }
 
-if (route(2) == "ajax_services_last" && (!$_SESSION["cat_data"] && !$_SESSION["multiple"])) {
+if (route(2) == "ajax_services_last" AND (!$_SESSION["cat_data"] AND !$_SESSION["multiple"])) {
     $information = array(
         'type' => 'error',
         'message' => 'No data available, Please try again!',
@@ -56,7 +56,7 @@ if (!route(2)) :
     $providers  = $providers->fetchAll(PDO::FETCH_ASSOC);
 
 
-elseif (route(2) == "ajax_services_update" && $_POST) :
+elseif (route(2) == "ajax_services_update" AND $_POST) :
 
 
     $provider_id = $_POST['api_fetch_id'];
@@ -66,12 +66,12 @@ elseif (route(2) == "ajax_services_update" && $_POST) :
     $provider = $provider->fetch(PDO::FETCH_ASSOC);
 
 
-if ($_POST && (empty($_POST['api_fetch_id']) ||  empty($provider))) :
+if ($_POST AND (empty($_POST['api_fetch_id']) ||  empty($provider))) :
 $information = array(
             "type" => "danger",
             "message" => "Provider must be there to fetch services",
         );
-   /* elseif ($_POST && (empty($_POST['profit']) || $_POST['profit'] < 0)) :
+   /* elseif ($_POST AND (empty($_POST['profit']) || $_POST['profit'] < 0)) :
         $information = array(
             "type" => "danger",
             "message" => "Profit must be more than 0",
@@ -110,7 +110,7 @@ $information = array(
 
 
 
-elseif (route(2) == "ajax_services_add" && $_POST) :
+elseif (route(2) == "ajax_services_add" AND $_POST) :
  
     parse_str(json_decode($_POST["form_data"]), $postData);
 

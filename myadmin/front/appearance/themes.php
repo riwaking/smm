@@ -15,7 +15,7 @@
 <td> <?php echo $theme["theme_name"]; if( $settings["site_theme"] == $theme["theme_dirname"] ): echo ' <span class="badge">Active</span>'; endif; ?> 
 </td>
 <td> <?php echo $theme["last_modified"]; ?>   <?php if( $settings["site_theme"] == $theme["theme_dirname"] ):
- if( $theme["colour"] == "2" && $theme["theme_dirname"] == "Simplify"):
+ if( $theme["colour"] == "2" AND $theme["theme_dirname"] == "Simplify"):
 echo ' 
 <div class="dropdown pull-right">
 <button type="button" class="btn btn-default btn-xs dropdown-toggle btn-xs-caret" data-toggle="dropdown">Colour Change <span class="caret"></span></button>
@@ -40,7 +40,7 @@ echo '
       </form>
 				 </ul>';
 endif;
-if( $theme["colour"] == "2" && $theme["theme_dirname"] == "Eternity"):
+if( $theme["colour"] == "2" AND $theme["theme_dirname"] == "Eternity"):
 echo ' 
 <div class="dropdown pull-right">
 <button type="button" class="btn btn-default btn-xs dropdown-toggle btn-xs-caret" data-toggle="dropdown">Colour Change <span class="caret"></span></button>
@@ -66,7 +66,7 @@ echo '
 				 </ul>';
 
 endif;
-if( $theme["colour"] == "2" && $theme["theme_dirname"] == "pitchy"):
+if( $theme["colour"] == "2" AND $theme["theme_dirname"] == "pitchy"):
 echo ' 
 <div class="dropdown pull-right">
 <button type="button" class="btn btn-default btn-xs dropdown-toggle btn-xs-caret" data-toggle="dropdown">Colour Change <span class="caret"></span></button>

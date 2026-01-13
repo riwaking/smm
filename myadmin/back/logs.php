@@ -8,13 +8,13 @@ if(!defined('BASEPATH')) {
     exit();
   endif;
 
-if( route(2) && is_numeric(route(2)) ):
+if( route(2) AND is_numeric(route(2)) ):
   $page = route(2);
 else:
   $page = 1;
 endif;
 
-if( $_GET["search_type"] == "username" && $_GET["search"] ):
+if( $_GET["search_type"] == "username" AND $_GET["search"] ):
   $search_where = $_GET["search_type"];
   $search_word  = urldecode($_GET["search"]);
   $clients      = $conn->prepare("SELECT client_id FROM clients WHERE username LIKE '%".$search_word."%' ");
@@ -27,7 +27,7 @@ if( $_GET["search_type"] == "username" && $_GET["search"] ):
   $count        = $count->rowCount();
   $search       = "WHERE {$search} ";
   $search_link  = "?search=".$search_word."&search_type=".$search_where;
-elseif( $_GET["search_type"] == "action" && $_GET["search"] ):
+elseif( $_GET["search_type"] == "action" AND $_GET["search"] ):
   $search_where = $_GET["search_type"];
   
   $search_word  = urldecode($_GET["search"]);

@@ -181,7 +181,7 @@ elseif (route(2) == "menu"):
     $menus = $conn->prepare("SELECT * FROM menus ORDER BY menu_line ");
     $menus->execute(array());
     $menus = $menus->fetchAll(PDO::FETCH_ASSOC);
-    if (route(3) == "add_internal" && $_POST):
+    if (route(3) == "add_internal" AND $_POST):
       foreach ($_POST as $key => $value) {
         $$key = $value;
       }
@@ -244,7 +244,7 @@ elseif (route(2) == "menu"):
       endif;
 
 
-    elseif (route(3) == "edit_menu" && $_POST):
+    elseif (route(3) == "edit_menu" AND $_POST):
       foreach ($_POST as $key => $value) {
         $$key = $value;
       }
@@ -289,7 +289,7 @@ elseif (route(2) == "integrations"):
   $access = $admin["access"]["inte"];
   if ($access):
 
-    if (route(3) == "edit" && $_POST):
+    if (route(3) == "edit" AND $_POST):
       foreach ($_POST as $key => $value) {
         $$key = $value;
       }
@@ -320,7 +320,7 @@ elseif (route(2) == "integrations"):
       exit();
     endif;
 
-    if (route(3) == "seo" && $_POST):
+    if (route(3) == "seo" AND $_POST):
       foreach ($_POST as $key => $value) {
         $$key = $value;
       }
@@ -347,7 +347,7 @@ elseif (route(2) == "integrations"):
       exit();
     endif;
 
-    if (route(3) == "google" && $_POST):
+    if (route(3) == "google" AND $_POST):
       foreach ($_POST as $key => $value) {
         $$key = $value;
       }
@@ -431,7 +431,7 @@ elseif (route(2) == "news"):
   $access = $admin["access"]["news"];
 
   if ($access):
-    if (route(3) == "new" && $_POST):
+    if (route(3) == "new" AND $_POST):
       foreach ($_POST as $key => $value) {
         $$key = $value;
       }
@@ -490,7 +490,7 @@ $insert = $insert->execute(array(
       endif;
       echo json_encode(["t" => "error", "m" => $errorText, "s" => $icon, "r" => $referrer, "time" => 1]);
       exit();
-    elseif (route(3) == "edit" && $_POST):
+    elseif (route(3) == "edit" AND $_POST):
       foreach ($_POST as $key => $value) {
         $$key = $value;
       }
@@ -595,7 +595,7 @@ elseif (route(2) == "language"):
     $languageList = $conn->prepare("SELECT * FROM languages");
     $languageList->execute(array());
     $languageList = $languageList->fetchAll(PDO::FETCH_ASSOC);
-    if (route(3) && route(3) != "new" && !countRow(["table" => "languages", "where" => ["language_code" => route(3)]])):
+    if (route(3) AND route(3) != "new" AND !countRow(["table" => "languages", "where" => ["language_code" => route(3)]])):
       header("Location:" . site_url("admin/appearance/language"));
     elseif (route(3) == "new"):
       include 'app/language/default.php';
@@ -605,7 +605,7 @@ elseif (route(2) == "language"):
       $language = $language->fetch(PDO::FETCH_ASSOC);
       include 'app/language/' . route(3) . '.php';
     endif;
-    if ($_POST && route(3) != "new" && countRow(["table" => "languages", "where" => ["language_code" => route(3)]])):
+    if ($_POST AND route(3) != "new" AND countRow(["table" => "languages", "where" => ["language_code" => route(3)]])):
       $html = '<?php ' . PHP_EOL . PHP_EOL;
       $html .= '$languageArray= [';
       foreach ($_POST["Language"] as $key => $value):
@@ -614,7 +614,7 @@ elseif (route(2) == "language"):
       $html .= '];';
       file_put_contents('app/language/' . route(3) . '.php', $html);
       header("Location:" . site_url("admin/appearance/language/" . route(3)));
-    elseif (route(3) == "new" && $_POST):
+    elseif (route(3) == "new" AND $_POST):
       $name = $_POST["language"];
       $code = $_POST["languagecode"];
       if (countRow(["table" => "languages", "where" => ["language_code" => $code]])):
@@ -634,14 +634,14 @@ elseif (route(2) == "language"):
           header("Location:" . site_url("admin/appearance/language/"));
         endif;
       endif;
-    elseif ($_GET["lang-default"] && $_GET["lang-id"]):
+    elseif ($_GET["lang-default"] AND $_GET["lang-id"]):
       $update = $conn->prepare("UPDATE languages SET default_language=:default");
       $update->execute(array("default" => 0));
       $update = $conn->prepare("UPDATE languages SET default_language=:default WHERE language_code=:code ");
       $update->execute(array("code" => $_GET["lang-id"], "default" => 1));
       header("Location:" . site_url("admin/appearance/language"));
-    elseif ($_GET["lang-type"] && $_GET["lang-id"]):
-      if (countRow(["table" => "languages", "where" => ["language_type" => "2"]]) > 1 && $_GET["lang-type"] == 1):
+    elseif ($_GET["lang-type"] AND $_GET["lang-id"]):
+      if (countRow(["table" => "languages", "where" => ["language_type" => "2"]]) > 1 AND $_GET["lang-type"] == 1):
         $update = $conn->prepare("UPDATE languages SET language_type=:type WHERE language_code=:code ");
         $update->execute(array("code" => $_GET["lang-id"], "type" => $_GET["lang-type"]));
       elseif ($_GET["lang-type"] == 2):
@@ -658,7 +658,7 @@ elseif (route(2) == "themes"):
       $check_if_column_exists = $conn->prepare("SELECT summary_card_background_color FROM settings WHERE id=1");
       $check_if_column_exists->execute();
       $check_if_column_exists = $check_if_column_exists->fetch(PDO::FETCH_ASSOC);
-      if (is_array($check_if_column_exists) && count($check_if_column_exists)) {
+      if (is_array($check_if_column_exists) AND count($check_if_column_exists)) {
 
       } else {
         $create_column = $conn->prepare("ALTER TABLE settings ADD summary_card_background_color varchar(100) DEFAULT 'theme_colour' AFTER downloaded_category_icons");
@@ -689,7 +689,7 @@ elseif (route(2) == "themes"):
     $theme = $conn->prepare("SELECT * FROM themes WHERE id=:id");
     $theme->execute(array("id" => route(4)));
     $theme = $theme->fetch(PDO::FETCH_ASSOC);
-    if (route(3) == "active" && countRow(["table" => "themes", "where" => ["theme_dirname" => $theme["theme_dirname"]]])):
+    if (route(3) == "active" AND countRow(["table" => "themes", "where" => ["theme_dirname" => $theme["theme_dirname"]]])):
       $update = $conn->prepare("UPDATE settings SET site_theme=:theme WHERE id=:id ");
       $update->execute(array("id" => 1, "theme" => $theme["theme_dirname"]));
       $update = $conn->prepare("UPDATE settings SET site_theme_alt=:site_theme_alt WHERE id=:id ");
@@ -719,7 +719,7 @@ elseif (route(2) == "themes"):
       }
 
       header("Location:" . site_url("admin/appearance/themes"));
-    elseif (route(3) && countRow(["table" => "themes", "where" => ["id" => route(3)]])):
+    elseif (route(3) AND countRow(["table" => "themes", "where" => ["id" => route(3)]])):
       $lyt = $_GET["file"];
       $theme = $conn->prepare("SELECT * FROM themes WHERE id=:id");
       $theme->execute(array("id" => route(3)));
@@ -755,7 +755,7 @@ elseif (route(2) == "themes"):
         header("Location:" . site_url("admin/appearance/themes/" . $theme["id"] . "?file=" . $lyt));
       endif;
 
-    elseif (route(3) && !countRow(["table" => "themes", "where" => ["id" => route(3)]])):
+    elseif (route(3) AND !countRow(["table" => "themes", "where" => ["id" => route(3)]])):
       header("Location:" . site_url("admin/appearance/themes"));
     else:
       $themes = $conn->prepare("SELECT * FROM themes");
@@ -856,7 +856,7 @@ elseif (route(2) == "blog"):
     $blogs->execute(array());
     $blogs = $blogs->fetchAll(PDO::FETCH_ASSOC);
 
-    if (route(3) == "new" && $_POST):
+    if (route(3) == "new" AND $_POST):
       foreach ($_POST as $key => $value) {
         $$key = $value;
       }
@@ -965,7 +965,7 @@ elseif (route(2) == "files"):
 
   if ($access):
     if ($_FILES["logo"]):
-      if ($_FILES["logo"] && ($_FILES["logo"]["type"] == "image/jpeg" || $_FILES["logo"]["type"] == "image/jpg" || $_FILES["logo"]["type"] == "image/png" || $_FILES["logo"]["type"] == "image/gif")):
+      if ($_FILES["logo"] AND ($_FILES["logo"]["type"] == "image/jpeg" || $_FILES["logo"]["type"] == "image/jpg" || $_FILES["logo"]["type"] == "image/png" || $_FILES["logo"]["type"] == "image/gif")):
         $logo_name = $_FILES["logo"]["name"];
         if (strpos($logo_name, "php") !== false) {
           exit;

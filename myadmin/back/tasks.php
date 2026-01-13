@@ -17,13 +17,13 @@ if(!defined('BASEPATH')) {
     unset($_SESSION["client"]);
   endif;
 
-    if( route(2) && is_numeric(route(2)) ):
+    if( route(2) AND is_numeric(route(2)) ):
       $page = route(2);
     else:
       $page = 1;
     endif;
 
-    if( $_GET["search_type"] == "order_id" && $_GET["search"] ):
+    if( $_GET["search_type"] == "order_id" AND $_GET["search"] ):
       $search_where = $_GET["search_type"];
       $search_word  = urldecode($_GET["search"]);
 
@@ -48,7 +48,7 @@ if(!defined('BASEPATH')) {
     $orders         = $orders->fetchAll(PDO::FETCH_ASSOC);
 
 
- if(route(3) && route(2) == "no"){
+ if(route(3) AND route(2) == "no"){
    
   $id     = route(3);
 
@@ -87,7 +87,7 @@ else:
 endif;    
 
 
- }elseif(route(3) && route(2) == "canceled"){
+ }elseif(route(3) AND route(2) == "canceled"){
  
   $id     = route(3);
 

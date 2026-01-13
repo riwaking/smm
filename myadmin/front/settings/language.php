@@ -19,7 +19,7 @@
               <div class="dropdown pull-right">
                 <button type="button" class="btn btn-default btn-xs dropdown-toggle btn-xs-caret" data-toggle="dropdown">Options <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                  <?php if( countRow(["table"=>"languages","where"=>["language_type"=>"2"]]) > 1 && $language["language_type"] == 2 ): ?>
+                  <?php if( countRow(["table"=>"languages","where"=>["language_type"=>"2"]]) > 1 AND $language["language_type"] == 2 ): ?>
                     <li>
                       <a href="<?php echo site_url('admin/settings/language/?lang-id='.$language["language_code"].'&lang-type=1') ?>">
                         Deactivate

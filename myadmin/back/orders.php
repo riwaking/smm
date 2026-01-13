@@ -22,7 +22,7 @@ $update = $conn->prepare("UPDATE units_per_page SET unit=:units WHERE page=:id")
 header("Location:".site_url("admin/$pageunits"));
 endif;
   if( route(2)  ==  "counter" ):
-    $count          = $conn->prepare("SELECT * FROM orders WHERE dripfeed=:dripfeed && subscriptions_type=:sub $search_add ");
+    $count          = $conn->prepare("SELECT * FROM orders WHERE dripfeed=:dripfeed AND subscriptions_type=:sub $search_add ");
     $count        ->execute(array("dripfeed"=>1,"sub"=>1));
     $count          = $count->rowCount();
     $services = $conn->prepare("SELECT * FROM services");
@@ -48,20 +48,20 @@ endif;
     unset($_SESSION["client"]);
   endif;
 
-    if( route(2) && is_numeric(route(2)) ):
+    if( route(2) AND is_numeric(route(2)) ):
       $page = route(2);
     else:
       $page = 1;
     endif;
 
     $statusList = ["all","pending","inprogress","completed","partial","canceled","processing","fail","cronpending"];
-    if( route(3) && in_array(route(3),$statusList) ):
+    if( route(3) AND in_array(route(3),$statusList) ):
       $status   = route(3);
     elseif( !route(3) || !in_array(route(3),$statusList) ):
       $status   = "all";
     endif;
 
-    if( $_GET["search_type"] == "username" && $_GET["search"] ):
+    if( $_GET["search_type"] == "username" AND $_GET["search"] ):
       $search_where = $_GET["search_type"];
       $search_word  = urldecode($_GET["search"]);
       $clients      = $conn->prepare("SELECT client_id FROM clients WHERE username LIKE '%".$search_word."%' ");
@@ -69,90 +69,90 @@ endif;
       $clients      = $clients->fetchAll(PDO::FETCH_ASSOC);
       $id=  "("; foreach ($clients as $client) { $id.=$client["client_id"].","; } if( substr($id,-1) == "," ):  $id = substr($id,0,-1); endif; $id.=")";
       $search       = " orders.client_id IN ".$id;
-      $count        = $conn->prepare("SELECT * FROM orders INNER JOIN clients ON clients.client_id = orders.client_id WHERE {$search} && orders.dripfeed='1' && orders.subscriptions_type='1' ");
+      $count        = $conn->prepare("SELECT * FROM orders INNER JOIN clients ON clients.client_id = orders.client_id WHERE {$search} AND orders.dripfeed='1' AND orders.subscriptions_type='1' ");
       $count        -> execute(array());
       $count        = $count->rowCount();
-      $search       = "WHERE {$search} && orders.dripfeed='1' && orders.subscriptions_type='1' ";
+      $search       = "WHERE {$search} AND orders.dripfeed='1' AND orders.subscriptions_type='1' ";
       $search_link  = "?search=".$search_word."&search_type=".$search_where;
-    elseif( $_GET["search_type"] == "order_id" && $_GET["search"] ):
+    elseif( $_GET["search_type"] == "order_id" AND $_GET["search"] ):
       $search_where = $_GET["search_type"];
       $search_word  = urldecode($_GET["search"]);
-      $count        = $conn->prepare("SELECT * FROM orders INNER JOIN clients ON clients.client_id = orders.client_id WHERE orders.order_id LIKE '%".$search_word."%' && orders.dripfeed='1' && orders.subscriptions_type='1' ");
+      $count        = $conn->prepare("SELECT * FROM orders INNER JOIN clients ON clients.client_id = orders.client_id WHERE orders.order_id LIKE '%".$search_word."%' AND orders.dripfeed='1' AND orders.subscriptions_type='1' ");
       $count        -> execute(array());
       $count        = $count->rowCount();
-      $search       = "WHERE orders.order_id LIKE '%".$search_word."%'  && orders.dripfeed='1' && orders.subscriptions_type='1' ";
+      $search       = "WHERE orders.order_id LIKE '%".$search_word."%'  AND orders.dripfeed='1' AND orders.subscriptions_type='1' ";
       $search_link  = "?search=".$search_word."&search_type=".$search_where;
-    elseif( $_GET["search_type"] == "order_url" && $_GET["search"] ):
+    elseif( $_GET["search_type"] == "order_url" AND $_GET["search"] ):
       $search_where = $_GET["search_type"];
       $search_word  = urldecode($_GET["search"]);
-      $count        = $conn->prepare("SELECT * FROM orders INNER JOIN clients ON clients.client_id = orders.client_id WHERE orders.order_url LIKE '%".$search_word."%' && orders.dripfeed='1' && orders.subscriptions_type='1' ");
+      $count        = $conn->prepare("SELECT * FROM orders INNER JOIN clients ON clients.client_id = orders.client_id WHERE orders.order_url LIKE '%".$search_word."%' AND orders.dripfeed='1' AND orders.subscriptions_type='1' ");
       $count        -> execute(array());
       $count        = $count->rowCount();
-      $search       = "WHERE orders.order_url LIKE '%".$search_word."%'  && orders.dripfeed='1' && orders.subscriptions_type='1' ";
+      $search       = "WHERE orders.order_url LIKE '%".$search_word."%'  AND orders.dripfeed='1' AND orders.subscriptions_type='1' ";
       $search_link  = "?search=".$search_word."&search_type=".$search_where;
     elseif( $_GET["subscription"] ):
       $subs_id      = $_GET["subscription"];
-      $count        = $conn->prepare("SELECT * FROM orders INNER JOIN clients ON clients.client_id = orders.client_id WHERE orders.order_id LIKE '%".$search_word."%' && orders.dripfeed='1' && orders.subscriptions_type='1' && orders.subscriptions_id='$subs_id' ");
+      $count        = $conn->prepare("SELECT * FROM orders INNER JOIN clients ON clients.client_id = orders.client_id WHERE orders.order_id LIKE '%".$search_word."%' AND orders.dripfeed='1' AND orders.subscriptions_type='1' AND orders.subscriptions_id='$subs_id' ");
       $count        -> execute(array());
       $count        = $count->rowCount();
-      $search       = "WHERE orders.subscriptions_id='$subs_id'  && orders.dripfeed='1' && orders.subscriptions_type='1' ";
+      $search       = "WHERE orders.subscriptions_id='$subs_id'  AND orders.dripfeed='1' AND orders.subscriptions_type='1' ";
       $search_link  = "?subscription=".$_GET["subscription"];
     elseif( $_GET["dripfeed"] ):
       $drip_id      = $_GET["dripfeed"];
-      $count        = $conn->prepare("SELECT * FROM orders INNER JOIN clients ON clients.client_id = orders.client_id WHERE orders.order_id LIKE '%".$search_word."%' && orders.dripfeed='1' && orders.subscriptions_type='1' && orders.dripfeed_id='$drip_id' ");
+      $count        = $conn->prepare("SELECT * FROM orders INNER JOIN clients ON clients.client_id = orders.client_id WHERE orders.order_id LIKE '%".$search_word."%' AND orders.dripfeed='1' AND orders.subscriptions_type='1' AND orders.dripfeed_id='$drip_id' ");
       $count        -> execute(array());
       $count        = $count->rowCount();
-      $search       = "WHERE orders.dripfeed_id='$drip_id'  && orders.dripfeed='1' && orders.subscriptions_type='1' ";
+      $search       = "WHERE orders.dripfeed_id='$drip_id'  AND orders.dripfeed='1' AND orders.subscriptions_type='1' ";
       $search_link  = "?dripfeed=".$_GET["subscription"];
     elseif( $status != "all" ):
-      if( $_GET["mode"] && $_GET["mode"] == "manuel" ):
-        $search_add   = " && orders.order_api=0";
+      if( $_GET["mode"] AND $_GET["mode"] == "manuel" ):
+        $search_add   = " AND orders.order_api=0";
         $search_link  = "?mode=".$_GET["mode"];
-      elseif( $_GET["mode"] && $_GET["mode"]== "auto" ):
-        $search_add   = " && orders.order_api!=0";
+      elseif( $_GET["mode"] AND $_GET["mode"]== "auto" ):
+        $search_add   = " AND orders.order_api!=0";
         $search_link  = "?mode=".$_GET["mode"];
       elseif( $_GET["service_id"] ):
-        $search_add   = " && orders.service_id=".$_GET["service_id"];
+        $search_add   = " AND orders.service_id=".$_GET["service_id"];
         $search_link  = "?service_id=".$_GET["service_id"];
       else:
         $search_add   = "";
       endif;
       if( $status == "fail" ):
-        $search_add  .= ' && orders.order_error!="-" ';
-        $count          = $conn->prepare("SELECT * FROM orders WHERE dripfeed=:dripfeed && subscriptions_type=:sub $search_add ");
+        $search_add  .= ' AND orders.order_error!="-" ';
+        $count          = $conn->prepare("SELECT * FROM orders WHERE dripfeed=:dripfeed AND subscriptions_type=:sub $search_add ");
         $count        ->execute(array("dripfeed"=>1,"sub"=>1));
         $count          = $count->rowCount();
-        $search         = "WHERE orders.dripfeed='1' && orders.subscriptions_type='1' $search_add ";
+        $search         = "WHERE orders.dripfeed='1' AND orders.subscriptions_type='1' $search_add ";
       elseif( $status == "cronpending" ):
-        $search_add  .= ' && orders.order_error="-" ';
-        $count          = $conn->prepare("SELECT * FROM orders WHERE order_detail=:detail && dripfeed=:dripfeed && subscriptions_type=:sub $search_add ");
+        $search_add  .= ' AND orders.order_error="-" ';
+        $count          = $conn->prepare("SELECT * FROM orders WHERE order_detail=:detail AND dripfeed=:dripfeed AND subscriptions_type=:sub $search_add ");
         $count        ->execute(array("dripfeed"=>1,"sub"=>1,"detail"=>"cronpending"));
         $count          = $count->rowCount();
-        $search         = "WHERE orders.dripfeed='1' && orders.subscriptions_type='1' && order_detail='cronpending' $search_add ";
+        $search         = "WHERE orders.dripfeed='1' AND orders.subscriptions_type='1' AND order_detail='cronpending' $search_add ";
       else:
-        $search_add  .= ' && orders.order_error="-" ';
-        $count          = $conn->prepare("SELECT * FROM orders WHERE order_detail!=:detail && order_status=:status && dripfeed=:dripfeed && subscriptions_type=:sub $search_add ");
+        $search_add  .= ' AND orders.order_error="-" ';
+        $count          = $conn->prepare("SELECT * FROM orders WHERE order_detail!=:detail AND order_status=:status AND dripfeed=:dripfeed AND subscriptions_type=:sub $search_add ");
         $count        ->execute(array("dripfeed"=>1,"sub"=>1,"status"=>$status,"detail"=>"cronpending"));
         $count          = $count->rowCount();
-        $search         = "WHERE orders.order_status='".$status."' && orders.dripfeed='1' && orders.subscriptions_type='1' && order_detail!='cronpending'  $search_add ";
+        $search         = "WHERE orders.order_status='".$status."' AND orders.dripfeed='1' AND orders.subscriptions_type='1' AND order_detail!='cronpending'  $search_add ";
       endif;
     elseif( $status == "all" ):
-      if( $_GET["mode"] && $_GET["mode"] == "manuel" ):
-        $search_add   = " && orders.order_api=0";
+      if( $_GET["mode"] AND $_GET["mode"] == "manuel" ):
+        $search_add   = " AND orders.order_api=0";
         $search_link  = "?mode=".$_GET["mode"];
-      elseif( $_GET["mode"] && $_GET["mode"]== "auto" ):
-        $search_add   = " && orders.order_api!=0";
+      elseif( $_GET["mode"] AND $_GET["mode"]== "auto" ):
+        $search_add   = " AND orders.order_api!=0";
         $search_link  = "?mode=".$_GET["mode"];
       elseif( $_GET["service_id"] ):
-        $search_add   = " && orders.service_id=".$_GET["service_id"];
+        $search_add   = " AND orders.service_id=".$_GET["service_id"];
         $search_link  = "?service_id=".$_GET["service_id"];
       else:
         $search_add   = "";
       endif;
-      $count          = $conn->prepare("SELECT * FROM orders WHERE dripfeed=:dripfeed && subscriptions_type=:sub $search_add ");
+      $count          = $conn->prepare("SELECT * FROM orders WHERE dripfeed=:dripfeed AND subscriptions_type=:sub $search_add ");
       $count        ->execute(array("dripfeed"=>1,"sub"=>1));
       $count          = $count->rowCount();
-      $search         = "WHERE orders.dripfeed='1' && orders.subscriptions_type='1' $search_add ";
+      $search         = "WHERE orders.dripfeed='1' AND orders.subscriptions_type='1' $search_add ";
     endif;
     $to             = $units["unit"];
     $pageCount      = ceil($count/$to); if( $page > $pageCount ): $page = 1; endif;
@@ -161,13 +161,13 @@ endif;
     $orders         = $conn->prepare("SELECT * FROM orders INNER JOIN clients ON clients.client_id=orders.client_id INNER JOIN services ON services.service_id=orders.service_id $search ORDER BY orders.order_id DESC LIMIT $where,$to ");
     $orders         -> execute(array());
     $orders         = $orders->fetchAll(PDO::FETCH_ASSOC);
-    $failCount      = $conn->prepare("SELECT * FROM orders WHERE orders.dripfeed='1' && orders.subscriptions_type='1' && order_error!=:error ");
+    $failCount      = $conn->prepare("SELECT * FROM orders WHERE orders.dripfeed='1' AND orders.subscriptions_type='1' AND order_error!=:error ");
     $failCount     -> execute(array("error"=>"-"));
     $failCount      = $failCount->rowCount();
 	
 	
 	//Cron bekleniyor
-	$cronpendingcount      = $conn->prepare("SELECT * FROM orders WHERE orders.dripfeed='2' && orders.subscriptions_type='2' && dripfeed_status=:dripfeed_status");
+	$cronpendingcount      = $conn->prepare("SELECT * FROM orders WHERE orders.dripfeed='2' AND orders.subscriptions_type='2' AND dripfeed_status=:dripfeed_status");
     $cronpendingcount     -> execute(array("dripfeed_status"=>"active"));
     $cronpendingcount      = $cronpendingcount->rowCount();
 	
@@ -276,7 +276,7 @@ endif;
             $update = $update->execute(array("id"=>$id,"remains"=>$remains,"statu"=>"partial","charge"=>$charge,"quantity"=>$order["order_quantity"] ));
             $update2= $conn->prepare("UPDATE clients SET balance=:balance, spent=:spent WHERE client_id=:id ");
             $update2= $update2->execute(array("id"=>$order["client_id"],"balance"=>$balance,"spent"=>$order["spent"]-$return ));
-              if( $update && $update2 ):
+              if( $update AND $update2 ):
                 $conn->commit();
                 $error      = 1;
                 $errorText  = "Success";
@@ -322,7 +322,7 @@ endif;
               $update = $update->execute(array("api_charge"=>0,"order_profit"=>0,"status"=>"canceled","price"=>0,"quantity"=>0,"remains"=>$order["order_quantity"],"error"=>"-","id"=>$id));
               $update2= $conn->prepare("UPDATE clients SET balance=:balance, spent=:spent WHERE client_id=:id ");
               $update2= $update2->execute(array("id"=>$order["client_id"],"balance"=>$balance,"spent"=>$spent ));
-                if( $update && $update2 ):
+                if( $update AND $update2 ):
 $conn->commit();
                 else:
 $conn->rollBack();
@@ -421,7 +421,7 @@ $profit = $order["order_charge"]-$api_charge;
     $update = $update->execute(array("api_charge"=>0,"order_profit"=>0,"status"=>"canceled","price"=>0,"error"=>"-","quantity"=>0,"remains"=>$order["order_quantity"],"id"=>$id));
     $update2= $conn->prepare("UPDATE clients SET balance=:balance, spent=:spent WHERE client_id=:id ");
     $update2= $update2->execute(array("id"=>$order["client_id"],"balance"=>$balance,"spent"=>$spent ));
-      if( $update && $update2 ):
+      if( $update AND $update2 ):
         $conn->commit();
       else:
         $conn->rollBack();

@@ -457,7 +457,7 @@ $.post(site_url+'admin/ajax_data',{action:'category-sortable',categories:array})
 $(function () {
 $('[data-toggle="tooltip"]').tooltip()
 });
-<?php if( route(2) == "themes" && route(3) ): ?>
+<?php if( route(2) == "themes" AND route(3) ): ?>
 (function () {
 var codeMirroSetting = {},
 codeType = '<?=$codeType;?>';
@@ -474,7 +474,7 @@ foldGutter: true,
 gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
 onKeyEvent: function(i, e) {
 // Hook into F11
-if ((e.keyCode == 122 || e.keyCode == 27) && e.type == 'keydown') {
+if ((e.keyCode == 122 || e.keyCode == 27) AND e.type == 'keydown') {
 e.stop();
 return toggleFullscreenEditing();
 }
@@ -491,7 +491,7 @@ foldGutter: true,
 gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
 onKeyEvent: function(i, e) {
 // Hook into F11
-if ((e.keyCode == 122 || e.keyCode == 27) && e.type == 'keydown') {
+if ((e.keyCode == 122 || e.keyCode == 27) AND e.type == 'keydown') {
 e.stop();
 return toggleFullscreenEditing();
 }
@@ -508,7 +508,7 @@ foldGutter: true,
 gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
 onKeyEvent: function(i, e) {
 // Hook into F11
-if ((e.keyCode == 122 || e.keyCode == 27) && e.type == 'keydown') {
+if ((e.keyCode == 122 || e.keyCode == 27) AND e.type == 'keydown') {
 e.stop();
 return toggleFullscreenEditing();
 }
@@ -523,7 +523,7 @@ foldGutter: true,
 gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
 onKeyEvent: function(i, e) {
 // Hook into F11
-if ((e.keyCode == 122 || e.keyCode == 27) && e.type == 'keydown') {
+if ((e.keyCode == 122 || e.keyCode == 27) AND e.type == 'keydown') {
 e.stop();
 return toggleFullscreenEditing();
 }
@@ -561,7 +561,7 @@ $(document).on('click', '.fullScreenButtonOff', function (e) {
 toggleFullscreenEditing();
 });
 $(document).keyup(function(e) {
-if (e.keyCode == 27 && $('.fullscreen').length >= 1) {
+if (e.keyCode == 27 AND $('.fullscreen').length >= 1) {
 toggleFullscreenEditing();
 }
 });

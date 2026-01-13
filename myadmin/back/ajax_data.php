@@ -3312,7 +3312,7 @@ elseif ($action == "download_category_icon_images"):
   $check_if_column_exists->execute();
 
   $check_if_column_exists = $check_if_column_exists->fetch(PDO::FETCH_ASSOC);
-  if (is_array($check_if_column_exists) && count($check_if_column_exists)) {
+  if (is_array($check_if_column_exists) AND count($check_if_column_exists)) {
 
   } else {
 
@@ -3795,10 +3795,10 @@ elseif ($action == "price_providerCal"):
   $percent = $_POST["percent"];
   $rate = $_POST["rate"];
   $total = $rate;
-  if (is_numeric($percent) && $percent > 0):
+  if (is_numeric($percent) AND $percent > 0):
     $total = $total + ($rate * $percent / 100);
   endif;
-  if (is_numeric($fixed) && $fixed > 0):
+  if (is_numeric($fixed) AND $fixed > 0):
     $total = $total + $fixed;
   endif;
   echo $total;
@@ -4134,10 +4134,10 @@ elseif ($action == "price_providerCal"):
   $percent = $_POST["percent"];
   $rate = $_POST["rate"];
   $total = $rate;
-  if (is_numeric($percent) && $percent > 0):
+  if (is_numeric($percent) AND $percent > 0):
     $total = $total + ($rate * $percent / 100);
   endif;
-  if (is_numeric($fixed) && $fixed > 0):
+  if (is_numeric($fixed) AND $fixed > 0):
     $total = $total + $fixed;
   endif;
   echo $total;
@@ -4217,7 +4217,7 @@ elseif ($action == "yeni_kupon"):
           ';
   echo json_encode(["content" => $return, "title" => "Create new coupon"]);
 
-elseif ($action == "edit_integration" && $_POST["id"] == "whatsapp"):
+elseif ($action == "edit_integration" AND $_POST["id"] == "whatsapp"):
   $id = $_POST["id"];
   $method = $conn->prepare("SELECT * FROM integrations WHERE method_get=:id ");
   $method->execute(array("id" => $id));
@@ -4270,7 +4270,7 @@ elseif ($action == "edit_integration" && $_POST["id"] == "whatsapp"):
 
 
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "paypal"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "paypal"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4294,7 +4294,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "paypal"):
   echo json_encode(["content" => $return, "title" => "Arrange payment method (Method: " . $method["method_name"] . ")"]);
 
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "phonepe"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "phonepe"):
 
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
@@ -4350,7 +4350,7 @@ verify_gmail($(this).val());
 
   echo json_encode(['content' => $return, 'title' => '']);
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "easypaisa"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "easypaisa"):
 
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
@@ -4410,7 +4410,7 @@ dialogsInBody: true
 
   echo json_encode(['content' => $return, 'title' => '']);
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "payfast"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "payfast"):
 
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
@@ -4438,7 +4438,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "payfast"):
 
   echo json_encode(['content' => $return, 'title' => 'Edit Payment Method']);
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "kashier"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "kashier"):
 
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
@@ -4465,7 +4465,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "kashier"):
  <input type="text" class="form-control" name="currency" value="' . $extra['currency'] . '" readonly></div><div class="modal-footer">' . "\r\n" . '  <button type="submit" class="btn btn-primary">Update</button>' . "\r\n" . '  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>' . "\r\n" . ' </div>' . "\r\n" . ' </form>';
 
   echo json_encode(['content' => $return, 'title' => '']);
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "flutterwave"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "flutterwave"):
 
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
@@ -4489,7 +4489,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "flutterwave"):
   $return .= '</code>' . "\r\n" . '</li>' . "\r\n" . '</ul>' . "\r\n" . '  </p>' . "\r\n" . ' <hr>' . "\r\n\r\n  <div class=\"form-group\"><label class=\"form-group__service-name\">Flutterwave Secret Key</label><input type=\"text\" class=\"form-control\" name=\"secret_key\" value=\"" . $extra["secret_key"] . "\"/>" . '</div></div><div class="modal-footer">' . "\r\n" . '  <button type="submit" class="btn btn-primary">Update</button>' . "\r\n" . '  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>' . "\r\n" . ' </div>' . "\r\n" . ' </form>';
 
   echo json_encode(['content' => $return, 'title' => '']);
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "stripe"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "stripe"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4512,7 +4512,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "stripe"):
   $return .= '</code>' . "\r\n" . '</li>' . "\r\n" . '</ul>' . "\r\n" . '  </p>' . "\r\n" . ' <hr>' . "\r\n\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Stripe Publishable Key</label>' . "\r\n" . '  <input type="text" class="form-control" name="stripe_publishable_key" value="' . $extra['stripe_publishable_key'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Stripe Secret Key</label>' . "\r\n" . '  <input type="text" class="form-control" name="stripe_secret_key" value="' . $extra['stripe_secret_key'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Stripe Webhooks Secret</label>' . "\r\n" . '  <input type="text" class="form-control" name="stripe_webhooks_secret" value="' . $extra['stripe_webhooks_secret'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Commission, %</label>' . "\r\n" . '  <input type="text" class="form-control" name="fee" value="' . $extra['fee'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Currency</label>' . "\r\n" . '  <input type="text" class="form-control" name="currency" value="' . $extra['currency'] . '">' . "\r\n" . ' </div>' . "\r\n\r\n\r\n" . '</div>' . "\r\n\r\n" . ' <div class="modal-footer">' . "\r\n" . '  <button type="submit" class="btn btn-primary">Update</button>' . "\r\n" . '  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>' . "\r\n" . ' </div>' . "\r\n" . ' </form>';
   echo json_encode(['content' => $return, 'title' => '']);
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "manualOne" || $_POST["id"] == "manualTwo" || $_POST["id"] == "manualThree" || $_POST["id"] == "manualFour" || $_POST["id"] == "manualFive" || $_POST["id"] == "manualSix" || $_POST["id"] == "manualSeven" || $_POST["id"] == "manualEight" || $_POST["id"] == "manualNine" || $_POST["id"] == "manualTen"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "manualOne" || $_POST["id"] == "manualTwo" || $_POST["id"] == "manualThree" || $_POST["id"] == "manualFour" || $_POST["id"] == "manualFive" || $_POST["id"] == "manualSix" || $_POST["id"] == "manualSeven" || $_POST["id"] == "manualEight" || $_POST["id"] == "manualNine" || $_POST["id"] == "manualTen"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4543,7 +4543,7 @@ dialogsInBody: true
 
 
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "payeer"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "payeer"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4567,7 +4567,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "payeer"):
   echo json_encode(['content' => $return, 'title' => '']);
 
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "opay"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "opay"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4605,7 +4605,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "opay"):
 
 
 
-elseif (($action == 'edit_paymentmethod') && ($_POST['id'] == 'perfectmoney')):
+elseif (($action == 'edit_paymentmethod') AND ($_POST['id'] == 'perfectmoney')):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4629,7 +4629,7 @@ elseif (($action == 'edit_paymentmethod') && ($_POST['id'] == 'perfectmoney')):
   echo json_encode(['content' => $return, 'title' => '']);
 
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "payeer"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "payeer"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4654,7 +4654,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "payeer"):
 
 
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "Coinbase"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "Coinbase"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4680,7 +4680,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "Coinbase"):
 
 
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "Webmoney"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "Webmoney"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4705,7 +4705,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "Webmoney"):
   echo json_encode(['content' => $return, 'title' => '']);
 
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "UnityPay"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "UnityPay"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4728,7 +4728,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "UnityPay"):
   $return .= '</code>' . "\r\n" . '</li>' . "\r\n" . '</ul>' . "\r\n" . '  </p>' . "\r\n" . ' <hr>' . "\r\n\r\n" . "\r\n" . '<div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">SECRET KEY</label>' . "\r\n" . '  <input type="text" class="form-control" name="secret_key" value="' . $extra['secret_key'] . '">' . "\r\n" . ' </div>' . "\r\n\r\n\r\n" . '</div>' . '<div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">PUBLIC ID</label>' . "\r\n" . '  <input type="text" class="form-control" name="reg_email" value="' . $extra['reg_email'] . '">' . "\r\n" . ' </div>' . '<div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">COMMISSION</label>' . "\r\n" . '  <input type="text" class="form-control" name="fee" value="' . $extra['fee'] . '">' . "\r\n" . ' </div>' . "\r\n\r\n\r\n" . '</div>' . ' <div class="modal-footer">' . "\r\n" . '  <button type="submit" class="btn btn-primary">Update</button>' . "\r\n" . '  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>' . "\r\n" . ' </div>' . "\r\n" . ' </form>';
   echo json_encode(['content' => $return, 'title' => '']);
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "coinpayments"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "coinpayments"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4750,7 +4750,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "coinpayments"):
   $return .= site_url('payment/' . $method['method_get']);
   $return .= '</code>' . "\r\n" . '</li>' . "\r\n" . '</ul>' . "\r\n" . '  </p>' . "\r\n" . ' <hr>' . "\r\n\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Coinpayments Public Key</label>' . "\r\n" . '  <input type="text" class="form-control" name="coinpayments_public_key" value="' . $extra['coinpayments_public_key'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Coinpayments Private Key</label>' . "\r\n" . '  <input type="text" class="form-control" name="coinpayments_private_key" value="' . $extra['coinpayments_private_key'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Coinpayments Crypto Currency</label>' . "\r\n" . '  <input type="text" class="form-control" name="coinpayments_currency" value="' . $extra['coinpayments_currency'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Merchant ID</label>' . "\r\n" . '  <input type="text" class="form-control" name="merchant_id" value="' . $extra['merchant_id'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">IPN Secret</label>' . "\r\n" . '  <input type="text" class="form-control" name="ipn_secret" value="' . $extra['ipn_secret'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Commission, %</label>' . "\r\n" . '  <input type="text" class="form-control" name="fee" value="' . $extra['fee'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Currency</label>' . "\r\n" . '  <input type="text" class="form-control" name="currency" value="' . $extra['currency'] . '">' . "\r\n" . ' </div>' . "\r\n\r\n\r\n" . '</div>' . "\r\n\r\n" . ' <div class="modal-footer">' . "\r\n" . '  <button type="submit" class="btn btn-primary">Update</button>' . "\r\n" . '  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>' . "\r\n" . ' </div>' . "\r\n" . ' </form>';
   echo json_encode(['content' => $return, 'title' => '']);
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "2checkout"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "2checkout"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4772,7 +4772,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "2checkout"):
   $return .= site_url('payment/' . $method['method_get']);
   $return .= '</code>' . "\r\n" . '</li>' . "\r\n" . '</ul>' . "\r\n" . '  </p>' . "\r\n" . ' <hr>' . "\r\n\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Seller ID</label>' . "\r\n" . '  <input type="text" class="form-control" name="seller_id" value="' . $extra['seller_id'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Private Key</label>' . "\r\n" . '  <input type="text" class="form-control" name="private_key" value="' . $extra['private_key'] . '">' . "\r\n" . ' </div>' . "\r\n" . '<div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Commission, %</label>' . "\r\n" . '  <input type="text" class="form-control" name="fee" value="' . $extra['fee'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Currency</label>' . "\r\n" . '  <input type="text" class="form-control" name="currency" value="' . $extra['currency'] . '">' . "\r\n" . ' </div>' . "\r\n\r\n\r\n" . '</div>' . "\r\n\r\n" . ' <div class="modal-footer">' . "\r\n" . '  <button type="submit" class="btn btn-primary">Update</button>' . "\r\n" . '  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>' . "\r\n" . ' </div>' . "\r\n" . ' </form>';
   echo json_encode(['content' => $return, 'title' => '']);
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "payoneer"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "payoneer"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4793,7 +4793,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "payoneer"):
   $return .= '>Inactive</option>' . "\r\n" . '</select>' . "\r\n" . '  </div>' . "\r\n" . ' </div>' . "\r\n\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Visible name</label>' . "\r\n" . '  <input type="text" class="form-control" name="name" value="' . $extra['name'] . '">' . "\r\n" . ' </div>' . "\r\n\r\n" . '<div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Email</label>' . "\r\n" . '  <input type="text" class="form-control" name="email" value="' . $extra['email'] . '">' . "\r\n" . ' </div>' . "\r\n\r\n\r\n" . '</div>' . "\r\n\r\n" . ' <div class="modal-footer">' . "\r\n" . '  <button type="submit" class="btn btn-primary">Update</button>' . "\r\n" . '  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>' . "\r\n" . ' </div>' . "\r\n" . ' </form>';
   echo json_encode(['content' => $return, 'title' => '']);
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "mollie"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "mollie"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4817,7 +4817,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "mollie"):
   echo json_encode(['content' => $return, 'title' => '']);
 
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "paytm"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "paytm"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4841,7 +4841,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "paytm"):
   echo json_encode(['content' => $return, 'title' => '']);
 
 
-elseif (($action == 'edit_paymentmethod') && ($_POST['id'] == 'Cashmaal')):
+elseif (($action == 'edit_paymentmethod') AND ($_POST['id'] == 'Cashmaal')):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4864,7 +4864,7 @@ elseif (($action == 'edit_paymentmethod') && ($_POST['id'] == 'Cashmaal')):
   $return .= '</code>' . "\r\n" . '</li>' . "\r\n" . '</ul>' . "\r\n" . '  </p>' . "\r\n" . ' <hr>' . "\r\n\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Web ID</label>' . "\r\n" . '  <input type="text" class="form-control" name="web_id" value="' . $extra['web_id'] . '">' . "\r\n" . ' </div>' . "\r\n" . '<div class="form-group">' . "\r\n" . '<div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Commission, %</label>' . "\r\n" . '  <input type="text" class="form-control" name="fee" value="' . $extra['fee'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Currency</label>' . "\r\n" . '  <input type="text" class="form-control" name="currency" value="' . $extra['currency'] . '" readonly>' . "\r\n" . ' </div>' . "\r\n\r\n\r\n" . '</div>' . "\r\n\r\n" . ' <div class="modal-footer">' . "\r\n" . '  <button type="submit" class="btn btn-primary">Update</button>' . "\r\n" . '  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>' . "\r\n" . ' </div>' . "\r\n" . ' </form>';
   echo json_encode(['content' => $return, 'title' => '']);
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "instamojo"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "instamojo"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4889,7 +4889,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "instamojo"):
 
 
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "paystack"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "paystack"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4915,7 +4915,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "paystack"):
 
 
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "razorpay"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "razorpay"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4939,7 +4939,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "razorpay"):
   echo json_encode(['content' => $return, 'title' => '']);
 
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "iyzico"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "iyzico"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4963,7 +4963,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "iyzico"):
   echo json_encode(['content' => $return, 'title' => '']);
 
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "authorize-net"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "authorize-net"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -4989,7 +4989,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "authorize-net"):
 
 
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "mercadopago"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "mercadopago"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -5012,7 +5012,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "mercadopago"):
   $return .= '</code>' . "\r\n" . '</li>' . "\r\n" . '</ul>' . "\r\n" . '  </p>' . "\r\n" . ' <hr>' . "\r\n\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Live Access Token</label>' . "\r\n" . '  <input type="text" class="form-control" name="live_access_token" value="' . $extra['live_access_token'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Commission, %</label>' . "\r\n" . '  <input type="text" class="form-control" name="fee" value="' . $extra['fee'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Currency</label>' . "\r\n" . '  <input type="text" class="form-control" name="currency" value="' . $extra['currency'] . '">' . "\r\n" . ' </div>' . "\r\n\r\n\r\n" . '</div>' . "\r\n\r\n" . ' <div class="modal-footer">' . "\r\n" . '  <button type="submit" class="btn btn-primary">Update</button>' . "\r\n" . '  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>' . "\r\n" . ' </div>' . "\r\n" . ' </form>';
   echo json_encode(['content' => $return, 'title' => '']);
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "payumoney"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "payumoney"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -5037,7 +5037,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "payumoney"):
 
 
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "ravepay"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "ravepay"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -5061,7 +5061,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "ravepay"):
   echo json_encode(['content' => $return, 'title' => '']);
 
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "pagseguro"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "pagseguro"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -5086,7 +5086,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "pagseguro"):
 
 
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "shopier"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "shopier"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -5151,7 +5151,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "shopier"):
   $return .= '>User should not pay this commission</option>' . "\r\n" . '</select>' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Commission, %</label>' . "\r\n" . '  <input type="text" class="form-control" name="fee" value="' . $extra['fee'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Currency</label>' . "\r\n" . '  <input type="text" class="form-control" name="currency" value="' . $extra['currency'] . '">' . "\r\n" . ' </div>' . "\r\n\r\n\r\n" . '</div>' . "\r\n\r\n" . ' <div class="modal-footer">' . "\r\n" . '  <button type="submit" class="btn btn-primary">Update</button>' . "\r\n" . '  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>' . "\r\n" . ' </div>' . "\r\n" . ' </form>';
   echo json_encode(['content' => $return, 'title' => '']);
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "paytr"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "paytr"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -5174,7 +5174,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "paytr"):
   $return .= '</code>' . "\r\n" . '</li>' . "\r\n" . '</ul>' . "\r\n" . '  </p>' . "\r\n" . ' <hr>' . "\r\n\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Merchant id</label>' . "\r\n" . '  <input type="text" class="form-control" name="merchant_id" value="' . $extra['merchant_id'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Merchant key</label>' . "\r\n" . '  <input type="text" class="form-control" name="merchant_key" value="' . $extra['merchant_key'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Merchant salt</label>' . "\r\n" . '  <input type="text" class="form-control" name="merchant_salt" value="' . $extra['merchant_salt'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Commission, %</label>' . "\r\n" . '  <input type="text" class="form-control" name="fee" value="' . $extra['fee'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Currency</label>' . "\r\n" . '  <input type="text" class="form-control" name="currency" value="' . $extra['currency'] . '">' . "\r\n" . ' </div>' . "\r\n\r\n\r\n" . '</div>' . "\r\n\r\n" . ' <div class="modal-footer">' . "\r\n" . '  <button type="submit" class="btn btn-primary">Update</button>' . "\r\n" . '  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>' . "\r\n" . ' </div>' . "\r\n" . ' </form>';
   echo json_encode(['content' => $return, 'title' => '']);
 
-elseif (($action == 'edit_paymentmethod') && ($_POST['id'] == 'paytmqr')):
+elseif (($action == 'edit_paymentmethod') AND ($_POST['id'] == 'paytmqr')):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -5198,7 +5198,7 @@ elseif (($action == 'edit_paymentmethod') && ($_POST['id'] == 'paytmqr')):
   echo json_encode(['content' => $return, 'title' => '']);
 
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "paytr_havale"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "paytr_havale"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -5221,7 +5221,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "paytr_havale"):
   $return .= '</code>' . "\r\n" . '</li>' . "\r\n" . '</ul>' . "\r\n" . '  </p>' . "\r\n" . ' <hr>' . "\r\n\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Merchant id</label>' . "\r\n" . '  <input type="text" class="form-control" name="merchant_id" value="' . $extra['merchant_id'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Merchant key</label>' . "\r\n" . '  <input type="text" class="form-control" name="merchant_key" value="' . $extra['merchant_key'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Merchant salt</label>' . "\r\n" . '  <input type="text" class="form-control" name="merchant_salt" value="' . $extra['merchant_salt'] . '">' . "\r\n" . ' </div>' . "\r\n" . ' <div class="form-group">' . "\r\n" . '  <label class="form-group__service-name">Commission, %</label>' . "\r\n" . '  <input type="text" class="form-control" name="fee" value="' . $extra['fee'] . '">' . "\r\n" . ' </div>' . "\r\n\r\n\r\n" . '</div>' . "\r\n\r\n" . ' <div class="modal-footer">' . "\r\n" . '  <button type="submit" class="btn btn-primary">Update</button>' . "\r\n" . '  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>' . "\r\n" . ' </div>' . "\r\n" . ' </form>';
   echo json_encode(['content' => $return, 'title' => '']);
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "paywant"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "paywant"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -5274,7 +5274,7 @@ elseif ($action == "edit_paymentmethod" && $_POST["id"] == "paywant"):
   $return .= '> Money Order / EFT' . "\r\n" . '  </label>' . "\r\n" . ' </div>' . "\r\n" . '</div>' . "\r\n" . '  </div>' . "\r\n\r\n\r\n" . '</div>' . "\r\n\r\n" . ' <div class="modal-footer">' . "\r\n" . '  <button type="submit" class="btn btn-primary">Update</button>' . "\r\n" . '  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>' . "\r\n" . ' </div>' . "\r\n" . ' </form>';
   echo json_encode(['content' => $return, 'title' => '']);
 
-elseif ($action == "edit_paymentmethod" && $_POST["id"] == "havale-eft"):
+elseif ($action == "edit_paymentmethod" AND $_POST["id"] == "havale-eft"):
   $id = $_POST['id'];
   $method = $conn->prepare('SELECT * FROM payment_methods WHERE method_get=:id ');
   $method->execute(['id' => $id]);
@@ -5936,7 +5936,7 @@ elseif ($action == "details"):
   echo json_encode(["content" => $return, "title" => "Detail"]);
 elseif ($action == "price_user"):
   $id = $_POST["id"];
-  $price = $conn->prepare("SELECT *,services.service_id as serviceid,services.service_price as price,clients_price.service_price as clientprice FROM services LEFT JOIN clients_price ON clients_price.service_id=services.service_id && clients_price.client_id=:id ");
+  $price = $conn->prepare("SELECT *,services.service_id as serviceid,services.service_price as price,clients_price.service_price as clientprice FROM services LEFT JOIN clients_price ON clients_price.service_id=services.service_id AND clients_price.client_id=:id ");
   $price->execute(array("id" => $id));
   $price = $price->fetchAll(PDO::FETCH_ASSOC);
   $return = '<form class="form" action="' . site_url("admin/clients/price/" . $id) . '" method="post" data-xhr="true">
@@ -6600,7 +6600,7 @@ elseif ($action == "add_currency"):
 elseif ($action == "edit_admin_password"):
   $id = $_POST["id"];
 
-  if ($id == 1 && $admin["admin_id"] != 1):
+  if ($id == 1 AND $admin["admin_id"] != 1):
 
     $id = $id + 1;
   endif;
@@ -6625,7 +6625,7 @@ elseif ($action == "edit_admin_password"):
 
 elseif ($action == "edit_admin"):
   $id = $_POST["id"];
-  if ($id == 1 && $admin["admin_id"] != 1):
+  if ($id == 1 AND $admin["admin_id"] != 1):
     $id = $id + 1;
   endif;
   $adminData = $conn->prepare("SELECT * FROM admins WHERE admin_id=:id");
@@ -6720,7 +6720,7 @@ elseif ($action == "edit_admin"):
   echo json_encode(["content" => $return, "title" => "Edit Admin"]);
 
 
-elseif ($action == "add_admin" && $admin["admin_type"] == 3):
+elseif ($action == "add_admin" AND $admin["admin_type"] == 3):
 
   $permission_array = json_decode($settings["permissions"], true);
 

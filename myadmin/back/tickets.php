@@ -21,14 +21,14 @@ elseif (!is_numeric(route(2))):
     $action = route(2);
 endif;
 if (empty($action)):
-    if ($_GET["search"] == "unread" && $_GET["search"]):
+    if ($_GET["search"] == "unread" AND $_GET["search"]):
         $search = " client_new='2' ";
         $count = $conn->prepare("SELECT * FROM tickets INNER JOIN clients ON clients.client_id = tickets.client_id WHERE {$search}");
         $count->execute(array());
         $count = $count->rowCount();
         $search = "WHERE {$search}";
         $search_link = "?search=unread";
-    elseif ($_GET["search_type"] == "client" && $_GET["search_type"]):
+    elseif ($_GET["search_type"] == "client" AND $_GET["search_type"]):
         $search_where = $_GET["search_type"];
         $search_word = $_GET["search"];
         $clients = $conn->prepare("SELECT client_id FROM clients WHERE username LIKE '%" . $search_word . "%' ");
@@ -115,7 +115,7 @@ endif;
                    $insert = $conn->prepare("INSERT INTO ticket_reply SET ticket_id=:t_id, time=:time, support=:support, message=:message, client_id=:client_id");
             $insert = $insert->execute($tr_arr);
            // echo $update->debugDumpParams(); die;
-            if ($insert && $update):
+            if ($insert AND $update):
 
 if ($settings["alert_newmessage"] ==  2) {
 $htmlContent = "Hello,
@@ -376,7 +376,7 @@ $headers .= 'Bcc: '.$from . "\r\n";
             }
             $insert2 = $conn->prepare("INSERT INTO ticket_reply SET ticket_id=:t_id, client_id=:c_id, support=:support, message=:message, time=:time ");
             $insert2 = $insert2->execute(array("t_id" => $ticket_id, "c_id" => $user["client_id"], "support" => 2, "message" => htmlspecialchars($message), "time" => date("Y.m.d H:i:s")));
-            if ($insert && $insert2):
+            if ($insert AND $insert2):
                 $conn->commit();
                 $referrer = site_url("admin/tickets");
                 $error = 1;

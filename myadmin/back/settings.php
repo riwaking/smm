@@ -61,7 +61,7 @@ elseif (route(2) == "general"):
       }
 
 
-      if ($_FILES["logo"] && ($_FILES["logo"]["type"] == "image/jpeg" || $_FILES["logo"]["type"] == "image/jpg" || $_FILES["logo"]["type"] == "image/png" || $_FILES["logo"]["type"] == "image/gif")):
+      if ($_FILES["logo"] AND ($_FILES["logo"]["type"] == "image/jpeg" || $_FILES["logo"]["type"] == "image/jpg" || $_FILES["logo"]["type"] == "image/png" || $_FILES["logo"]["type"] == "image/gif")):
         $logo_name = $_FILES["logo"]["name"];
         $uzanti = substr($logo_name, -4, 4);
         $logo_newname = "img/panel/" . md5(rand(10, 999)) . ".png";
@@ -71,7 +71,7 @@ elseif (route(2) == "general"):
       else:
         $logo_newname = "";
       endif;
-      if ($_FILES["favicon"] && ($_FILES["favicon"]["type"] == "image/jpeg" || $_FILES["favicon"]["type"] == "image/jpg" || $_FILES["favicon"]["type"] == "image/png" || $_FILES["favicon"]["type"] == "image/gif")):
+      if ($_FILES["favicon"] AND ($_FILES["favicon"]["type"] == "image/jpeg" || $_FILES["favicon"]["type"] == "image/jpg" || $_FILES["favicon"]["type"] == "image/png" || $_FILES["favicon"]["type"] == "image/gif")):
         $favicon_name = $_FILES["favicon"]["name"];
         $uzanti = substr($logo_name, -4, 4);
         $fv_newname = "img/panel/" . sha1(rand(10, 999)) . ".png";
@@ -418,7 +418,7 @@ elseif (route(2) == "modules"):
   $access = 1;
   if ($access):
     if (isset($_GET["action"])) {
-      if ($_GET["action"] == "buy_addon" && $_GET["addon"] == "google_login") {
+      if ($_GET["action"] == "buy_addon" AND $_GET["addon"] == "google_login") {
 
         $txn_id = $_SESSION["txn_id"];
         if (!$_SESSION["txn_id"]) {
@@ -483,7 +483,7 @@ success:function(data)
         exit();
       }
 
-      if ($_GET["action"] == "verify_transaction" && $_GET["addon"] == "google_login") {
+      if ($_GET["action"] == "verify_transaction" AND $_GET["addon"] == "google_login") {
 
         $txn_id = $_GET["transaction_id"];
         $JsonData = array(
@@ -519,7 +519,7 @@ success:function(data)
         }
       }
 
-      if ($_GET["action"] == "toggle_addon" && $_GET["addon"] == "google_login") {
+      if ($_GET["action"] == "toggle_addon" AND $_GET["addon"] == "google_login") {
         $google_login = json_decode($settings["google_login"], true);
         $json["purchased"] = $google_login["purchased"];
         if ($google_login["status"] == "1") {
@@ -640,7 +640,7 @@ elseif (route(2) == "site_count"):
       $fake_order_min = $_POST["min_count"];
       $fake_order_max = $_POST["max_count"];
 
-      if (!empty($fake_order_min) && !empty($fake_order_max)):
+      if (!empty($fake_order_min) AND !empty($fake_order_max)):
         $update = $conn->prepare("UPDATE settings SET fake_order_min=:min,fake_order_max=:max WHERE id=:id");
         $update->execute(
           array(
@@ -686,7 +686,7 @@ elseif (route(2) == "site_count"):
 elseif (route(2) == "payment-bonuses"):
   $access = $admin["access"]["payments_bonus"];
   if ($access):
-    if (route(3) == "new" && $_POST):
+    if (route(3) == "new" AND $_POST):
       foreach ($_POST as $key => $value) {
         $$key = $value;
       }
@@ -721,7 +721,7 @@ elseif (route(2) == "payment-bonuses"):
       endif;
       echo json_encode(["t" => "error", "m" => $errorText, "s" => $icon, "r" => $referrer, "time" => 1]);
       exit();
-    elseif (route(3) == "edit" && $_POST):
+    elseif (route(3) == "edit" AND $_POST):
       foreach ($_POST as $key => $value) {
         $$key = $value;
       }
@@ -791,7 +791,7 @@ elseif (route(2) == "payment-bonuses"):
 elseif (route(2) == "providers"):
   $access = $admin["access"]["providers"];
   if ($access):
-    if (route(3) == "capture-description" && $_POST):
+    if (route(3) == "capture-description" AND $_POST):
 
 
       $api_id = $_POST["api-id"];
@@ -1108,7 +1108,7 @@ elseif (route(2) == "providers"):
 
 
       header("Location:" . site_url("admin/settings/providers"));
-    elseif (route(3) == "new" && $_POST):
+    elseif (route(3) == "new" AND $_POST):
       foreach ($_POST as $key => $value) {
         $$key = $value;
       }
@@ -1164,7 +1164,7 @@ elseif (route(2) == "providers"):
       endif;
       echo json_encode(["t" => "error", "m" => $errorText, "s" => $icon, "r" => $referrer, "time" => 1]);
       exit();
-    elseif (route(3) == "edit" && $_POST):
+    elseif (route(3) == "edit" AND $_POST):
       foreach ($_POST as $key => $value) {
         $$key = $value;
       }
@@ -1284,7 +1284,7 @@ elseif (route(2) == "providers"):
 elseif (route(2) == "bank-accounts"):
   $access = $admin["access"]["bank_accounts"];
   if ($access):
-    if (route(3) == "new" && $_POST):
+    if (route(3) == "new" AND $_POST):
       foreach ($_POST as $key => $value) {
         $$key = $value;
       }
@@ -1461,7 +1461,7 @@ elseif (route(2) == "currency"):
 
 
 
-    if (route(3) == "add" && $_POST):
+    if (route(3) == "add" AND $_POST):
       foreach ($_POST as $key => $value) {
         $$key = $value;
       }
@@ -1496,7 +1496,7 @@ elseif (route(2) == "currency"):
       endif;
       echo json_encode(["t" => "error", "m" => $errorText, "s" => $icon, "r" => $referrer, "time" => 1]);
       exit();
-    elseif (route(3) == "edit" && $_POST):
+    elseif (route(3) == "edit" AND $_POST):
       foreach ($_POST as $key => $value) {
         $$key = $value;
       }

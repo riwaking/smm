@@ -149,18 +149,18 @@
                  <td><?php echo $order["order_quantity"]; ?></td>
                  <td width="30%"><span class="label-id"><?php echo $order["service_id"]; ?></span><?php echo $order["service_name"]; ?></td>
                  <td><?php echo  orderStatu($order["order_status"],$order["order_error"],$order["order_detail"]); ?></td>
-                 <td><?php if( $order["order_status"] == "completed" && substr($order["order_remains"], 0,1) == "-" ): echo "+".substr($order["order_remains"], 1);  else: echo $order["order_remains"]; endif; ?></td>
+                 <td><?php if( $order["order_status"] == "completed" AND substr($order["order_remains"], 0,1) == "-" ): echo "+".substr($order["order_remains"], 1);  else: echo $order["order_remains"]; endif; ?></td>
                  <td width="10%"><?php echo $order["order_create"]; ?></td>
                  <td width="5%"><?php if( $order["api_service"] == 0 ): echo "Manual"; else: echo "Auto"; endif; ?></td>
                  <td class="service-block__action">
                    <div class="dropdown pull-right">
                      <button type="button" class="btn btn-default btn-xs dropdown-toggle btn-xs-caret" data-toggle="dropdown">Options <span class="caret"></span></button>
                      <ul class="dropdown-menu">
-                       <?php if( $order["order_error"] != "-" && $order["service_api"] != 0 ): ?>
+                       <?php if( $order["order_error"] != "-" AND $order["service_api"] != 0 ): ?>
                          <li><a href="#"  data-toggle="modal" data-target="#modalDiv" data-action="order_errors" data-id="<?php echo $order["order_id"] ?>">Order Errors</a></li>
                          <li><a href="<?=site_url("admin/orders/order_resend/".$order["order_id"])?>">Resend Order</a></li>
                        <?php endif; ?>
-                       <?php if( $order["order_error"] == "-" && $order["service_api"] != 0 ): ?>
+                       <?php if( $order["order_error"] == "-" AND $order["service_api"] != 0 ): ?>
                          <li><a href="#"  data-toggle="modal" data-target="#modalDiv" data-action="order_details" data-id="<?php echo $order["order_id"] ?>">Order Details</a></li>
                        <?php endif; ?>
                        <?php if( $order["service_api"] == 0 || $order["order_error"] != "-"  ): ?>

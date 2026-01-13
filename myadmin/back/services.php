@@ -108,7 +108,7 @@ $icon     = "error";
 $error    = 1;
 $errorText= "Minimum order quantity cannot be empty";
 $icon     = "error";
-        elseif( $package != 2 && !is_numeric($max) ):
+        elseif( $package != 2 AND !is_numeric($max) ):
 $error    = 1;
 $errorText= "Maximum order quantity cannot be empty";
 $icon     = "error";
@@ -116,11 +116,11 @@ $icon     = "error";
 $error    = 1;
 $errorText= "Minimum order quantity cannot exceed the maximum order quantity";
 $icon     = "error";
-        elseif( $mode != 1 && empty($provider) ):
+        elseif( $mode != 1 AND empty($provider) ):
 $error    = 1;
 $errorText= "Service provider cannot be empty";
 $icon     = "error";
-        elseif( $mode != 1 && empty($service) ):
+        elseif( $mode != 1 AND empty($service) ):
 $error    = 1;
 $errorText= "Service provider service information cannot be empty";
 $icon     = "error";
@@ -145,7 +145,7 @@ $refill_hours ="24";
 endif;
 $api=$conn->prepare("SELECT * FROM service_api WHERE id=:id "); $api->execute(array("id"=>$provider)); $api=$api->fetch(PDO::FETCH_ASSOC);
 if( $mode == 1 ): $provider = 0; $service = 0; endif;
-if( $mode == 2 && $api["api_type"] == 1 ):
+if( $mode == 2 AND $api["api_type"] == 1 ):
   $smmapi   = new SMMApi(); $services = $smmapi->action(array('key' =>$api["api_key"],'action' =>'services'),$api["api_url"]); $balance = $smmapi->action(array('key' =>$api["api_key"],'action' =>'balance'),$api["api_url"]);
     foreach ($services as $apiService):
       if( $service == $apiService->service ):
@@ -233,7 +233,7 @@ $icon     = "error";
 $error    = 1;
 $errorText= "Minimum order quantity cannot be empty";
 $icon     = "error";
-        elseif( $package != 2 && !is_numeric($max) ):
+        elseif( $package != 2 AND !is_numeric($max) ):
 $error    = 1;
 $errorText= "Maximum order quantity cannot be empty";
 $icon     = "error";
@@ -241,11 +241,11 @@ $icon     = "error";
 $error    = 1;
 $errorText= "Minimum order quantity cannot exceed the maximum order quantity";
 $icon     = "error";
-        elseif( $mode != 1 && empty($provider) ):
+        elseif( $mode != 1 AND empty($provider) ):
 $error    = 1;
 $errorText= "Service provider cannot be empty";
 $icon     = "error";
-        elseif( $mode != 1 && empty($service) ):
+        elseif( $mode != 1 AND empty($service) ):
 $error    = 1;
 $errorText= "Service provider service information cannot be empty";
 $icon     = "error";
@@ -264,7 +264,7 @@ $icon     = "error";
         else:
   $api=$conn->prepare("SELECT * FROM service_api WHERE id=:id "); $api->execute(array("id"=>$provider)); $api=$api->fetch(PDO::FETCH_ASSOC);
   if( $mode == 1 ): $provider = 0; $service = 0; endif;
-  if( $mode == 2 && $api["api_type"] == 1 ):
+  if( $mode == 2 AND $api["api_type"] == 1 ):
 $smmapi   = new SMMApi(); $services = $smmapi->action(array('key' =>$api["api_key"],'action' =>'services'),$api["api_url"]); $balance = $smmapi->action(array('key' =>$api["api_key"],'action' =>'balance'),$api["api_url"]);
   foreach ($services as $apiService):
     if( $service == $apiService->service ):
@@ -285,7 +285,7 @@ $detail="";
   $update = $update-> execute(array("id"=>route(3),"multiName"=>$multiName,"secret"=>$secret,"type"=>2,"detail"=>$detail,"dripfeed"=>$dripfeed,"instagram_second"=>$instagram_second,"start_count"=>$start_count,"instagram_private"=>$instagram_private,"api"=>$provider,"api_service"=>$service,"category"=>$category,"package"=>$package,"name"=>$name,"price"=>$price,"min"=>$min,"max"=>$max,"want_username"=>$want_username,"speed"=>$speed,"cancelbutton"=>$cancelbutton,"show_refill"=>$show_refill,"refill_days"=>$refill_days,"refill_hour"=>$refill_hours,"service_overflow" => $service_overflow,"sync" => $service_sync));
   if( $update ):
 $conn->commit();
-$rows = $conn->prepare("SELECT * FROM services WHERE category_id=:c_id && service_line>=:line ");
+$rows = $conn->prepare("SELECT * FROM services WHERE category_id=:c_id AND service_line>=:line ");
 $rows->execute(array("c_id"=>$last_category,"line"=>$last_line ));
 $rows = $rows->fetchAll(PDO::FETCH_ASSOC);
   foreach( $rows as $row ):
@@ -644,38 +644,38 @@ $icon     = "error";
 $error    = 1;
 $errorText= "Service privacy cannot be empty";
 $icon     = "error";
-        elseif(  ( $package == 11 || $package == 12 ) && !is_numeric($price) ):
+        elseif(  ( $package == 11 || $package == 12 ) AND !is_numeric($price) ):
 $error    = 1;
 $errorText= "The product price should consist of numbers";
 $icon     = "error";
-        elseif( ( $package == 11 || $package == 12 ) && !is_numeric($min) ):
+        elseif( ( $package == 11 || $package == 12 ) AND !is_numeric($min) ):
 $error    = 1;
 $errorText= "Minimum order quantity cannot be empty";
 $icon     = "error";
-        elseif( ( $package == 11 || $package == 12 ) && !is_numeric($max) ):
+        elseif( ( $package == 11 || $package == 12 ) AND !is_numeric($max) ):
 $error    = 1;
 $errorText= "Maximum order quantity cannot be empty";
 $icon     = "error";
-        elseif( ( $package == 11 || $package == 12 ) && $min > $max ):
+        elseif( ( $package == 11 || $package == 12 ) AND $min > $max ):
 $error    = 1;
 $errorText= "Minimum order quantity cannot exceed the maximum order quantity";
 $icon     = "error";
-        elseif(  ( $package == 14 || $package == 15 ) && !is_numeric($autopost) ):
+        elseif(  ( $package == 14 || $package == 15 ) AND !is_numeric($autopost) ):
 $error    = 1;
 $errorText= "Post amount cannot be empty";
 $icon     = "error";
-        elseif(  ( $package == 14 || $package == 15 ) && !is_numeric($limited_min) ):
+        elseif(  ( $package == 14 || $package == 15 ) AND !is_numeric($limited_min) ):
 $error    = 1;
 $errorText= "Order quantity cannot be empty";
 $icon     = "error";
-        elseif(  ( $package == 14 || $package == 15 ) && !is_numeric($autotime) ):
+        elseif(  ( $package == 14 || $package == 15 ) AND !is_numeric($autotime) ):
 $error    = 1;
 $errorText= "Package Time cannot be empty";
 $icon     = "error";
         else:
   $api=$conn->prepare("SELECT * FROM service_api WHERE id=:id "); $api->execute(array("id"=>$provider)); $api=$api->fetch(PDO::FETCH_ASSOC);
   if( $mode == 1 ): $provider = 0; $service = 0; endif;
-  if( $mode == 2 && $api["api_type"] == 1 ):
+  if( $mode == 2 AND $api["api_type"] == 1 ):
 $smmapi   = new SMMApi(); $services = $smmapi->action(array('key' =>$api["api_key"],'action' =>'services'),$api["api_url"]); $balance = $smmapi->action(array('key' =>$api["api_key"],'action' =>'balance'),$api["api_url"]);
   foreach ($services as $apiService):
     if( $service == $apiService->service ):
@@ -747,38 +747,38 @@ $icon     = "error";
         elseif( empty($secret) ):
 $error    = 1;
 $errorText= "Service privacy cannot be empty";
-        elseif(  ( $serviceInfo["service_package"] == 11 || $serviceInfo["service_package"] == 12 ) && !is_numeric($price) ):
+        elseif(  ( $serviceInfo["service_package"] == 11 || $serviceInfo["service_package"] == 12 ) AND !is_numeric($price) ):
 $error    = 1;
 $errorText= "The product price should consist of numbers";
 $icon     = "error";
-        elseif( ( $serviceInfo["service_package"] == 11 || $serviceInfo["service_package"] == 12 ) && !is_numeric($min) ):
+        elseif( ( $serviceInfo["service_package"] == 11 || $serviceInfo["service_package"] == 12 ) AND !is_numeric($min) ):
 $error    = 1;
 $errorText= "Minimum order quantity cannot be empty";
 $icon     = "error";
-        elseif( ( $serviceInfo["service_package"] == 11 || $serviceInfo["service_package"] == 12 ) && !is_numeric($max) ):
+        elseif( ( $serviceInfo["service_package"] == 11 || $serviceInfo["service_package"] == 12 ) AND !is_numeric($max) ):
 $error    = 1;
 $errorText= "Maximum order quantity cannot be empty";
 $icon     = "error";
-        elseif( ( $serviceInfo["service_package"] == 11 || $serviceInfo["service_package"] == 12 ) && $min > $max ):
+        elseif( ( $serviceInfo["service_package"] == 11 || $serviceInfo["service_package"] == 12 ) AND $min > $max ):
 $error    = 1;
 $errorText= "Minimum order quantity cannot exceed the maximum order quantity";
 $icon     = "error";
-        elseif(  ( $serviceInfo["service_package"] == 14 || $serviceInfo["service_package"] == 15 ) && !is_numeric($autopost) ):
+        elseif(  ( $serviceInfo["service_package"] == 14 || $serviceInfo["service_package"] == 15 ) AND !is_numeric($autopost) ):
 $error    = 1;
 $errorText= "Post amount cannot be empty";
 $icon     = "error";
-        elseif(  ( $serviceInfo["service_package"] == 14 || $serviceInfo["service_package"] == 15 ) && !is_numeric($limited_min) ):
+        elseif(  ( $serviceInfo["service_package"] == 14 || $serviceInfo["service_package"] == 15 ) AND !is_numeric($limited_min) ):
 $error    = 1;
 $errorText= "Order quantity cannot be empty";
 $icon     = "error";
-        elseif(  ( $serviceInfo["service_package"] == 14 || $serviceInfo["service_package"] == 15 ) && !is_numeric($autotime) ):
+        elseif(  ( $serviceInfo["service_package"] == 14 || $serviceInfo["service_package"] == 15 ) AND !is_numeric($autotime) ):
 $error    = 1;
 $errorText= "Package Time cannot be empty";
 $icon     = "error";
         else:
   $api=$conn->prepare("SELECT * FROM service_api WHERE id=:id "); $api->execute(array("id"=>$provider)); $api=$api->fetch(PDO::FETCH_ASSOC);
   if( $mode == 1 ): $provider = 0; $service = 0; endif;
-  if( $mode == 2 && $api["api_type"] == 1 ):
+  if( $mode == 2 AND $api["api_type"] == 1 ):
 $smmapi   = new SMMApi(); $services = $smmapi->action(array('key' =>$api["api_key"],'action' =>'services'),$api["api_url"]); $balance = $smmapi->action(array('key' =>$api["api_key"],'action' =>'balance'),$api["api_url"]);
   foreach ($services as $apiService):
     if( $service == $apiService->service ):
@@ -816,7 +816,7 @@ show_refill=:show_refill,
   $update = $update-> execute(array("id"=>route(3),"type"=>2,"speed"=>$speed,"detail"=>$detail,"api"=>$provider,"api_service"=>$service,"category"=>$category,"name"=>$name,"price"=>$price,"min"=>$min,"max"=>$max,"autotime"=>$autotime,"autopost"=>$autopost,"name_lang"=>$multiName,"secret"=>$secret,"cancelbutton"=>$cancelbutton,"show_refill"=>$show_refill,"overflow" => $service_overflow));
   if( $update ):
 $conn->commit();
-$rows = $conn->prepare("SELECT * FROM services WHERE category_id=:c_id && service_line>=:line ");
+$rows = $conn->prepare("SELECT * FROM services WHERE category_id=:c_id AND service_line>=:line ");
 $rows->execute(array("c_id"=>$last_category,"line"=>$last_line ));
 $rows = $rows->fetchAll(PDO::FETCH_ASSOC);
   foreach( $rows as $row ):
@@ -1291,7 +1291,7 @@ $language   = $conn->prepare("SELECT * FROM languages WHERE default_language=:de
       if( count($services) ):
         foreach ($services as $service => $price):
 foreach ($apiServices as $apiService):
-  if( $service == $apiService->service && $service != 0 ):
+  if( $service == $apiService->service AND $service != 0 ):
 $detail["min"]=$apiService->min;
 $detail["max"]=$apiService->max;
 $detail["rate"]=$apiService->rate;
@@ -1409,7 +1409,7 @@ $language   = $conn->prepare("SELECT * FROM languages WHERE default_language=:de
 foreach ($apiServices as $apiService):
   
   // die();
-  if( $service == $apiService->service && $service != 0 ):
+  if( $service == $apiService->service AND $service != 0 ):
   
   $check_category = $conn->prepare("SELECT * FROM categories WHERE category_name=:name");
   $check_category->execute(array("name"=>$apiService->category));

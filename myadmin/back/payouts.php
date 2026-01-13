@@ -85,7 +85,7 @@ if ($_GET["approve"]) :
         ));
 
         //success or failure
-        if ($update2 && $update && $insert && $update4) :
+        if ($update2 AND $update AND $insert AND $update4) :
             $conn->commit();
             $success    = 1;
             $successText = "Successful";
@@ -160,7 +160,7 @@ elseif ($_GET["disapprove"]) :
         ));
 
         //success or failure
-        if ($update2 && $update) :
+        if ($update2 AND $update) :
             $conn->commit();
             $success    = 1;
             $successText = "Successful";
@@ -208,7 +208,7 @@ elseif ($_GET["reject"]) :
         ));
 
         //success or failure
-        if ($update2 && $update) :
+        if ($update2 AND $update) :
             $conn->commit();
             $success    = 1;
             $successText = "Successful";

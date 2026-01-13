@@ -18,11 +18,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $methods = array_group_by($methods, "methodId");
         $PAYMENTS = [];
         for ($i = 0; $i < count($payments); $i++) {
-            if ($payments[$i]["payment_status"] == 1 && $payments[$i]["payment_delivery"] == 1) {
+            if ($payments[$i]["payment_status"] == 1 AND $payments[$i]["payment_delivery"] == 1) {
                 $paymentStatus = '<span class="badge bg-warning text-dark">Pending</span>';
-            } elseif ($payments[$i]["payment_status"] == 3 && $payments[$i]["payment_delivery"] == 2) {
+            } elseif ($payments[$i]["payment_status"] == 3 AND $payments[$i]["payment_delivery"] == 2) {
                 $paymentStatus = '<span class="badge bg-success">Completed</span>';
-            } elseif ($payments[$i]["payment_status"] == 2 && $payments[$i]["payment_delivery"] == 2) {
+            } elseif ($payments[$i]["payment_status"] == 2 AND $payments[$i]["payment_delivery"] == 2) {
                 $paymentStatus = '<span class="badge bg-danger">Failed</span>';
             } else {
                 $paymentStatus = "Pending";

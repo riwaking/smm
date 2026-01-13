@@ -1,7 +1,7 @@
 <?php include 'header.php'; ?>
 <div class="container">
   <div class="row">
-    <?php if( ( route(2) == "themes" && !route(3) ) || route(2) != "themes"  ):  ?>
+    <?php if( ( route(2) == "themes" AND !route(3) ) || route(2) != "themes"  ):  ?>
           <div class="col-md-2 col-md-offset-1">
             <ul class="nav nav-pills nav-stacked p-b">
 <?php foreach($menuList as $menuName => $menuLink ):

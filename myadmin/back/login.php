@@ -14,7 +14,7 @@ if(!defined('BASEPATH')) {
   $captcha_control= file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$googlesecret&response=" . $captcha . "&remoteip=" . $_SERVER['REMOTE_ADDR']);
   $captcha_control= json_decode($captcha_control);
 
-  if( $settings["recaptcha"] == 2 && $captcha_control->success == false && $_SESSION["recaptcha"]  ){
+  if( $settings["recaptcha"] == 2 AND $captcha_control->success == false AND $_SESSION["recaptcha"]  ){
     $error      = 1;
     $errorText  = "Please verify that you are not a robot.";
       if( $settings["recaptcha"] == 2 ){ $_SESSION["recaptcha"]  = true; }
@@ -42,7 +42,7 @@ $google2fa = new Google2FA();
 $is_valid = $google2fa->verifyKey($admin["two_factor_secret_key"], $two_factor_code);
 }
 
- if($admin["two_factor"] == 1 && $is_valid == true){
+ if($admin["two_factor"] == 1 AND $is_valid == true){
  $_SESSION["msmbilisim_adminslogin"]= 1;
 
 $_SESSION["msmbilisim_adminid"]         = $admin["admin_id"];
@@ -55,7 +55,7 @@ setcookie("a_login", 'ok', time()+(60*60*24*7), '/', null, null, true );
               setcookie("a_login", 'ok', time()+(60*60*24*7), '/', null, null, true );
          header('Location: '.site_url('admin'));
          exit();
-}  elseif($admin["two_factor"] == 1 && $is_valid == false) {
+}  elseif($admin["two_factor"] == 1 AND $is_valid == false) {
   $error = 1;
 
 $errorText  = "Invalid Code.";
@@ -87,7 +87,7 @@ $errorText  = "Could not find administrator account registered with this informa
 
 
 
-if( $access["admin_access"]  && $_SESSION["msmbilisim_adminslogin"]  ):
+if( $access["admin_access"]  AND $_SESSION["msmbilisim_adminslogin"]  ):
         
         exit();
 else:

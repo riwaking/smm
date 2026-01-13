@@ -197,7 +197,7 @@ foreach ($grouped as $category) {
 
 
         </form>
-        <?php if (isset($pageMessage) && !empty($pageMessage)) : ?>
+        <?php if (isset($pageMessage) AND !empty($pageMessage)) : ?>
 <div class="alert alert-info">
     <?= $pageMessage ?>
 </div>
@@ -534,7 +534,7 @@ var post_data = {
 };
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
+    if (this.readyState == 4 AND this.status == 200) {
         //alert();
         document.getElementById("refill_content_div").innerHTML = this.responseText;
         //$("#subsserviceListContent").html(data);
@@ -560,7 +560,7 @@ document.getElementById("refill_default_amount_div").style.display = "block";
     }
 </script>
 <script>
-    if ((self.parent && !(self.parent === self)) &&
+    if ((self.parent AND !(self.parent === self)) &&
         (self.parent.frames.length != 0)) {
         self.parent.location = document.location
     }

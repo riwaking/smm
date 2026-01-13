@@ -696,7 +696,7 @@
 					e.preventDefault();
 					var t = $("body"), a = !t.hasClass("dark-mode");
 					$("i", this).attr("class", a ? "fa fa-sun" : "fas fa-moon"), t.toggleClass("dark-mode", a), 
-					void 0 !== window.CodeMirrorEditor && window.CodeMirrorEditor.setOption("theme", a ? "material-darker" : "default"), 
+					void 0 !== window.CodeMirrorEditor AND window.CodeMirrorEditor.setOption("theme", a ? "material-darker" : "default"), 
 					$.ajax({
 						url: "ajax_settings_update?method=dark-mode&type=update&now=" + (a ? 1 : 0),
 						type: "GET",
@@ -724,7 +724,7 @@
 					countOrders = document.querySelector('.countOrders'),
 					counter = 0;
 				
-				if( typeof checkAll !== 'undefined' &&  checkAll != null ){	
+				if( typeof checkAll !== 'undefined' AND  checkAll != null ){	
 					var checkAllParentTh =  checkAll.closest('tr');
 				}		
 				
@@ -806,29 +806,29 @@
 						//countOrders.innerText = counter + ' users ';
 						countOrders.innerText = counter + ' ';
 						try{
-							if(  typeof orderPriceSpan !== 'undefined' && orderPriceSpan != null ){
+							if(  typeof orderPriceSpan !== 'undefined' AND orderPriceSpan != null ){
 								orderPriceSpan.innerText = pricee == 1?pricee + '  ':pricee + '  ';
 							}
-							if( typeof orderQuantitySpan !== 'undefined' && orderQuantitySpan != null ){
+							if( typeof orderQuantitySpan !== 'undefined' AND orderQuantitySpan != null ){
 								orderQuantitySpan.innerText = amount == 1?amount + '  ':amount + '  ';
 							}
-							if( typeof orderRemainingSpan !== 'undefined' && orderRemainingSpan != null ){
+							if( typeof orderRemainingSpan !== 'undefined' AND orderRemainingSpan != null ){
 								orderRemainingSpan.innerText = remaining == 1?remaining + '  ':remaining + '  ';
 							}
 							
-							if( typeof servicePriceSpan !== 'undefined' &&  servicePriceSpan != null ){
+							if( typeof servicePriceSpan !== 'undefined' AND  servicePriceSpan != null ){
 								servicePriceSpan.innerText = pricee == 1 ? pricee + '  ':pricee + '  ';
 							}
-							if( typeof serviceRefillSpan !== 'undefined' && serviceRefillSpan != null ){
+							if( typeof serviceRefillSpan !== 'undefined' AND serviceRefillSpan != null ){
 								serviceRefillSpan.innerText = auto_refill == 1 ? auto_refill + '  ':auto_refill + '  ';
 							}
-							if( typeof serviceRefillerSpan !== 'undefined' && serviceRefillerSpan != null ){
+							if( typeof serviceRefillerSpan !== 'undefined' AND serviceRefillerSpan != null ){
 								serviceRefillerSpan.innerText = auto_refiller == 1 ? auto_refiller + '  ' : auto_refiller + '  ';
 							}
-							if( typeof serviceCountSpan !== 'undefined' && serviceCountSpan != null ){
+							if( typeof serviceCountSpan !== 'undefined' AND serviceCountSpan != null ){
 								serviceCountSpan.innerText = auto_start_count == 1 ? auto_start_count + '  ':auto_start_count + '  ';
 							}
-							if( typeof serviceAutoCSpan !== 'undefined' && serviceAutoCSpan != null ){
+							if( typeof serviceAutoCSpan !== 'undefined' AND serviceAutoCSpan != null ){
 								serviceAutoCSpan.innerText = auto_complete == 1 ? auto_complete + '  ':auto_complete + '  ';
 							}
 							
@@ -919,30 +919,30 @@
 							//
 							
 							//alert();
-							// && servicePriceSpan !== false
-							if( typeof servicePriceSpan !== 'undefined' &&  servicePriceSpan != null ){
+							// AND servicePriceSpan !== false
+							if( typeof servicePriceSpan !== 'undefined' AND  servicePriceSpan != null ){
 								servicePriceSpan.innerText =  pricee + '  ';
 							}
-							if( typeof serviceRefillSpan !== 'undefined' &&  serviceRefillSpan != null ){
+							if( typeof serviceRefillSpan !== 'undefined' AND  serviceRefillSpan != null ){
 								serviceRefillSpan.innerText = auto_refill + '  ';
 							}
-							if( typeof serviceRefillerSpan !== 'undefined' &&  serviceRefillerSpan != null ){
+							if( typeof serviceRefillerSpan !== 'undefined' AND  serviceRefillerSpan != null ){
 								serviceRefillerSpan.innerText =  auto_refiller + '  ';
 							}
-							if( typeof serviceCountSpan !== 'undefined' &&  serviceCountSpan != null ){
+							if( typeof serviceCountSpan !== 'undefined' AND  serviceCountSpan != null ){
 								serviceCountSpan.innerText =  auto_start_count + '  ';
 							}
-							if( typeof serviceAutoCSpan !== 'undefined' &&  serviceAutoCSpan != null ){
+							if( typeof serviceAutoCSpan !== 'undefined' AND  serviceAutoCSpan != null ){
 								serviceAutoCSpan.innerText = auto_complete + '  ';
 							}
 							
-							if( typeof orderPriceSpan !== 'undefined' &&  orderPriceSpan != null ){
+							if( typeof orderPriceSpan !== 'undefined' AND  orderPriceSpan != null ){
 								orderPriceSpan.innerText = pricee == 1?pricee + '  ':pricee + '  ';
 							}
-							if( typeof orderQuantitySpan !== 'undefined' && orderQuantitySpan != null ){
+							if( typeof orderQuantitySpan !== 'undefined' AND orderQuantitySpan != null ){
 								orderQuantitySpan.innerText = amount == 1?amount + '  ':amount + '  ';
 							}
-							if( typeof orderRemainingSpan !== 'undefined' && orderRemainingSpan != null ){
+							if( typeof orderRemainingSpan !== 'undefined' AND orderRemainingSpan != null ){
 								orderRemainingSpan.innerText = remaining == 1?remaining + '  ':remaining + '  ';
 							}
 							
@@ -959,7 +959,7 @@
 					}
 				}
 				
-				if( typeof checkAll !== 'undefined' &&  checkAll != null ){
+				if( typeof checkAll !== 'undefined' AND  checkAll != null ){
 					checkAll.addEventListener('change', selectAllCheckbox);
 				}
 				allCheckBox.forEach(function (oneCheckBox) { oneCheckBox.addEventListener('change', selectOneCheckbox) });
@@ -971,7 +971,7 @@
 					allCheckBox.forEach(function (oneCheckBox) { oneCheckBox.addEventListener('change', selectOneCheckbox) });
 					//alert();
 					var checkAll = document.querySelector('.checkAll');
-					if( typeof checkAll !== 'undefined' &&  checkAll != null ){
+					if( typeof checkAll !== 'undefined' AND  checkAll != null ){
 						checkAll.addEventListener('change', selectAllCheckbox);
 					}
 					
@@ -1006,7 +1006,7 @@
 						xhttp.onreadystatechange = function() 
 						{
 							//console.log(this);
-							if (this.readyState == 4 && this.status == 200) 
+							if (this.readyState == 4 AND this.status == 200) 
 							{
 								document.getElementById("editdescriptionBody").style.display = "block";
 								document.getElementById("editdescriptionBody2").style.display = "none";	

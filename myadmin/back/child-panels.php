@@ -23,13 +23,13 @@ if(!defined('BASEPATH')) {
     unset($_SESSION["client"]);
   endif;
 
-    if( route(2) && is_numeric(route(2)) ):
+    if( route(2) AND is_numeric(route(2)) ):
       $page = route(2);
     else:
       $page = 1;
     endif;
 
-    if ($_GET["search_type"] == "username" && $_GET["search"]):
+    if ($_GET["search_type"] == "username" AND $_GET["search"]):
         $search_where = $_GET["search_type"];
         $search_word = $_GET["search"];
         $clients = $conn->prepare("SELECT client_id FROM clients WHERE username LIKE '%" . $search_word . "%' ");
@@ -70,7 +70,7 @@ if(!defined('BASEPATH')) {
 
   require admin_view('child-panels');
 
- if(route(2) && route(3) == "suspend"):
+ if(route(2) AND route(3) == "suspend"):
   $conn->beginTransaction();
   $insert = $conn->prepare("UPDATE childpanels SET child_panel_status=:status WHERE id=:id");
   $insert = $insert->execute(array("status"=>"Suspended","id" => route(2) 
@@ -85,7 +85,7 @@ header("Location:".site_url("admin/child-panels"));
 else:
 $conn->rollBack();
 endif;
-elseif(route(2) && route(3) == "activate"):
+elseif(route(2) AND route(3) == "activate"):
 $conn->beginTransaction();
 $insert = $conn->prepare("UPDATE childpanels SET child_panel_status=:status WHERE id=:id");
 $insert = $insert->execute(array("status"=>"Active","id"=>route(2)

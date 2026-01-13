@@ -14,7 +14,7 @@ if(!defined('BASEPATH')) {
 
 
 
-  if( route(2) && is_numeric(route(2)) ):
+  if( route(2) AND is_numeric(route(2)) ):
       $page = route(2);
     else:
       $page = 1;
@@ -24,7 +24,7 @@ if(!defined('BASEPATH')) {
 
 
 
- if( $_GET["search_type"] == "refill_apiid" && $_GET["search"] ):
+ if( $_GET["search_type"] == "refill_apiid" AND $_GET["search"] ):
       $search_where = $_GET["search_type"];
       $search_word  = urldecode($_GET["search"]);
       $count        = $conn->prepare("SELECT * FROM refill_status");
@@ -42,7 +42,7 @@ if(!defined('BASEPATH')) {
     $refills -> execute(array("refill_apiid"=>$search_word));
     $refills  = $refills->fetchAll(PDO::FETCH_ASSOC);
     
-    elseif( $_GET["search_type"] == "order_id" && $_GET["search"] ):
+    elseif( $_GET["search_type"] == "order_id" AND $_GET["search"] ):
       $search_where = $_GET["search_type"];
       $search_word  = urldecode($_GET["search"]);
       $count        = $conn->prepare("SELECT * FROM refill_status");

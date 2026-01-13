@@ -28,7 +28,7 @@ $action_type = $_POST["action_type"];
 if(empty($service_type)){
  error_exit("Please select service type.");
 }
-if($service_type == "seller_services" && empty($sellers)){
+if($service_type == "seller_services" AND empty($sellers)){
  error_exit("Please select a seller.");
 }
 if(empty($profit_percent) || !is_numeric($profit_percent)){
