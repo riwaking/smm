@@ -4,6 +4,10 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-13: Added mobile-responsive.css with comprehensive mobile optimizations
+- 2026-01-13: Implemented Flexbox/CSS Grid layouts for responsive design
+- 2026-01-13: Added touch-friendly sizing for buttons and inputs (44px minimum)
+- 2026-01-13: Added fluid typography with clamp() for smooth text scaling
 - 2026-01-13: Converted from MySQL to PostgreSQL for Replit compatibility
 - 2026-01-13: Updated database configuration to use environment variables
 - 2026-01-13: Fixed MySQL-specific SQL syntax (`&&` → `AND`) for PostgreSQL
@@ -18,7 +22,8 @@ This is a PHP-based Social Media Marketing (SMM) Panel application. It allows us
 - `app/it.php` - Core initialization and session management
 - `app/back/` - Backend PHP scripts for various features
 - `app/helper/` - Helper functions and utilities
-- `templates/` - Twig templates for frontend views
+- `app/front/modified/` - Twig templates for frontend views
+- `css/mobile-responsive.css` - Mobile-responsive CSS with Flexbox/Grid
 
 ### Database
 - Uses PostgreSQL (converted from MySQL)
