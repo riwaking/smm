@@ -30,7 +30,7 @@ if( !route(1) ){
         $errorText= "Enter Valid Link";
       }else{
 $conn->beginTransaction();
-$insert = $conn->prepare("INSERT INTO earn SET client_id=:c_id, link=:link ");
+$insert = $conn->prepare("INSERT INTO earn (client_id, link) VALUES (:c_id, :link)");
 $insert = $insert->execute(array("c_id"=>$user["client_id"],"link"=>$link ));
 if( $insert ){ $ticket_id = $conn->lastInsertId(); 
 

@@ -57,9 +57,7 @@ if( $settings["email_confirmation"] == 1  && $user["email_type"] == 1  ){
           }
 
 
-          $insert  = $conn->prepare("INSERT INTO referral_payouts SET r_p_code=:r_p_code 
-    , r_p_amount_requested=:r_p_amount_requested , r_p_requested_at=:r_p_requested_at , 
-    r_p_updated_at=:r_p_updated_at");
+          $insert  = $conn->prepare("INSERT INTO referral_payouts (r_p_code, r_p_amount_requested, r_p_requested_at, r_p_updated_at) VALUES (:r_p_code, :r_p_amount_requested, :r_p_requested_at, :r_p_updated_at)");
           $insert = $insert->execute(array(
             "r_p_code" => $ref_code, "r_p_requested_at" => date("Y-m-d H:i:s"),
             "r_p_amount_requested" => $referral_paid_remaining, "r_p_updated_at" => date("Y-m-d H:i:s")

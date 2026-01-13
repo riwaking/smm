@@ -18,7 +18,7 @@ if( $settings["email_confirmation"] == 1  && $user["email_type"] == 1  ){
         $row    = $row->fetch(PDO::FETCH_ASSOC);
         $update = $conn->prepare("UPDATE orders SET subscriptions_status=:status WHERE order_id=:id  ");
         $update->execute(array("id"=>$order_id,"status"=>"paused"  ));
-        $insert= $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+        $insert= $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
         $insert= $insert->execute(array("c_id"=>$user["client_id"],"action"=>"Subscription Stopped #".$row["order_id"],"ip"=>GetIP(),"date"=>date("Y-m-d H:i:s") ));
       endif;
     Header("Location:".site_url('subscriptions'));
@@ -31,7 +31,7 @@ if( $settings["email_confirmation"] == 1  && $user["email_type"] == 1  ){
         $row    = $row->fetch(PDO::FETCH_ASSOC);
         $update = $conn->prepare("UPDATE orders SET subscriptions_status=:status WHERE order_id=:id  ");
         $update->execute(array("id"=>$order_id,"status"=>"active"  ));
-        $insert= $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+        $insert= $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
         $insert= $insert->execute(array("c_id"=>$user["client_id"],"action"=>"Subscription Activated #".$row["order_id"],"ip"=>GetIP(),"date"=>date("Y-m-d H:i:s") ));
       endif;
     Header("Location:".site_url('subscriptions'));
@@ -44,7 +44,7 @@ if( $settings["email_confirmation"] == 1  && $user["email_type"] == 1  ){
         $row    = $row->fetch(PDO::FETCH_ASSOC);
         $update = $conn->prepare("UPDATE orders SET subscriptions_status=:status WHERE order_id=:id  ");
         $update->execute(array("id"=>$order_id,"status"=>"canceled"  ));
-        $insert= $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+        $insert= $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
         $insert= $insert->execute(array("c_id"=>$user["client_id"],"action"=>"Subscription canceled #".$row["order_id"],"ip"=>GetIP(),"date"=>date("Y-m-d H:i:s") ));
       endif;
     Header("Location:".site_url('subscriptions'));

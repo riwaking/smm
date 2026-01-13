@@ -55,12 +55,12 @@ $price = ($price - ($price * $discount_percent));
 
 
 
-	// check format
-				$order_count = count($order);
-				if($order_count > 3  || $order_count <= 2) :
-					      $error    = 1;
+        // check format
+                                $order_count = count($order);
+                                if($order_count > 3  || $order_count <= 2) :
+                                              $error    = 1;
       $errorText= "Bad  format";
-				
+                                
     elseif( $service_detail["service_type"] == 1 ):
       $error    = 1;
       $errorText= $languageArray["error.neworder.service.deactive"];
@@ -91,7 +91,7 @@ $price    = (service_price($service_detail["service_id"])/1000)*$quantity;
 $price = ($price - ($price * $discount_percent));
     if( $service_detail["service_api"] == 0 ):
     $conn->beginTransaction();
-          $insert = $conn->prepare("INSERT INTO orders SET order_start=:count, order_profit=:profit, order_error=:error,client_id=:c_id, service_id=:s_id, order_quantity=:quantity, order_charge=:price, order_url=:url, order_create=:create, last_check=:last ");
+          $insert = $conn->prepare("INSERT INTO orders (order_start, order_profit, order_error, client_id, service_id, order_quantity, order_charge, order_url, order_create, last_check) VALUES (:count, :profit, :error, :c_id, :s_id, :quantity, :price, :url, :create, :last)");
           $insert = $insert-> execute(array("count"=>$start_count,"c_id"=>$user["client_id"],"error"=>"-","s_id"=>$service_detail["service_id"],"quantity"=>$quantity,"price"=>$price,"profit"=>$price,"url"=>$link,"create"=>date("Y.m.d H:i:s"),"last"=>date("Y.m.d H:i:s")));
             if( $insert ): $last_id = $conn->lastInsertId(); endif;
 
@@ -99,7 +99,7 @@ if( $insert ):
           $update = $conn->prepare("UPDATE clients SET balance=:balance, spent=:spent WHERE client_id=:id");
           $update = $update-> execute(array("balance"=>$user["balance"]-$price,"spent"=>$user["spent"]+$price,"id"=>$user["client_id"]));
      endif;
-     $insert2= $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+     $insert2= $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
           $insert2= $insert2->execute(array("c_id"=>$user["client_id"],"action"=>$price." New Order #".$last_id.".","ip"=>GetIP(),"date"=>date("Y-m-d H:i:s") ));
             if( $insert && $update && $insert2 ):
 
@@ -120,7 +120,7 @@ $select = $conn->prepare("SELECT * FROM panel_info WHERE panel_id=:id");
               $_SESSION["data"]["services"]   = $_POST["services"];
               $_SESSION["data"]["categories"] = $_POST["categories"];
               $_SESSION["data"]["order"]      = $order_data;
-				        header("Location:".site_url("order/".$last_id));
+                                        header("Location:".site_url("order/".$last_id));
               
 
  else:
@@ -159,9 +159,7 @@ $price    = (service_price($service_detail["service_id"])/1000)*$quantity;
 
 $profit = $price-$api_charge;
 
-$insert = $conn->prepare("INSERT INTO orders SET order_error=:error, order_detail=:detail, client_id=:c_id, api_orderid=:order_id, service_id=:s_id, order_quantity=:quantity, order_charge=:price, order_url=:url,
-              order_create=:create, last_check=:last_check, order_api=:api, api_serviceid=:api_serviceid, api_charge=:api_charge, order_profit=:profit
-              ");
+$insert = $conn->prepare("INSERT INTO orders (order_error, order_detail, client_id, api_orderid, service_id, order_quantity, order_charge, order_url, order_create, last_check, order_api, api_serviceid, api_charge, order_profit) VALUES (:error, :detail, :c_id, :order_id, :s_id, :quantity, :price, :url, :create, :last_check, :api, :api_serviceid, :api_charge, :profit)");
 
 
             $insert = $insert-> execute(array("c_id"=>$user["client_id"],"detail"=>json_encode($order),"error"=>$error,"s_id"=>$service_detail["service_id"],"quantity"=>$quantity,"price"=>$price,"url"=>$link,
@@ -183,7 +181,7 @@ if( $insert ):
             $update = $conn->prepare("UPDATE clients SET balance=:balance, spent=:spent WHERE client_id=:id");
             $update = $update-> execute(array("balance"=>$user["balance"]-$price,"spent"=>$user["spent"]+$price,"id"=>$user["client_id"]));
       endif;
-      $insert2= $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+      $insert2= $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
 $insert2= $insert2->execute(array("c_id"=>$user["client_id"],"action"=>$price." New Order #".$last_id.".","ip"=>GetIP(),"date"=>date("Y-m-d H:i:s") ));
  if( $settings["alert_apibalance"] == 2 && $api_detail["api_limit"] > $balance  && $api_detail["api_alert"] == 2 ):
                     $msg = "Provider balance is lesser than limit! 

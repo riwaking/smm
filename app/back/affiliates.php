@@ -43,7 +43,7 @@ if ($_COOKIE['u_login'] != "ok") {
 
 
 
-         $insert = $conn->prepare("INSERT INTO referral SET referral_code=:referral_code , referral_client_id=:referral_client_id");
+         $insert = $conn->prepare("INSERT INTO referral (referral_code, referral_client_id) VALUES (:referral_code, :referral_client_id)");
          $insert->execute(array("referral_code" => $ref_code , 
       "referral_client_id" => $user["client_id"]));
 

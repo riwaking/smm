@@ -35,7 +35,7 @@ header("Location:".site_url(''));
 }
  } elseif( route(1) == "newapikey" ){
     $conn->beginTransaction();
-    $insert= $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+    $insert= $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
     $insert= $insert->execute(array("c_id"=>$user["client_id"],"action"=>"API Key changed","ip"=>GetIP(),"date"=>date("Y-m-d H:i:s") ));
     $apikey = CreateApiKey(["email"=>$user["email"],"username"=>$user["username"]]);
     $update = $conn->prepare("UPDATE clients SET apikey=:key WHERE client_id=:id ");
@@ -107,7 +107,7 @@ $conn->beginTransaction();
     $errorText= $languageArray["error.account.passwords.notmach"];
   }else{
     $conn->beginTransaction();
-      $insert= $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+      $insert= $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
       $insert= $insert->execute(array("c_id"=>$user["client_id"],"action"=>"User password has been changed","ip"=>GetIP(),"date"=>date("Y-m-d H:i:s") ));
       $update = $conn->prepare("UPDATE clients SET password=:pass WHERE client_id=:id ");
       $update = $update->execute(array("id"=>$user["client_id"],"pass"=>md5($new_pass) ));

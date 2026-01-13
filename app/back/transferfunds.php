@@ -54,14 +54,14 @@ if( $_POST && $_POST["username"] ):
             // sender
             
             
-            $insert = $conn->prepare("INSERT INTO payments SET payment_status=:status, payment_mode=:mode, payment_amount=:amount, payment_bank=:bank, payment_method=:method, payment_delivery=:delivery, payment_note=:note, payment_update_date=:date, payment_create_date=:date2, client_id=:client_id, client_balance=:balance ");
+            $insert = $conn->prepare("INSERT INTO payments (payment_status, payment_mode, payment_amount, payment_bank, payment_method, payment_delivery, payment_note, payment_update_date, payment_create_date, client_id, client_balance) VALUES (:status, :mode, :amount, :bank, :method, :delivery, :note, :date, :date2, :client_id, :balance)");
             $insert = $insert->execute(array("status"=>3,"delivery"=>1,"bank"=>0,"mode"=>"Manuel","amount"=>$amount*-1,"method"=>17,"note"=>"Transfer funds to ".$receiver_username,"date"=>date("Y-m-d H:i:s"),"date2"=>date("Y-m-d H:i:s"),"balance"=>$client['balance'],"client_id"=>$client["client_id"] ));
 
 
             // receiver
             
             
-            $insert2 = $conn->prepare("INSERT INTO payments SET payment_status=:status, payment_mode=:mode, payment_amount=:amount, payment_bank=:bank, payment_method=:method, payment_delivery=:delivery, payment_note=:note, payment_update_date=:date, payment_create_date=:date2, client_id=:client_id, client_balance=:balance ");
+            $insert2 = $conn->prepare("INSERT INTO payments (payment_status, payment_mode, payment_amount, payment_bank, payment_method, payment_delivery, payment_note, payment_update_date, payment_create_date, client_id, client_balance) VALUES (:status, :mode, :amount, :bank, :method, :delivery, :note, :date, :date2, :client_id, :balance)");
             $insert2 = $insert2->execute(array("status"=>3,"delivery"=>1,"bank"=>0,"mode"=>"Manuel","amount"=>$afterFees,"method"=>17,"note"=>"Transfered funds from ".$client['username'],"date"=>date("Y-m-d H:i:s"),"date2"=>date("Y-m-d H:i:s"),"balance"=>$receiver['balance'],"client_id"=>$receiver["client_id"] ));
               
               $msg = "  Hello, $receiver_username  "  .$client['username'] . " :Transfered $ : " .$afterFees  . " to your wallet Funds received :". site_url(). "login"; 

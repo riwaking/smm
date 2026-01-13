@@ -62,7 +62,7 @@ if($user['balance'] < $childorders['charge']){
   $update = $conn->prepare("UPDATE clients SET balance=:balance, spent=:spent WHERE client_id=:id");
   $update = $update-> execute(array("balance"=>$user["balance"]-$price,"spent"=>$user["spent"]+$price,"id"=>$user["client_id"]));
   
- $insert2 = $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+ $insert2 = $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
  $insert2->execute(array("c_id"=>$user["client_id"],"action"=>"Child Panel Renewed with id : ".$_POST["renew_id"].".","ip"=>GetIP(),"date"=>date("Y-m-d H:i:s") ));
     if ( $insert && $update && $insert2 ):
       $conn->commit();
@@ -124,16 +124,7 @@ $order_data = ['success'=>2,'id'=>$_POST["renew_id"],"service"=>"Child Panel","l
     else:
   $conn->beginTransaction();
 
-$insert = $conn->prepare("INSERT INTO childpanels SET 
-     client_id=:c_id,
-     domain=:domain,
-     child_panel_currency=:currency,
-     child_panel_username=:username,
-     child_panel_password=:password,
-     charged_amount=:charged_amount,
-     renewal_date=:renewal_date, 
-     created_on=:created_on,
-     child_panel_uqid=:uqid");
+$insert = $conn->prepare("INSERT INTO childpanels (client_id, domain, child_panel_currency, child_panel_username, child_panel_password, charged_amount, renewal_date, created_on, child_panel_uqid) VALUES (:c_id, :domain, :currency, :username, :password, :charged_amount, :renewal_date, :created_on, :uqid)");
 
  $insert-> execute(array(
    "c_id"=>$user["client_id"],
@@ -153,7 +144,7 @@ endif;
 
   $update = $conn->prepare("UPDATE clients SET balance=:balance, spent=:spent WHERE client_id=:id");
   $update->execute(array("balance"=>$user["balance"]-$price,"spent"=>$user["spent"]+$price,"id"=>$user["client_id"]));
-  $insert2= $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+  $insert2= $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
  
  $insert2->execute(array("c_id"=>$user["client_id"],"action"=>"#".$last_id." New Child Panel Order.","ip"=>GetIP(),"date"=>date("Y-m-d H:i:s") ));
     if ( $insert && $update && $insert2 ):

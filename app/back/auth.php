@@ -73,7 +73,7 @@ exit();
  $apikey = md5(openssl_random_pseudo_bytes(16));
  $pass = openssl_random_pseudo_bytes(16);
   $conn->beginTransaction();
-  $insert = $conn->prepare("INSERT INTO clients SET name=:name, username=:username, email=:email, password=:pass, lang=:lang, telephone=:phone, register_date=:date, apikey=:key , ref_code=:ref_code, email_type=:type, balance=:spent, spent=:spent,currency_type=:currency_type");
+  $insert = $conn->prepare("INSERT INTO clients (name, username, email, password, lang, telephone, register_date, apikey, ref_code, email_type, balance, spent, currency_type) VALUES (:name, :username, :email, :pass, :lang, :phone, :date, :key, :ref_code, :type, :spent, :spent, :currency_type)");
     $insert = $insert->execute(array("lang" => "en", "name" => $userinfo->name, "username" => $username, "email" => $userinfo->email, "pass" => md5($pass), "phone" => "", "date" => date("Y.m.d H:i:s"), 'key' => $apikey, "ref_code" => $ref_code, "type"=> 2, "spent"=> "0.0000","currency_type"=>get_default_currency()));
   $conn->commit();
  $user =   $conn->prepare("SELECT * FROM clients WHERE email=:email");
@@ -179,7 +179,7 @@ $_SESSION["currency_hash"] = $currency_hash;
         }
         
         header('Location:'.site_url(''));
-        $insert = $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+        $insert = $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
         $insert->execute(array("c_id"=>$row["client_id"],"action"=>"Member logged in.","ip"=>GetIP(),"date"=>date("Y-m-d H:i:s") ));
         $update = $conn->prepare("UPDATE clients SET login_date=:date, login_ip=:ip WHERE client_id=:c_id ");
         $update->execute(array("c_id"=>$row["client_id"],"date"=>date("Y.m.d H:i:s"),"ip"=>GetIP() ));
@@ -255,7 +255,7 @@ $_SESSION["currency_hash"] = $currency_hash;
         }
         
         header('Location:'.site_url(''));
-        $insert = $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+        $insert = $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
         $insert->execute(array("c_id"=>$row["client_id"],"action"=>"Member  in.","ip"=>GetIP(),"date"=>date("Y-m-d H:i:s") ));
         $update = $conn->prepare("UPDATE clients SET login_date=:date, login_ip=:ip WHERE client_id=:c_id ");
         $update->execute(array("c_id"=>$row["client_id"],"date"=>date("Y.m.d H:i:s"),"ip"=>GetIP() ));

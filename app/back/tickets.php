@@ -12,8 +12,8 @@ if( $settings["email_confirmation"] == 1  && $user["email_type"] == 1  ){
 }
 if( !route(1) ){
 
-	
-	
+        
+        
     $orders = $conn->prepare("SELECT * FROM ticket_subjects ORDER BY subject_id ASC");
     $orders-> execute(array( ));
     $orders = $orders->fetchAll(PDO::FETCH_ASSOC);
@@ -25,9 +25,9 @@ if( !route(1) ){
       array_push($ordersList,$o);
     }
   
-	
-	
-	
+        
+        
+        
   $tickets = $conn->prepare("SELECT * FROM tickets WHERE client_id=:c_id ORDER BY lastupdate_time DESC ");
   $tickets-> execute(array("c_id"=>$user["client_id"]));
   $tickets = $tickets->fetchAll(PDO::FETCH_ASSOC);
@@ -62,26 +62,26 @@ if( !route(1) ){
         $errorText= str_replace("{limit}",$settings["tickets_per_user"],$languageArray["error.tickets.new.limit"]);
       }else{
         $conn->beginTransaction();
-        $insert = $conn->prepare("INSERT INTO tickets SET client_id=:c_id, subject=:subject, time=:time, lastupdate_time=:last_time ");
+        $insert = $conn->prepare("INSERT INTO tickets (client_id, subject, time, lastupdate_time) VALUES (:c_id, :subject, :time, :last_time)");
         $insert = $insert->execute(array("c_id"=>$user["client_id"],"subject"=>$subject,"time"=>date("Y.m.d H:i:s"),"last_time"=>date("Y.m.d H:i:s") ));
           if( $insert ){ $ticket_id = $conn->lastInsertId(); }
-        $insert2= $conn->prepare("INSERT INTO ticket_reply SET ticket_id=:t_id, message=:message, time=:time ");
+        $insert2= $conn->prepare("INSERT INTO ticket_reply (ticket_id, message, time) VALUES (:t_id, :message, :time)");
         $insert2= $insert2->execute(array("t_id"=>$ticket_id,"message"=>$message,"time"=>date("Y.m.d H:i:s")));
         
       
         $post = $conn->prepare("SELECT * FROM ticket_subjects WHERE subject=:subject and auto_reply=:auto_reply");
         $post->execute(array("subject"=>$subject,"auto_reply"=>1));
         $post = $post->fetch(PDO::FETCH_ASSOC); 
-        $insert3= $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+        $insert3= $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
         $insert3= $insert3->execute(array("c_id"=>$user["client_id"],"action"=>"New support ticket created#".$ticket_id,"ip"=>GetIP(),"date"=>date("Y-m-d H:i:s") ));
-		  
-		  
-		   if($post){
+                  
+                  
+                   if($post){
 
-        $insert4= $conn->prepare("INSERT INTO ticket_reply SET ticket_id=:t_id, support=:support, message=:message, time=:time ");
+        $insert4= $conn->prepare("INSERT INTO ticket_reply (ticket_id, support, message, time) VALUES (:t_id, :support, :message, :time)");
         $insert4= $insert4->execute(array("t_id"=>$ticket_id,"support"=>2,"message"=>$post["content"],"time"=>date("Y.m.d H:i:s")));
           
-        $insert5= $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+        $insert5= $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
         $insert5= $insert5->execute(array("c_id"=>$user["client_id"],"action"=>"Support request <strong>Automatic</strong> answered as. ID:".$ticket_id,"ip"=>GetIP(),"date"=>date("Y-m-d H:i:s") ));
       }
 if( $settings["alert_newticket"] == 2 ){
@@ -182,9 +182,9 @@ endif;
         $conn->beginTransaction();
         $update = $conn->prepare("UPDATE tickets SET lastupdate_time=:last_time, status=:status, client_new=:new WHERE ticket_id=:t_id ");
         $update = $update->execute(array("last_time"=>date("Y.m.d H:i:s"),"t_id"=>route(1),"new"=>2,"status"=>"pending" ));
-        $insert = $conn->prepare("INSERT INTO ticket_reply SET ticket_id=:t_id, message=:message, time=:time ");
+        $insert = $conn->prepare("INSERT INTO ticket_reply (ticket_id, message, time) VALUES (:t_id, :message, :time)");
         $insert = $insert->execute(array("t_id"=>route(1),"message"=>$message,"time"=>date("Y.m.d H:i:s")));
-        $insert3= $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+        $insert3= $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
         $insert3= $insert3->execute(array("c_id"=>$user["client_id"],"action"=>"Support request answered#".route(1),"ip"=>GetIP(),"date"=>date("Y-m-d H:i:s") ));
 
 if( $settings["alert_newticket"] == 2 ){

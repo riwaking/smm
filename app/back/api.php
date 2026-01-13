@@ -265,18 +265,7 @@ APIErrorExit("You don't have sufficient balance to place this order.");
 // MANUAL ORDER
 if($SERVICE_DETAIL["service_api"] == 0){
  $conn->beginTransaction();
- $insert_maunal_order = $conn->prepare("INSERT INTO orders SET 
-     order_start=:count,
-     order_profit=:profit,
-     order_error=:error,
-     client_id=:c_id,
-     service_id=:s_id,
-     order_quantity=:quantity,
-     order_charge=:price,
-     order_url=:url,
-     order_create=:create,
-     order_extras=:extra,
-     last_check=:last");
+ $insert_maunal_order = $conn->prepare("INSERT INTO orders (order_start, order_profit, order_error, client_id, service_id, order_quantity, order_charge, order_url, order_create, order_extras, last_check) VALUES (:count, :profit, :error, :c_id, :s_id, :quantity, :price, :url, :create, :extra, :last)");
 
 $insert_maunal_order = $insert_maunal_order->execute(array(
     "count"=> "0",
@@ -302,7 +291,7 @@ $update_user = $update_user->execute(array(
    "spent"=>$API_CLIENT["spent"] + $SERVICE_PRICE,
    "id"=>$API_CLIENT["client_id"]
  ));
-$insert_order_log = $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+$insert_order_log = $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
 $insert_order_log = $insert_order_log->execute(array(
   "c_id"=>$user["client_id"],
   "action"=>"New Manual Order #".$ORDER_ID." has been placed by ".$API_CLIENT["username"].".",
@@ -444,35 +433,7 @@ $API_CURRENCY  = $SERVICE_DETAIL["currency"];
 $ORDER_PROFIT = from_to(get_currencies_array("enabled"),$API_CURRENCY,$settings["site_base_currency"],$SERVICE_PRICE - $API_ORDER_CHARGE);
 $API_BALANCE = $API_BALANCE->balance;
 
-$INSERT_API_ORDER = $conn->prepare("INSERT INTO orders SET 
-    order_start=:count,
-    order_error=:error,
-    order_detail=:detail,
-    client_id=:c_id,
-    api_orderid=:order_id,
-    service_id=:s_id,
-    order_quantity=:quantity,
-    order_charge=:price,
-    order_url=:url,
-    order_create=:create,
-    order_extras=:extra,
-    last_check=:last_check,
-    order_api=:api,
-    api_serviceid=:api_serviceid,
-    subscriptions_status=:s_status,
-    subscriptions_type=:subscriptions,
-    subscriptions_username=:username,
-    subscriptions_posts=:posts,
-    subscriptions_delay=:delay,
-    subscriptions_min=:min,
-    subscriptions_max=:max,
-    subscriptions_expiry=:expiry,
-    dripfeed_id=:dripfeed_id,
-    api_charge=:api_charge,
-    api_currencycharge=:api_currencycharge,
-    order_profit=:profit,
-    order_increase=:order_increase
-");
+$INSERT_API_ORDER = $conn->prepare("INSERT INTO orders (order_start, order_error, order_detail, client_id, api_orderid, service_id, order_quantity, order_charge, order_url, order_create, order_extras, last_check, order_api, api_serviceid, subscriptions_status, subscriptions_type, subscriptions_username, subscriptions_posts, subscriptions_delay, subscriptions_min, subscriptions_max, subscriptions_expiry, dripfeed_id, api_charge, api_currencycharge, order_profit, order_increase) VALUES (:count, :error, :detail, :c_id, :order_id, :s_id, :quantity, :price, :url, :create, :extra, :last_check, :api, :api_serviceid, :s_status, :subscriptions, :username, :posts, :delay, :min, :max, :expiry, :dripfeed_id, :api_charge, :api_currencycharge, :profit, :order_increase)");
 
 $INSERT_API_ORDER = $INSERT_API_ORDER->execute(array(
   "count"=> $ORDER_STATUS->start_count,
@@ -526,7 +487,7 @@ $update_user = $update_user->execute(array(
     "spent"=>$API_CLIENT["spent"] + $SERVICE_PRICE ,
     "id"=>$API_CLIENT["client_id"]
 ));
-$insert_order_log = $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+$insert_order_log = $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
 $insert_order_log = $insert_order_log->execute(array(
   "c_id"=>$API_CLIENT["client_id"],
   "action"=>"New API Order #".$ORDER_ID." has been placed by ".$API_CLIENT["username"].".",
