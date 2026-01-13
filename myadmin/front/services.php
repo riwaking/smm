@@ -414,6 +414,8 @@ endif;
         </div>
     </div>
 
+    <?php include 'footer.php'; ?>
+
     <script>
     $(document).ready(function() {
         $('.selectCategory').on('change', function() {
@@ -465,5 +467,3 @@ endif;
         });
     });
     </script>
-
-    <?php include 'footer.php'; ?>
