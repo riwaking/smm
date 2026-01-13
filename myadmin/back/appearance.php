@@ -132,7 +132,7 @@ elseif (route(2) == "pages"):
           $themes = $themes->fetchAll(PDO::FETCH_ASSOC);
           foreach ($themes as $theme):
 
-            $fn = "app/views/" . $theme["theme_dirname"] . "/$pageget.twig";
+            $fn = "app/front/" . $theme["theme_dirname"] . "/$pageget.twig";
             $codeType = "twig";
             $dir = "HTML";
             $text = $_POST["code"];
@@ -733,7 +733,7 @@ elseif (route(2) == "themes"):
         $codeType = "js";
         $dir = "JS";
       } elseif (substr($lyt, -4) == "twig") {
-        $fn = "app/views/" . $theme["theme_dirname"] . "/" . $lyt;
+        $fn = "app/front/" . $theme["theme_dirname"] . "/" . $lyt;
         $codeType = "twig";
         $dir = "HTML";
       }
@@ -848,9 +848,12 @@ elseif (route(2) == "blog"):
   if ($access):
     $id = route(4);
 
-    $bloge = $conn->prepare("SELECT * FROM blogs WHERE id=:id ");
-    $bloge->execute(array("id" => $id));
-    $bloge = $bloge->fetch(PDO::FETCH_ASSOC);
+    $bloge = null;
+    if ($id && is_numeric($id)) {
+      $bloge = $conn->prepare("SELECT * FROM blogs WHERE id=:id ");
+      $bloge->execute(array("id" => $id));
+      $bloge = $bloge->fetch(PDO::FETCH_ASSOC);
+    }
 
     $blogs = $conn->prepare("SELECT * FROM blogs ");
     $blogs->execute(array());
