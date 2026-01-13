@@ -27,18 +27,18 @@ echo '
 <option value="Lime" >Lime</option>
 <option value="Grapes" >Grapes</option>
 <option value="Dark" >Dark</option>
-																		<option value="Cyan" >Cyan</option>
-																		<option value="Coral" >Coral</option>
-																		<option value="Green" >Green</option>
-																		<option value="Grey" >Grey</option>
-																		<option value="Lilac" >Lilac</option>
+                                                                                                                                                <option value="Cyan" >Cyan</option>
+                                                                                                                                                <option value="Coral" >Coral</option>
+                                                                                                                                                <option value="Green" >Green</option>
+                                                                                                                                                <option value="Grey" >Grey</option>
+                                                                                                                                                <option value="Lilac" >Lilac</option>
 <option value="Orange">Orange</option>
           </select>
         </div> 
      <center>  
         <button type="submit" class="btn btn-default">Update</button></center>
       </form>
-				 </ul>';
+                                 </ul>';
 endif;
 if( $theme["colour"] == "2" AND $theme["theme_dirname"] == "Eternity"):
 echo ' 
@@ -63,7 +63,7 @@ echo '
      <center>  
         <button type="submit" class="btn btn-default">Update</button></center>
       </form>
-				 </ul>';
+                                 </ul>';
 
 endif;
 if( $theme["colour"] == "2" AND $theme["theme_dirname"] == "pitchy"):
@@ -82,13 +82,13 @@ echo '
      <center>  
         <button type="submit" class="btn btn-default">Update</button></center>
       </form>
-				 </ul>';
+                                 </ul>';
 endif;
 
 endif; ?></td>
             <td class="text-right col-md-1">
               <div class="dropdown pull-right">
-				  
+                                  
                 <button type="button" class="btn btn-default btn-xs dropdown-toggle btn-xs-caret" data-toggle="dropdown">Options <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                   <?php if( $settings["site_theme"] != $theme["theme_dirname"] ): ?>
@@ -106,7 +106,7 @@ endif; ?></td>
                 </ul>
               </div>
             </td>
-			
+                        
          </tr>
          <?php endforeach; ?>
       </tbody>
@@ -206,13 +206,22 @@ if($settings["summary_card_background_color"] == "fixed_colour"){
                <div class="panel-body">
 
                 <?php
-                $file = fopen($fn, "r");
-                $size = filesize($fn);
-                $text = fread($file, $size); // -> Kodu okur
-                $text = str_replace("<","&lt;",$text);
-                $text = str_replace(">","&gt;",$text);
-                $text = str_replace('"',"&quot;",$text);
-                fclose($file); // -> Kapatır
+                $text = '';
+                if (isset($fn) && file_exists($fn) && is_readable($fn)) {
+                    $size = filesize($fn);
+                    if ($size > 0) {
+                        $file = fopen($fn, "r");
+                        if ($file !== false) {
+                            $text = fread($file, $size);
+                            fclose($file);
+                        }
+                    }
+                    $text = str_replace("<","&lt;",$text);
+                    $text = str_replace(">","&gt;",$text);
+                    $text = str_replace('"',"&quot;",$text);
+                } else {
+                    $text = "File not found or not readable: " . htmlspecialchars($fn ?? 'undefined');
+                }
                 ?>
 
                 <div class="row">
