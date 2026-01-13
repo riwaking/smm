@@ -29,7 +29,7 @@ if( $_POST && $_POST["username"] ):
         $error    = 1;
         $errorText= $languageArray["transferfunds.bank.enoughBalance"];
     }else{
-        $receiver = $conn->prepare("SELECT * FROM clients WHERE username=:username && client_id !=:id");
+        $receiver = $conn->prepare("SELECT * FROM clients WHERE username=:username AND client_id !=:id");
         $receiver->execute(["username"=>$receiver_username, "id"=>$_SESSION['msmbilisim_userid']]);
         $receiver = $receiver->fetchAll(PDO::FETCH_ASSOC);
         $receiver = $receiver[0];

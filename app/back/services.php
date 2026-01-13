@@ -18,20 +18,20 @@ $categoriesRows = $categoriesRows->fetchAll(PDO::FETCH_ASSOC);
 
 
 $query = $conn->query("SELECT * FROM settings", PDO::FETCH_ASSOC);
-		if ( $query->rowCount() ):
-			 foreach( $query as $row ):
-				  $siraal = $row['servis_siralama'];
-			 endforeach;
-		endif;
-		
-		
+                if ( $query->rowCount() ):
+                         foreach( $query as $row ):
+                                  $siraal = $row['servis_siralama'];
+                         endforeach;
+                endif;
+                
+                
 
 $categories = [];
   foreach ( $categoriesRows as $categoryRow ) {
-    $search = $conn->prepare("SELECT * FROM clients_category WHERE category_id=:category && client_id=:c_id ");
+    $search = $conn->prepare("SELECT * FROM clients_category WHERE category_id=:category AND client_id=:c_id ");
     $search->execute(array("category"=>$categoryRow["category_id"],"c_id"=>$user["client_id"]));
     if( $categoryRow["category_secret"] == 2 || $search->rowCount() ):
-      $rows     = $conn->prepare("SELECT * FROM services WHERE category_id=:id && service_type=:type && service_deleted=:deleted ORDER BY service_line ".$siraal);
+      $rows     = $conn->prepare("SELECT * FROM services WHERE category_id=:id AND service_type=:type AND service_deleted=:deleted ORDER BY service_line ".$siraal);
       $rows     ->execute(array("id"=>$categoryRow["category_id"],"type"=>2 , "deleted" => 0));
       $rows     = $rows->fetchAll(PDO::FETCH_ASSOC);
       $services = [];
@@ -47,7 +47,7 @@ $s["service_description"] = str_replace("\n", "<br />", $row["service_descriptio
 $s["time"]  = $row["time"];
           $s["service_min"]   = $row["service_min"];
           $s["service_max"]   = $row["service_max"];
-          $search = $conn->prepare("SELECT * FROM clients_service WHERE service_id=:service && client_id=:c_id ");
+          $search = $conn->prepare("SELECT * FROM clients_service WHERE service_id=:service AND client_id=:c_id ");
           $search->execute(array("service"=>$row["service_id"],"c_id"=>$user["client_id"]));
           if( $row["service_secret"] == 2 || $search->rowCount() ):
             array_push($services,$s);

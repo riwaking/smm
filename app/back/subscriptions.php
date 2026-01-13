@@ -12,7 +12,7 @@ if( $settings["email_confirmation"] == 1  && $user["email_type"] == 1  ){
 }
   if( route(1) == "pause" ):
     $order_id = route(2);
-    $row      =   $conn->prepare("SELECT * FROM orders WHERE order_id=:id && ( subscriptions_status=:status || subscriptions_status=:status2 ) ");
+    $row      =   $conn->prepare("SELECT * FROM orders WHERE order_id=:id AND ( subscriptions_status=:status OR subscriptions_status=:status2 ) ");
     $row      ->  execute(array("id"=>$order_id,"status"=>"active","status2"=>"expired" ));
       if( $row->rowCount() ):
         $row    = $row->fetch(PDO::FETCH_ASSOC);
@@ -25,7 +25,7 @@ if( $settings["email_confirmation"] == 1  && $user["email_type"] == 1  ){
     exit();
   elseif( route(1) == "resume" ):
     $order_id = route(2);
-    $row      =   $conn->prepare("SELECT * FROM orders WHERE order_id=:id && subscriptions_status=:status ");
+    $row      =   $conn->prepare("SELECT * FROM orders WHERE order_id=:id AND subscriptions_status=:status ");
     $row      ->  execute(array("id"=>$order_id,"status"=>"paused" ));
       if( $row->rowCount() ):
         $row    = $row->fetch(PDO::FETCH_ASSOC);
@@ -38,7 +38,7 @@ if( $settings["email_confirmation"] == 1  && $user["email_type"] == 1  ){
     exit();
   elseif( route(1) == "stop" ):
     $order_id = route(2);
-    $row      =   $conn->prepare("SELECT * FROM orders WHERE order_id=:id && ( subscriptions_status=:status || subscriptions_status=:status2 ) ");
+    $row      =   $conn->prepare("SELECT * FROM orders WHERE order_id=:id AND ( subscriptions_status=:status OR subscriptions_status=:status2 ) ");
     $row      ->  execute(array("id"=>$order_id,"status"=>"paused","status2"=>"active" ));
       if( $row->rowCount() ):
         $row    = $row->fetch(PDO::FETCH_ASSOC);

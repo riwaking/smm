@@ -4,14 +4,18 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-13: Complete MySQL to PostgreSQL migration - all SQL syntax converted
+- 2026-01-13: Converted 97+ INSERT INTO...SET statements to INSERT INTO (cols) VALUES (vals) format
+- 2026-01-13: Fixed all INNER JOIN...WHERE to use proper ON clauses
+- 2026-01-13: Fixed `&&` and `||` operators to `AND` and `OR` in all files
+- 2026-01-13: Fixed LIMIT offset,count to LIMIT count OFFSET offset syntax
+- 2026-01-13: Fixed WHERE 1 to WHERE TRUE for PostgreSQL compatibility
+- 2026-01-13: Fixed division by zero errors with null checks in orders.php and clients.php
+- 2026-01-13: Fixed appearance.php to handle empty route(4) parameter
 - 2026-01-13: Added mobile-responsive.css with comprehensive mobile optimizations
 - 2026-01-13: Implemented Flexbox/CSS Grid layouts for responsive design
 - 2026-01-13: Added touch-friendly sizing for buttons and inputs (44px minimum)
 - 2026-01-13: Added fluid typography with clamp() for smooth text scaling
-- 2026-01-13: Converted from MySQL to PostgreSQL for Replit compatibility
-- 2026-01-13: Updated database configuration to use environment variables
-- 2026-01-13: Fixed MySQL-specific SQL syntax (`&&` → `AND`) for PostgreSQL in app/ and myadmin/ directories
-- 2026-01-13: Fixed substr trimming for dynamic WHERE clauses (-5 for AND, -4 for OR)
 - 2026-01-13: Created 404.twig template to fix missing template errors
 - 2026-01-13: Removed malicious Telegram credential exfiltration code from admin login
 - 2026-01-13: Configured PHP development server on port 5000

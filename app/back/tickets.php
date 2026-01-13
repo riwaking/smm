@@ -128,7 +128,7 @@ if (!countRow(["table" => "tickets", "where" => ["ticket_id" => route(1) ,"clien
 
 
 
-  $ticketUpdate = $conn->prepare("UPDATE tickets SET support_new=:new  WHERE client_id=:c_id && ticket_id=:t_id ");
+  $ticketUpdate = $conn->prepare("UPDATE tickets SET support_new=:new  WHERE client_id=:c_id AND ticket_id=:t_id ");
   $ticketUpdate-> execute(array("c_id"=>$user["client_id"], "new"=>1, "t_id"=>route(1) ));
   $ticketUpdate = $ticketUpdate->fetch(PDO::FETCH_ASSOC);
   $messageList  = $conn->prepare("SELECT * FROM ticket_reply WHERE ticket_id=:t_id ");
@@ -136,12 +136,12 @@ if (!countRow(["table" => "tickets", "where" => ["ticket_id" => route(1) ,"clien
   $messageList  = $messageList->fetchAll(PDO::FETCH_ASSOC);
 
 
-  $ticketList = $conn->prepare("SELECT * FROM tickets WHERE client_id=:c_id && ticket_id=:t_id ");
+  $ticketList = $conn->prepare("SELECT * FROM tickets WHERE client_id=:c_id AND ticket_id=:t_id ");
   $ticketList-> execute(array("c_id"=>$user["client_id"], "t_id"=>route(1) ));
   $ticketList = $ticketList->fetchAll(PDO::FETCH_ASSOC);
   $messageList["ticket"]  = $ticketList;
 
-$tickets = $conn->prepare("SELECT * FROM tickets WHERE client_id=:c_id && ticket_id=:t_id");
+$tickets = $conn->prepare("SELECT * FROM tickets WHERE client_id=:c_id AND ticket_id=:t_id");
   $tickets-> execute(array("c_id"=>$user["client_id"], "t_id"=>route(1) ));
   $tickets = $tickets->fetchAll(PDO::FETCH_ASSOC);
 $ticketsList = [];

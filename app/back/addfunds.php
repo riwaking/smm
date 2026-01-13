@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $methodNames = array_group_by($methodNames, "methodId");
 
 
-    $transactions = $conn->prepare("SELECT payment_id,payment_create_date,payment_method,payment_amount FROM payments WHERE payment_status=:status && payment_delivery=:delivery && client_id=:id ORDER BY payment_id DESC");
+    $transactions = $conn->prepare("SELECT payment_id,payment_create_date,payment_method,payment_amount FROM payments WHERE payment_status=:status AND payment_delivery=:delivery AND client_id=:id ORDER BY payment_id DESC");
     $transactions->execute([
         "status" => 3,
         "delivery" => 2,

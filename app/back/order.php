@@ -5,7 +5,7 @@ if(!defined('BASEPATH')) {
 $route[0]       =       "neworder";
 if(route(1) != "massorder"):
     
-$order  =       $conn->prepare("SELECT * FROM orders INNER JOIN services ON services.service_id=orders.service_id WHERE client_id=:client && order_id=:orderid ");
+$order  =       $conn->prepare("SELECT * FROM orders INNER JOIN services ON services.service_id=orders.service_id WHERE client_id=:client AND order_id=:orderid ");
 $order-> execute(array("client"=>$user["client_id"],"orderid"=>route(1) ));
 
 if( !$order->rowCount() ):
@@ -50,7 +50,7 @@ $categoriesRows = $categoriesRows->fetchAll(PDO::FETCH_ASSOC);
 
 $categories = [];
   foreach ( $categoriesRows as $categoryRow ) {
-    $search = $conn->prepare("SELECT * FROM clients_category WHERE category_id=:category && client_id=:c_id ");
+    $search = $conn->prepare("SELECT * FROM clients_category WHERE category_id=:category AND client_id=:c_id ");
     $search->execute(array("category"=>$categoryRow["category_id"],"c_id"=>$user["client_id"]));
     if( $categoryRow["category_secret"] == 2 || $search->rowCount() ):
       $rows     = $conn->prepare("SELECT * FROM services WHERE category_id=:id ORDER BY service_line ASC");
@@ -68,7 +68,7 @@ $categories = [];
                                                         endif;
           $s["service_min"]   = $row["service_min"];
           $s["service_max"]   = $row["service_max"];
-          $search = $conn->prepare("SELECT * FROM clients_service WHERE service_id=:service && client_id=:c_id ");
+          $search = $conn->prepare("SELECT * FROM clients_service WHERE service_id=:service AND client_id=:c_id ");
           $search->execute(array("service"=>$row["service_id"],"c_id"=>$user["client_id"]));
           if( $row["service_secret"] == 2 || $search->rowCount() ):
             array_push($services,$s);
@@ -200,13 +200,13 @@ if( $_POST ):
 
     if( $service_detail["want_username"] == 2 ):
       $private_type = "username";
-      $countRow     = $conn->prepare("SELECT * FROM orders WHERE order_url=:url && ( order_status=:statu || order_status=:statu2 || order_status=:statu3 ) && dripfeed=:dripfeed && subscriptions_type=:subscriptions_type ");
+      $countRow     = $conn->prepare("SELECT * FROM orders WHERE order_url=:url AND ( order_status=:statu OR order_status=:statu2 OR order_status=:statu3 ) AND dripfeed=:dripfeed AND subscriptions_type=:subscriptions_type ");
       $countRow    -> execute(array("url"=>$link,"statu"=>"pending","statu2"=>"inprogress","statu3"=>"processing","dripfeed"=>1,"subscriptions_type"=>1 ));
       $countRow     = $countRow->rowCount();
     else:
       $private_type = "url";
       if( substr($link,0,7) == "http://" ): $linkSearch = substr($link,7); endif; if( substr($linkSearch,0,8) == "https://" ): $linkSearch = substr($linkSearch,8); endif; if( substr($linkSearch,0,4) == "www." ): $linkSearch = substr($link,4); endif;
-      $countRow     = $conn->prepare("SELECT * FROM orders WHERE order_url LIKE :url && ( order_status=:statu || order_status=:statu2 || order_status=:statu3 ) && dripfeed=:dripfeed && subscriptions_type=:subscriptions_type ");
+      $countRow     = $conn->prepare("SELECT * FROM orders WHERE order_url LIKE :url AND ( order_status=:statu OR order_status=:statu2 OR order_status=:statu3 ) AND dripfeed=:dripfeed AND subscriptions_type=:subscriptions_type ");
       $countRow    -> execute(array("url"=>'%'.$linkSearch.'%',"statu"=>"pending","statu2"=>"inprogress","statu3"=>"processing","dripfeed"=>1,"subscriptions_type"=>1 ));
       $countRow     = $countRow->rowCount();
     endif;

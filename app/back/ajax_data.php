@@ -9,7 +9,7 @@ $discount_percent = $user["discount_percentage"]/100;
 if ($action == "services_list"):
 
 $category = $_POST["category"];
-$services = $conn->prepare("SELECT * FROM services WHERE category_id=:c_id && service_type=:type && service_deleted=:deleted ORDER BY service_line ");
+$services = $conn->prepare("SELECT * FROM services WHERE category_id=:c_id AND service_type=:type AND service_deleted=:deleted ORDER BY service_line ");
 $services->execute(array('c_id' => $category, 'type' => 2,"deleted" => 0));
 $services = $services->fetchAll(PDO::FETCH_ASSOC);
 if ($services):
@@ -25,7 +25,7 @@ foreach ($services as $service) {
 $price = service_price($service["service_id"]);
 $price = ($price - ($price * $discount_percent));
 $final_service_price = format_amount_string($user["currency_type"],from_to(get_currencies_array("enabled"),$settings["site_base_currency"],$user["currency_type"],$price));
-$search = $conn->prepare("SELECT * FROM clients_service WHERE service_id=:service && client_id=:c_id ");
+$search = $conn->prepare("SELECT * FROM clients_service WHERE service_id=:service AND client_id=:c_id ");
 $search->execute(array("service" => $service["service_id"], "c_id" => $user["client_id"]));
 if ($service["service_secret"] == 2 || $search->rowCount()):
 $serviceList.= "<option data-content=\"".htmlentities("<span class=\"badge badge-secondary style-text-primary badge-rounded\">".$service["service_id"]."</span>")." ".$service["service_name"] . " - <b>" .$final_service_price."</b>\" value='" . $service['service_id'] . "' ";
@@ -75,10 +75,10 @@ $s_id = $_POST["service"];
         $time    = str_replace("\n","<br />",$service["time"]);
         $serviceDetails.= '<div class="form-group fields" id="description">
               
-			  <label class="control-label"  for="service_description" class="control-label"><span>Average time</span>
+                          <label class="control-label"  for="service_description" class="control-label"><span>Average time</span>
                                                     <span class="ml-1 mr-1 fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="The average time is based on 10 latest completed orders per 1000 quantity."></span>
                                                </label>
-			  <div class="panel-body border-solid border-rounded" id="service_description">
+                          <div class="panel-body border-solid border-rounded" id="service_description">
               '.$time.'
               </div>
 </div>

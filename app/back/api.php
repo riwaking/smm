@@ -74,7 +74,7 @@ exit();
 }  // END ACTION : BALANCE
 // ACTION : STATUS
 elseif($action == "status"){
-$ORDER = $conn->prepare("SELECT * FROM orders WHERE order_id=:order_id && client_id=:client_id");
+$ORDER = $conn->prepare("SELECT * FROM orders WHERE order_id=:order_id AND client_id=:client_id");
 $ORDER->execute(array(
     "client_id" => $API_CLIENT["client_id"],
     "order_id" => $ORDER_ID
@@ -245,7 +245,7 @@ $SERVICE_PRICE = $PER_ITEM_PRICE * $QUANTITY;
 }
 
 
-$ORDER_ALREADY_EXISTS = $conn->prepare("SELECT * FROM orders WHERE order_url LIKE :url && ( order_status=:status1 || order_status=:status2 || order_status=:status3 ) && dripfeed=:dripfeed && subscriptions_type=:subscriptions_type ");
+$ORDER_ALREADY_EXISTS = $conn->prepare("SELECT * FROM orders WHERE order_url LIKE :url AND ( order_status=:status1 OR order_status=:status2 OR order_status=:status3 ) AND dripfeed=:dripfeed AND subscriptions_type=:subscriptions_type ");
 $ORDER_ALREADY_EXISTS->execute(array("url" => '%' . $LINK . '%', "status1" => "pending", "status2" => "inprogress", "status3" => "processing", "dripfeed" => 1, "subscriptions_type" => 1));
 $ORDER_ALREADY_EXISTS = $ORDER_ALREADY_EXISTS->rowCount();
 

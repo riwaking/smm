@@ -27,7 +27,7 @@ $categoriesRows = $categoriesRows->fetchAll(PDO::FETCH_ASSOC);
 
 $categories = [];
   foreach ( $categoriesRows as $categoryRow ) {
-    $search = $conn->prepare("SELECT * FROM clients_category WHERE category_id=:category && client_id=:c_id ");
+    $search = $conn->prepare("SELECT * FROM clients_category WHERE category_id=:category AND client_id=:c_id ");
     $search->execute(array("category"=>$categoryRow["category_id"],"c_id"=>$user["client_id"]));
     if( $categoryRow["category_secret"] == 2 || $search->rowCount() ):
       $rows     = $conn->prepare("SELECT * FROM services WHERE category_id=:id ORDER BY service_line ASC");
@@ -46,7 +46,7 @@ $s["service_name"] = $row["service_name"];
 endif;
 $s["service_min"]   = $row["service_min"];
           $s["service_max"]   = $row["service_max"];
-          $search = $conn->prepare("SELECT * FROM clients_service WHERE service_id=:service && client_id=:c_id ");
+          $search = $conn->prepare("SELECT * FROM clients_service WHERE service_id=:service AND client_id=:c_id ");
           $search->execute(array("service"=>$row["service_id"],"c_id"=>$user["client_id"]));
           if( $row["service_secret"] == 2 || $search->rowCount() ):
             array_push($services,$s);
@@ -191,12 +191,12 @@ $extras   = json_encode(["comments"=>$comments]);
 
     if( $service_detail["want_username"] == 2 ):
       $private_type = "username";
-      $countRow     = $conn->prepare("SELECT * FROM orders WHERE order_url=:url &&  order_status!=:statu && dripfeed=:dripfeed && subscriptions_type=:subscriptions_type ");
+      $countRow     = $conn->prepare("SELECT * FROM orders WHERE order_url=:url AND  order_status!=:statu AND dripfeed=:dripfeed AND subscriptions_type=:subscriptions_type ");
       $countRow    -> execute(array("url"=>$link,"statu"=>"completed","dripfeed"=>1,"subscriptions_type"=>1 ));
       $countRow     = $countRow->rowCount();
     else:
             $private_type = "username";
-      $countRow     = $conn->prepare("SELECT * FROM orders WHERE order_url=:url &&  order_status!=:statu && dripfeed=:dripfeed && subscriptions_type=:subscriptions_type ");
+      $countRow     = $conn->prepare("SELECT * FROM orders WHERE order_url=:url AND  order_status!=:statu AND dripfeed=:dripfeed AND subscriptions_type=:subscriptions_type ");
       $countRow    -> execute(array("url"=>$link,"statu"=>"completed","dripfeed"=>1,"subscriptions_type"=>1 ));
       $countRow     = $countRow->rowCount();
     endif;

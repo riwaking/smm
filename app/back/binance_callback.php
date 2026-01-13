@@ -25,7 +25,7 @@ if(isset($response->data)){
     $data = json_decode($response->data);
     $trx_id = $data->merchantTradeNo;
     $amount = $data->totalFee;
-    $payment = $conn->prepare('Select * from payments where payment_extra =:trx_id && payment_status =:status');
+    $payment = $conn->prepare('Select * from payments where payment_extra =:trx_id AND payment_status =:status');
     $payment->execute(['trx_id' => $trx_id, 'status' => 1]);
     $payment = $payment->fetch(PDO::FETCH_ASSOC);
     // var_dump($payment);

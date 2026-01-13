@@ -140,7 +140,7 @@ if(strpos($username, $mail) == false){
         $errorText  = $languageArray["error.signin.deactive"];
         if( $settings["recaptcha"] == 2 ){ $_SESSION["recaptcha"]  = true; }
     }else{
-        $row    = $conn->prepare("SELECT * FROM clients WHERE username=:username && password=:password ");
+        $row    = $conn->prepare("SELECT * FROM clients WHERE username=:username AND password=:password ");
         $row  -> execute(array("username"=>$username,"password"=>md5($pass) ));
         $row    = $row->fetch(PDO::FETCH_ASSOC);
         $access = json_decode($row["access"],true);
@@ -196,7 +196,7 @@ $_SESSION["currency_hash"] = $currency_hash;
 } else {
 
 
-$row    = $conn->prepare("SELECT * FROM clients WHERE email=:username && password=:password ");
+$row    = $conn->prepare("SELECT * FROM clients WHERE email=:username AND password=:password ");
         $row  -> execute(array("username"=>$username,"password"=>md5($pass) ));
         $row    = $row->fetch(PDO::FETCH_ASSOC);
 $usersname  =  $row["username"];
@@ -218,7 +218,7 @@ if( $settings["recaptcha"] == 2 && $captcha_control->success == false && $_SESSI
         $errorText  = $languageArray["error.signin.deactive"];
         if( $settings["recaptcha"] == 2 ){ $_SESSION["recaptcha"]  = true; }
     }else{
-        $row    = $conn->prepare("SELECT * FROM clients WHERE email=:username && password=:password ");
+        $row    = $conn->prepare("SELECT * FROM clients WHERE email=:username AND password=:password ");
         $row  -> execute(array("username"=>$username,"password"=>md5($pass) ));
         $row    = $row->fetch(PDO::FETCH_ASSOC);
         $access = json_decode($row["access"],true);

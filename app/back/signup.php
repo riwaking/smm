@@ -222,7 +222,7 @@ $headers .= 'Bcc: '.$from . "\r\n";
 }
 
       //Auto Login
-      $row    = $conn->prepare("SELECT * FROM clients WHERE username=:username && password=:password ");
+      $row    = $conn->prepare("SELECT * FROM clients WHERE username=:username AND password=:password ");
       $row->execute(array("username" => $username, "password" => md5($pass) ));
       $row    = $row->fetch(PDO::FETCH_ASSOC);
       $access = json_decode($row["access"], true);

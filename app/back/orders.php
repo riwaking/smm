@@ -21,7 +21,7 @@ if (route(1) == 'refill' && route(2)) {
   $order = $order->fetch(PDO::FETCH_ASSOC);
 
   $refill_tasks = $conn->prepare(
-    'SELECT * FROM tasks WHERE task_type=:type && order_id=:id'
+    'SELECT * FROM tasks WHERE task_type=:type AND order_id=:id'
   );
   $refill_tasks->execute(['id' => $order_id, 'type' => 1]);
   $refill_tasks = $refill_tasks->fetch(PDO::FETCH_ASSOC);
@@ -243,30 +243,30 @@ else :
 $page = 1;
 endif;
 if (route(1) != 'all') :
-$search = "&& order_status='" . route(1) . "'";
+$search = "AND order_status='" . route(1) . "'";
 else :
 $search = '';
 endif;
 if (!empty(urldecode(strip_tags($_GET['search'])))) :
 $search .=
-" && ( order_url LIKE '%" .
+" AND ( order_url LIKE '%" .
 urldecode(strip_tags($_GET['search'])) .
-"%' || order_id LIKE '%" .
+"%' OR order_id LIKE '%" .
 urldecode(strip_tags($_GET['search'])) .
 "%' ) ";
 endif;
 if (!empty(strip_tags($_GET['subscription']))) :
 $search .=
-" && ( subscriptions_id LIKE '%" . strip_tags($_GET['subscription']) . "%'  ) ";
+" AND ( subscriptions_id LIKE '%" . strip_tags($_GET['subscription']) . "%'  ) ";
 endif;
 if (!empty(strip_tags($_GET['dripfeed']))) :
-$search .= " && ( dripfeed_id LIKE '%" . strip_tags($_GET['dripfeed']) . "%'  ) ";
+$search .= " AND ( dripfeed_id LIKE '%" . strip_tags($_GET['dripfeed']) . "%'  ) ";
 endif;
 
 $c_id = $user['client_id'];
 $to = 25;
 $count = $conn->query(
-  "SELECT * FROM orders WHERE client_id='$c_id' && dripfeed='1' && subscriptions_type='1' $search "
+  "SELECT * FROM orders WHERE client_id='$c_id' AND dripfeed='1' AND subscriptions_type='1' $search "
 );
 if (empty($count)) {
   $count = 0;
@@ -287,7 +287,7 @@ $paginationArr = [
 ];
 
 $orders = $conn->prepare(
-  "SELECT * FROM orders INNER JOIN services ON services.service_id = orders.service_id && orders.dripfeed=:dripfeed && orders.subscriptions_type=:subs && orders.client_id=:c_id $search ORDER BY orders.order_id DESC LIMIT $where,$to "
+  "SELECT * FROM orders INNER JOIN services ON services.service_id = orders.service_id AND orders.dripfeed=:dripfeed AND orders.subscriptions_type=:subs AND orders.client_id=:c_id $search ORDER BY orders.order_id DESC LIMIT $to OFFSET $where "
 );
 $orders->execute(['c_id' => $user['client_id'], 'dripfeed' => 1, 'subs' => 1]);
 $orders = $orders->fetchAll(PDO::FETCH_ASSOC);
@@ -358,7 +358,7 @@ foreach ($orders as $order) {
       // already few or more refill has been taken place for it...next ;;
 
       $refill_tasks = $conn->prepare(
-        'SELECT * FROM tasks WHERE task_type=:type && order_id=:id ORDER BY task_id DESC LIMIT 1'
+        'SELECT * FROM tasks WHERE task_type=:type AND order_id=:id ORDER BY task_id DESC LIMIT 1'
       );
       $refill_tasks->execute(['id' => $order['order_id'], 'type' => 1]);
       $refill_tasks = $refill_tasks->fetch(PDO::FETCH_ASSOC);
