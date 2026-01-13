@@ -63,17 +63,17 @@ $search_statu = route(1); if( !route(1) ):  $route[1] = "all";  endif;
   else:
     $page         = 1;
   endif;
-    if( route(1) != "all" ): $search  = "&& subscriptions_status='".route(1)."'"; else: $search = ""; endif;
-    if( !empty($_GET["search"]) ): $search.= " && ( order_url LIKE '%".$_GET["search"]."%' ||  order_id LIKE '%".$_GET["search"]."%' ) "; endif;
+    if( route(1) != "all" ): $search  = "AND subscriptions_status='".route(1)."'"; else: $search = ""; endif;
+    if( !empty($_GET["search"]) ): $search.= " AND ( order_url LIKE '%".$_GET["search"]."%' OR order_id LIKE '%".$_GET["search"]."%' ) "; endif;
     $c_id       = $user["client_id"];
     $to         = 25;
-    $count      = $conn->query("SELECT * FROM orders WHERE client_id='$c_id' && dripfeed='1' && subscriptions_type='2' $search ")->rowCount();
+    $count      = $conn->query("SELECT * FROM orders WHERE client_id='$c_id' AND dripfeed='1' AND subscriptions_type='2' $search ")->rowCount();
     $pageCount  = ceil($count/$to);
       if( $page > $pageCount ): $page = 1; endif;
     $where      = ($page*$to)-$to;
     $paginationArr = ["count"=>$pageCount,"current"=>$page,"next"=>$page+1,"previous"=>$page-1];
 
-  $orders = $conn->prepare("SELECT * FROM orders INNER JOIN services WHERE services.service_id = orders.service_id && orders.dripfeed=:dripfeed && orders.subscriptions_type=:subs && orders.client_id=:c_id $search ORDER BY orders.order_id DESC LIMIT $where,$to ");
+  $orders = $conn->prepare("SELECT * FROM orders INNER JOIN services ON services.service_id = orders.service_id WHERE orders.dripfeed=:dripfeed AND orders.subscriptions_type=:subs AND orders.client_id=:c_id $search ORDER BY orders.order_id DESC LIMIT $to OFFSET $where ");
   $orders-> execute(array("c_id"=>$user["client_id"],"dripfeed"=>1,"subs"=>2 ));
   $orders = $orders->fetchAll(PDO::FETCH_ASSOC);
   $ordersList = [];

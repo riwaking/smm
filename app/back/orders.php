@@ -92,10 +92,7 @@ if (route(1) == 'refill' && route(2)) {
 
 
       $jres = json_encode($res);
-      $insert = $conn->prepare("INSERT INTO tasks SET client_id=:c_id, order_id=:o_id,
-  service_id=:s_id, task_type=:type, task_api=:api , task_response=:res , task_status=:status
-   , task_by=:task_by , check_refill_status=:check_refill_status
-   ,task_created_at=:task_created_at , task_updated_at=:task_updated_at,refill_orderid=:refill_orderid");
+      $insert = $conn->prepare("INSERT INTO tasks (client_id, order_id, service_id, task_type, task_api, task_response, task_status, task_by, check_refill_status, task_created_at, task_updated_at, refill_orderid) VALUES (:c_id, :o_id, :s_id, :type, :api, :res, :status, :task_by, :check_refill_status, :task_created_at, :task_updated_at, :refill_orderid)");
       $insert = $insert->execute([
         'c_id' => $order['client_id'],
         'o_id' => $order['order_id'],
@@ -193,8 +190,7 @@ AND orders.client_id=:c_id AND orders.order_id=:order_id ");
     );
     $res = json_encode($get_cancel, true);
 
-    $insert = $conn->prepare("INSERT INTO tasks SET client_id=:c_id, order_id=:o_id,
-  service_id=:s_id, task_type=:type, task_api=:api , task_response=:res , task_status=:status , task_by=:task_by,task_created_at=:date,task_updated_at=:task_updated_at,check_refill_status=:check_refill_status");
+    $insert = $conn->prepare("INSERT INTO tasks (client_id, order_id, service_id, task_type, task_api, task_response, task_status, task_by, task_created_at, task_updated_at, check_refill_status) VALUES (:c_id, :o_id, :s_id, :type, :api, :res, :status, :task_by, :date, :task_updated_at, :check_refill_status)");
     $insert->execute([
       'c_id' => $order['client_id'],
       'o_id' => $order['order_id'],

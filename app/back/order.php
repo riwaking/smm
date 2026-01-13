@@ -2,16 +2,16 @@
 if(!defined('BASEPATH')) {
    die('Direct access to the script is not allowed');
 }
-$route[0]	=	"neworder";
+$route[0]       =       "neworder";
 if(route(1) != "massorder"):
     
-$order	=	$conn->prepare("SELECT * FROM orders INNER JOIN services ON services.service_id=orders.service_id WHERE client_id=:client && order_id=:orderid ");
+$order  =       $conn->prepare("SELECT * FROM orders INNER JOIN services ON services.service_id=orders.service_id WHERE client_id=:client && order_id=:orderid ");
 $order-> execute(array("client"=>$user["client_id"],"orderid"=>route(1) ));
 
 if( !$order->rowCount() ):
-	header("Location: ".site_url());
+        header("Location: ".site_url());
 else:
-	$order	=	$order->fetch(PDO::FETCH_ASSOC);
+        $order  =       $order->fetch(PDO::FETCH_ASSOC);
 $order_data = [
 'success'=>1,
 'id'=>route(1),
@@ -24,9 +24,9 @@ from_to(get_currencies_array("enabled"),$settings["site_base_currency"],$user["c
 
 
 ];
-	$_SESSION["data"]["services"]   = $order["service_id"];
-	$_SESSION["data"]["categories"] = $order["category_id"];
-	$_SESSION["data"]["order"]      = $order_data;
+        $_SESSION["data"]["services"]   = $order["service_id"];
+        $_SESSION["data"]["categories"] = $order["category_id"];
+        $_SESSION["data"]["order"]      = $order_data;
 endif;
 endif;
 
@@ -60,12 +60,12 @@ $categories = [];
         foreach ( $rows as $row ) {
           $s["service_price"] = service_price($row["service_id"]);
           $s["service_id"]    = $row["service_id"];
-						$multiName   =  json_decode($row["name_lang"],true);
-							if( $multiName[$user["lang"]] ):
-								$s["service_name"] = $multiName[$user["lang"]];
-							else:
-								$s["service_name"] = $row["service_name"];
-							endif;
+                                                $multiName   =  json_decode($row["name_lang"],true);
+                                                        if( $multiName[$user["lang"]] ):
+                                                                $s["service_name"] = $multiName[$user["lang"]];
+                                                        else:
+                                                                $s["service_name"] = $row["service_name"];
+                                                        endif;
           $s["service_min"]   = $row["service_min"];
           $s["service_max"]   = $row["service_max"];
           $search = $conn->prepare("SELECT * FROM clients_service WHERE service_id=:service && client_id=:c_id ");
@@ -181,9 +181,9 @@ if( $_POST ):
       $subscriptions_status = "active";
     }
 
-		if( $service_detail["service_package"] == 14 || $service_detail["service_package"] == 15 ):
+                if( $service_detail["service_package"] == 14 || $service_detail["service_package"] == 15 ):
       $price    = service_price($service_detail["service_id"]);
-		elseif( $service_detail["service_package"] != 2 && $service_detail["service_package"] != 11 && $service_detail["service_package"] != 12 && $service_detail["service_package"] != 13 ):
+                elseif( $service_detail["service_package"] != 2 && $service_detail["service_package"] != 11 && $service_detail["service_package"] != 12 && $service_detail["service_package"] != 13 ):
       $price    = (service_price($service_detail["service_id"])/1000)*$quantity;
     endif;
 
@@ -293,12 +293,12 @@ if( $_POST ):
         if( $service_detail["service_api"] == 0 ):
           /* manuel sipariş - başla */
           $conn->beginTransaction();
-          $insert = $conn->prepare("INSERT INTO orders SET order_start=:count, order_profit=:profit, order_error=:error,client_id=:c_id, service_id=:s_id, order_quantity=:quantity, order_charge=:price, order_url=:url, order_create=:create, order_extras=:extra, last_check=:last ");
+          $insert = $conn->prepare("INSERT INTO orders (order_start, order_profit, order_error, client_id, service_id, order_quantity, order_charge, order_url, order_create, order_extras, last_check) VALUES (:count, :profit, :error, :c_id, :s_id, :quantity, :price, :url, :create, :extra, :last)");
           $insert = $insert-> execute(array("count"=>$start_count,"c_id"=>$user["client_id"],"error"=>"-","s_id"=>$service_detail["service_id"],"quantity"=>$quantity,"price"=>$price,"profit"=>$price,"url"=>$link,"create"=>date("Y.m.d H:i:s"),"last"=>date("Y.m.d H:i:s"),"extra"=>$extras));
             if( $insert ): $last_id = $conn->lastInsertId(); endif;
           $update = $conn->prepare("UPDATE clients SET balance=:balance, spent=:spent WHERE client_id=:id");
           $update = $update-> execute(array("balance"=>$user["balance"]-$price,"spent"=>$user["spent"]+$price,"id"=>$user["client_id"]));
-          $insert2= $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+          $insert2= $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
           $insert2= $insert2->execute(array("c_id"=>$user["client_id"],"action"=>$price." New Order #".$last_id.".","ip"=>GetIP(),"date"=>date("Y-m-d H:i:s") ));
             if ( $insert && $update && $insert2 ):
 $select = $conn->prepare("SELECT * FROM panel_info WHERE panel_id=:id");
@@ -319,7 +319,7 @@ $select = $conn->prepare("SELECT * FROM panel_info WHERE panel_id=:id");
               $_SESSION["data"]["services"]   = $_POST["services"];
               $_SESSION["data"]["categories"] = $_POST["categories"];
               $_SESSION["data"]["order"]      = $order_data;
-				        header("Location:".site_url("order/".$last_id));
+                                        header("Location:".site_url("order/".$last_id));
                 if( $settings["alert_newmanuelservice"] == 2 ):
                   if( $settings["alert_type"] == 3 ):   $sendmail = 1; $sendsms  = 1; elseif( $settings["alert_type"] == 2 ): $sendmail = 1; $sendsms=0; elseif( $settings["alert_type"] == 1 ): $sendmail=0; $sendsms  = 1; endif;
                   if( $sendsms ):
@@ -417,11 +417,7 @@ endif;
           endif;
           /* API SİPARİŞ GEÇ BİTTİ */
             if( $dripfeedon == 2 ):
-              $insert = $conn->prepare("INSERT INTO orders SET order_start=:count, order_error=:error, client_id=:c_id, api_orderid=:order_id, service_id=:s_id, order_quantity=:quantity, order_charge=:price,
-                order_url=:url,
-                order_create=:create, order_extras=:extra, last_check=:last_check, order_api=:api, api_serviceid=:api_serviceid, dripfeed=:drip, dripfeed_totalcharges=:totalcharges, dripfeed_runs=:runs,
-                dripfeed_interval=:interval, dripfeed_totalquantity=:totalquantity, dripfeed_delivery=:delivery
-                ");
+              $insert = $conn->prepare("INSERT INTO orders (order_start, order_error, client_id, api_orderid, service_id, order_quantity, order_charge, order_url, order_create, order_extras, last_check, order_api, api_serviceid, dripfeed, dripfeed_totalcharges, dripfeed_runs, dripfeed_interval, dripfeed_totalquantity, dripfeed_delivery) VALUES (:count, :error, :c_id, :order_id, :s_id, :quantity, :price, :url, :create, :extra, :last_check, :api, :api_serviceid, :drip, :totalcharges, :runs, :interval, :totalquantity, :delivery)");
               $insert = $insert-> execute(array("count"=>$start_count,"c_id"=>$user["client_id"],"error"=>"-","s_id"=>$service_detail["service_id"],"quantity"=>$quantity,"price"=>$price,"url"=>$link,
                 "create"=>date("Y.m.d H:i:s"),"extra"=>$extras,"order_id"=>0,"last_check"=>date("Y.m.d H:i:s"),"api"=>$api_detail["id"],
                 "api_serviceid"=>$service_detail["api_service"],"drip"=>$dripfeedon,"totalcharges"=>$dripfeed_totalcharges,"runs"=>$runs,
@@ -440,11 +436,7 @@ $select = $conn->prepare("SELECT * FROM panel_info WHERE panel_id=:id");
               $dripfeed_id  = 0;
             endif;
 
-            $insert = $conn->prepare("INSERT INTO orders SET order_start=:count, order_error=:error, order_detail=:detail, client_id=:c_id, api_orderid=:order_id, service_id=:s_id, order_quantity=:quantity, order_charge=:price, order_url=:url,
-              order_create=:create, order_extras=:extra, last_check=:last_check, order_api=:api, api_serviceid=:api_serviceid, subscriptions_status=:s_status,
-              subscriptions_type=:subscriptions, subscriptions_username=:username, subscriptions_posts=:posts, subscriptions_delay=:delay, subscriptions_min=:min,
-              subscriptions_max=:max, subscriptions_expiry=:expiry, dripfeed_id=:dripfeed_id, api_charge=:api_charge, api_currencycharge=:api_currencycharge, order_profit=:profit
-              ");
+            $insert = $conn->prepare("INSERT INTO orders (order_start, order_error, order_detail, client_id, api_orderid, service_id, order_quantity, order_charge, order_url, order_create, order_extras, last_check, order_api, api_serviceid, subscriptions_status, subscriptions_type, subscriptions_username, subscriptions_posts, subscriptions_delay, subscriptions_min, subscriptions_max, subscriptions_expiry, dripfeed_id, api_charge, api_currencycharge, order_profit) VALUES (:count, :error, :detail, :c_id, :order_id, :s_id, :quantity, :price, :url, :create, :extra, :last_check, :api, :api_serviceid, :s_status, :subscriptions, :username, :posts, :delay, :min, :max, :expiry, :dripfeed_id, :api_charge, :api_currencycharge, :profit)");
             $insert = $insert-> execute(array("count"=>$start_count,"c_id"=>$user["client_id"],"detail"=>json_encode($order),"error"=>$error,"s_id"=>$service_detail["service_id"],"quantity"=>$quantity,"price"=>$price / $runs,"url"=>$link,
               "create"=>date("Y.m.d H:i:s"),"extra"=>$extras,"order_id"=>$order_id,"last_check"=>date("Y.m.d H:i:s"),"api"=>$api_detail["id"],
               "api_serviceid"=>$service_detail["api_service"],"s_status"=>$subscriptions_status,"subscriptions"=>$subscriptions,"username"=>$username,
@@ -454,7 +446,7 @@ $select = $conn->prepare("SELECT * FROM panel_info WHERE panel_id=:id");
               if( $insert ): $last_id = $conn->lastInsertId(); endif;
             $update = $conn->prepare("UPDATE clients SET balance=:balance, spent=:spent WHERE client_id=:id");
             $update = $update-> execute(array("balance"=>$user["balance"]-$price,"spent"=>$user["spent"]+$price,"id"=>$user["client_id"]));
-            $insert2= $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+            $insert2= $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
 $insert2= $insert2->execute(array("c_id"=>$user["client_id"],"action"=>$price." New Order #".$last_id.".","ip"=>GetIP(),"date"=>date("Y-m-d H:i:s") ));
 
               if ( $insert && $update && ( $order_id || $error ) && $insert2 ):

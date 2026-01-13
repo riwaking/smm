@@ -93,7 +93,7 @@ if ($_SESSION["msmbilisim_userlogin"] == 1  || $user["client_type"] == 1 || $set
   } else {
     $apikey = CreateApiKey($_POST);
     $conn->beginTransaction();
-    $insert = $conn->prepare("INSERT INTO clients SET name=:name, username=:username, email=:email, password=:pass, lang=:lang, telephone=:phone, register_date=:date, apikey=:key , ref_code=:ref_code, email_type=:type, balance=:spent, spent=:spent,currency_type=:currency_type");
+    $insert = $conn->prepare("INSERT INTO clients (name, username, email, password, lang, telephone, register_date, apikey, ref_code, email_type, balance, spent, currency_type) VALUES (:name, :username, :email, :pass, :lang, :phone, :date, :key, :ref_code, :type, :spent, :spent, :currency_type)");
     $insert = $insert->execute(array("lang" => $selectedLang, "name" => $name, "username" => $username, "email" => $email, "pass" => md5($pass), "phone" => $phone, "date" => date("Y.m.d H:i:s"), 'key' => $apikey, "ref_code" => $ref_code, "type"=> 2, "spent"=> "0.0000000","currency_type"=>get_default_currency()));
     if ($insert) : $client_id = $conn->lastInsertId();
 
@@ -103,7 +103,7 @@ if ($_SESSION["msmbilisim_userlogin"] == 1  || $user["client_type"] == 1 || $set
 
 
 
-    $insert2 = $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+    $insert2 = $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
     $insert2 = $insert2->execute(array("c_id" => $client_id, "action" => "
     User registered.", "ip" => GetIP(), "date" => date("Y-m-d H:i:s")));
     if ($insert && $insert2) :
@@ -141,7 +141,7 @@ if ($_SESSION["msmbilisim_userlogin"] == 1  || $user["client_type"] == 1 || $set
           $clients  = $clients->fetch(PDO::FETCH_ASSOC);
 
 
-          $insert = $conn->prepare("INSERT INTO referral SET referral_code=:referral_code");
+          $insert = $conn->prepare("INSERT INTO referral (referral_code) VALUES (:referral_code)");
           $insert->execute(array("referral_code" => $ref_by));
 
           $update = $conn->prepare("UPDATE referral SET referral_client_id=:referral_client_id , referral_sign_up=:referral_sign_up WHERE referral_code=:referral_code");
@@ -171,7 +171,7 @@ $headers .= 'Bcc: '.$from . "\r\n";
         
       }
 
-$insert = $conn->prepare("INSERT INTO referral SET referral_code=:referral_code , referral_client_id=:referral_client_id");
+$insert = $conn->prepare("INSERT INTO referral (referral_code, referral_client_id) VALUES (:referral_code, :referral_client_id)");
          $insert->execute(array("referral_code" => $ref_code , 
       "referral_client_id" => $client_id));
 
@@ -183,12 +183,7 @@ $update111 = $conn->prepare("UPDATE clients SET balance=:balance WHERE client_id
         ));
 $freebalance = ($settings["freeamount"] + $user["balance"]) 
         ;
-$insert = $conn->prepare("INSERT INTO payments SET client_id=:client_id , client_balance=:client_balance , 
-            payment_amount=:payment_amount , payment_method=:payment_method ,
-            payment_status=:payment_status , payment_delivery=:payment_delivery , payment_note=:payment_note,
-            payment_create_date=:payment_create_date ,
-             payment_update_date=:payment_update_date, 	payment_ip=:payment_ip , 
-             payment_extra=:payment_extra ");
+$insert = $conn->prepare("INSERT INTO payments (client_id, client_balance, payment_amount, payment_method, payment_status, payment_delivery, payment_note, payment_create_date, payment_update_date, payment_ip, payment_extra) VALUES (:client_id, :client_balance, :payment_amount, :payment_method, :payment_status, :payment_delivery, :payment_note, :payment_create_date, :payment_update_date, :payment_ip, :payment_extra)");
         $insert = $insert->execute(array(
             "client_id" => $client_id,
             "client_balance" => 0.00,
@@ -199,7 +194,7 @@ $insert = $conn->prepare("INSERT INTO payments SET client_id=:client_id , client
             "payment_extra" => "Free balance Added of  : $freebalance "
         ));
 
-$insert2 = $conn->prepare("INSERT INTO client_report SET client_id=:c_id, action=:action, report_ip=:ip, report_date=:date ");
+$insert2 = $conn->prepare("INSERT INTO client_report (client_id, action, report_ip, report_date) VALUES (:c_id, :action, :ip, :date)");
             
     $insert2 = $insert2->execute(array("c_id" => $client_id, "action" => 
     "Free Balance Added of  : $freebalance " , "ip" => GetIP(), "date" => date("Y-m-d H:i:s")));

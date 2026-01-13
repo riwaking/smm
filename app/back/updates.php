@@ -35,23 +35,19 @@ $search_statu = route(1); if( !route(1) ):  $route[1] = "all";  endif;
   else:
     $page         = 1;
   endif;
-    if( route(1) != "all" ): $search  = "&& order_status='".route(1)."'"; else: $search = ""; endif;
-    if( !empty(urldecode($_GET["search"])) ): $search.= " && ( order_url LIKE '%".urldecode($_GET["search"])."%' || order_id LIKE '%".urldecode($_GET["search"])."%' ) "; endif;
-    if( !empty($_GET["subscription"]) ): $search.= " && ( subscriptions_id LIKE '%".$_GET["subscription"]."%'  ) "; endif;
-    if( !empty($_GET["dripfeed"]) ): $search.= " && ( dripfeed_id LIKE '%".$_GET["dripfeed"]."%'  ) "; endif;
-    
-    
-    
-   
+    if( route(1) != "all" ): $search  = "AND order_status='".route(1)."'"; else: $search = ""; endif;
+    if( !empty(urldecode($_GET["search"])) ): $search.= " AND ( order_url LIKE '%".urldecode($_GET["search"])."%' OR order_id LIKE '%".urldecode($_GET["search"])."%' ) "; endif;
+    if( !empty($_GET["subscription"]) ): $search.= " AND ( subscriptions_id LIKE '%".$_GET["subscription"]."%'  ) "; endif;
+    if( !empty($_GET["dripfeed"]) ): $search.= " AND ( dripfeed_id LIKE '%".$_GET["dripfeed"]."%'  ) "; endif;
     
     $to         = 25;
-    $count      = $conn->query("SELECT * FROM updates $search ")->rowCount();
+    $count      = $conn->query("SELECT * FROM updates WHERE TRUE $search ")->rowCount();
     $pageCount  = ceil($count/$to);
       if( $page > $pageCount ): $page = 1; endif;
     $where      = ($page*$to)-$to;
     $paginationArr = ["count"=>$pageCount,"current"=>$page,"next"=>$page+1,"previous"=>$page-1];
 
-    $orders = $conn->prepare("SELECT * FROM updates INNER JOIN services WHERE services.service_id = updates.service_id  $search ORDER BY updates.u_id DESC LIMIT $where,$to ");
+    $orders = $conn->prepare("SELECT * FROM updates INNER JOIN services ON services.service_id = updates.service_id WHERE TRUE $search ORDER BY updates.u_id DESC LIMIT $to OFFSET $where ");
     $orders-> execute(array( ));
     $orders = $orders->fetchAll(PDO::FETCH_ASSOC);
 
