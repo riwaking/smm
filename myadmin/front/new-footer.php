@@ -382,7 +382,7 @@
       populate_special_prices();
     }
 
-    if (Route == "settings" AND settingsRoute == "paymentMethods") {
+    if (Route == "settings" && settingsRoute == "paymentMethods") {
       $.ajax({
         url: "admin/settings/paymentMethods?action=getData",
         type: "GET",
@@ -441,7 +441,7 @@
     $(document).on("click", "#editor > div.ql-editor > p > img", function () {
       var height = prompt('Enter the height of the image (e.g., 200px) , (Enter 0 to remove image):', $(this).attr("height"));
       var width = prompt('Enter the width of the image (e.g., 300px) ,  (Enter 0 to remove image):', $(this).attr("width"));
-      if (height != 0 AND width != 0) {
+      if (height != 0 && width != 0) {
         $(this).attr({
           height: height,
           width: width

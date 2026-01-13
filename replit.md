@@ -10,7 +10,10 @@ This is a PHP-based Social Media Marketing (SMM) Panel application. It allows us
 - 2026-01-13: Added fluid typography with clamp() for smooth text scaling
 - 2026-01-13: Converted from MySQL to PostgreSQL for Replit compatibility
 - 2026-01-13: Updated database configuration to use environment variables
-- 2026-01-13: Fixed MySQL-specific SQL syntax (`&&` → `AND`) for PostgreSQL
+- 2026-01-13: Fixed MySQL-specific SQL syntax (`&&` → `AND`) for PostgreSQL in app/ and myadmin/ directories
+- 2026-01-13: Fixed substr trimming for dynamic WHERE clauses (-5 for AND, -4 for OR)
+- 2026-01-13: Created 404.twig template to fix missing template errors
+- 2026-01-13: Removed malicious Telegram credential exfiltration code from admin login
 - 2026-01-13: Configured PHP development server on port 5000
 - 2026-01-13: Suppressed PHP 8 compatibility warnings (app written for PHP 7.4)
 
