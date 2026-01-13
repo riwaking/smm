@@ -167,7 +167,7 @@
                         <div>{{ title }}</div>
                     </li>
                 </ol>
-                <span class="pull-right mob-show"><a href="/addfunds"><span class="badge blnceBadge">{{ user["balance"] }}<span> </span><i class="fas fa-plus"></i></span>
+                <span class="pull-right mob-show"><a href="/addfunds"><span class="badge blnceBadge">{{ user["balance"]|default('रु 0') }}<span> </span><i class="fas fa-plus"></i></span>
                 </a>
                 </span>
                 
@@ -290,7 +290,7 @@
                                                                                                 </li>
                                                                                         </ul></li>
                     <li>
-                        <a href="/addfunds"><span class="badge blnceBadge blnceBadge-desktop">रु {{ user["balance"]|default(0)|number_format(2) }}<span> <i class="fas fa-plus"></i> </span></span></a>
+                        <a href="/addfunds"><span class="badge blnceBadge blnceBadge-desktop">{{ user["balance"]|default('रु 0') }}<span> <i class="fas fa-plus"></i> </span></span></a>
                     </li>
                     <li>
                         <a href="/tickets"><span class="drop-icon"><i class="fas fa-comments"></i><span class="ticket-count"></span></span></a>
@@ -373,7 +373,7 @@
                     </div>
                     <span class="mob-show">
                                                         <a href="/addfunds">
-                                                          <span class="badge blnceBadge">रु {{ user["balance"]|default(0)|number_format(2) }}<span><i class="fas fa-plus"></i></span></span>
+                                                          <span class="badge blnceBadge">{{ user["balance"]|default('रु 0') }}<span><i class="fas fa-plus"></i></span></span>
                     </a>
                     </span>
                     <ul class="sidebar-nav">
