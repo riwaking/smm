@@ -90,7 +90,7 @@ function generate_shopier_form($data)
     foreach ($args as $key => $value) {
         $args_array[] = "<input type='hidden' name='$key' value='$value'/>";
     }
-    if (!empty($dataArray->apikey) && !empty($dataArray->apisecret) && !empty($dataArray->website_index)) {
+    if (!empty($dataArray->apikey) AND !empty($dataArray->apisecret) AND !empty($dataArray->website_index)) {
         $_SESSION["data"]["payment_shopier"] = true;
 
         return '<html> <!doctype html><head> <meta charset="UTF-8"> <meta content="True" name="HandheldFriendly"> <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -139,7 +139,7 @@ function userdata_check($where, $data)
 function userlogin_check($username, $pass)
 {
     global $conn;
-    $row = $conn->prepare("SELECT * FROM clients WHERE username=:username && password=:password ");
+    $row = $conn->prepare("SELECT * FROM clients WHERE username=:username AND password=:password ");
     $row->execute(array("username" => $username, "password" => md5(sha1(md5($pass)))));
     if ($row->rowCount()) {
         $validate = true;
@@ -171,7 +171,7 @@ function serviceSpeed($speed, $price)
 function service_price($service)
 {
     global $conn, $user;
-    $row = $conn->prepare("SELECT * FROM clients_price WHERE service_id=:s_id && client_id=:c_id ");
+    $row = $conn->prepare("SELECT * FROM clients_price WHERE service_id=:s_id AND client_id=:c_id ");
     $row->execute(array("s_id" => $service, "c_id" => $user["client_id"]));
     if ($row->rowCount()) {
         $row = $row->fetch(PDO::FETCH_ASSOC);
@@ -188,7 +188,7 @@ function service_price($service)
 function client_price($service, $userid)
 {
     global $conn, $user;
-    $row = $conn->prepare("SELECT * FROM clients_price WHERE service_id=:s_id && client_id=:c_id ");
+    $row = $conn->prepare("SELECT * FROM clients_price WHERE service_id=:s_id AND client_id=:c_id ");
     $row->execute(array("s_id" => $service, "c_id" => $userid));
     if ($row->rowCount()) {
         $row = $row->fetch(PDO::FETCH_ASSOC);
@@ -205,7 +205,7 @@ function client_price($service, $userid)
 function open_bankpayment($user)
 {
     global $conn;
-    $row = $conn->prepare("SELECT * FROM payments WHERE client_id=:client && payment_status=:status && payment_method=:method ");
+    $row = $conn->prepare("SELECT * FROM payments WHERE client_id=:client AND payment_status=:status AND payment_method=:method ");
     $row->execute(array("client" => $user, "status" => 1, "method" => 4));
     $validate = $row->rowCount();
     return $validate;
@@ -214,7 +214,7 @@ function open_bankpayment($user)
 function open_ticket($user)
 {
     global $conn;
-    $row = $conn->prepare("SELECT * FROM tickets WHERE client_id=:client && status=:status ");
+    $row = $conn->prepare("SELECT * FROM tickets WHERE client_id=:client AND status=:status ");
     $row->execute(array("client" => $user, "status" => "pending"));
     $validate = $row->rowCount();
     return $validate;
@@ -223,7 +223,7 @@ function open_ticket($user)
 function new_ticket($user)
 {
     global $conn;
-    $row = $conn->prepare("SELECT * FROM tickets WHERE client_id=:client && support_new=:new ");
+    $row = $conn->prepare("SELECT * FROM tickets WHERE client_id=:client AND support_new=:new ");
     $row->execute(array("client" => $user, "new" => 2));
     $validate = $row->rowCount();
     return $validate;
@@ -236,7 +236,7 @@ function countRow($data)
     if ($data["where"]):
         $where = "WHERE ";
         foreach ($data["where"] as $key => $value) {
-            $where .= " $key=:$key && ";
+            $where .= " $key=:$key AND ";
             $execute[$key] = $value;
         }
         $where = substr($where, 0, -3);
@@ -262,7 +262,7 @@ function getRows($data)
     if ($data["where"]):
         $where = "WHERE ";
         foreach ($data["where"] as $key => $value) {
-            $where .= " $key=:$key && ";
+            $where .= " $key=:$key AND ";
             $execute[$key] = $value;
         }
         $where = substr($where, 0, -3);
@@ -289,7 +289,7 @@ function getRow($data)
     global $conn;
     $where = "WHERE ";
     foreach ($data["where"] as $key => $value) {
-        $where .= " $key=:$key && ";
+        $where .= " $key=:$key AND ";
         $execute[$key] = $value;
     }
     $where = substr($where, 0, -3);
@@ -444,10 +444,10 @@ function serviceTypeGetList($type)
 
 function array_group_by(array $arr, $key): array
 {
-    if (!is_string($key) && !is_int($key) && !is_float($key) && !is_callable($key)) {
+    if (!is_string($key) AND !is_int($key) AND !is_float($key) AND !is_callable($key)) {
         trigger_error('array_group_by(): The key should be a string, an integer, a float, or a function', E_USER_ERROR);
     }
-    $isFunction = !is_string($key) && is_callable($key);
+    $isFunction = !is_string($key) AND is_callable($key);
     $grouped = [];
     foreach ($arr as $value) {
         $groupKey = null;
@@ -547,7 +547,7 @@ function instagramCount($array)
 
 function force_download($file)
 {
-    if ((isset($file)) && (file_exists($file))) {
+    if ((isset($file)) AND (file_exists($file))) {
         header("Content-length: " . filesize($file));
         header('Content-Type: application/octet-stream');
         header('Content-Disposition: attachment; filename="' . $file . '"');
@@ -573,7 +573,7 @@ function dayPayments($day, $ay, $year, $extra = null)
     endif;
     $first = $year . "-" . $ay . "-" . $day . " 00:00:00";
     $last = $year . "-" . $ay . "-" . $day . " 23:59:59";
-    $row = $conn->query("SELECT SUM(payment_amount) FROM payments WHERE payment_delivery='2' && payment_status='3' && payment_create_date<='$last' && payment_create_date>='$first' $where  ")->fetch(PDO::FETCH_ASSOC);
+    $row = $conn->query("SELECT SUM(payment_amount) FROM payments WHERE payment_delivery='2' AND payment_status='3' AND payment_create_date<='$last' AND payment_create_date>='$first' $where  ")->fetch(PDO::FETCH_ASSOC);
     $charge = $row['SUM(payment_amount)'];
     return number_format($charge, 2, ".", ",");
 }
@@ -593,7 +593,7 @@ function monthPayments($ay, $year, $extra = null)
     endif;
     $first = $year . "-" . $ay . "-1 00:00:00";
     $last = $year . "-" . $ay . "-31 23:59:59";
-    $row = $conn->query("SELECT SUM(payment_amount) FROM payments WHERE payment_delivery='2' && payment_status='3' && payment_create_date<='$last' && payment_create_date>='$first' $where ")->fetch(PDO::FETCH_ASSOC);
+    $row = $conn->query("SELECT SUM(payment_amount) FROM payments WHERE payment_delivery='2' AND payment_status='3' AND payment_create_date<='$last' AND payment_create_date>='$first' $where ")->fetch(PDO::FETCH_ASSOC);
     $charge = $row['SUM(payment_amount)'];
     return number_format($charge, 2, ".", ",");
 }
@@ -629,7 +629,7 @@ function dayCharge($day, $ay, $year, $extra = null)
     endif;
     $first = $year . "-" . $ay . "-" . $day . " 00:00:00";
     $last = $year . "-" . $ay . "-" . $day . " 23:59:59";
-    $row = $conn->prepare("SELECT SUM(order_charge) FROM orders WHERE order_create<='$last' && order_create>='$first' && dripfeed='1' && subscriptions_type='1' $where");
+    $row = $conn->prepare("SELECT SUM(order_charge) FROM orders WHERE order_create<='$last' AND order_create>='$first' AND dripfeed='1' AND subscriptions_type='1' $where");
     $row->execute();
     $row = $row->fetch(PDO::FETCH_ASSOC);
     $charge = $row['SUM(order_charge)'];
@@ -667,7 +667,7 @@ function monthCharge($month, $year, $extra = null)
     endif;
     $first = $year . "-" . $month . "-1 00:00:00";
     $last = $year . "-" . $month . "-31 23:59:59";
-    $row = $conn->prepare("SELECT SUM(order_charge) FROM orders WHERE order_create<='$last' && order_create>='$first'  && dripfeed='1' && subscriptions_type='1' $where");
+    $row = $conn->prepare("SELECT SUM(order_charge) FROM orders WHERE order_create<='$last' AND order_create>='$first'  AND dripfeed='1' AND subscriptions_type='1' $where");
     $row->execute();
     $row = $row->fetch(PDO::FETCH_ASSOC);
     $charge = $row['SUM(order_charge)'];
@@ -705,10 +705,10 @@ function monthChargeNet($month, $year, $extra = null)
     endif;
     $first = $year . "-" . $month . "-1 00:00:00";
     $last = $year . "-" . $month . "-31 23:59:59";
-    $row = $conn->prepare("SELECT SUM(order_profit) FROM orders WHERE order_create<='$last' && order_create>='$first' && dripfeed='1' && subscriptions_type='1' && order_api!='0' $where");
+    $row = $conn->prepare("SELECT SUM(order_profit) FROM orders WHERE order_create<='$last' AND order_create>='$first' AND dripfeed='1' AND subscriptions_type='1' AND order_api!='0' $where");
     $row->execute();
     $row = $row->fetch(PDO::FETCH_ASSOC);
-    $row2 = $conn->prepare("SELECT SUM(order_charge) FROM orders WHERE order_create<='$last' && order_create>='$first' && dripfeed='1' && subscriptions_type='1'  $where");
+    $row2 = $conn->prepare("SELECT SUM(order_charge) FROM orders WHERE order_create<='$last' AND order_create>='$first' AND dripfeed='1' AND subscriptions_type='1'  $where");
     $row2->execute();
     $row2 = $row2->fetch(PDO::FETCH_ASSOC);
     $charge = $row2['SUM(order_charge)'] - $row['SUM(order_profit)'];
@@ -746,7 +746,7 @@ function dayOrders($day, $month, $year, $extra = null)
     endif;
     $first = $year . "-" . $month . "-" . $day . " 00:00:00";
     $last = $year . "-" . $month . "-" . $day . " 23:59:59";
-    return $row = $conn->query("SELECT order_id FROM orders WHERE order_create<='$last' && order_create>='$first' $where ")->rowCount();
+    return $row = $conn->query("SELECT order_id FROM orders WHERE order_create<='$last' AND order_create>='$first' $where ")->rowCount();
 }
 
 function monthOrders($month, $year, $extra = null)
@@ -780,7 +780,7 @@ function monthOrders($month, $year, $extra = null)
     endif;
     $first = $year . "-" . $month . "-1 00:00:00";
     $last = $year . "-" . $month . "-31 23:59:59";
-    return $row = $conn->query("SELECT order_id FROM orders WHERE order_create<='$last' && order_create>='$first' $where ")->rowCount();
+    return $row = $conn->query("SELECT order_id FROM orders WHERE order_create<='$last' AND order_create>='$first' $where ")->rowCount();
 }
 
 function priceFormat($price)
@@ -905,20 +905,20 @@ function from_to($currencies_array, $from, $to, $amount)
     $amount = floatval($amount);
 
     $base_currency = strtolower($settings["site_base_currency"]);
-    if (count($currencies_array) && strtolower($from) != strtolower($to) && strtolower($from) != $base_currency && strtolower($to) != $base_currency) {
+    if (count($currencies_array) AND strtolower($from) != strtolower($to) AND strtolower($from) != $base_currency AND strtolower($to) != $base_currency) {
         $inverse = $currencies_array[$from][0]["currency_inverse_rate"];
         // amount to usd
         $amount_to_base_currency = $amount * $inverse;
         $rate_to = $currencies_array[$to][0]["currency_rate"];
         $c = $amount_to_base_currency * $rate_to;
         return $c;
-    } else if (count($currencies_array) && strtolower($from) == strtolower($to)) {
+    } else if (count($currencies_array) AND strtolower($from) == strtolower($to)) {
         return $amount;
-    } else if (count($currencies_array) && strtolower($from) != strtolower($to) && strtolower($from) == $base_currency && strtolower($to) != $base_currency) {
+    } else if (count($currencies_array) AND strtolower($from) != strtolower($to) AND strtolower($from) == $base_currency AND strtolower($to) != $base_currency) {
         $rate_to = $currencies_array[$to][0]["currency_rate"];
         $c = $amount * $rate_to;
         return $c;
-    } else if (count($currencies_array) && strtolower($from) != strtolower($to) && strtolower($from) != $base_currency && strtolower($to) == $base_currency) {
+    } else if (count($currencies_array) AND strtolower($from) != strtolower($to) AND strtolower($from) != $base_currency AND strtolower($to) == $base_currency) {
         $inverse = $currencies_array[$from][0]["currency_inverse_rate"];
 
         $amount_to_base_currency = $amount * $inverse;
@@ -1154,7 +1154,7 @@ function obfuscate_provider_key($input)
 function ServicePrice($service_id = 0, $service_price = null)
 {
     global $conn, $user;
-    $special_price = $conn->prepare("SELECT service_price FROM clients_price WHERE service_id=:service_id && client_id=:client_id ");
+    $special_price = $conn->prepare("SELECT service_price FROM clients_price WHERE service_id=:service_id AND client_id=:client_id ");
     $special_price->execute(
         array(
             "service_id" => $service_id,
@@ -1170,7 +1170,7 @@ function ServicePrice($service_id = 0, $service_price = null)
 function APIServicePrice($service_id, $service_price, $user_id)
 {
     global $conn;
-    $special_price = $conn->prepare("SELECT service_price FROM clients_price WHERE service_id=:service_id && client_id=:client_id ");
+    $special_price = $conn->prepare("SELECT service_price FROM clients_price WHERE service_id=:service_id AND client_id=:client_id ");
     $special_price->execute(
         array(
             "service_id" => $service_id,

