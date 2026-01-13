@@ -53,7 +53,10 @@ The original MySQL schema was converted to PostgreSQL with these changes:
 - ENUM types → VARCHAR with CHECK constraints
 - AUTO_INCREMENT → SERIAL
 - `NOW()` → `CURRENT_TIMESTAMP`
-- `&&` operator → `AND`
+- `&&` and `||` operators → `AND` and `OR`
+- `LIMIT offset,count` → `LIMIT count OFFSET offset`
+- `ORDER BY FIELD()` → `CASE WHEN ... END`
+- `INSERT INTO table SET col=val` → `INSERT INTO table (col) VALUES (val)` (54 statements converted)
 - Table/column names kept lowercase for PostgreSQL
 
 ## Running the Application
@@ -61,5 +64,5 @@ The original MySQL schema was converted to PostgreSQL with these changes:
 - Access login: `/auth`
 - Access admin: `/admin`
 
-## Default Admin Credentials
-Check the `admin` table in the database for admin accounts.
+## Admin Credentials
+Admin accounts are stored in the `admins` table in the database. Update passwords via the admin panel after first login.
