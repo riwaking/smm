@@ -1,46 +1,46 @@
 <?php
 $form .= '<form method="POST" action="admin/settings/paymentMethods/edit">';
-$form .= '<input type="hidden" name="method_id" value="' . $method["methodId"] . '"/>';
+$form .= '<input type="hidden" name="method_id" value="' . $method["methodid"] . '"/>';
 $form .= '<div class="form-group mb-3"><label class="form-label">Method Name</label>
-<input type="text"  name="method_name" class="form-control" value="' . $method["methodVisibleName"] . '"/></div>';
+<input type="text"  name="method_name" class="form-control" value="' . $method["methodvisiblename"] . '"/></div>';
 
-if (!in_array($method["methodId"], $manualMethods)) {
+if (!in_array($method["methodid"], $manualMethods)) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Minimum Amount</label>
-<input type="number"  name="method_min" class="form-control" value="' . $method["methodMin"] . '"/></div>';
+<input type="number"  name="method_min" class="form-control" value="' . $method["methodmin"] . '"/></div>';
 
     $form .= '<div class="form-group mb-3"><label class="form-label">Maximum Amount</label>
-<input type="number"  name="method_max" class="form-control" value="' . $method["methodMax"] . '"/></div>';
+<input type="number"  name="method_max" class="form-control" value="' . $method["methodmax"] . '"/></div>';
 
 
     $form .= '<div class="form-group mb-3"><label class="form-label">Fee Percentage</label><div class="input-group">
-<input type="number" class="form-control" name="method_fee" step="0.01" value="' . $method["methodFee"] . '">
+<input type="number" class="form-control" name="method_fee" step="0.01" value="' . $method["methodfee"] . '">
 <span class="input-group-text"><i class="bi bi-percent"></i></span>
 </div></div>';
 
     $form .= '<div class="form-group mb-3"><label class="form-label">Bonus Percentage</label><div class="input-group">
-<input type="number" class="form-control" name="method_bonus" step="0.01" value="' . $method["methodBonusPercentage"] . '">
+<input type="number" class="form-control" name="method_bonus" step="0.01" value="' . $method["methodbonuspercentage"] . '">
 <span class="input-group-text"><i class="bi bi-percent"></i></span>
 </div></div>';
 
     $form .= '<div class="form-group mb-3"><label class="form-label">Bonus Start Amount</label>
-<input type="number"  name="method_bonus_start_amount" class="form-control" value="' . $method["methodBonusStartAmount"] . '"/></div>';
+<input type="number"  name="method_bonus_start_amount" class="form-control" value="' . $method["methodbonusstartamount"] . '"/></div>';
 }
 
 $form .= '<div class="form-group mb-3"><label class="form-label">Status</label><select name="method_status" class="form-select">';
 $form .= '<option value="1"';
-if ($method["methodStatus"] == "1") {
+if ($method["methodstatus"] == "1") {
     $form .= ' selected';
 }
 $form .= '>Active</option>';
 
 $form .= '<option value="0"';
-if ($method["methodStatus"] == "0") {
+if ($method["methodstatus"] == "0") {
     $form .= ' selected';
 }
 $form .= '>Inactive</option>';
 $form .= '</select></div>';
 
-$form .= '<div class="form-group mb-3"><label class="form-label">Instructions</label><div id="editor" name="method_instructions" class="extraContents">' . htmlspecialchars_decode($method["methodInstructions"]) . '</div></div>';
+$form .= '<div class="form-group mb-3"><label class="form-label">Instructions</label><div id="editor" name="method_instructions" class="extraContents">' . htmlspecialchars_decode($method["methodinstructions"]) . '</div></div>';
 
 /* $form .= '<div id="editor">
 <p>Hello World!</p>
@@ -50,19 +50,19 @@ $form .= '<div class="form-group mb-3"><label class="form-label">Instructions</l
 
 
 
-if ($method["methodId"] == 1) {
+if ($method["methodid"] == 1) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Merchant ID</label>
     <input type="text"  name="merchantId" class="form-control" value="' . $methodExtras["merchantId"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">Merchant Key</label>
     <input type="text"  name="merchantKey" class="form-control" value="' . $methodExtras["merchantKey"] . '"/></div>';
 }
 
-if ($method["methodId"] == 2) {
+if ($method["methodid"] == 2) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Merchant ID</label>
     <input type="text"  name="merchantId" class="form-control" value="' . $methodExtras["merchantId"] . '"/></div>';
 }
 
-if ($method["methodId"] == 55) {
+if ($method["methodid"] == 55) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Public Key</label>
     <input type="text"  name="public_key" class="form-control" value="' . $methodExtras["public_key"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">Access Token</label>
@@ -70,7 +70,7 @@ if ($method["methodId"] == 55) {
    
 }
 
-if ($method["methodId"] == 3) {
+if ($method["methodid"] == 3) {
     $form .= '<div class="form-group mb-3"><label class="form-label">USD ID</label>
     <input type="text"  name="accountNumber" class="form-control" value="' . $methodExtras["accountNumber"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">Alternate Pass Phrase</label>
@@ -78,20 +78,20 @@ if ($method["methodId"] == 3) {
 }
 
 
-if ($method["methodId"] == 54) {
+if ($method["methodid"] == 54) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Client ID</label>
     <input type="text"  name="client_id" class="form-control" value="' . $methodExtras["client_id"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">Secret</label>
     <input type="text"  name="secret" class="form-control" value="' . $methodExtras["secret"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">Mode</label><select name="sandbox" class="form-select">';
     $form .= '<option value="live"';
-    if ($method["methodStatus"] == "live") {
+    if ($method["methodstatus"] == "live") {
         $form .= ' selected';
     }
     $form .= '>Test</option>';
 
     $form .= '<option value="test"';
-    if ($method["methodStatus"] == "test") {
+    if ($method["methodstatus"] == "test") {
         $form .= ' selected';
     }
     $form .= '>LIVE</option>';
@@ -99,7 +99,7 @@ if ($method["methodId"] == 54) {
 }
 
 
-if ($method["methodId"] == 56) {
+if ($method["methodid"] == 56) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Api Key</label>
     <input type="text"  name="api_key" class="form-control" value="' . $methodExtras["api_key"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">Secret Key</label>
@@ -107,12 +107,12 @@ if ($method["methodId"] == 56) {
     
 }
 
-if ($method["methodId"] == 4) {
+if ($method["methodid"] == 4) {
     $form .= '<div class="form-group mb-3"><label class="form-label">API Key</label>
     <input type="text"  name="APIKey" class="form-control" value="' . $methodExtras["APIKey"] . '"/></div>';
 }
 
-if ($method["methodId"] == 5) {
+if ($method["methodid"] == 5) {
     $form .= '<div class="form-group mb-3"><label class="form-label">MID</label>
     <input type="text"  name="MID" class="form-control" value="' . $methodExtras["MID"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">API Key</label>
@@ -120,45 +120,34 @@ if ($method["methodId"] == 5) {
 
     $form .= '<div class="form-group mb-3"><label class="form-label">Mode</label><select name="mode" class="form-select">';
     $form .= '<option value="live"';
-    if ($method["methodStatus"] == "live") {
+    if ($method["methodstatus"] == "live") {
         $form .= ' selected';
     }
     $form .= '>Live</option>';
 
     $form .= '<option value="test"';
-    if ($method["methodStatus"] == "test") {
+    if ($method["methodstatus"] == "test") {
         $form .= ' selected';
     }
     $form .= '>Test</option>';
     $form .= '</select></div>';
 }
 
-if ($method["methodId"] == 6) {
+if ($method["methodid"] == 6) {
     $form .= '<div class="form-group mb-3"><label class="form-label">API Public Key</label>
     <input type="text"  name="APIPublicKey" class="form-control" value="' . $methodExtras["APIPublicKey"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">API Secret Key</label>
     <input type="text"  name="APISecretKey" class="form-control" value="' . $methodExtras["APISecretKey"] . '"/></div>';
 }
 
-if ($method["methodId"] == 7) {
+if ($method["methodid"] == 7) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Gmail Address</label>
     <input type="text"  name="email" class="form-control" value="' . $methodExtras["email"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">App Password</label>
     <input type="text"  name="password" class="form-control" value="' . $methodExtras["password"] . '"/></div>';
 }
 
-if ($method["methodId"] == 8) {
-    $form .= '<div class="form-group mb-3"><label class="form-label">Gmail Address</label>
-    <input type="text"  name="email" class="form-control" value="' . $methodExtras["email"] . '"/></div>';
-    $form .= '<div class="form-group mb-3"><label class="form-label">App Password</label>
-    <input type="text"  name="password" class="form-control" value="' . $methodExtras["password"] . '"/></div>';
-    $form .= '<div class="form-group mb-3"><label class="form-label">Sender Email</label>
-    <input type="text"  name="senderEmail" class="form-control" value="' . $methodExtras["senderEmail"] . '"/></div>';
-    $form .= '<div class="form-group mb-3"><label class="form-label">Email Subject</label>
-    <input type="text"  name="emailSubject" class="form-control" value="' . $methodExtras["emailSubject"] . '"/></div>';
-}
-
-if ($method["methodId"] == 9) {
+if ($method["methodid"] == 8) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Gmail Address</label>
     <input type="text"  name="email" class="form-control" value="' . $methodExtras["email"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">App Password</label>
@@ -169,40 +158,51 @@ if ($method["methodId"] == 9) {
     <input type="text"  name="emailSubject" class="form-control" value="' . $methodExtras["emailSubject"] . '"/></div>';
 }
 
-if($method["methodId"] == 10) {
+if ($method["methodid"] == 9) {
+    $form .= '<div class="form-group mb-3"><label class="form-label">Gmail Address</label>
+    <input type="text"  name="email" class="form-control" value="' . $methodExtras["email"] . '"/></div>';
+    $form .= '<div class="form-group mb-3"><label class="form-label">App Password</label>
+    <input type="text"  name="password" class="form-control" value="' . $methodExtras["password"] . '"/></div>';
+    $form .= '<div class="form-group mb-3"><label class="form-label">Sender Email</label>
+    <input type="text"  name="senderEmail" class="form-control" value="' . $methodExtras["senderEmail"] . '"/></div>';
+    $form .= '<div class="form-group mb-3"><label class="form-label">Email Subject</label>
+    <input type="text"  name="emailSubject" class="form-control" value="' . $methodExtras["emailSubject"] . '"/></div>';
+}
+
+if($method["methodid"] == 10) {
     $form .= '<div class="form-group mb-3"><label class="form-label">API Key</label>
     <input type="text"  name="APIKey" class="form-control" value="' . $methodExtras["APIKey"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">Auth Token</label>
     <input type="text"  name="authToken" class="form-control" value="' . $methodExtras["authToken"] . '"/></div>';
 }
 
-if($method["methodId"] == 11) {
+if($method["methodid"] == 11) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Web ID</label>
     <input type="text"  name="webId" class="form-control" value="' . $methodExtras["webId"] . '"/></div>';
 }
 
-if($method["methodId"] == 12) {
+if($method["methodid"] == 12) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Application Partner ID</label>
     <input type="text"  name="partnerId" class="form-control" value="' . $methodExtras["partnerId"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">Application Private Key</label>
     <input type="text"  name="privateKey" class="form-control" value="' . $methodExtras["privateKey"] . '"/></div>';
 }
 
-if($method["methodId"] == 13) {
+if($method["methodid"] == 13) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Merchant Key</label>
     <input type="text"  name="merchantKey" class="form-control" value="' . $methodExtras["merchantKey"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">Merchant Salt</label>
     <input type="text"  name="merchantSalt" class="form-control" value="' . $methodExtras["merchantSalt"] . '"/></div>';
 }
 
-if($method["methodId"] == 13) {
+if($method["methodid"] == 13) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Merchant Key</label>
     <input type="text"  name="merchantKey" class="form-control" value="' . $methodExtras["merchantKey"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">Merchant Salt</label>
     <input type="text"  name="merchantSalt" class="form-control" value="' . $methodExtras["merchantSalt"] . '"/></div>';
 }
 
-if ($method["methodId"] == 14) {
+if ($method["methodid"] == 14) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Api Key</label>
     <input type="text"  name="api_key" class="form-control" value="' . $methodExtras["api_key"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">Secret Key</label>
@@ -212,7 +212,7 @@ if ($method["methodId"] == 14) {
   
 }
 
-if($method["methodId"] == 15) {
+if($method["methodid"] == 15) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Merchant ID</label>
     <input type="text"  name="merchantId" class="form-control" value="' . $methodExtras["merchantId"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">Public Key</label>
@@ -221,26 +221,26 @@ if($method["methodId"] == 15) {
     <input type="text"  name="secretKey" class="form-control" value="' . $methodExtras["secretKey"] . '"/></div>';
 }
 
-if($method["methodId"] == 16) {
+if($method["methodid"] == 16) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Secret Key</label>
     <input type="text"  name="secretKey" class="form-control" value="' . $methodExtras["secretKey"] . '"/></div>';
 }
 
-if($method["methodId"] == 17) {
+if($method["methodid"] == 17) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Publishable Key</label>
     <input type="text"  name="publishableKey" class="form-control" value="' . $methodExtras["publishableKey"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">Secret Key</label>
     <input type="text"  name="secretKey" class="form-control" value="' . $methodExtras["secretKey"] . '"/></div>';
 }
 
-if($method["methodId"] == 18) {
+if($method["methodid"] == 18) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Shop ID</label>
     <input type="text"  name="shopId" class="form-control" value="' . $methodExtras["shopId"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">Secret Key</label>
     <input type="text"  name="secretKey" class="form-control" value="' . $methodExtras["secretKey"] . '"/></div>';
 }
 
-if ($method["methodId"] == 29) {
+if ($method["methodid"] == 29) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Api Key</label>
     <input type="text"  name="api_key" class="form-control" value="' . $methodExtras["api_key"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">Merchant</label>
@@ -248,7 +248,7 @@ if ($method["methodId"] == 29) {
     
 }
 
-if ($method["methodId"] == 20) {
+if ($method["methodid"] == 20) {
     $form .= '<div class="form-group mb-3"><label class="form-label">Live Secret Key</label>
     <input type="text"  name="liveSecretKey" class="form-control" value="' . $methodExtras["liveSecretKey"] . '" placeholder="live_secret_key_XXXXXX"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">Callback URL</label>

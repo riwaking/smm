@@ -45,15 +45,15 @@ if (!in_array($methodId, $allMethods)) {
 
 if (in_array($methodId, $automaticMethods)) {
     $update = $conn->prepare("UPDATE paymentmethods SET 
-                          methodVisibleName=:name,
-                          methodMin=:min,
-                          methodMax=:max,
-                          methodFee=:fee,
-                          methodBonusPercentage=:bonus,
-                          methodBonusStartAmount=:bonus_start_amount,
-                          methodStatus=:status,
-                          methodInstructions=:instructions
-                        WHERE methodId=:id");
+                          methodvisiblename=:name,
+                          methodmin=:min,
+                          methodmax=:max,
+                          methodfee=:fee,
+                          methodbonuspercentage=:bonus,
+                          methodbonusstartamount=:bonus_start_amount,
+                          methodstatus=:status,
+                          methodinstructions=:instructions
+                        WHERE methodid=:id");
     $update->execute([
         "name" => $methodVisibleName,
         "min" => $methodMin,
@@ -75,10 +75,10 @@ if (in_array($methodId, $automaticMethods)) {
 
 } else {
     $update = $conn->prepare("UPDATE paymentmethods SET 
-                          methodVisibleName=:name,
-                          methodStatus=:status,
-                          methodInstructions=:instructions
-                        WHERE methodId=:id");
+                          methodvisiblename=:name,
+                          methodstatus=:status,
+                          methodinstructions=:instructions
+                        WHERE methodid=:id");
     $update->execute([
         "name" => $methodVisibleName,
         "status" => $methodStatus,

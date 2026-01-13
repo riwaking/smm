@@ -213,7 +213,7 @@ if ($methodId == 20) {
     ];
 }
 $methodExtras = json_encode($methodExtras);
-$update = $conn->prepare("UPDATE paymentmethods SET methodExtras=:extras WHERE methodId=:id");
+$update = $conn->prepare("UPDATE paymentmethods SET methodextras=:extras WHERE methodid=:id");
 $update->execute([
     "extras" => $methodExtras,
     "id" => $methodId

@@ -67,10 +67,10 @@ $units-> execute(array("page"=> route(1)));
 
 $units = $units->fetch(PDO::FETCH_ASSOC);
 $pageunits =  route(2);
-$to = $units["unit"];
+$to = isset($units["unit"]) && $units["unit"] > 0 ? $units["unit"] : 10;
 
 
-$pageCount = ceil($count/$to); if( $page > $pageCount ): $page = 1; endif;
+$pageCount = $to > 0 ? ceil($count/$to) : 1; if( $page > $pageCount ): $page = 1; endif;
 $where = ($page*$to)-$to;
 
 $paginationArr  = ["count"=>$pageCount,"current"=>$page,"next"=>$page+1,"previous"=>$page-1];

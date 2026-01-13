@@ -1,18 +1,18 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if ($_GET["action"] == "getData") {
-        $paymentMethods = $conn->prepare("SELECT methodId, methodLogo, methodVisibleName, methodMin, methodMax, methodStatus FROM paymentmethods ORDER BY methodPosition ASC");
+        $paymentMethods = $conn->prepare("SELECT methodid, methodlogo, methodvisiblename, methodmin, methodmax, methodstatus FROM paymentmethods ORDER BY methodposition ASC");
         $paymentMethods->execute();
         $paymentMethods = $paymentMethods->fetchAll(PDO::FETCH_ASSOC);
         $methods = [];
         for ($i = 0; $i < count($paymentMethods); $i++) {
             $methods[] = [
-                "id" => $paymentMethods[$i]["methodId"],
-                "name" => $paymentMethods[$i]["methodVisibleName"],
-                "logo" => $paymentMethods[$i]["methodLogo"],
-                "min" => $paymentMethods[$i]["methodMin"],
-                "max" => $paymentMethods[$i]["methodMax"],
-                "status" => $paymentMethods[$i]["methodStatus"]
+                "id" => $paymentMethods[$i]["methodid"],
+                "name" => $paymentMethods[$i]["methodvisiblename"],
+                "logo" => $paymentMethods[$i]["methodlogo"],
+                "min" => $paymentMethods[$i]["methodmin"],
+                "max" => $paymentMethods[$i]["methodmax"],
+                "status" => $paymentMethods[$i]["methodstatus"]
             ];
         }
         header("Content-Type: application/json");
@@ -39,14 +39,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (route(3) == "getForm") {
         $methodId = intval($_POST["methodId"]);
         $response = [];
-        $method = $conn->prepare("SELECT methodId, methodVisibleName, methodMin, methodMax, methodFee, methodBonusPercentage, methodBonusStartAmount, methodStatus, methodExtras, methodInstructions FROM paymentmethods WHERE methodId=:id");
+        $method = $conn->prepare("SELECT methodid, methodvisiblename, methodmin, methodmax, methodfee, methodbonuspercentage, methodbonusstartamount, methodstatus, methodextras, methodinstructions FROM paymentmethods WHERE methodid=:id");
         $method->execute([
             "id" => $methodId
         ]);
 
         if ($method->rowCount()) {
             $method = $method->fetch(PDO::FETCH_ASSOC);
-            $methodExtras = json_decode($method["methodExtras"], 1);
+            $methodExtras = json_decode($method["methodextras"], 1);
             require_once("paymentMethods/getForm.php");
             $response = [
                 "success" => true,
@@ -69,14 +69,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (route(3) == "activate") {
-        $update = $conn->prepare("UPDATE paymentmethods SET methodStatus=:status WHERE methodId=:id");
+        $update = $conn->prepare("UPDATE paymentmethods SET methodstatus=:status WHERE methodid=:id");
         $update->execute([
             "status" => 1,
             "id" => intval($_POST["methodId"])
         ]);
     }
     if (route(3) == "deactivate") {
-        $update = $conn->prepare("UPDATE paymentmethods SET methodStatus=:status WHERE methodId=:id");
+        $update = $conn->prepare("UPDATE paymentmethods SET methodstatus=:status WHERE methodid=:id");
         $update->execute([
             "status" => 0,
             "id" => intval($_POST["methodId"])
@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         for ($i = 0; $i < count($sortData); $i++) {
             $methodPos = $i + 1;
             $methodId = intval($sortData[$i]);
-            $update = $conn->prepare("UPDATE paymentmethods SET methodPosition=:position WHERE methodId=:id");
+            $update = $conn->prepare("UPDATE paymentmethods SET methodposition=:position WHERE methodid=:id");
             $update->execute([
                 "position" => $methodPos,
                 "id" => $methodId
