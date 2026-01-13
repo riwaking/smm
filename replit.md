@@ -4,6 +4,8 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-13: Fixed manual payment form action to use /payment/manual route pattern
+- 2026-01-13: Added manual payment system with bank transfer support and admin approval
 - 2026-01-13: Added Khalti payment gateway integration (Nepal-based payment provider)
 - 2026-01-13: Fixed Khalti logo path (img/khalti.png) and created missing CSS admin files
 - 2026-01-13: Fixed division by zero error in services.php
