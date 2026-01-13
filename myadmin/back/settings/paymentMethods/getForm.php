@@ -50,7 +50,7 @@ $form .= '<div class="form-group mb-3"><label class="form-label">Instructions</l
 
 
 
-if ($method["methodid"] == 1) {
+if ($method["methodid"] == 1 && $method["methodname"] != "manual") {
     $form .= '<div class="form-group mb-3"><label class="form-label">Merchant ID</label>
     <input type="text"  name="merchantId" class="form-control" value="' . $methodExtras["merchantId"] . '"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">Merchant Key</label>
@@ -253,6 +253,17 @@ if ($method["methodid"] == 20) {
     <input type="text"  name="liveSecretKey" class="form-control" value="' . $methodExtras["liveSecretKey"] . '" placeholder="live_secret_key_XXXXXX"/></div>';
     $form .= '<div class="form-group mb-3"><label class="form-label">Callback URL</label>
     <input type="text" class="form-control" disabled value="' . site_url('khalti/callback') . '"/></div>';
+}
+
+if ($method["methodname"] == "manual") {
+    $form .= '<div class="form-group mb-3"><label class="form-label">Bank Name</label>
+    <input type="text" name="bank_name" class="form-control" value="' . ($methodExtras["bank_name"] ?? '') . '" placeholder="e.g. Nepal SBI Bank"/></div>';
+    $form .= '<div class="form-group mb-3"><label class="form-label">Account Number</label>
+    <input type="text" name="account_number" class="form-control" value="' . ($methodExtras["account_number"] ?? '') . '" placeholder="e.g. 1234567890"/></div>';
+    $form .= '<div class="form-group mb-3"><label class="form-label">Account Holder Name</label>
+    <input type="text" name="account_holder" class="form-control" value="' . ($methodExtras["account_holder"] ?? '') . '" placeholder="e.g. John Doe"/></div>';
+    $form .= '<div class="form-group mb-3"><label class="form-label">Payment Instructions</label>
+    <textarea name="instructions" class="form-control" rows="4" placeholder="Enter payment instructions for users">' . ($methodExtras["instructions"] ?? '') . '</textarea></div>';
 }
 
 $form .= '<div class="custom-modal-footer"><button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>&nbsp;&nbsp;<button type="submit" data-loading-text="Updating..." class="btn btn-primary">Edit</button></div></form>';

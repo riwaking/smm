@@ -1,6 +1,24 @@
 <?php
 $methodExtras = [];
-if ($methodId == 1) {
+
+$methodCheck = $conn->prepare("SELECT methodname FROM paymentmethods WHERE methodid = :id");
+$methodCheck->execute(["id" => $methodId]);
+$methodData = $methodCheck->fetch(PDO::FETCH_ASSOC);
+
+if (isset($methodData['methodname']) && $methodData['methodname'] == 'manual') {
+    $bank_name = htmlspecialchars($_POST["bank_name"] ?? '');
+    $account_number = htmlspecialchars($_POST["account_number"] ?? '');
+    $account_holder = htmlspecialchars($_POST["account_holder"] ?? '');
+    $instructions = htmlspecialchars($_POST["instructions"] ?? '');
+    $methodExtras = [
+        "bank_name" => $bank_name,
+        "account_number" => $account_number,
+        "account_holder" => $account_holder,
+        "instructions" => $instructions
+    ];
+}
+
+if ($methodId == 1 && (!isset($methodData['methodname']) || $methodData['methodname'] != 'manual')) {
     $merchantId = htmlspecialchars($_POST["merchantId"]);
     $merchantKey = htmlspecialchars($_POST["merchantKey"]);
     $methodExtras = [

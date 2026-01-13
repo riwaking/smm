@@ -129,6 +129,11 @@ if ($paymentMethod->rowCount()) {
         require("payment/khalti.php");
         exit;
     }
+
+    if ($callbackSlug == "manual") {
+        require("payment/manual.php");
+        exit;
+    }
 } else {
     errorExit("Invalid payment method callback.");
 }
