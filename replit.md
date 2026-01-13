@@ -4,6 +4,7 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-13: Fixed api-services.php category_icon null constraint error when adding categories via API import
 - 2026-01-13: Fixed ajax_data.php PostgreSQL integer validation error for empty category
 - 2026-01-13: Added missing Khalti and Manual Payment initiators in addfunds.php
 - 2026-01-13: Created app/back/addfunds/Initiators/khalti.php for Khalti payment initiation
