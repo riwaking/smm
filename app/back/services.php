@@ -13,7 +13,7 @@ if ($user["otp_type"] == 1 && $user["otp_v"] == 2  ) {
 
 
 $categoriesRows = $conn->prepare("SELECT * FROM categories WHERE category_type=:type AND category_deleted=:deleted  ORDER BY categories.category_line ASC ");
-$categoriesRows->execute(array("type"=>2,"deleted" => 0));
+$categoriesRows->execute(array("type"=>2,"deleted" => "0"));
 $categoriesRows = $categoriesRows->fetchAll(PDO::FETCH_ASSOC);
 
 
@@ -32,7 +32,7 @@ $categories = [];
     $search->execute(array("category"=>$categoryRow["category_id"],"c_id"=>$user["client_id"]));
     if( $categoryRow["category_secret"] == 2 || $search->rowCount() ):
       $rows     = $conn->prepare("SELECT * FROM services WHERE category_id=:id AND service_type=:type AND service_deleted=:deleted ORDER BY service_line ".$siraal);
-      $rows     ->execute(array("id"=>$categoryRow["category_id"],"type"=>2 , "deleted" => 0));
+      $rows     ->execute(array("id"=>$categoryRow["category_id"],"type"=>2 , "deleted" => "0"));
       $rows     = $rows->fetchAll(PDO::FETCH_ASSOC);
       $services = [];
         foreach ( $rows as $row ) {

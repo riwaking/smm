@@ -12,7 +12,7 @@ if ($admin["access"]["admin_access"] && $_SESSION["msmbilisim_adminlogin"] && $a
   }
   $currencies_array = get_currencies_array("all");
   $categories = $conn->prepare("SELECT category_id,category_name FROM categories WHERE category_deleted=:deleted ORDER BY category_line ASC");
-  $categories->execute(["deleted"=>0]);
+  $categories->execute(["deleted"=>"0"]);
   $categories = $categories->fetchAll(PDO::FETCH_ASSOC);
   $categories = json_encode($categories, true);
 
@@ -27,7 +27,7 @@ if ($admin["access"]["admin_access"] && $_SESSION["msmbilisim_adminlogin"] && $a
   $users = json_encode($users, true);
 
   $services = $conn->prepare("SELECT service_id,service_name,category_id as cid,service_price as price,api_detail FROM services WHERE service_deleted=:deleted ORDER BY service_line ASC");
-  $services->execute(["deleted" => 0]);
+  $services->execute(["deleted" => "0"]);
   $services = $services->fetchAll(PDO::FETCH_ASSOC);
   for ($i = 0; $i < count($services); $i++) {
     $api_detail = json_decode($services[$i]["api_detail"], true);

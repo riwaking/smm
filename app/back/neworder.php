@@ -72,7 +72,7 @@ $categories1 = $conn->prepare("SELECT DISTINCT c.* FROM categories c
     INNER JOIN services s ON c.category_id = s.category_id 
     WHERE c.category_type=:type AND c.category_deleted=:deleted AND s.service_deleted=:s_deleted AND s.service_type=:s_type
     ORDER BY c.category_line ASC ");
-$categories1->execute(array("type"=>2,"deleted" => 0, "s_deleted" => 0, "s_type" => 2));
+$categories1->execute(array("type"=>2,"deleted" => "0", "s_deleted" => "0", "s_type" => 2));
 $categories1 = $categories1->fetchAll(PDO::FETCH_ASSOC);
 for($i = 0;$i < count($categories1);$i++){
 $id = $categories1[$i]["category_id"];
@@ -117,7 +117,7 @@ if( $_POST ):
   $expiry           = date("Y-m-d", strtotime(str_replace('/', '-', $expiry)));
   $subscriptions    = 1;
   $service_detail   = $conn->prepare("SELECT * FROM services WHERE service_deleted=:deleted AND service_id=:id");
-  $service_detail-> execute(array("deleted" => 0,"id"=>$service));
+  $service_detail-> execute(array("deleted" => "0","id"=>$service));
   $service_detail   = $service_detail->fetch(PDO::FETCH_ASSOC);
   $service_overflow_percentage = $service_detail["service_overflow"];
 

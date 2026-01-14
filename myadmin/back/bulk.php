@@ -24,7 +24,7 @@ if(!defined('BASEPATH')) {
 if(route(2) == "getData"){
     $services       = $conn->prepare("SELECT service_id,service_name,service_min,service_max,service_price,service_description FROM services WHERE service_deleted=:deleted AND category_id=:cid") ;
 
-    $services       -> execute(array("deleted" => 0,"cid" => $_GET["categoryId"]));
+    $services       -> execute(array("deleted" => "0","cid" => $_GET["categoryId"]));
 
     $services       = $services->fetchAll(PDO::FETCH_ASSOC);
     

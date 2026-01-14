@@ -151,7 +151,7 @@ elseif ($action == "bulkGetCategories"):
   $categories = $conn->prepare("SELECT category_id, category_name FROM categories WHERE category_deleted=:del");
 
   $categories->execute([
-    "del" => 0
+    "del" => "0"
   ]);
 
   $categories = $categories->fetchAll(PDO::FETCH_ASSOC);
@@ -218,7 +218,7 @@ elseif ($action == "capture_description"):
 
 
   $services = $conn->prepare("SELECT * FROM services WHERE service_api=:api AND service_deleted=:deleted");
-  $services->execute(array("api" => $_POST["id"], "deleted" => 0));
+  $services->execute(array("api" => $_POST["id"], "deleted" => "0"));
   $services = $services->fetchAll(PDO::FETCH_ASSOC);
 
 
@@ -1614,7 +1614,7 @@ elseif ($action == "alert_user"):
   echo json_encode(["content" => $return, "title" => "Notice to users"]);
 elseif ($action == "new_service"):
   $categories = $conn->prepare("SELECT * FROM categories WHERE category_deleted=:deleted ORDER BY category_line ");
-  $categories->execute(array("deleted" => 0));
+  $categories->execute(array("deleted" => "0"));
   $categories = $categories->fetchAll(PDO::FETCH_ASSOC);
   $providers = $conn->prepare("SELECT * FROM service_api");
   $providers->execute(array());
@@ -1865,7 +1865,7 @@ elseif ($action == "edit_service"):
   $id = $_POST["id"];
   $smmapi = new SMMApi();
   $categories = $conn->prepare("SELECT * FROM categories WHERE category_deleted=:deleted ORDER BY category_line ");
-  $categories->execute(array("deleted" => 0));
+  $categories->execute(array("deleted" => "0"));
   $categories = $categories->fetchAll(PDO::FETCH_ASSOC);
   $serviceInfo = $conn->prepare("SELECT * FROM services LEFT JOIN service_api ON service_api.id=services.service_api WHERE services.service_id=:id ");
   $serviceInfo->execute(array("id" => $id));
@@ -2886,7 +2886,7 @@ elseif ($action == "edit_time"):
 
 elseif ($action == "new_subscriptions"):
   $categories = $conn->prepare("SELECT * FROM categories WHERE category_deleted=:deleted ORDER BY category_line ");
-  $categories->execute(array("deleted" => 0));
+  $categories->execute(array("deleted" => "0"));
   $categories = $categories->fetchAll(PDO::FETCH_ASSOC);
   $providers = $conn->prepare("SELECT * FROM service_api");
   $providers->execute(array());
@@ -3482,7 +3482,7 @@ elseif ($action == "import_services"):
   $providers->execute(array("status" => 1));
   $providers = $providers->fetchAll(PDO::FETCH_ASSOC);
   $category = $conn->prepare("SELECT * FROM categories WHERE category_deleted=:deleted ORDER BY category_line");
-  $category->execute(array("deleted" => 0));
+  $category->execute(array("deleted" => "0"));
   $category = $category->fetchAll(PDO::FETCH_ASSOC);
   $return = '<form class="form" action="' . site_url("admin/services/get_services_add/") . '" method="post" data-xhr="true">
     
@@ -3834,7 +3834,7 @@ elseif ($action == "import_service"):
   $providers = $providers->fetchAll(PDO::FETCH_ASSOC);
 
   $category = $conn->prepare("SELECT * FROM categories WHERE category_deleted=:deleted ORDER BY category_line");
-  $category->execute(array("deleted" => 0));
+  $category->execute(array("deleted" => "0"));
   $category = $category->fetchAll(PDO::FETCH_ASSOC);
   $return = '<form class="form" action="' . site_url("admin/services/get_service_add/") . '" method="post" data-xhr="true">
     

@@ -125,7 +125,7 @@ $CATEGORIES = $conn->prepare("SELECT * FROM categories WHERE category_type=:type
 $CATEGORIES->execute(array(
   "type" => 2,
   "category_secret" => 2,
-  "deleted" => 0
+  "deleted" => "0"
 ));
 if($CATEGORIES->rowCount()){
 $CATEGORIES = $CATEGORIES->fetchAll(PDO::FETCH_ASSOC);
@@ -139,7 +139,7 @@ $SERVICES = $conn->prepare("SELECT * FROM services WHERE service_type=:service_t
 $SERVICES->execute(array(
   "service_type" => 2,
   "service_secret" => 2,
-  "deleted" => 0
+  "deleted" => "0"
 ));
 if($SERVICES->rowCount()){
 $SERVICES = $SERVICES->fetchAll(PDO::FETCH_ASSOC);

@@ -87,7 +87,7 @@ $information = array(
 
 
         $categoriesData = $conn->prepare('SELECT * FROM categories WHERE category_deleted=:del ORDER BY category_line ');
-        $categoriesData->execute(["del" => 0]);
+        $categoriesData->execute(["del" => "0"]);
         $categoriesData = $categoriesData->fetchAll(PDO::FETCH_ASSOC);
 
 
@@ -284,7 +284,7 @@ elseif (route(2) == "ajax_services_last") :
     // p(($getServicesByCategory));
 
     $allCategories = $conn->prepare('SELECT * FROM categories WHERE category_deleted=:del ORDER BY category_line ');
-    $allCategories->execute(["del" => 0]);
+    $allCategories->execute(["del" => "0"]);
     $allCategories = $allCategories->fetchAll(PDO::FETCH_ASSOC);
 
     $allServices = $conn->prepare('SELECT * FROM services ORDER BY service_line');
