@@ -8,7 +8,7 @@ header("Location:" . site_url("admin"));
 exit();
 endif;
 
-$categories = $conn->prepare("SELECT * FROM categories WHERE category_deleted=0 ORDER BY category_line ASC");
+$categories = $conn->prepare("SELECT * FROM categories WHERE category_deleted='0' ORDER BY category_line ASC");
 $categories->execute();
 $categories = $categories->fetchAll(PDO::FETCH_ASSOC);
 $list .= "";
