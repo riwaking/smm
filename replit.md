@@ -4,6 +4,9 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-14: Modern dark theme UI redesign - Added css/modern-ui.css (CSS variables, modern typography, component styles) and css/modern-override.css (applies dark theme to existing Bootstrap classes)
+- 2026-01-14: Applied dark theme with purple accents (#7c3aed) for customer-side pages - dark sidebar, modern cards, styled forms and tables
+- 2026-01-14: Added Google Fonts (Inter) to header1.twig for modern typography
 - 2026-01-14: Added AJAX form loading and submission for Add Funds page (addfunds.twig) - payment method fields load dynamically, form submits via AJAX with error handling
 - 2026-01-14: Fixed blank page when placing orders - added default values for $posts, $delay, $otoMin, $otoMax, $interval, $runs numeric fields
 - 2026-01-14: Fixed ajax_data.php quantity/runs type error - added intval() with isset() checks
