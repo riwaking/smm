@@ -38,6 +38,7 @@ $i++;
 endif;
 }
     echo json_encode(['services' => $serviceList], JSON_UNESCAPED_UNICODE);
+    exit;
 elseif ($action == "service_detail"):
     $s_id = isset($_POST["service"]) && $_POST["service"] !== '' ? intval($_POST["service"]) : 0;
     if ($s_id <= 0) {
@@ -290,8 +291,10 @@ $totalPrice = format_amount_string($user["currency_type"],from_to(get_currencies
 $totalPrice.= '';
     }
     echo json_encode(['price' => $totalPrice, 'commentsCount' => $quantity, 'totalQuantity' => $runs * $quantity]);
-
+    exit;
 
 endif;
+
+exit;
 
 
