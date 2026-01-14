@@ -274,4 +274,94 @@ function password_generator( len ) {
     return password.substr(0,len);
 }
 
-
+// ============================================================================
+// INDEPENDENT INITIALIZATION - Bypasses jQuery ready queue errors
+// This runs separately from jQuery's document.ready to avoid theme file errors
+// ============================================================================
+(function() {
+    'use strict';
+    
+    function initCategoryHandler() {
+        console.log("Independent init: Running category handler initialization");
+        
+        var categorySelect = document.getElementById('neworder_category');
+        var serviceSelect = document.getElementById('neworder_services');
+        
+        if (!categorySelect || !serviceSelect) {
+            console.log("Independent init: Not on new order page, skipping");
+            return;
+        }
+        
+        console.log("Independent init: Found category and service dropdowns");
+        
+        // Fetch services for the selected category
+        function fetchServicesForCategory(categoryId) {
+            console.log("Independent init: Fetching services for category " + categoryId);
+            
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'ajax_data', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    console.log("Independent init: XHR response status " + xhr.status);
+                    if (xhr.status === 200) {
+                        try {
+                            var data = JSON.parse(xhr.responseText);
+                            console.log("Independent init: Parsed response", data);
+                            if (data && data.services) {
+                                serviceSelect.innerHTML = data.services;
+                                console.log("Independent init: Updated services dropdown");
+                                // Refresh bootstrap-select widget if it exists
+                                if (typeof $ !== 'undefined' && $.fn && $.fn.selectpicker) {
+                                    try {
+                                        $(serviceSelect).selectpicker('refresh');
+                                        console.log("Independent init: Refreshed selectpicker");
+                                    } catch(e) {
+                                        console.log("Independent init: selectpicker refresh failed", e);
+                                    }
+                                }
+                                // Trigger service detail fetch
+                                if (typeof service_detail === 'function') {
+                                    service_detail();
+                                }
+                            } else {
+                                console.log("Independent init: No services in response");
+                                serviceSelect.innerHTML = '<option value="0">No services found</option>';
+                                // Refresh bootstrap-select widget
+                                if (typeof $ !== 'undefined' && $.fn && $.fn.selectpicker) {
+                                    try {
+                                        $(serviceSelect).selectpicker('refresh');
+                                    } catch(e) {}
+                                }
+                            }
+                        } catch(e) {
+                            console.log("Independent init: Parse error", e);
+                            console.log("Independent init: Raw response", xhr.responseText.substring(0, 500));
+                        }
+                    } else {
+                        console.log("Independent init: XHR error", xhr.status);
+                    }
+                }
+            };
+            xhr.send('action=services_list&category=' + encodeURIComponent(categoryId));
+        }
+        
+        // Bind change event using native JavaScript
+        categorySelect.addEventListener('change', function() {
+            var selectedCategory = this.value;
+            console.log("Independent init: Category changed to " + selectedCategory);
+            fetchServicesForCategory(selectedCategory);
+        });
+        
+        console.log("Independent init: Category change handler bound successfully");
+    }
+    
+    // Run after everything has loaded (bypasses jQuery ready queue issues)
+    if (document.readyState === 'complete') {
+        setTimeout(initCategoryHandler, 100);
+    } else {
+        window.addEventListener('load', function() {
+            setTimeout(initCategoryHandler, 100);
+        });
+    }
+})();
