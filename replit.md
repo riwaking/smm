@@ -4,6 +4,8 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-14: Fixed blank page when placing orders - added default values for $posts, $delay, $otoMin, $otoMax, $interval, $runs numeric fields
+- 2026-01-14: Fixed ajax_data.php quantity/runs type error - added intval() with isset() checks
 - 2026-01-14: Fixed quantity change handler using event delegation for dynamically loaded #neworder_quantity field
 - 2026-01-14: Fixed dripfeed parameter values in charge calculation (uses 'bos'/'var' strings to match server API)
 - 2026-01-14: Added default values for $profit, $api_charge, $currencycharge in neworder.php to prevent PostgreSQL errors
