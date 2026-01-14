@@ -1,6 +1,32 @@
 $(document).ready(function(){
- 
-category_detail();
+  console.log("script.js: Document ready");
+  
+  // Wrap in try-catch to prevent theme errors from breaking our code
+  try {
+    // Check if we're on the new order page
+    if ($("#neworder_category").length > 0) {
+      console.log("script.js: New order page detected, initializing category handler");
+      
+      // Bind category change handler
+      $("#neworder_category").off('change').on('change', function(){
+        console.log("script.js: Category changed to " + $(this).val());
+        category_detail();
+      });
+      
+      // Initial load of services (delayed to ensure DOM is ready)
+      setTimeout(function() {
+        console.log("script.js: Initial category_detail call");
+        category_detail();
+      }, 100);
+    }
+  } catch(e) {
+    console.log("script.js: Error in initialization", e);
+  }
+
+  // Original event bindings (wrapped)
+  try {
+    category_detail();
+  } catch(e) {}
   $("#neworder_category").change(function(){
     category_detail();
   });
@@ -108,22 +134,35 @@ input2.val(pass);
 
 function category_detail() {
     var category_now = $("#neworder_category").val();
-    $.post('ajax_data', {
-        action: 'services_list',
-        category: category_now
-    }, function(data) {
-        $("#neworder_services").html(data.services);
-        
-       /* var x = $("#neworder_services > option:selected").html();
-        $("#neworder_services > option").each(function() {
-            var text = $(this).html();
-            var icon = ikon(text);
-            $(this).attr("data-icon", icon)
-        });
-        $("#neworder_services > option:selected").attr("data-icon", ikon(x));*/
-        $("#neworder_services").trigger("change");
-        service_detail();
-    }, 'json')
+    if (!category_now) {
+        console.log("category_detail: No category selected");
+        return;
+    }
+    console.log("category_detail: Fetching services for category " + category_now);
+    $.ajax({
+        url: 'ajax_data',
+        type: 'POST',
+        data: {
+            action: 'services_list',
+            category: category_now
+        },
+        dataType: 'json',
+        success: function(data) {
+            console.log("category_detail: Response received", data);
+            if (data && data.services) {
+                $("#neworder_services").html(data.services);
+                $("#neworder_services").trigger("change");
+                service_detail();
+            } else {
+                console.log("category_detail: No services in response");
+                $("#neworder_services").html('<option value="0">No services found</option>');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log("category_detail: AJAX error", status, error);
+            console.log("category_detail: Response text", xhr.responseText);
+        }
+    });
 }
 
 function service_detail() {
