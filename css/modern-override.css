@@ -1267,3 +1267,52 @@ textarea[name="link"] {
 .card-top-blk value {
   color: var(--warning) !important;
 }
+
+/* General bootstrap-select styling for dark theme */
+.form-group .bootstrap-select {
+  width: 100% !important;
+}
+
+.form-group .bootstrap-select > .dropdown-toggle {
+  background: var(--bg-input) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--text-primary) !important;
+  padding: 12px 16px !important;
+  height: auto !important;
+  min-height: 48px !important;
+  width: 100% !important;
+  text-align: left !important;
+}
+
+.form-group .bootstrap-select > .dropdown-toggle:hover,
+.form-group .bootstrap-select > .dropdown-toggle:focus {
+  background: var(--bg-hover) !important;
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 0 0 3px var(--accent-glow) !important;
+}
+
+/* Category and order dropdown menus */
+#category-drop,
+#orders-drop {
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+#category-drop li a,
+#orders-drop li a {
+  color: var(--text-primary) !important;
+  padding: 10px 16px !important;
+}
+
+#category-drop li a:hover,
+#orders-drop li a:hover {
+  background: var(--bg-hover) !important;
+}
+
+/* Ensure bootstrap-select renders inline */
+.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+  width: 100% !important;
+}
