@@ -87,6 +87,98 @@ $category_html_simplify .= "<option data-icon=\"".icon($images,$id,$name)."\" va
 }
 }
 
+// Build services_array and category_array for JavaScript
+$services_list = [];
+$services_name_list = [];
+$category_list = [];
+$first_category_id = 0;
+$first_service_id = 0;
+
+foreach($categories1 as $cat_index => $cat) {
+    $cat_id = $cat["category_id"];
+    $cat_name = $cat["category_name"];
+    
+    // Add to category list
+    $category_list[] = [
+        "id" => $cat_id,
+        "name" => $cat_name
+    ];
+    
+    if($cat_index == 0) {
+        $first_category_id = $cat_id;
+    }
+    
+    // Get services for this category
+    $servicesQuery = $conn->prepare("SELECT * FROM services WHERE category_id=:cat_id AND service_deleted=:deleted AND service_type=:type ORDER BY service_line ASC");
+    $servicesQuery->execute(array("cat_id" => $cat_id, "deleted" => "0", "type" => "2"));
+    $servicesRows = $servicesQuery->fetchAll(PDO::FETCH_ASSOC);
+    
+    foreach($servicesRows as $svc_index => $svc) {
+        // Check if service is visible to user (public or user has access)
+        $svc_visible = false;
+        if($svc["service_secret"] == "2") {
+            $svc_visible = true;
+        } else {
+            $checkAccess = $conn->prepare("SELECT * FROM clients_service WHERE service_id=:sid AND client_id=:cid");
+            $checkAccess->execute(array("sid" => $svc["service_id"], "cid" => $user["client_id"]));
+            if($checkAccess->rowCount() > 0) {
+                $svc_visible = true;
+            }
+        }
+        
+        if($svc_visible) {
+            $svc_price = service_price($svc["service_id"]);
+            $svc_price = $svc_price - ($svc_price * $discount_percent);
+            
+            // Get localized name if available
+            $svc_name = $svc["service_name"];
+            if(!empty($svc["name_lang"])) {
+                $multiName = json_decode($svc["name_lang"], true);
+                if(isset($multiName[$user["lang"]]) && !empty($multiName[$user["lang"]])) {
+                    $svc_name = $multiName[$user["lang"]];
+                }
+            }
+            
+            $services_list[] = [
+                "id" => $svc["service_id"],
+                "name" => $svc_name,
+                "category" => $cat_id,
+                "rate" => number_format($svc_price, 2, '.', ''),
+                "min" => $svc["service_min"],
+                "max" => $svc["service_max"],
+                "type" => $svc["service_package"],
+                "desc" => $svc["service_description"] ?? "",
+                "dripfeed" => $svc["service_dripfeed"] ?? "1",
+                "refill" => $svc["show_refill"] ?? "1"
+            ];
+            
+            $services_name_list[] = $svc_name;
+            
+            if($first_service_id == 0 && $cat_id == $first_category_id) {
+                $first_service_id = $svc["service_id"];
+            }
+        }
+    }
+}
+
+// Build the services_array JSON structure
+$currency_symbol = $settings["currency_symbol"] ?? "रु";
+$services_array_data = [
+    "symbol" => $currency_symbol,
+    "services_list_type" => 4,
+    "services_search" => 1,
+    "services" => $services_list,
+    "services_name" => $services_name_list,
+    "services_new_style" => 0,
+    "selected" => [
+        "category" => $first_category_id,
+        "service" => $first_service_id
+    ],
+    "services_mechanism" => 1
+];
+
+$services_array_json = json_encode($services_array_data, JSON_UNESCAPED_UNICODE);
+$category_array_json = json_encode($category_list, JSON_UNESCAPED_UNICODE);
 
 if( $_POST ):
 

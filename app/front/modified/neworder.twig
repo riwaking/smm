@@ -721,8 +721,8 @@ display:none !important;
 
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>var services_mechanism = 1; 
-                var services_array = "{\"symbol\":\"$\",\"services_list_type\":4,\"services_search\":1,\"services\":[],\"services_name\":[],\"services_new_style\":0,\"selected\":{\"category\":0,\"service\":0},\"services_mechanism\":1}"; 
-                var category_array = "[]"; </script>
+                var services_array = {{ services_array_json|raw }}; 
+                var category_array = {{ category_array_json|raw }}; </script>
 
 <!-- modal -->
 <div class="modal fade" id="exampleModalnew" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">

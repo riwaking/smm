@@ -4,6 +4,7 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-14: Fixed services_array and category_array empty in neworder.twig - added backend code to query services from database and pass JSON to template via index.php render context
 - 2026-01-14: Fixed VARCHAR type mismatches - changed all "type" => 2 and "s_type" => 2 to string values "2" in PDO execute arrays across 14 PHP files
 - 2026-01-14: Fixed deleted categories still appearing in bulk category editor and other admin pages - added category_deleted=0 filter
 - 2026-01-14: Fixed "No services found in category" - modified category queries to only show categories that have services (INNER JOIN with services table)
