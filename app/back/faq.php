@@ -1,6 +1,12 @@
 <?php
 if(!defined('BASEPATH')) {
    die('Direct access to the script is not allowed');
-}exit();
+}
+
+echo $twig->render('faq.twig', [
+   'site' => $site,
+   'user' => $user,
+   'lang' => $lang
+]);
 
 ?>
