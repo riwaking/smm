@@ -27,7 +27,7 @@ $price = ($price - ($price * $discount_percent));
 $final_service_price = format_amount_string($user["currency_type"],from_to(get_currencies_array("enabled"),$settings["site_base_currency"],$user["currency_type"],$price));
 $search = $conn->prepare("SELECT * FROM clients_service WHERE service_id=:service AND client_id=:c_id ");
 $search->execute(array("service" => $service["service_id"], "c_id" => $user["client_id"]));
-if ($service["service_secret"] == 2 || $search->rowCount()):
+if ($service["service_secret"] == "2" || $search->rowCount()):
 $optionText = $service["service_id"] . " - " . $service["service_name"] . " - " . $final_service_price;
 $serviceList.= '<option value="' . $service['service_id'] . '"';
 if ($i == 0):
