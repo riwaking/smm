@@ -209,4 +209,72 @@ button {
   </div>
 </div>
 
+<script>
+$(document).ready(function() {
+    function loadPaymentForm() {
+        var selectedMethod = $('#payment_method').val();
+        if (selectedMethod) {
+            $.ajax({
+                url: '/addfunds',
+                type: 'POST',
+                data: {
+                    action: 'getForm',
+                    selectedMethod: selectedMethod
+                },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success && response.content) {
+                        $('#addfunds_fields').html(response.content);
+                    }
+                },
+                error: function() {
+                    $('#addfunds_fields').html('<p style="color:red;">Error loading payment form</p>');
+                }
+            });
+        }
+    }
+    
+    loadPaymentForm();
+    
+    $('#payment_method').on('change', function() {
+        loadPaymentForm();
+    });
+    
+    $('#addfundsForm').on('submit', function(e) {
+        e.preventDefault();
+        var formData = $(this).serialize();
+        
+        $.ajax({
+            url: '/addfunds',
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            success: function(response) {
+                if (response.success && response.redirect) {
+                    window.location.href = response.redirect;
+                } else if (response.success && response.message) {
+                    $('#formSubmitResponseMessage').html('<div class="alert alert-success">' + response.message + '</div>');
+                } else if (response.success === false && response.message) {
+                    $('#formSubmitResponseMessage').html('<div class="alert alert-danger">' + response.message + '</div>');
+                } else if (response.error) {
+                    $('#formSubmitResponseMessage').html('<div class="alert alert-danger">' + response.error + '</div>');
+                }
+            },
+            error: function(xhr) {
+                try {
+                    var resp = JSON.parse(xhr.responseText);
+                    if (resp.error) {
+                        $('#formSubmitResponseMessage').html('<div class="alert alert-danger">' + resp.error + '</div>');
+                    } else {
+                        $('#formSubmitResponseMessage').html('<div class="alert alert-danger">Payment request failed. Please try again.</div>');
+                    }
+                } catch(e) {
+                    $('#formSubmitResponseMessage').html('<div class="alert alert-danger">Payment request failed. Please try again.</div>');
+                }
+            }
+        });
+    });
+});
+</script>
+
 {% include 'footer1.twig' %}
