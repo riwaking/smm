@@ -1169,3 +1169,101 @@ textarea[name="link"] {
   color: var(--text-primary) !important;
   border-color: var(--border-color) !important;
 }
+
+/* Fix service/category select containers and dropdowns */
+#select-service-container,
+#select-category-container,
+#select-service-container .bootstrap-select,
+#select-category-container .bootstrap-select {
+  background: transparent !important;
+}
+
+#select-service-container .bootstrap-select > .dropdown-toggle,
+#select-category-container .bootstrap-select > .dropdown-toggle,
+#neworder_services + .dropdown-toggle,
+#neworder_category + .dropdown-toggle {
+  background: var(--bg-input) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--text-primary) !important;
+  padding: 12px 16px !important;
+  height: auto !important;
+  min-height: 48px !important;
+}
+
+/* Fix the dropdown menu inner container */
+#select-service-container .dropdown-menu,
+#select-category-container .dropdown-menu,
+#neworder_services + .dropdown-toggle + .dropdown-menu,
+#neworder_category + .dropdown-toggle + .dropdown-menu {
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+/* Remove any white box wrappers */
+.bootstrap-select .dropdown-toggle .filter-option,
+.bootstrap-select .dropdown-toggle .filter-option-inner,
+.bootstrap-select .dropdown-toggle .filter-option-inner-inner {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+}
+
+/* Service description box styling */
+#neworder_fields,
+#neworder_fields input,
+#neworder_fields textarea,
+#neworder_fields .form-control {
+  background: var(--bg-input) !important;
+  background-color: var(--bg-input) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-md) !important;
+}
+
+/* Service info display area */
+.service-info,
+.service-description,
+#service-description {
+  background: var(--bg-tertiary) !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 12px 16px !important;
+}
+
+/* Order page warning/notes box - dark theme */
+.order-warning-box {
+  padding: 15px !important;
+  margin-bottom: 20px !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--text-secondary) !important;
+  background: var(--bg-tertiary) !important;
+}
+
+.order-warning-box span {
+  color: var(--text-secondary) !important;
+}
+
+.order-warning-box .warning-num {
+  font-size: 18px !important;
+  color: var(--accent-primary) !important;
+  font-weight: 600 !important;
+}
+
+/* Card top block styling */
+.card-top-blk {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin-bottom: 12px !important;
+}
+
+.card-top-blk h4 {
+  color: var(--text-primary) !important;
+  margin: 0 !important;
+}
+
+.card-top-blk value {
+  color: var(--warning) !important;
+}
