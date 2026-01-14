@@ -18,7 +18,7 @@ if(!defined('BASEPATH')) {
   endif;
 
    
-    $services       = $conn->prepare("SELECT * FROM categories ") ;
+    $services       = $conn->prepare("SELECT * FROM categories WHERE category_deleted=0 ORDER BY category_line ASC") ;
     $services       -> execute(array());
     $services       = $services->fetchAll(PDO::FETCH_ASSOC);
     
