@@ -4,6 +4,9 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-14: Fixed quantity change handler using event delegation for dynamically loaded #neworder_quantity field
+- 2026-01-14: Fixed dripfeed parameter values in charge calculation (uses 'bos'/'var' strings to match server API)
+- 2026-01-14: Added default values for $profit, $api_charge, $currencycharge in neworder.php to prevent PostgreSQL errors
 - 2026-01-14: Fixed category-to-service dropdown synchronization by adding independent JS initialization using window.onload (bypasses jQuery ready queue errors from theme file) with bootstrap-select refresh
 - 2026-01-14: Fixed services dropdown showing "No services found" - implemented server-side pre-population of services for first category using existing services_list array in neworder.php
 - 2026-01-14: Fixed ajax_data.php VARCHAR comparison (service_secret == "2") and added exit statements to prevent template rendering interference
