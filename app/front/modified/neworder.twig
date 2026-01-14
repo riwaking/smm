@@ -447,11 +447,15 @@ display:none !important;
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="OrderService">Service</label><br><b>ID : <span class="neworder_services"></span></b>
-                               <select class="form-control" id="neworder_services" name="services" style="display:none;">
+                               <select class="form-control" id="neworder_services" name="services" data-select="true" data-select-search="true" data-select-search-placeholder="Search" data-select-container="#select-service-container" tabindex="-1" aria-hidden="true">
 {{ first_category_services_html|raw }}
 </select>
-                                <div class="service-list-container" id="service-list-container">
-                                    <div class="service-list" id="service-list">
+                                <div class="dropdown" id="select-service-container">
+                                    <button class="form-control text-left" type="button" id="order-dd" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      <span id="order-services">Select a service</span>
+                                      <i class="fas fa-angle-down float-right" aria-hidden="true"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="order-dd" id="orders-drop">
                                     </div>
                                 </div>
                             </div>
@@ -478,68 +482,6 @@ display:none !important;
                                                         e.style.display = "none";
                                                 }
                                                 </script>
-<script>
-(function() {
-    function populateServiceList() {
-        var select = document.getElementById('neworder_services');
-        var listContainer = document.getElementById('service-list');
-        if (!select || !listContainer) return;
-        
-        listContainer.innerHTML = '';
-        var options = select.querySelectorAll('option');
-        
-        options.forEach(function(option) {
-            if (!option.value) return;
-            
-            var item = document.createElement('div');
-            item.className = 'service-list-item';
-            item.setAttribute('data-value', option.value);
-            item.textContent = option.textContent;
-            
-            if (option.selected) {
-                item.classList.add('selected');
-            }
-            
-            item.addEventListener('click', function() {
-                document.querySelectorAll('.service-list-item').forEach(function(el) {
-                    el.classList.remove('selected');
-                });
-                item.classList.add('selected');
-                select.value = option.value;
-                
-                var event = new Event('change', { bubbles: true });
-                select.dispatchEvent(event);
-                
-                document.querySelector('.neworder_services').textContent = option.value;
-            });
-            
-            listContainer.appendChild(item);
-        });
-        
-        if (options.length > 0 && options[0].value) {
-            document.querySelector('.neworder_services').textContent = options[0].value;
-        }
-    }
-    
-    
-    var originalUpdateServices = null;
-    var servicesSelect = document.getElementById('neworder_services');
-    if (servicesSelect) {
-        var observer = new MutationObserver(function() {
-            populateServiceList();
-        });
-        observer.observe(servicesSelect, { childList: true, subtree: true });
-    }
-    
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', populateServiceList);
-    } else {
-        populateServiceList();
-    }
-    
-    window.populateServiceList = populateServiceList;
-})();
-</script>
                         </div>
                 </div>
                 </div>
