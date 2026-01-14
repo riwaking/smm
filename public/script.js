@@ -356,12 +356,115 @@ function password_generator( len ) {
         console.log("Independent init: Category change handler bound successfully");
     }
     
+    // Independent quantity change handler for charge calculation
+    // Uses event delegation since quantity field is dynamically loaded
+    function initQuantityHandler() {
+        console.log("Independent init: Running quantity handler initialization");
+        
+        var serviceSelect = document.getElementById('neworder_services');
+        var chargeInput = document.getElementById('charge');
+        var fieldsContainer = document.getElementById('neworder_fields');
+        
+        if (!serviceSelect || !fieldsContainer) {
+            console.log("Independent init: Service/fields container not found, skipping quantity handler");
+            return;
+        }
+        
+        console.log("Independent init: Setting up quantity handler with event delegation");
+        
+        // Calculate charge for quantity change
+        function calculateCharge() {
+            var quantityInput = document.getElementById('neworder_quantity');
+            if (!quantityInput) {
+                console.log("Independent init: Quantity input not yet available");
+                return;
+            }
+            
+            var service = serviceSelect.value;
+            var quantity = quantityInput.value;
+            var dripfeed = 'bos';  // Server expects 'bos' for off, 'var' for on
+            var runs = 1;
+            
+            // Check for dripfeed elements
+            var dripfeedCheckbox = document.querySelector('input[name="dripfeed"]');
+            var runsInput = document.getElementById('dripfeed-runs');
+            
+            if (dripfeedCheckbox && dripfeedCheckbox.checked) {
+                dripfeed = 'var';  // Server expects 'var' when drip-feed is enabled
+            }
+            if (runsInput && runsInput.value) {
+                runs = parseInt(runsInput.value) || 1;
+            }
+            
+            console.log("Independent init: Calculating charge for service=" + service + ", quantity=" + quantity);
+            
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'ajax_data', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    try {
+                        var data = JSON.parse(xhr.responseText);
+                        console.log("Independent init: Charge response", data);
+                        var currentChargeInput = document.getElementById('charge');
+                        if (data && data.price !== undefined && currentChargeInput) {
+                            currentChargeInput.value = data.price;
+                            console.log("Independent init: Updated charge to " + data.price);
+                        }
+                        // Update total quantity for dripfeed
+                        var totalQtyInput = document.getElementById('dripfeed-totalquantity');
+                        if (data && data.totalQuantity !== undefined && totalQtyInput) {
+                            totalQtyInput.value = data.totalQuantity;
+                        }
+                    } catch(e) {
+                        console.log("Independent init: Charge parse error", e);
+                    }
+                }
+            };
+            xhr.send('action=service_price&service=' + encodeURIComponent(service) + 
+                     '&quantity=' + encodeURIComponent(quantity) + 
+                     '&dripfeed=' + dripfeed + 
+                     '&runs=' + runs);
+        }
+        
+        // Use event delegation on the fields container for dynamically added quantity input
+        fieldsContainer.addEventListener('keyup', function(e) {
+            if (e.target && e.target.id === 'neworder_quantity') {
+                console.log("Independent init: Quantity changed to " + e.target.value);
+                calculateCharge();
+            }
+        });
+        
+        fieldsContainer.addEventListener('input', function(e) {
+            if (e.target && e.target.id === 'neworder_quantity') {
+                calculateCharge();
+            }
+        });
+        
+        // Bind change event for service changes to update charge
+        serviceSelect.addEventListener('change', function() {
+            console.log("Independent init: Service changed, waiting for fields to load then recalculating charge");
+            // Wait a bit for the AJAX to load the new fields, then calculate
+            setTimeout(function() {
+                calculateCharge();
+            }, 500);
+        });
+        
+        console.log("Independent init: Quantity change handler bound successfully (event delegation)");
+    }
+    
     // Run after everything has loaded (bypasses jQuery ready queue issues)
     if (document.readyState === 'complete') {
-        setTimeout(initCategoryHandler, 100);
+        setTimeout(function() {
+            initCategoryHandler();
+            initQuantityHandler();
+        }, 100);
     } else {
         window.addEventListener('load', function() {
-            setTimeout(initCategoryHandler, 100);
+            setTimeout(function() {
+                initCategoryHandler();
+                initQuantityHandler();
+            }, 100);
         });
     }
 })();

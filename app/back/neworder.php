@@ -451,6 +451,11 @@ $msg = "Your new password is: ".$pass;
           /* api ile sipariş - başla */
           $conn->beginTransaction();
 
+          /* Initialize default values for numeric fields to prevent PostgreSQL errors */
+          $profit = 0;
+          $api_charge = 0;
+          $currencycharge = 0;
+
           /* API SİPARİŞİ GEÇ BAŞLA */
           if( $api_detail["api_type"] == 1 ):
             ## Standart api başla ##
