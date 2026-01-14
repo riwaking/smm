@@ -4,6 +4,7 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-14: Fixed "No services found in category" - modified category queries to only show categories that have services (INNER JOIN with services table)
 - 2026-01-14: Fixed services dropdown not showing services - consolidated duplicate JS functions, fixed UTF-8 JSON encoding, added visible option text
 - 2026-01-14: Fixed JavaScript syntax error in neworder.twig (window.modules.siteOrder = {""})
 - 2026-01-14: Fixed balance display to show NPR symbol (रु) with actual user balance instead of hardcoded $0
