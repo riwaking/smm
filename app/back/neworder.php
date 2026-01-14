@@ -219,13 +219,18 @@ if( $_POST ):
   if( substr($link,-1) == "/" ): $link = substr($link,0,-1); endif;
   $username         = htmlspecialchars($_POST["username"]); // abonelik, hangi kullanıcıya olacak
   $posts            = htmlspecialchars($_POST["posts"]); // abonelik, kaç gönderiye gitsin
+    if( !$posts || !is_numeric($posts) ): $posts = 0; endif;
   $delay            = htmlspecialchars($_POST["delay"]); // Abonelik, gecikme süresi
+    if( !$delay || !is_numeric($delay) ): $delay = 0; endif;
   $otoMin           = htmlspecialchars($_POST["min"]); // abonelik, minimum miktar
+    if( !$otoMin || !is_numeric($otoMin) ): $otoMin = 0; endif;
   $otoMax           = htmlspecialchars($_POST["max"]);// abonelik, maksimum tutar
+    if( !$otoMax || !is_numeric($otoMax) ): $otoMax = 0; endif;
   $comments         = htmlspecialchars($_POST["comments"]); //custom comments
   $runs             = htmlspecialchars($_POST["runs"]); // dripfeed kaç kez gitsin
-    if( !$runs ): $runs=1; endif;
+    if( !$runs || !is_numeric($runs) ): $runs=1; endif;
   $interval         = htmlspecialchars($_POST["interval"]); // dripfeed gecikme süresi
+    if( !$interval || !is_numeric($interval) ): $interval = 0; endif;
   $dripfeedon       = htmlspecialchars($_POST["check"]); // dripfeed aktif
   $expiry           = htmlspecialchars($_POST["expiry"]);
   $expiry           = date("Y-m-d", strtotime(str_replace('/', '-', $expiry)));

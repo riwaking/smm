@@ -264,10 +264,10 @@ $data = [
     unset($_SESSION["data"]);
 elseif ($action == "service_price"):
     $service = $_POST["service"];
-    $quantity = $_POST["quantity"];
+    $quantity = isset($_POST["quantity"]) ? intval($_POST["quantity"]) : 0;
     $comments = $_POST["comments"];
     $dripfeed = $_POST["dripfeed"];
-    $runs = $_POST["runs"];
+    $runs = isset($_POST["runs"]) ? intval($_POST["runs"]) : 1;
     if (!$runs):
         $runs = 1;
     endif;
