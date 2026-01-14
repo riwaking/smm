@@ -578,6 +578,7 @@ if (route(0) != "admin" && route(0) != "ajax_data") {
         "category_html_simplify" => $category_html_simplify,
         "services_array_json" => $services_array_json ?? '{"symbol":"रु","services_list_type":4,"services_search":1,"services":[],"services_name":[],"services_new_style":0,"selected":{"category":0,"service":0},"services_mechanism":1}',
         "category_array_json" => $category_array_json ?? '[]',
+        "first_category_services_html" => $first_category_services_html ?? '<option value="0">No services found</option>',
         'styleList' => $stylesheet["stylesheets"],
         'scriptList' => $stylesheet["scripts"],
         'captchaKey' => $settings["recaptcha_key"],

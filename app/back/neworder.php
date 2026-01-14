@@ -180,6 +180,28 @@ $services_array_data = [
 $services_array_json = json_encode($services_array_data, JSON_UNESCAPED_UNICODE);
 $category_array_json = json_encode($category_list, JSON_UNESCAPED_UNICODE);
 
+// Pre-build service options HTML for first category using already computed $services_list
+$first_category_services_html = "";
+$svc_count = 0;
+
+foreach($services_list as $svc) {
+    if($svc["category"] == $first_category_id) {
+        $final_price = format_amount_string($user["currency_type"], from_to(get_currencies_array("enabled"), $settings["site_base_currency"], $user["currency_type"], floatval($svc["rate"])));
+        $optionText = $svc["id"] . " - " . $svc["name"] . " - " . $final_price;
+        
+        $first_category_services_html .= '<option value="' . $svc["id"] . '"';
+        if($svc_count == 0) {
+            $first_category_services_html .= ' selected';
+        }
+        $first_category_services_html .= '>' . htmlspecialchars($optionText, ENT_QUOTES, 'UTF-8') . '</option>';
+        $svc_count++;
+    }
+}
+
+if($svc_count == 0) {
+    $first_category_services_html = '<option value="0">No services found in this category</option>';
+}
+
 if( $_POST ):
 
   foreach ($_POST as $key => $value) {
