@@ -451,7 +451,6 @@ display:none !important;
 {{ first_category_services_html|raw }}
 </select>
                                 <div class="service-list-container" id="service-list-container">
-                                    <input type="text" class="service-search-input" id="service-search" placeholder="Search services...">
                                     <div class="service-list" id="service-list">
                                     </div>
                                 </div>
@@ -522,18 +521,6 @@ display:none !important;
         }
     }
     
-    document.getElementById('service-search').addEventListener('input', function() {
-        var searchTerm = this.value.toLowerCase();
-        var items = document.querySelectorAll('.service-list-item');
-        
-        items.forEach(function(item) {
-            if (item.textContent.toLowerCase().includes(searchTerm)) {
-                item.classList.remove('hidden');
-            } else {
-                item.classList.add('hidden');
-            }
-        });
-    });
     
     var originalUpdateServices = null;
     var servicesSelect = document.getElementById('neworder_services');
