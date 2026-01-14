@@ -8,7 +8,7 @@ if ($admin["access"]["admin_access"] != 1) {
 }
 $action = $_POST["action"];
 $languages = $conn->prepare("SELECT * FROM languages WHERE language_type=:type");
-$languages->execute(array("type" => 2));
+$languages->execute(array("type" => "2"));
 $languages = $languages->fetchAll(PDO::FETCH_ASSOC);
 
 if ($action == "providers_list"):
@@ -304,7 +304,7 @@ elseif ($action == "category_enable"):
   $update->execute(
     array(
       "id" => $category_id,
-      "type" => 2
+      "type" => "2"
     )
   );
   $array = array(

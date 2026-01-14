@@ -353,7 +353,7 @@ $_SESSION["msmbilisim_userlogin"]      = 1;
     $client_id  = route(3);
     if( countRow(["table"=>"clients","where"=>["client_id"=>$client_id,"client_type"=>2]]) ): header("Location:".site_url("admin/clients")); exit(); endif;
     $update = $conn->prepare("UPDATE clients SET client_type=:type WHERE client_id=:id ");
-    $update->execute(array("type"=>2,"id"=>$client_id));
+    $update->execute(array("type"=>"2","id"=>$client_id));
       if( $update ):
         $_SESSION["client"]["data"]["success"]    = 1;
         $_SESSION["client"]["data"]["successText"]= "Success";

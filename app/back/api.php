@@ -123,7 +123,7 @@ elseif($action == "services"){
 
 $CATEGORIES = $conn->prepare("SELECT * FROM categories WHERE category_type=:type AND category_secret=:category_secret AND category_deleted=:deleted ORDER BY category_line ASC");
 $CATEGORIES->execute(array(
-  "type" => 2,
+  "type" => "2",
   "category_secret" => 2,
   "deleted" => "0"
 ));

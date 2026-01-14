@@ -61,7 +61,7 @@ echo '<script>setTimeout(function(){window.location="'.site_url().'"},2000)</scr
     $code = route(2);
     
         $update = $conn->prepare("UPDATE clients SET email_type=:type WHERE apikey=:key ");
-        $update->execute(array("type"=> 2,"key"=> $code));
+        $update->execute(array("type"=> "2","key"=> $code));
 
 
     Header("Location:".site_url(''));

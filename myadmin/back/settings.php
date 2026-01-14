@@ -705,7 +705,7 @@ elseif (route(2) == "payment-bonuses"):
       else:
         $conn->beginTransaction();
         $insert = $conn->prepare("INSERT INTO payments_bonus (bonus_method, bonus_from, bonus_amount, bonus_type) VALUES (:method, :from, :amount, :type)");
-        $insert = $insert->execute(array("method" => $method_type, "from" => $from, "amount" => $amount, "type" => 2));
+        $insert = $insert->execute(array("method" => $method_type, "from" => $from, "amount" => $amount, "type" => "2"));
         if ($insert):
           $conn->commit();
           $referrer = site_url("admin/settings/payment-bonuses");

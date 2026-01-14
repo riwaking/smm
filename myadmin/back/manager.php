@@ -40,7 +40,7 @@ if (route(2) == "admins") :
 
 
     $staffData   = $conn->prepare("SELECT * FROM admins WHERE admin_type=:type ");
-    $staffData->execute(array("type" => 2));
+    $staffData->execute(array("type" => "2"));
     $staffsData   = $staffData->fetchAll(PDO::FETCH_ASSOC);
 
 

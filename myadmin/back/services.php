@@ -162,7 +162,7 @@ endif;
   $row = $conn->query("SELECT * FROM services WHERE category_id='$category' ORDER BY service_line DESC LIMIT 1 ")->fetch(PDO::FETCH_ASSOC);
   $conn->beginTransaction();
   $insert = $conn->prepare("INSERT INTO services (name_lang, service_secret, service_api, service_dripfeed, instagram_second, start_count, instagram_private, api_service, api_detail, category_id, service_line, service_type, service_package, service_name, service_price, service_min, service_max, want_username, service_speed, cancelbutton, show_refill, refill_days, refill_hours) VALUES (:multiName, :secret, :api, :dripfeed, :instagram_second, :start_count, :instagram_private, :api_service, :detail, :category, :line, :type, :package, :name, :price, :min, :max, :want_username, :speed, :cancelbutton, :show_refill, :refill_days, :refill_hour)");
-  $insert = $insert-> execute(array("secret"=>$secret,"multiName"=>$multiName,"instagram_second"=>$instagram_second,"dripfeed"=>$dripfeed,"start_count"=>$start_count,"instagram_private"=>$instagram_private,"api"=>$provider,"api_service"=>$service,"detail"=>$detail,"category"=>$cat,"line"=>$row["service_line"]+1,"type"=>2,"package"=>$package,"name"=>$name,"price"=>$price,"min"=>$min,"max"=>$max,"want_username"=>$want_username,"speed"=>$speed,"cancelbutton"=>$cancelbutton,"show_refill"=>$show_refill,"refill_days"=>$refill_days,"refill_hour"=>$refill_hours ));
+  $insert = $insert-> execute(array("secret"=>$secret,"multiName"=>$multiName,"instagram_second"=>$instagram_second,"dripfeed"=>$dripfeed,"start_count"=>$start_count,"instagram_private"=>$instagram_private,"api"=>$provider,"api_service"=>$service,"detail"=>$detail,"category"=>$cat,"line"=>$row["service_line"]+1,"type"=>"2","package"=>$package,"name"=>$name,"price"=>$price,"min"=>$min,"max"=>$max,"want_username"=>$want_username,"speed"=>$speed,"cancelbutton"=>$cancelbutton,"show_refill"=>$show_refill,"refill_days"=>$refill_days,"refill_hour"=>$refill_hours ));
   if( $insert ):
 $conn->commit();
 if(strpos($_SERVER["HTTP_REFERER"],$_SERVER["HTTP_HOST"]) != false){
@@ -282,7 +282,7 @@ $detail="";
   $conn->beginTransaction();
   $update = $conn->prepare("UPDATE services SET api_detail=:detail, name_lang=:multiName, service_dripfeed=:dripfeed, api_servicetype=:type, instagram_second=:instagram_second, start_count=:start_count, instagram_private=:instagram_private, service_api=:api, api_service=:api_service, category_id=:category, service_package=:package, service_name=:name,service_price=:price, service_min=:min, service_secret=:secret, service_max=:max, want_username=:want_username, service_speed=:speed, cancelbutton=:cancelbutton, show_refill=:show_refill, refill_days=:refill_days, refill_hours=:refill_hour,
   service_overflow=:service_overflow,service_sync=:sync WHERE service_id=:id ");
-  $update = $update-> execute(array("id"=>route(3),"multiName"=>$multiName,"secret"=>$secret,"type"=>2,"detail"=>$detail,"dripfeed"=>$dripfeed,"instagram_second"=>$instagram_second,"start_count"=>$start_count,"instagram_private"=>$instagram_private,"api"=>$provider,"api_service"=>$service,"category"=>$category,"package"=>$package,"name"=>$name,"price"=>$price,"min"=>$min,"max"=>$max,"want_username"=>$want_username,"speed"=>$speed,"cancelbutton"=>$cancelbutton,"show_refill"=>$show_refill,"refill_days"=>$refill_days,"refill_hour"=>$refill_hours,"service_overflow" => $service_overflow,"sync" => $service_sync));
+  $update = $update-> execute(array("id"=>route(3),"multiName"=>$multiName,"secret"=>$secret,"type"=>"2","detail"=>$detail,"dripfeed"=>$dripfeed,"instagram_second"=>$instagram_second,"start_count"=>$start_count,"instagram_private"=>$instagram_private,"api"=>$provider,"api_service"=>$service,"category"=>$category,"package"=>$package,"name"=>$name,"price"=>$price,"min"=>$min,"max"=>$max,"want_username"=>$want_username,"speed"=>$speed,"cancelbutton"=>$cancelbutton,"show_refill"=>$show_refill,"refill_days"=>$refill_days,"refill_hour"=>$refill_hours,"service_overflow" => $service_overflow,"sync" => $service_sync));
   if( $update ):
 $conn->commit();
 $rows = $conn->prepare("SELECT * FROM services WHERE category_id=:c_id AND service_line>=:line ");
@@ -693,7 +693,7 @@ $detail="";
   $row = $conn->query("SELECT * FROM services WHERE category_id='$category' ORDER BY service_line DESC LIMIT 1 ")->fetch(PDO::FETCH_ASSOC);
   $conn->beginTransaction();
   $insert = $conn->prepare("INSERT INTO services (name_lang, service_speed, service_api, api_service, api_detail, category_id, service_line, service_type, service_package, service_name, service_price, service_min, service_max, service_autotime, service_autopost, service_secret) VALUES (:multiName, :speed, :api, :api_service, :detail, :category, :line, :type, :package, :name, :price, :min, :max, :autotime, :autopost, :secret)");
-  $insert = $insert-> execute(array("api"=>$provider,"multiName"=>$multiName,"speed"=>$speed,"detail"=>$detail,"api_service"=>$service,"category"=>$cat,"line"=>$row["service_line"]+1,"type"=>2,"package"=>$package,"name"=>$name,"price"=>$price,"min"=>$min,"max"=>$max,"autotime"=>$autotime,"autopost"=>$autopost,"secret"=>$secret ));
+  $insert = $insert-> execute(array("api"=>$provider,"multiName"=>$multiName,"speed"=>$speed,"detail"=>$detail,"api_service"=>$service,"category"=>$cat,"line"=>$row["service_line"]+1,"type"=>"2","package"=>$package,"name"=>$name,"price"=>$price,"min"=>$min,"max"=>$max,"autotime"=>$autotime,"autopost"=>$autopost,"secret"=>$secret ));
   if( $insert ):
 $conn->commit();
 $error    = 1;
@@ -813,7 +813,7 @@ show_refill=:show_refill,
                         service_autopost=:autopost,
       name_lang=:name_lang,
                         service_secret=:secret,service_overflow=:overflow WHERE service_id=:id ");
-  $update = $update-> execute(array("id"=>route(3),"type"=>2,"speed"=>$speed,"detail"=>$detail,"api"=>$provider,"api_service"=>$service,"category"=>$category,"name"=>$name,"price"=>$price,"min"=>$min,"max"=>$max,"autotime"=>$autotime,"autopost"=>$autopost,"name_lang"=>$multiName,"secret"=>$secret,"cancelbutton"=>$cancelbutton,"show_refill"=>$show_refill,"overflow" => $service_overflow));
+  $update = $update-> execute(array("id"=>route(3),"type"=>"2","speed"=>$speed,"detail"=>$detail,"api"=>$provider,"api_service"=>$service,"category"=>$category,"name"=>$name,"price"=>$price,"min"=>$min,"max"=>$max,"autotime"=>$autotime,"autopost"=>$autopost,"name_lang"=>$multiName,"secret"=>$secret,"cancelbutton"=>$cancelbutton,"show_refill"=>$show_refill,"overflow" => $service_overflow));
   if( $update ):
 $conn->commit();
 $rows = $conn->prepare("SELECT * FROM services WHERE category_id=:c_id AND service_line>=:line ");
@@ -851,7 +851,7 @@ header("Location:".site_url("admin/services"));
   
   exit(); endif;
     $update = $conn->prepare("UPDATE services SET service_type=:type WHERE service_id=:id ");
-    $update->execute(array("type"=>2,"id"=>$service_id));
+    $update->execute(array("type"=>"2","id"=>$service_id));
       if( $update ):
         $_SESSION["client"]["data"]["success"]    = 1;
         $_SESSION["client"]["data"]["successText"]= "Successful";
@@ -1042,7 +1042,7 @@ header("Location:".site_url("admin/services"));
   elseif( $action == "category-active" ):
     $category_id  = route(3);
     $update = $conn->prepare("UPDATE categories SET category_type=:type WHERE category_id=:id ");
-    $update->execute(array("type"=>2,"id"=>$category_id));
+    $update->execute(array("type"=>"2","id"=>$category_id));
       if( $update ):
         $_SESSION["client"]["data"]["success"]    = 1;
         $_SESSION["client"]["data"]["successText"]= "Successful";
@@ -1087,7 +1087,7 @@ header("Location:".site_url("admin/services"));
       if( $action ==  "active" ):
         foreach ($services as $id => $value):
 $update = $conn->prepare("UPDATE services SET service_type=:type WHERE service_id=:id ");
-$update->execute(array("type"=>2,"id"=>$id));
+$update->execute(array("type"=>"2","id"=>$id));
 //Create Updates
 $insert2= $conn->prepare("INSERT INTO updates (service_id, action, description, date) VALUES (:s_id, :action, :description, :date)");
 $insert2= $insert2->execute(array("s_id"=>$id,"action"=>"Activated","description"=>"","date"=>date("Y-m-d H:i:s") ));      
@@ -1335,12 +1335,12 @@ if($provider["currency"] == "IR"){
   if( $package == 11 ):
       
     $insert = $conn->prepare("INSERT INTO services (service_api, name_lang, api_service, category_id, service_line, service_type, service_package, service_name, service_price, service_min, service_max, service_description, service_profit, description_lang) VALUES (:api, :multiName, :api_service, :category, :line, :type, :package, :name, :price, :min, :max, :desc, :profit, :multi)");
-    $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>2,"package"=>$package,"name"=>$name2,"price"=> number_format($price, $format, '.', ''),"min"=>$apiService->min,"max"=>$apiService->max,"desc"=>$apiService->desc, "profit"=>$percentage_increase,"multiName"=>$multiName,"multi"=>$multiDesc));
+    $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>"2","package"=>$package,"name"=>$name2,"price"=> number_format($price, $format, '.', ''),"min"=>$apiService->min,"max"=>$apiService->max,"desc"=>$apiService->desc, "profit"=>$percentage_increase,"multiName"=>$multiName,"multi"=>$multiDesc));
   else:
       $package = $package==""?1:$package;
      
     $insert = $conn->prepare("INSERT INTO services (service_api, api_service, api_detail, category_id, service_line, service_type, service_package, service_name, service_price, service_min, service_max, name_lang, service_description, show_refill, service_profit, description_lang) VALUES (:api, :api_service, :detail, :category, :line, :type, :package, :name, :price, :min, :max, :multiName, :desc, :refill, :profit, :multi)");
-    $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>2,"package"=>$package,"name"=>$apiService->name,"price"=>number_format($price, $format, '.', '') ,"min"=>$apiService->min,"max"=>$apiService->max,"desc"=>$apiService->desc,"refill"=>$apiService->refill, "profit"=>$percentage_increase,"multiName"=>$multiName,"multi"=>$multiDesc));
+    $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>"2","package"=>$package,"name"=>$apiService->name,"price"=>number_format($price, $format, '.', '') ,"min"=>$apiService->min,"max"=>$apiService->max,"desc"=>$apiService->desc,"refill"=>$apiService->refill, "profit"=>$percentage_increase,"multiName"=>$multiName,"multi"=>$multiDesc));
   endif;
   
   else:
@@ -1356,12 +1356,12 @@ if($provider["currency"] == "IR"){
   if( $package == 11 ):
       
     $insert = $conn->prepare("INSERT INTO services (service_api, api_service, category_id, service_line, service_type, service_package, service_name, service_price, service_min, service_max, service_description, show_refill, service_profit, name_lang, description_lang) VALUES (:api, :api_service, :category, :line, :type, :package, :name, :price, :min, :max, :desc, :refill, :profit, :multiName, :multi)");
-    $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>2,"package"=>$package,"name"=>$name2,"price"=>number_format($price, $format, '.', ''),"min"=>$apiService->min,"max"=>$apiService->max,"desc"=>$apiService->desc,"refill"=>$apiService->refill, "profit"=>$percentage_increase,"multiName"=>$multiName,"multi"=>$multiDesc));
+    $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>"2","package"=>$package,"name"=>$name2,"price"=>number_format($price, $format, '.', ''),"min"=>$apiService->min,"max"=>$apiService->max,"desc"=>$apiService->desc,"refill"=>$apiService->refill, "profit"=>$percentage_increase,"multiName"=>$multiName,"multi"=>$multiDesc));
   else:
       $package = $package==""?1:$package;
      
     $insert = $conn->prepare("INSERT INTO services (service_api, api_service, api_detail, category_id, service_line, service_type, service_package, service_name, service_price, service_min, service_max, service_description, show_refill, service_profit, name_lang, description_lang) VALUES (:api, :api_service, :detail, :category, :line, :type, :package, :name, :price, :min, :max, :desc, :refill, :profit, :multiName, :multi)");
-    $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>2,"package"=>$package,"name"=>$apiService->name,"price"=>number_format($price, $format, '.', ''),"min"=>$apiService->min,"max"=>$apiService->max,"desc"=>$apiService->desc,"refill"=>$apiService->refill, "profit"=>$percentage_increase,"multiName"=>$multiName,"multi"=>$multiDesc));
+    $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>"2","package"=>$package,"name"=>$apiService->name,"price"=>number_format($price, $format, '.', ''),"min"=>$apiService->min,"max"=>$apiService->max,"desc"=>$apiService->desc,"refill"=>$apiService->refill, "profit"=>$percentage_increase,"multiName"=>$multiName,"multi"=>$multiDesc));
   endif;
   endif;
   endif;
@@ -1462,12 +1462,12 @@ if($provider["currency"] == "INR"){
   if( $package == 11 ):
       
     $insert = $conn->prepare("INSERT INTO services (service_api, api_service, category_id, service_line, service_type, service_package, service_name, service_price, service_min, service_max, service_description, service_profit, show_refill, name_lang, description_lang) VALUES (:api, :api_service, :category, :line, :type, :package, :name, :price, :min, :max, :desc, :profit, :refill, :multiName, :multi)");
-    $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>2,"package"=>$package,"name"=>$name2,"price"=>number_format($price, $format, '.', ''),"min"=>$apiService->min,"max"=>$apiService->max,"desc"=>$apiService->desc,"refill"=>$apiService->refill, "profit"=>$percentage_increase,"multiName"=>$multiName,"multi"=>$multiDesc));
+    $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>"2","package"=>$package,"name"=>$name2,"price"=>number_format($price, $format, '.', ''),"min"=>$apiService->min,"max"=>$apiService->max,"desc"=>$apiService->desc,"refill"=>$apiService->refill, "profit"=>$percentage_increase,"multiName"=>$multiName,"multi"=>$multiDesc));
   else:
       $package = $package==""?1:$package;
      
     $insert = $conn->prepare("INSERT INTO services (service_api, api_service, api_detail, category_id, service_line, service_type, service_package, service_name, service_price, service_min, service_max, service_description, show_refill, service_profit, name_lang, description_lang) VALUES (:api, :api_service, :detail, :category, :line, :type, :package, :name, :price, :min, :max, :desc, :refill, :profit, :multiName, :multi)");
-    $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>2,"package"=>$package,"name"=>$apiService->name,"price"=>number_format($price, $format, '.', ''),"min"=>$apiService->min,"max"=>$apiService->max,"desc"=>$apiService->desc,"refill"=>$apiService->refill, "profit"=>$percentage_increase,"multiName"=>$multiName,"multi"=>$multiDesc));
+    $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>"2","package"=>$package,"name"=>$apiService->name,"price"=>number_format($price, $format, '.', ''),"min"=>$apiService->min,"max"=>$apiService->max,"desc"=>$apiService->desc,"refill"=>$apiService->refill, "profit"=>$percentage_increase,"multiName"=>$multiName,"multi"=>$multiDesc));
   endif;
   
   else:
@@ -1483,12 +1483,12 @@ if($provider["currency"] == "INR"){
   if( $package == 11 ):
       
     $insert = $conn->prepare("INSERT INTO services (service_api, api_service, category_id, service_line, service_type, service_package, service_name, service_price, service_min, service_max, service_description, show_refill, service_profit, name_lang, description_lang) VALUES (:api, :api_service, :category, :line, :type, :package, :name, :price, :min, :max, :desc, :refill, :profit, :multiName, :multi)");
-    $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>2,"package"=>$package,"name"=>$name2,"price"=>number_format($price, $format, '.', ''),"min"=>$apiService->min,"max"=>$apiService->max,"desc"=>$apiService->desc,"refill"=>$apiService->refill, "profit"=>$percentage_increase,"multiName"=>$multiName,"multi"=>$multiDesc));
+    $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>"2","package"=>$package,"name"=>$name2,"price"=>number_format($price, $format, '.', ''),"min"=>$apiService->min,"max"=>$apiService->max,"desc"=>$apiService->desc,"refill"=>$apiService->refill, "profit"=>$percentage_increase,"multiName"=>$multiName,"multi"=>$multiDesc));
   else:
       $package = $package==""?1:$package;
      
     $insert = $conn->prepare("INSERT INTO services (service_api, api_service, api_detail, category_id, service_line, service_type, service_package, service_name, service_price, service_min, service_max, service_description, show_refill, service_profit, name_lang, description_lang) VALUES (:api, :api_service, :detail, :category, :line, :type, :package, :name, :price, :min, :max, :desc, :refill, :profit, :multiName, :multi)");
-    $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>2,"package"=>$package,"name"=>$apiService->name,"price"=>number_format($price, $format, '.', ''),"min"=>$apiService->min,"max"=>$apiService->max,"desc"=>$apiService->desc,"refill"=>$apiService->refill, "profit"=>$percentage_increase,"multiName"=>$multiName,"multi"=>$multiDesc));
+    $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>"2","package"=>$package,"name"=>$apiService->name,"price"=>number_format($price, $format, '.', ''),"min"=>$apiService->min,"max"=>$apiService->max,"desc"=>$apiService->desc,"refill"=>$apiService->refill, "profit"=>$percentage_increase,"multiName"=>$multiName,"multi"=>$multiDesc));
   endif;
   endif;
   endif;

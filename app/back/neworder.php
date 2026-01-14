@@ -22,7 +22,7 @@ $discount_percent = $user["discount_percentage"]/100;
 $categoriesRows = $conn->prepare("SELECT * FROM categories WHERE category_type=:type  ORDER BY categories.category_line ASC ");
 
 
-/*$categoriesRows->execute(array("type"=>2));
+/*$categoriesRows->execute(array("type"=>"2"));
 $categoriesRows = $categoriesRows->fetchAll(PDO::FETCH_ASSOC);
 
 $categories = [];
@@ -72,7 +72,7 @@ $categories1 = $conn->prepare("SELECT DISTINCT c.* FROM categories c
     INNER JOIN services s ON c.category_id = s.category_id 
     WHERE c.category_type=:type AND c.category_deleted=:deleted AND s.service_deleted=:s_deleted AND s.service_type=:s_type
     ORDER BY c.category_line ASC ");
-$categories1->execute(array("type"=>2,"deleted" => "0", "s_deleted" => "0", "s_type" => 2));
+$categories1->execute(array("type"=>"2","deleted" => "0", "s_deleted" => "0", "s_type" => "2"));
 $categories1 = $categories1->fetchAll(PDO::FETCH_ASSOC);
 for($i = 0;$i < count($categories1);$i++){
 $id = $categories1[$i]["category_id"];

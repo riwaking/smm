@@ -74,7 +74,7 @@ exit();
  $pass = openssl_random_pseudo_bytes(16);
   $conn->beginTransaction();
   $insert = $conn->prepare("INSERT INTO clients (name, username, email, password, lang, telephone, register_date, apikey, ref_code, email_type, balance, spent, currency_type) VALUES (:name, :username, :email, :pass, :lang, :phone, :date, :key, :ref_code, :type, :spent, :spent, :currency_type)");
-    $insert = $insert->execute(array("lang" => "en", "name" => $userinfo->name, "username" => $username, "email" => $userinfo->email, "pass" => md5($pass), "phone" => "", "date" => date("Y.m.d H:i:s"), 'key' => $apikey, "ref_code" => $ref_code, "type"=> 2, "spent"=> "0.0000","currency_type"=>get_default_currency()));
+    $insert = $insert->execute(array("lang" => "en", "name" => $userinfo->name, "username" => $username, "email" => $userinfo->email, "pass" => md5($pass), "phone" => "", "date" => date("Y.m.d H:i:s"), 'key' => $apikey, "ref_code" => $ref_code, "type"=> "2", "spent"=> "0.0000","currency_type"=>get_default_currency()));
   $conn->commit();
  $user =   $conn->prepare("SELECT * FROM clients WHERE email=:email");
  $user->execute([
