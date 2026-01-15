@@ -1317,6 +1317,16 @@ textarea[name="link"] {
   width: 100% !important;
 }
 
+/* Hide the native select element - keep only custom dropdown container */
+#neworder_services {
+  display: none !important;
+}
+
+/* Also hide any bootstrap-select wrapper for services */
+.bootstrap-select:has(#neworder_services) {
+  display: none !important;
+}
+
 /* Service dropdown container styling */
 #select-service-container {
   position: relative !important;
