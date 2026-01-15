@@ -740,7 +740,114 @@ input[type="submit"]:hover {
 .currency_div .dropdown-toggle {
   background: var(--bg-tertiary) !important;
   border-radius: var(--radius-md) !important;
-  padding: 8px 16px !important;
+  padding: 6px 12px !important;
+  font-size: 0.8125rem !important;
+  height: auto !important;
+  min-height: 36px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.currency_div .currency-icon-span img {
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 50% !important;
+}
+
+.currency_div .currency-name-span {
+  font-size: 0.8125rem !important;
+  font-weight: 500 !important;
+}
+
+.navbar-nav.navbar-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-right: 0 !important;
+}
+
+.mob-show .blnceBadge,
+.blnceBadge {
+  padding: 6px 12px !important;
+  font-size: 0.8125rem !important;
+  border-radius: 20px !important;
+  height: 36px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  white-space: nowrap !important;
+}
+
+.blnceBadge-desktop {
+  padding: 8px 14px !important;
+  font-size: 0.875rem !important;
+  border-radius: 20px !important;
+  height: 38px !important;
+}
+
+.navbar-header .navbar-toggle {
+  margin: 8px 10px !important;
+  padding: 8px 10px !important;
+  width: 40px !important;
+  height: 36px !important;
+}
+
+.navbar-toggle .icon-bar {
+  width: 20px !important;
+  height: 2px !important;
+  margin: 3px auto !important;
+}
+
+.breadcrumb {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+@media (max-width: 768px) {
+  .currency_div .dropdown-toggle {
+    padding: 4px 10px !important;
+    min-height: 32px !important;
+  }
+
+  .currency_div .currency-icon-span img {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .currency_div .currency-name-span {
+    font-size: 0.75rem !important;
+  }
+
+  .mob-show .blnceBadge,
+  .blnceBadge {
+    padding: 5px 10px !important;
+    font-size: 0.75rem !important;
+    height: 32px !important;
+    gap: 4px !important;
+  }
+
+  .navbar-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    padding: 0 8px !important;
+  }
+
+  .navbar-header > * {
+    flex-shrink: 0 !important;
+  }
+
+  .navbar-brand {
+    max-width: 120px !important;
+    padding: 10px !important;
+  }
+
+  .navbar-brand img {
+    max-height: 30px !important;
+    width: auto !important;
+  }
 }
 
 #faq .panel,
