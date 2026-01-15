@@ -346,6 +346,7 @@ if($provider["currency"] !== $settings["site_base_currency"]){?>
 <input type="hidden" value="<?= $service->refill ?>" name="service_refill_array[<?= $i ?>]">
 <input type="hidden" value="<?= $provider["id"] ?>" name="service_provider_array[<?= $i ?>]">
 <input type="hidden" value="<?= $SELLER_PRICE ?>" name="service_api_prices[<?= $i ?>]">
+<input type="hidden" value="<?= isset($service->avg_time) ? $service->avg_time : (isset($service->average_time) ? $service->average_time : '') ?>" name="avg_time_array[<?= $i ?>]">
 
         </tr>
     <?php $i++;

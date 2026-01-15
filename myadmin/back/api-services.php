@@ -346,6 +346,7 @@ $service_desc = $description_array[$cKey];
 $service_type = $service_type_array[$cKey];
 $service_refill = empty($service_refill_array[$cKey]) ? 0 : $service_refill_array[$cKey];
 $provider_id = $service_provider_array[$cKey];
+$service_time = isset($avg_time_array[$cKey]) ? $avg_time_array[$cKey] : '';
 $package = serviceTypeGetList($service_type);
 
 $providerData     = $conn->prepare("SELECT * FROM service_api WHERE id=:id");
@@ -390,13 +391,13 @@ endif;
 
             //insert a new service with data
 
-            $insert = $conn->prepare("INSERT INTO services (service_api, api_service, api_detail, category_id, service_line, service_type, service_package, service_name, service_description, service_price, service_min, service_max, show_refill, price_profit, name_lang, description_lang) VALUES (:api, :api_service, :detail, :category, :line, :type, :package, :name, :desc, :price, :min, :max, :refill, :price_profit, :multiName, :multi)");
+            $insert = $conn->prepare("INSERT INTO services (service_api, api_service, api_detail, category_id, service_line, service_type, service_package, service_name, service_description, service_price, service_min, service_max, show_refill, price_profit, name_lang, description_lang, time) VALUES (:api, :api_service, :detail, :category, :line, :type, :package, :name, :desc, :price, :min, :max, :refill, :price_profit, :multiName, :multi, :time)");
             $insert = $insert->execute(array(
                 "api" => $provider_id, "api_service" => $service_api_id,
                 "detail" => json_encode($detail), "category" => $cat_id, "line" => $serviceLine + 1, "type" => "2",
                 "package" => $package, "name" => $service_name, "desc" => $service_desc,
                 "price" => $service_price, "min" => $service_min, "max" => $service_max,
-                "refill" => $service_refill, "price_profit" => $service_profit_percentage,"multiName"=>$multiName,"multi"=>$multiDesc      ));
+                "refill" => $service_refill, "price_profit" => $service_profit_percentage,"multiName"=>$multiName,"multi"=>$multiDesc, "time" => $service_time      ));
 
 
             
@@ -410,14 +411,15 @@ endif;
              service_name=:name, service_description=:desc , service_price=:price, 
              service_min=:min, service_max=:max , show_refill=:refill , price_profit=:price_profit , 
 name_lang=:multiName, 
-description_lang=:multi
+description_lang=:multi,
+time=:time
              WHERE service_id=:service_id");
             $update = $update->execute(array(
                 "api" => $provider_id, "api_service" => $service_api_id,
                 "detail" => json_encode($detail), "category" => $cat_id, "type" => "2",
                 "package" => $package, "name" => $service_name, "desc" => $service_desc,
                 "price" => $service_price, "min" => $service_min, "max" => $service_max,
-                "refill" => $service_refill, "price_profit" => $service_profit_percentage, "service_id" => $service_id,"multiName"=>$multiName,"multi"=>$multiDesc
+                "refill" => $service_refill, "price_profit" => $service_profit_percentage, "service_id" => $service_id,"multiName"=>$multiName,"multi"=>$multiDesc, "time" => $service_time
             ));
 
             if ($update) :
