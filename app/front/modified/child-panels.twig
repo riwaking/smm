@@ -1,137 +1,538 @@
-{% include 'header.twig' %}
-<style>.body{background-image: url('app/views/Simplify/image/Background.png');background-position: 0px 0px;background-repeat: repeat;background-size: 310%;width: 100%;}</style>
-<div class="wrapper-content">
-    <div class="wrapper-content__header">
+{% include 'header1.twig' %}
+
+<style>
+.child-panels-page {
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.page-header {
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.page-header h1 i {
+  color: #7c3aed;
+  font-size: 1.5rem;
+}
+
+.page-header p {
+  color: #9ca3af;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.child-panel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 992px) {
+  .child-panel-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel-card {
+  background: #1e1e2e;
+  border-radius: 16px;
+  border: 1px solid #2d2d3d;
+  overflow: hidden;
+}
+
+.panel-card-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #2d2d3d;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.panel-card-header i {
+  font-size: 1.25rem;
+  color: #7c3aed;
+}
+
+.panel-card-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.panel-card-body {
+  padding: 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #e5e7eb;
+  margin-bottom: 8px;
+}
+
+.form-group .form-control {
+  width: 100%;
+  padding: 12px 16px;
+  background: #16161e;
+  border: 1px solid #3d3d4d;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.form-group .form-control:focus {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+.form-group .form-control::placeholder {
+  color: #6b7280;
+}
+
+.form-group select.form-control {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px;
+  padding-right: 40px;
+}
+
+.nameserver-box {
+  background: #16161e;
+  border: 1px solid #3d3d4d;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.nameserver-box .help-text {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin-bottom: 12px;
+}
+
+.nameserver-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1e1e2e;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.nameserver-item:last-child {
+  margin-bottom: 0;
+}
+
+.nameserver-item code {
+  font-family: 'Monaco', 'Consolas', monospace;
+  font-size: 0.9rem;
+  color: #a78bfa;
+  background: transparent;
+}
+
+.nameserver-item .copy-btn {
+  background: #7c3aed;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.nameserver-item .copy-btn:hover {
+  background: #6d28d9;
+}
+
+.password-input-group {
+  display: flex;
+  gap: 8px;
+}
+
+.password-input-group .form-control {
+  flex: 1;
+}
+
+.password-input-group .generate-btn {
+  background: #7c3aed;
+  color: #fff;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.password-input-group .generate-btn:hover {
+  background: #6d28d9;
+}
+
+.price-display {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  padding: 16px 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.price-display .label {
+  color: rgba(255,255,255,0.8);
+  font-size: 0.9rem;
+}
+
+.price-display .amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.35);
+}
+
+.alert-modern {
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.alert-modern i {
+  font-size: 1.25rem;
+  margin-top: 2px;
+}
+
+.alert-modern.alert-success {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #22c55e;
+}
+
+.alert-modern.alert-danger {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+}
+
+.alert-modern .alert-content strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.alert-modern .alert-details {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.history-table thead th {
+  background: #16161e;
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #2d2d3d;
+}
+
+.history-table tbody td {
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  color: #e5e7eb;
+  border-bottom: 1px solid #2d2d3d;
+}
+
+.history-table tbody tr:hover {
+  background: rgba(124, 58, 237, 0.05);
+}
+
+.history-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.active {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.status-badge.pending {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+}
+
+.status-badge.expired {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6b7280;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  color: #3d3d4d;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.domain-link {
+  color: #a78bfa;
+  text-decoration: none;
+}
+
+.domain-link:hover {
+  text-decoration: underline;
+}
+</style>
+
+<div class="child-panels-page">
+  <div class="page-header">
+    <h1><i class="fas fa-layer-group"></i> Child Panels</h1>
+    <p>Create and manage your own reseller panels with custom branding</p>
+  </div>
+
+  {% if error %}
+  <div class="alert-modern alert-danger">
+    <i class="fas fa-exclamation-circle"></i>
+    <div class="alert-content">{{ errorText }}</div>
+  </div>
+  {% endif %}
+
+  {% if data["childpanel"]["success"] == 1 %}
+  <div class="alert-modern alert-success">
+    <i class="fas fa-check-circle"></i>
+    <div class="alert-content">
+      <strong>Child Panel Created Successfully!</strong>
+      <div class="alert-details">
+        <strong>Order ID:</strong> {{ data['childpanel']['id'] }}<br>
+        <strong>Domain:</strong> {{ data['childpanel']['link'] }}<br>
+        <strong>Quantity:</strong> {{ data['childpanel']['quantity'] }}<br>
+        <strong>Charged:</strong> {{ data['childpanel']['price'] }}<br>
+        <strong>Remaining Balance:</strong> {{ data['childpanel']['balance'] }}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="child-panel-grid">
+    <div class="panel-card">
+      <div class="panel-card-header">
+        <i class="fas fa-plus-circle"></i>
+        <h3>Create New Child Panel</h3>
+      </div>
+      <div class="panel-card-body">
+        <form name="contact-form" action="child-panels" method="post">
+          
+          <div class="form-group">
+            <label for="panel_domain">Domain Name</label>
+            <input type="text" class="form-control" name="panel_domain" id="panel_domain" placeholder="example.com" required>
           </div>
 
-    <div class="wrapper-content__body">
-      <!-- Main variables *content* -->
-      <div id="block_94">
-    <div class="add-funds__form">
-        <div class="bg"></div>
-        <div class="divider-top"></div>
-        <div class="divider-bottom"></div>
-        <div class="container">
-            {% if contentText %}
-<div class="card mt-2 mb-2">
-{{ contentText }}
-</div>
-{% endif %}
-            <div class="row add-funds__form-alignment">
-                <div class="col-lg-6 ">
-                    <div class="component_card">
-                        <div class="card mt-2">
-{% if error %}
-      <div class="alert alert-dismissible alert-danger">
-          <button type="button" class="close" data-dismiss="alert">×</button>
-        {{ errorText }}
+          <div class="nameserver-box">
+            <div class="help-text">
+              <i class="fas fa-info-circle"></i> Before purchasing, point your domain to our nameservers:
+            </div>
+            <div class="nameserver-item">
+              <code>{{ site['ns1'] }}</code>
+              <button type="button" class="copy-btn" onclick="copyToClipboard('{{ site['ns1'] }}'); this.innerHTML='<i class=\'fas fa-check\'></i> Copied';">
+                <i class="fas fa-copy"></i> Copy
+              </button>
+            </div>
+            <div class="nameserver-item">
+              <code>{{ site['ns2'] }}</code>
+              <button type="button" class="copy-btn" onclick="copyToClipboard('{{ site['ns2'] }}'); this.innerHTML='<i class=\'fas fa-check\'></i> Copied';">
+                <i class="fas fa-copy"></i> Copy
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="panel_currency">Panel Currency</label>
+            <select class="form-control" name="panel_currency" id="panel_currency" required>
+              {{ child_panel_currencies }}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="admin_username">Admin Username</label>
+            <input type="text" class="form-control" name="admin_username" id="admin_username" placeholder="Enter username" required>
+          </div>
+
+          <div class="form-group">
+            <label for="admin_password">Admin Password</label>
+            <div class="password-input-group">
+              <input type="text" class="form-control" name="admin_password" id="childpanel_admin_password" placeholder="Enter password" autocomplete="off" required>
+              <button type="button" class="generate-btn" id="randomize_password" title="Generate Random Password">
+                <i class="fas fa-random"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="admin_confirm_password">Confirm Password</label>
+            <input type="text" class="form-control" name="admin_confirm_password" id="childpanel_admin_confirm_password" placeholder="Confirm password" required>
+          </div>
+
+          <div class="price-display">
+            <span class="label">Price per month</span>
+            <span class="amount">{{site_base_currency_symbol}} {{site["childpanel_price"]}}</span>
+          </div>
+
+          <button type="submit" class="submit-btn" name="submit" value="Submit">
+            <i class="fas fa-rocket"></i> Create Child Panel
+          </button>
+        </form>
       </div>
-    {% endif %}  
-
-     {% if data["childpanel"]["success"] == 1 %}
-      <div class="alert alert-dismissible alert-success">
-<p>You have successfully ordered your Child Panel.</p>
-<strong> Order ID: </strong> {{ data['childpanel']['id'] }} <br>
-<strong> Domain: </strong> {{ data['childpanel']['link'] }} <br>
-<strong> Quantity: </strong> {{ data['childpanel']['quantity'] }} <br>
-<strong> Charged: </strong> {{ data['childpanel']['price'] }} <br>
-<strong> Remaining balance: </strong> {{ data['childpanel']['balance'] }} <br>
-</div>
-{% endif %}
-    <form name="contact-form" action="child-panels" method="post">
-    <div class="form-group">
-    <label for="Domain">Domain</label>
-    <input type="text" class="form-control" name="panel_domain" placeholder="example.com" required>
-    </div>
-<div class="ChildPanelNote">
-<span class="help-block" >Before buying a Child Panel, point your domain to our nameservers :</span>
-<p><b>{{ site['ns1'] }}</b> <span class="copy" onclick="copyToClipboard('{{ site['ns1'] }}');"><i class="fas fa-copy"></i></span></p>
-<p><b>{{ site['ns2'] }}</b> <span class="copy" onclick="copyToClipboard('{{ site['ns2'] }}');"><i class="fas fa-copy"></i></span></p>
-</span></div>
-
-		
-		<div class="form-group">
-<label class="Domain" for="currency">Panel Currency</label>
-			
-		<select class="form-control" name="panel_currency" required>
-{{ child_panel_currencies }}
-</select>
-    </div>
-	
-    <div class="form-group">
-    <label for="exampleInputEmail1">Admin Username</label>
-    <input type="text" class="form-control" name="admin_username" placeholder="Username" required>
     </div>
 
-<div class="form-group">
-    <label for="admin_password" class="control-label" >Admin Password</label>
-<div class="input-group mb-3">
-<input type="text" id="childpanel_admin_password" name="admin_password" class="form-control" style="width:0%;" placeholder="" aria-describedby="basic-addon2" value="" autocomplete="off">
-<div class="input-group-append">
-<span  class="input-group-text style-bg-primary text-white" id="randomize_password"><i class="fa fa-random" aria-hidden="true"></i></span>
+    <div class="panel-card">
+      <div class="panel-card-header">
+        <i class="fas fa-history"></i>
+        <h3>My Child Panels</h3>
+      </div>
+      <div class="panel-card-body" style="padding: 0;">
+        {% if chilpanel_logs|length > 0 %}
+        <div style="overflow-x: auto;">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Domain</th>
+                <th>Currency</th>
+                <th>Created</th>
+                <th>Status</th>
+                <th>Renewal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for logs in chilpanel_logs %}
+              <tr>
+                <td>{{ logs['id'] }}</td>
+                <td><a href="https://{{ logs['domain'] }}" target="_blank" class="domain-link">{{ logs['domain'] }}</a></td>
+                <td>{{ logs['child_panel_currency'] }}</td>
+                <td>{{ logs['created_on'] }}</td>
+                <td>
+                  {% if logs["child_panel_status"] == 'Active' or logs["child_panel_status"] == 'active' %}
+                    <span class="status-badge active">Active</span>
+                  {% elseif logs["child_panel_status"] == 'Pending' or logs["child_panel_status"] == 'pending' %}
+                    <span class="status-badge pending">Pending</span>
+                  {% else %}
+                    <span class="status-badge expired">{{ logs["child_panel_status"] }}</span>
+                  {% endif %}
+                </td>
+                <td>{{ logs["renewal_date"] }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <div class="empty-state">
+          <i class="fas fa-layer-group"></i>
+          <p>No child panels yet. Create your first one!</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
   </div>
 </div>
-</div>
-<div class="form-group">
 
-<label class="control-label" for="orderpanelform-password">Admin Confirm Password</label><input type="text" id="childpanel_admin_confirm_password" class="form-control" name="admin_confirm_password" placeholder="" required>
-    </div>
-		
-<div class="form-group">
-<label for="charge" class="control-label"> Price per month</label>
-<input type="text" class="form-control" value="{{site_base_currency_symbol}}{{" "}}{{site["childpanel_price"]}}" readonly>
-</div>
-<button type="submit" class="btn btn-block btn-big-primary mt-4" name="submit" value="Submit" id="submit_form">Submit Order</button>
-</form>
-</div></div></div>
+<script>
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(function() {
+    console.log('Copied to clipboard');
+  }).catch(function(err) {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+  });
+}
 
-<div class="col" style="margin-top:-10px">
-
-<div class="orders-history__margin-table">
-<div class="table-bg component_table ">
-<br>
-<div class="table-wr table-responsive custom-table">
-
-            <table class="table ">
-              <thead>
-            <tr>
-              <th>#</th>
-              <th>Domain</th>
-              <th>Panel Currency</th>
-              <th class="nowrap">Purchased On</th>
-              <th class="nowrap">Status</th>
-   <th>Renewal Date</th>
-            </tr>
-          </thead>
-          <tbody>
-
-{% for logs in chilpanel_logs %}
-<tr>
-<td>{{ logs['id'] }}</td>
-<td>{{ logs['domain'] }}</td>
-<td>{{ logs['child_panel_currency'] }}</td>
-<td class="nowrap">{{ logs['created_on'] }}</td>
-<td class="nowrap">
-{{ logs["child_panel_status"] }}
-</td>
-<td>{{logs["renewal_date"] }}</td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
-      </div>
-  </div></div></div>
-
-   </div></div></div></div>
-</div>
- <div class="divider-top"></div>
-        <div class="divider-bottom"></div>
-        <div class="container ludd">
-		{% if contentText2 %}
-<div class="card mb-4">
-{{ contentText2 }}
-</div>
-{% endif %}
-</div>
+document.getElementById('randomize_password').addEventListener('click', function() {
+  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';
+  var password = '';
+  for (var i = 0; i < 12; i++) {
+    password += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  document.getElementById('childpanel_admin_password').value = password;
+  document.getElementById('childpanel_admin_confirm_password').value = password;
+});
+</script>
 
 {% include 'footer.twig' %}
