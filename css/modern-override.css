@@ -819,48 +819,135 @@ input[type="submit"]:hover {
 }
 
 @media (max-width: 768px) {
-  .currency_div .dropdown-toggle {
-    padding: 4px 10px !important;
-    min-height: 32px !important;
+  /* Hide duplicate toggle buttons */
+  .navbar-header .nav-btn {
+    display: none !important;
+  }
+  
+  .navbar-header .navbar-toggle {
+    display: flex !important;
+    order: -1 !important;
   }
 
-  .currency_div .currency-icon-span img {
-    width: 18px !important;
-    height: 18px !important;
-  }
-
-  .currency_div .currency-name-span {
-    font-size: 0.75rem !important;
-  }
-
-  .mob-show .blnceBadge,
-  .blnceBadge {
-    padding: 5px 10px !important;
-    font-size: 0.75rem !important;
-    height: 32px !important;
-    gap: 4px !important;
-  }
-
+  /* Fix navbar header layout */
   .navbar-header {
     display: flex !important;
     align-items: center !important;
-    justify-content: space-between !important;
-    flex-wrap: nowrap !important;
-    padding: 0 8px !important;
+    justify-content: flex-start !important;
+    flex-wrap: wrap !important;
+    padding: 8px !important;
+    width: 100% !important;
+    gap: 8px !important;
   }
 
-  .navbar-header > * {
-    flex-shrink: 0 !important;
+  /* First row: hamburger, logo, currency, balance */
+  .navbar-header > .navbar-toggle {
+    flex: 0 0 auto !important;
+  }
+
+  .navbar-header .show-in-mob {
+    display: flex !important;
+    align-items: center !important;
+    flex: 1 !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .navbar-header .sideBarLogo {
+    display: none !important;
+  }
+
+  /* Currency dropdown compact */
+  .currency_div {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .currency_div .dropdown-toggle {
+    padding: 4px 8px !important;
+    min-height: 28px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .currency_div .currency-icon-span img {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .currency_div .currency-name-span {
+    font-size: 0.6875rem !important;
+  }
+
+  .currency_div .caret {
+    margin-left: 2px !important;
+  }
+
+  /* Balance badge compact */
+  .mob-show .blnceBadge,
+  .blnceBadge {
+    padding: 4px 8px !important;
+    font-size: 0.6875rem !important;
+    height: 28px !important;
+    gap: 4px !important;
+  }
+
+  /* Breadcrumb on separate row */
+  .breadcrumb {
+    display: block !important;
+    width: 100% !important;
+    margin: 8px 0 0 0 !important;
+    padding: 0 8px !important;
+    font-size: 0.75rem !important;
+    order: 10 !important;
+  }
+
+  .breadcrumb li {
+    font-size: 0.75rem !important;
+  }
+
+  /* Language selector compact */
+  .dropdown-menu {
+    min-width: 120px !important;
+  }
+
+  /* Navbar collapse fix */
+  #navbar.collapse {
+    width: 100% !important;
   }
 
   .navbar-brand {
-    max-width: 120px !important;
-    padding: 10px !important;
+    max-width: 100px !important;
+    padding: 5px !important;
+    display: none !important;
   }
 
   .navbar-brand img {
-    max-height: 30px !important;
+    max-height: 24px !important;
     width: auto !important;
+  }
+
+  /* Fix container padding */
+  .navbar .container-fluid {
+    padding: 0 !important;
+  }
+
+  /* Fix the inner list items */
+  .show-in-mob > li {
+    list-style: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  .show-in-mob .nav.navbar-nav {
+    display: inline-flex !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Pull right elements */
+  .mob-show .pull-right,
+  .show-in-mob .pull-right {
+    margin-left: auto !important;
   }
 }
 
