@@ -91,11 +91,12 @@ $information = array(
         $categoriesData = $categoriesData->fetchAll(PDO::FETCH_ASSOC);
 
 
+        $services = [];
         if ($provider['api_type'] == 1) :
             $services = $smmapi->action(['key' => $provider['api_key'], 'action' => 'services'], $provider['api_url']);
         endif;
 
-        $servicesCount = count($services);
+        $servicesCount = is_array($services) ? count($services) : (is_object($services) ? count((array)$services) : 0);
         // if ($servicesCount > 100) {
         //     $disabled = "disabled";
         // }
