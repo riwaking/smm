@@ -4,6 +4,7 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-15: Fixed API service import to capture and save avg_time/average_time field - added hidden input in myadmin/front/api-services.php, updated myadmin/back/api-services.php to capture $service_time and include it in INSERT/UPDATE SQL statements to populate the `time` column (fixes empty "Average time" display on order page)
 - 2026-01-15: Fixed legacy JavaScript module initialization errors - added proper fieldOptions.fields (empty array), format (min, max, thousands, delimiter), and currencyOptions to window.modules.siteOrder to prevent "Cannot read properties of undefined (reading 'replace')" errors in price formatting
 - 2026-01-14: Converted service dropdown to inline scrollable list - services now display directly in a dark-themed container with search functionality; hidden select syncs with visible list via MutationObserver
 - 2026-01-14: Fixed service/category dropdown display - restored original template markup with data-select-container attributes and hidden scaffolding, added CSS-only dark theme styling for bootstrap-select and dropdown menus
