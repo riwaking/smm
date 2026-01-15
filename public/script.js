@@ -294,6 +294,72 @@ function password_generator( len ) {
         
         console.log("Independent init: Found category and service dropdowns");
         
+        var ordersDropdown = document.getElementById('orders-drop');
+        var orderServicesLabel = document.getElementById('order-services');
+        
+        function syncServiceDropdown() {
+            if (!ordersDropdown || !orderServicesLabel) return;
+            
+            ordersDropdown.innerHTML = '';
+            var options = serviceSelect.querySelectorAll('option');
+            var hasValidOptions = false;
+            
+            options.forEach(function(opt) {
+                if (!opt.value || opt.value === '0') return;
+                hasValidOptions = true;
+                var item = document.createElement('a');
+                item.className = 'dropdown-item';
+                item.href = '#';
+                item.setAttribute('data-value', opt.value);
+                item.textContent = opt.textContent;
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    serviceSelect.value = opt.value;
+                    orderServicesLabel.textContent = opt.textContent;
+                    ordersDropdown.querySelectorAll('.dropdown-item').forEach(function(di) {
+                        di.classList.remove('active');
+                    });
+                    item.classList.add('active');
+                    var evt = new Event('change', { bubbles: true });
+                    serviceSelect.dispatchEvent(evt);
+                });
+                ordersDropdown.appendChild(item);
+            });
+            
+            var selectedOpt = serviceSelect.options[serviceSelect.selectedIndex];
+            if (selectedOpt) {
+                orderServicesLabel.textContent = selectedOpt.textContent || 'Select a service';
+                if (selectedOpt.value && selectedOpt.value !== '0') {
+                    var activeItem = ordersDropdown.querySelector('[data-value="' + selectedOpt.value + '"]');
+                    if (activeItem) activeItem.classList.add('active');
+                }
+            } else if (!hasValidOptions) {
+                orderServicesLabel.textContent = 'No services available';
+            }
+            console.log("Independent init: Synced visible dropdown with " + options.length + " options");
+        }
+        
+        syncServiceDropdown();
+        
+        var observer = new MutationObserver(function(mutations) {
+            console.log("Independent init: Detected mutation in services select");
+            syncServiceDropdown();
+        });
+        observer.observe(serviceSelect, { childList: true, subtree: true });
+        
+        serviceSelect.addEventListener('change', function() {
+            var selectedOpt = serviceSelect.options[serviceSelect.selectedIndex];
+            if (selectedOpt && orderServicesLabel) {
+                orderServicesLabel.textContent = selectedOpt.textContent;
+                ordersDropdown.querySelectorAll('.dropdown-item').forEach(function(di) {
+                    di.classList.remove('active');
+                });
+                var activeItem = ordersDropdown.querySelector('[data-value="' + selectedOpt.value + '"]');
+                if (activeItem) activeItem.classList.add('active');
+                console.log("Independent init: Updated visible dropdown on change to " + selectedOpt.value);
+            }
+        });
+        
         // Fetch services for the selected category
         function fetchServicesForCategory(categoryId) {
             console.log("Independent init: Fetching services for category " + categoryId);
@@ -320,6 +386,7 @@ function password_generator( len ) {
                                         console.log("Independent init: selectpicker refresh failed", e);
                                     }
                                 }
+                                syncServiceDropdown();
                                 // Trigger service detail fetch
                                 if (typeof service_detail === 'function') {
                                     service_detail();
