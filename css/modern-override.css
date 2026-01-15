@@ -819,7 +819,7 @@ input[type="submit"]:hover {
 }
 
 @media (max-width: 768px) {
-  /* === HIDE ALL PLACEHOLDER/EMPTY ELEMENTS === */
+  /* === HIDE ALL BROKEN/EMPTY ELEMENTS === */
   .navbar-header .nav-btn,
   .navbar-header .sideBarLogo,
   .navbar-header .navbar-brand,
@@ -828,15 +828,25 @@ input[type="submit"]:hover {
   .show-in-mob .navbar-brand,
   .show-in-mob > li:empty,
   .show-in-mob > .sideBarLogo,
+  .sidebar-pinner,
+  #menu-toggle,
+  #menu-toggle2,
+  #google_translate_element,
   img.full-logo,
   img[src=""],
-  img:not([src]) {
+  img:not([src]),
+  .navbar-header .navbar-toggle,
+  a.nav-btn {
     display: none !important;
     visibility: hidden !important;
     width: 0 !important;
     height: 0 !important;
+    max-width: 0 !important;
+    max-height: 0 !important;
     margin: 0 !important;
     padding: 0 !important;
+    overflow: hidden !important;
+    border: none !important;
   }
 
   /* Hide broken images */
@@ -845,82 +855,69 @@ input[type="submit"]:hover {
     display: none !important;
   }
 
+  /* Hide empty list items that create boxes */
+  li:empty,
+  a:empty,
+  div:empty:not(.clearfix):not([id]),
+  span:empty:not(.caret) {
+    display: none !important;
+  }
+
   /* === NAVBAR HEADER MAIN LAYOUT === */
   .navbar .container-fluid {
-    padding: 0 !important;
+    padding: 4px 8px !important;
   }
 
   .navbar-header {
     display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-    padding: 8px 12px !important;
-    gap: 0 !important;
-  }
-
-  /* === TOP ROW: Hamburger left, badges right === */
-  .navbar-header::before {
-    content: "";
-    display: none;
-  }
-
-  /* Hamburger menu - far left */
-  .navbar-header .navbar-toggle {
-    position: absolute !important;
-    left: 8px !important;
-    top: 8px !important;
-    margin: 0 !important;
-    padding: 8px !important;
-    width: 36px !important;
-    height: 36px !important;
-    display: flex !important;
+    flex-wrap: wrap !important;
     align-items: center !important;
-    justify-content: center !important;
-    z-index: 100 !important;
+    width: 100% !important;
+    padding: 4px 8px !important;
+    gap: 4px !important;
+    min-height: auto !important;
   }
 
-  /* Show-in-mob container */
+  /* Show-in-mob container - single row layout */
   .navbar-header .show-in-mob {
     display: flex !important;
     align-items: center !important;
-    justify-content: flex-end !important;
+    justify-content: flex-start !important;
     width: 100% !important;
-    padding-left: 50px !important;
     gap: 8px !important;
-    min-height: 40px !important;
+    flex-wrap: wrap !important;
+    padding: 0 !important;
   }
 
-  /* Hide the nested list wrapper */
+  /* Hide the nested list wrapper but show contents */
   .show-in-mob > li {
     display: contents !important;
     list-style: none !important;
   }
 
-  /* Currency dropdown */
+  /* Breadcrumb inline */
+  .breadcrumb.mob-show {
+    display: inline-flex !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Push badges to right */
+  .navbar-nav.navbar-right,
+  .currency_div {
+    margin-left: auto !important;
+  }
+
+  /* Currency dropdown - keep original size */
   .currency_div {
     display: flex !important;
-    margin: 0 !important;
     padding: 0 !important;
   }
 
   .currency_div .dropdown {
     display: flex !important;
-  }
-
-  .currency_div .dropdown-toggle {
-    display: flex !important;
-    align-items: center !important;
-    padding: 4px 10px !important;
-    min-height: 32px !important;
-    font-size: 0.75rem !important;
-    background: #f97316 !important;
-    border-radius: 6px !important;
-    gap: 4px !important;
-  }
-
-  .currency_div .currency-icon-span img {
-    width: 18px !important;
-    height: 18px !important;
   }
 
   .currency_div .currency-name-span {
