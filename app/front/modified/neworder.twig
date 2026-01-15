@@ -1084,7 +1084,22 @@ display:none !important;
 
  <script type="text/javascript" src="/public/global/qri1ac173hshc2hdjc.js"></script>
 <script type="text/javascript" >
-window.modules.siteOrder = {}; </script>
+window.modules.siteOrder = {
+  fieldsOptions: undefined,
+  fieldOptions: { fields: [] },
+  fields: {},
+  format: {
+    min: 2,
+    max: 4,
+    thousands: ',',
+    delimiter: '.'
+  },
+  currencyOptions: {
+    original_template: '{{value}}',
+    template: 'रू {{value}}'
+  },
+  run: function(t) { if(document.forms.sendform) document.forms.sendform.submit(); }
+}; </script>
 <script type="text/javascript" >
 window.modules.select = [];   </script>
 

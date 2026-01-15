@@ -4,6 +4,7 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-15: Fixed legacy JavaScript module initialization errors - added proper fieldOptions.fields (empty array), format (min, max, thousands, delimiter), and currencyOptions to window.modules.siteOrder to prevent "Cannot read properties of undefined (reading 'replace')" errors in price formatting
 - 2026-01-14: Converted service dropdown to inline scrollable list - services now display directly in a dark-themed container with search functionality; hidden select syncs with visible list via MutationObserver
 - 2026-01-14: Fixed service/category dropdown display - restored original template markup with data-select-container attributes and hidden scaffolding, added CSS-only dark theme styling for bootstrap-select and dropdown menus
 - 2026-01-14: Modern dark theme UI redesign - Added css/modern-ui.css (CSS variables, modern typography, component styles) and css/modern-override.css (applies dark theme to existing Bootstrap classes)
