@@ -32,21 +32,35 @@ body.nightmode {
 .navbar-toggle,
 #menu-toggle,
 #menu-toggle2 {
-  color: var(--text-primary) !important;
-  background: var(--bg-tertiary) !important;
-  border: 1px solid var(--border-color) !important;
-  border-radius: var(--radius-md) !important;
-  padding: 8px 12px !important;
+  color: white !important;
+  background: #333 !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 8px 10px !important;
+  width: 38px !important;
+  height: 34px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  margin: 8px !important;
 }
 
 .nav-btn:hover,
 .navbar-toggle:hover,
 #menu-toggle:hover {
-  background: var(--bg-hover) !important;
+  background: #444 !important;
 }
 
+.navbar-toggle .icon-bar,
 .icon-bar {
-  background: var(--text-primary) !important;
+  background: white !important;
+  width: 18px !important;
+  height: 2px !important;
+  border-radius: 1px !important;
+  display: block !important;
+  margin: 0 !important;
 }
 
 #sidebar-wrapper,
