@@ -537,6 +537,10 @@ success:function(data)
       foreach ($_POST as $key => $value) {
         $$key = $value;
       }
+      // Set default values for fields that might be null
+      $coupon_status = isset($coupon_status) ? $coupon_status : '2';
+      $updates_show = isset($updates_show) ? $updates_show : '2';
+      $massorder = isset($massorder) ? $massorder : '2';
       $conn->beginTransaction();
       $update = $conn->prepare("UPDATE settings SET referral_commision=:referral_commision,
 childpanel_selling=:selling,
