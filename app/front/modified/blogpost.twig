@@ -1,39 +1,133 @@
-{% include 'header.twig' %}
+{% include 'header1.twig' %}
 
-   <br><br>
+<link rel="stylesheet" href="/css/modern-ui.css">
+<link rel="stylesheet" href="/css/modern-override.css">
 
+<script>
+Object.defineProperty(window, 'NewYearEvent', {
+    value: function() { return { init: function() {} }; },
+    writable: false,
+    configurable: false
+});
+window.SKIP_NY_DECORATIONS = true;
+</script>
 
-<br>
-      <div id="block_93">
-    <div class="new_order-block ">
-        <div class="bg"></div>
-        <div class="divider-top"></div>
-        <div class="divider-bottom"></div>
-        <div class="container">
-            <div class="row new-order-form">
-                <div class="col-lg-8 offset-lg-2">
-                   <div class="component_form_group component_card component_radio_button">
-                      <div class="card ">
-    <div class="col-md-12">
-<h4>{{ blogtitle }}</h4>
-{% if blogimage %} 
+<style>
+.blog-post-container {
+    padding: 20px 20px 40px 20px;
+    min-height: calc(100vh - 200px);
+}
 
+.blog-post-card {
+    background: linear-gradient(135deg, rgba(30, 30, 40, 0.95) 0%, rgba(20, 20, 30, 0.98) 100%);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    max-width: 900px;
+    margin: 0 auto;
+}
 
-					<img src="{{blogimage}}" alt="{{ blogtitle }}" class="img-responsive">
-                   
-{% endif %} 
-{{ blogcontent }} 
+.blog-post-card h4 {
+    color: #a855f7;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
 
+.blog-post-card img {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
 
-      
-<center><a href="blog"><button class="btn btn-big-primary" >Go Back </button></a> </center>
-</div>
+.blog-post-content {
+    color: #e2e8f0;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 32px;
+}
+
+.blog-post-content p {
+    color: #e2e8f0;
+    margin-bottom: 16px;
+}
+
+.blog-post-content a {
+    color: #a855f7;
+}
+
+.blog-post-content a:hover {
+    color: #c084fc;
+}
+
+.blog-back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.blog-back-btn:hover {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.4);
+    color: #fff;
+    text-decoration: none;
+}
+
+.blog-back-btn i {
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .blog-post-container {
+        padding: 20px 15px;
+    }
+    
+    .blog-post-card {
+        padding: 24px;
+    }
+    
+    .blog-post-card h4 {
+        font-size: 1.5rem;
+    }
+    
+    .blog-post-content {
+        font-size: 1rem;
+    }
+}
+</style>
+
+<div class="blog-post-container">
+    <div class="blog-post-card">
+        <h4>{{ blogtitle }}</h4>
+        
+        {% if blogimage %}
+        <img src="{{ blogimage }}" alt="{{ blogtitle }}" class="img-responsive">
+        {% endif %}
+        
+        <div class="blog-post-content">
+            {{ blogcontent|raw }}
+        </div>
+        
+        <div style="text-align: center;">
+            <a href="/blog" class="blog-back-btn">
+                <i class="fa fa-arrow-left"></i> Go Back
+            </a>
+        </div>
     </div>
-  </div>  </div>
- </div> </div>
-
-</div> </div>
-  </div>
 </div>
 
 {% include 'footer.twig' %}
