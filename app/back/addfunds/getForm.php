@@ -10,13 +10,7 @@ $methodData = $methodInfo->fetch(PDO::FETCH_ASSOC);
 $instructions = '';
 if ($methodData && !empty(trim($methodData["methodinstructions"] ?? ''))) {
     $instructionsText = htmlspecialchars_decode($methodData["methodinstructions"]);
-    $instructions = '<div class="payment-instructions" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border: 1px solid #2F86FA; border-radius: 10px; padding: 16px; margin-bottom: 20px;">
-    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-        <i class="fa fa-info-circle" style="color: #2F86FA; font-size: 18px; margin-right: 10px;"></i>
-        <strong style="color: #2F86FA; font-size: 14px;">Payment Instructions</strong>
-    </div>
-    <div style="color: #e0e0e0; font-size: 14px; line-height: 1.6;">' . $instructionsText . '</div>
-</div>';
+    $instructions = '<div class="payment-instructions" style="margin-bottom: 20px;">' . $instructionsText . '</div>';
 }
 
 $amountField = '<div class="form-group">
