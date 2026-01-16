@@ -4,6 +4,7 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-16: Fixed manual payment admin functionality - added Approve/Reject buttons for pending payments in fund-add-history, fixed null payment method display, added row locking to prevent double-processing.
 - 2026-01-16: Redesigned admin Payment Methods page with premium dark theme - added header section, styled search box, scoped CSS for panels/tables/forms while preserving original AJAX functionality and modal dialog styling.
 - 2026-01-16: Redesigned admin General Settings page with premium dark theme - 7 organized sections (Branding, Site Settings, Membership Tiers, Security, Ticket System, Registration, Custom Code), created css/admin/settings-premium.css with card-based layouts.
 - 2026-01-16: Fixed settings.php PHP syntax error (line 97) - converted mixed alternative/curly brace syntax to standard curly braces.
