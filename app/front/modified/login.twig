@@ -6,17 +6,20 @@
 <section class="heroSec">
   <div class="icon-bubbles"></div>
   <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        
-        <h1>{{ site["site_name"] }}</h1>
-        <h2> {{ site["site_name"] }} - Best and Cheapest Wholeseller SMM Panel</h2>
-        <p>SMM Panel and 100% High Quality for all social networks. You are Own the Cheap Smm panel. Our SMM reseller panel benefit your brand</p>
+    <div class="row hero-split">
+      <!-- Left Column - Headline & CTA -->
+      <div class="col-lg-6 col-md-6 hero-content">
+        <h1><span>Boost Your Social Media</span><br>& Start Earning With Monetization Services<br><span>Views, Likes, Followers</span></h1>
+        <p><strong>Welcome to {{ site["site_name"] }},</strong> Increase your Social Media Followers & Engagements on your social media profile.</p>
+        <div class="hero-buttons">
+          <a href="/services" class="custom-btn btn-primary">Services</a>
+          <a href="/signup" class="custom-btn btn-outline">Register</a>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12">
+      <!-- Right Column - Login Form -->
+      <div class="col-lg-5 col-lg-offset-1 col-md-6 hero-form">
         <div class="form-cont">
+          <h3>Welcome Back</h3>
           {% if errorText %}
         <div class="alert alert-dismissible alert-danger">
           <button type="button" class="close" data-dismiss="alert">x</button>
@@ -24,76 +27,41 @@
         </div>
       {% endif %}
       {% if successText %}
-        <div class="alert alert-dismissible alert-success">
-          <button type="button" class="close" data-dismiss="alert">x</button>
-          {{ successText }}
-        </div>
-      {% endif %}
-                            <form class="component_form_group component_checkbox_remember_me" method="post" action="/">
-            
-            <div class="capsole-cont">
-              <div class="row">
-                <div class="col-sm-4">
-                  <div class="form-group">
-                    <input type="text" name="username" class="form-control" value="{{ data["username"] }}" placeholder="Username">
-                    <p class="help-block help-block-error"></p>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="form-group">
-                     <input type="password" name="password" class="form-control"  placeholder="Password">
-                    <p class="help-block help-block-error"></p>
-                  </div>
-                </div>
-          {% if captcha %}
+          <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            {{ successText }}
+          </div>
+          {% endif %}
+          <form class="component_form_group component_checkbox_remember_me" method="post" action="/">
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" name="username" class="form-control" value="{{ data["username"] }}" placeholder="Username">
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" name="password" class="form-control" placeholder="Password">
+            </div>
+            {% if captcha %}
             <div class="form-group">
               <div class="g-recaptcha" data-sitekey="{{ captchaKey }}"></div>
             </div>
-          {% endif %}
-                <div class="col-sm-4">
-                  <input type="hidden" name="login_btn" value="Login">
-                  <button type="submit" name="login_btn" class="btn btn-primary">Log In <i class="fas fa-paper-plane"></i></button>
-                </div>
-              </div>
-                          
+            {% endif %}
+            <div class="checkbox remember-row">
+              <label>
+                <input name="remember_me" id="remembered" value="1" type="checkbox"> Remember me
+              </label>
             </div>
-            <div class="row">
-              <div class="col-sm-4">
-                <div class="checkbox">
-                  <label>
-                    <input name="remember_me" id="remembered" value="1" type="checkbox"> Remember me
-                  </label>
-                </div>
-              </div>
-              <div class="col-sm-4 text-center">
-                <div class="">
-                  <span>Do not have an account?</span>
-                  <a href="signup">Register Now </a>
-                </div>
-              </div>
-              <div class="col-sm-4 text-right">
-                <div class="forgetlast">
-                  <a href="reset-password" class="forget-pass">Forgot Password?</a>
-                </div>
-              </div>
+            <input type="hidden" name="login_btn" value="Login">
+            <button type="submit" name="login_btn" class="btn btn-primary btn-block">Login</button>
+            {% if google_login_content %}
+            <div class="google-login-btn" id="allow_google_login_div" onclick="window.location.href='?login-with-google'">
+              <i class="fab fa-google"></i> Sign in with Google
             </div>
-                        
-            <div class="row">
-              <div class="col-sm-12 ">
-                
-              </div>
-            </div>  
-{% if google_login_content %} 
-                        <div class="row capsole-cont" style="background-color: transparent;">
-                                         
-                                <div class="col-md-12">
-                                        <div class="btn btn-block btn-primary custom-btn" id="allow_google_login_div" onclick="window.location.href='?login-with-google'"><i class="fab fa-google"></i> Signin with Google
-                                        </div>
-                                </div>
-                                 
-                        
-                  </div>
-{% endif %}               
+            {% endif %}
+            <div class="form-footer">
+              <span>Not a member? <a href="signup">Register</a></span>
+              <a href="reset-password" class="forget-pass">Forgot password?</a>
+            </div>
           </form>
         </div>
       </div>

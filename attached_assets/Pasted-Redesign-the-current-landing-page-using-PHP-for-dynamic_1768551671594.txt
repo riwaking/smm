@@ -1,0 +1,111 @@
+Redesign the current landing page using PHP for dynamic content, keeping the same functionality but applying a modern design inspired by elitesmm.com.
+
+Important: Only the design, layout, theme, and visual elements should be updated. No changes to backend logic, database, or core functionality.
+
+Page Structure to Include:
+
+Header
+
+Logo + navigation menu (Home, Services, API, Blog, Contact)
+
+Visible buttons: Login and Sign Up
+
+Mobile-friendly responsive menu
+
+Hero / Banner Section
+
+Main headline (clear value proposition)
+
+Short sub-text introducing smmktm.com
+
+Primary Call-to-Action buttons (e.g., “Explore Services” / “Get Started”)
+
+Optional background visual or graphic
+
+Mini Login Block (Optional)
+
+Username + password inputs
+
+Login button
+
+Register link
+
+“Forgot password” link
+
+Why Choose Us / Value Explanation
+
+Short description text block explaining benefits of smmktm.com
+
+Icons or visual highlights for key points
+
+How It Works (4 Step Process)
+
+Step 1: Create an Account
+
+Step 2: Deposit Funds
+
+Step 3: Place Your Order
+
+Step 4: Grow Your Socials
+
+Use consistent icons and clean spacing
+
+Stats / Counter Section
+
+Dynamic or static counters (Users, Orders, Services, Support)
+
+Should animate or update visually on scroll
+
+FAQ Section
+
+Accordion style questions and answers
+
+Easy to navigate on desktop and mobile
+
+Testimonials
+
+Carousel of reviews with star ratings and short feedback
+
+Top Services Showcase
+
+Cards for key categories (Instagram, TikTok, Facebook, YouTube, Spotify, etc.)
+
+Each card should have icon + short description + CTA button
+
+Benefits / Features List
+
+Clearly listed reasons to use smmktm.com
+
+Use styled bullets or icons
+
+Contact Section
+
+WhatsApp number
+
+Support email
+
+Optional location info
+
+Secure payment icons if relevant
+
+Footer
+
+Short tagline
+
+Quick links to pages
+
+Legal links (Privacy Policy, Terms, etc.)
+
+Copyright text
+
+Design Requirements:
+
+Fully responsive (desktop + mobile)
+
+Modern UI with consistent spacing, typography, and colors
+
+Clean, easy-to-read layout with visual hierarchy
+
+Use CSS (or your theme system) to match overall branding
+
+Avoid any changes to backend logic or data submission processes
