@@ -4,25 +4,8 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
-- 2026-01-16: Complete EliteSMM-style redesign - changed color scheme from purple (#7c3aed) to blue (#2F86FA) with pure black (#000000) background
-- 2026-01-16: Redesigned hero section with split layout - headline/CTA on left, login form on right (matching elitesmm.com)
-- 2026-01-16: Updated login form to EliteSMM style - dark card with light gray inputs (#EDEEF2), blue login button, Google sign-in
-- 2026-01-16: Redesigned navigation header - fixed position, blue accent buttons, clean nav links
-- 2026-01-16: Updated all section headers to use blue accent color for highlighted text
-- 2026-01-16: Optimized footer layout - 4-column grid on desktop, stacked layout on mobile, styled CTA section with blue gradient
-- 2026-01-16: Added dark theme styling for all remaining landing page sections - Marketing, What We Offer, Common Questions/FAQ, Why Choose, How Does, In What Areas, Happy Clients/Testimonials, Payment Icons
-- 2026-01-16: Added dark theme styling for featuresTwoSec (numbered cards 01-06) and footer sections - purple gradient number badges, dark card backgrounds, consistent hover effects
-- 2026-01-16: Created EliteSMM-inspired landing page styling in css/landing.css - dark theme (#0a0a1a background, #7c3aed purple accents), hidden holiday decorations, styled form with purple gradient buttons
-- 2026-01-16: Fixed blog post page header overlap - increased top padding from 20px to 120px in blogpost.twig
-- 2026-01-16: Fixed Read More buttons not working for status 2 posts - updated blog.php to query status IN ('1', '2') instead of just status = '1'
-- 2026-01-16: Fixed blog slug sanitization - added trim() to INSERT and UPDATE statements in myadmin/back/appearance.php to prevent leading/trailing whitespace in blog_get column, fixed existing blog slugs in database
-- 2026-01-16: Fixed individual blog post view page (/blog/[slug]) to use modern dark theme - switched blogpost.twig to header1.twig, added modern CSS includes, dark card styling with purple accents, fixed blog.php to fetch by slug instead of broken route(2) ID
-- 2026-01-16: Updated /blog listing page to modern dark theme - switched to header1.twig, added CSS Grid responsive layout, dark themed cards with purple accents, blocked NewYearEvent decorations using Object.defineProperty
-- 2026-01-16: Fixed old styling on /services page - commented out CDN stylesheets loading holiday decorations, added targeted CSS and JS to hide particle-snow and christmas-garland elements, restored table header purple gradient styling
-- 2026-01-16: Rebuilt /services page with dynamic Twig loops - replaced hardcoded service data with dynamic {% for category in categories %} and {% for service in category.services %} loops fetching from database
-- 2026-01-16: Added premium styling for services page - category rows with purple gradient, service ID badges, rate/min/max badges with color coding, details modal styling, mobile-responsive data-label attributes
-- 2026-01-16: Added copyToClipboard function to services.twig for copying service IDs with visual feedback
-- 2026-01-16: Added modern-ui.css and modern-override.css includes to services.twig for consistent dark theme
+- 2026-01-16: Removed multiple landing page sections (In What Areas, Happy Clients/Testimonials) to match EliteSMM design.
+- 2026-01-16: Streamlined landing page by removing 10 total content sections while keeping core functionality.
 - 2026-01-15: Fixed API service import to capture and save avg_time/average_time field - added hidden input in myadmin/front/api-services.php, updated myadmin/back/api-services.php to capture $service_time and include it in INSERT/UPDATE SQL statements to populate the `time` column (fixes empty "Average time" display on order page)
 - 2026-01-15: Fixed legacy JavaScript module initialization errors - added proper fieldOptions.fields (empty array), format (min, max, thousands, delimiter), and currencyOptions to window.modules.siteOrder to prevent "Cannot read properties of undefined (reading 'replace')" errors in price formatting
 - 2026-01-14: Converted service dropdown to inline scrollable list - services now display directly in a dark-themed container with search functionality; hidden select syncs with visible list via MutationObserver
