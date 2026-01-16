@@ -205,49 +205,61 @@ footer .sIcons li a i {
     font-size: 0.9rem !important;
 }
 
-/* Mobile Accordion Toggle Button (hidden by default) */
-footer .footer-col h4 .accordion-toggle {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 30px;
-    height: 30px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
+/* Details/Summary for CSS-only Accordion (Mobile) */
+footer .footer-accordion {
+    border: none !important;
+    background: transparent !important;
 }
 
-footer .footer-col h4 .accordion-toggle::before,
-footer .footer-col h4 .accordion-toggle::after {
-    content: '';
-    position: absolute;
-    background: var(--footer-text);
-    transition: transform 0.3s ease;
+footer .footer-accordion summary {
+    display: none !important;
 }
 
-footer .footer-col h4 .accordion-toggle::before {
-    width: 14px;
-    height: 2px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+footer .footer-accordion summary h4 {
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
 }
 
-footer .footer-col h4 .accordion-toggle::after {
-    width: 2px;
-    height: 14px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+footer .footer-accordion summary::marker,
+footer .footer-accordion summary::-webkit-details-marker {
+    display: none !important;
 }
 
-/* Accordion expanded state */
-footer .footer-col.expanded h4 .accordion-toggle::after {
-    transform: translate(-50%, -50%) rotate(90deg);
-    opacity: 0;
+footer .footer-accordion .accordion-icon {
+    display: none !important;
+    width: 20px !important;
+    height: 20px !important;
+    position: relative !important;
+    flex-shrink: 0 !important;
+}
+
+footer .footer-accordion .accordion-icon::before,
+footer .footer-accordion .accordion-icon::after {
+    content: '' !important;
+    position: absolute !important;
+    background: var(--footer-text) !important;
+    transition: transform 0.3s ease !important;
+}
+
+footer .footer-accordion .accordion-icon::before {
+    width: 14px !important;
+    height: 2px !important;
+    left: 3px !important;
+    top: 9px !important;
+}
+
+footer .footer-accordion .accordion-icon::after {
+    width: 2px !important;
+    height: 14px !important;
+    left: 9px !important;
+    top: 3px !important;
+}
+
+footer .footer-accordion[open] .accordion-icon::after {
+    transform: rotate(90deg) !important;
+    opacity: 0 !important;
 }
 
 /* ===================================================== */
@@ -310,35 +322,31 @@ footer .footer-col.expanded h4 .accordion-toggle::after {
         margin: 0 auto !important;
     }
     
-    /* Accordion Header */
-    footer .footer-col:not(.first) h4 {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        padding: 18px 0 !important;
-        margin: 0 !important;
-        border-bottom: none !important;
+    /* Enable details/summary accordion on mobile */
+    footer .footer-accordion summary {
+        display: block !important;
         cursor: pointer !important;
-        user-select: none !important;
-        position: relative !important;
+        padding: 18px 0 !important;
+        list-style: none !important;
     }
     
-    /* Show accordion toggle on mobile */
-    footer .footer-col:not(.first) h4 .accordion-toggle {
+    footer .footer-accordion summary h4 {
+        border-bottom: none !important;
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+    
+    footer .footer-accordion .accordion-icon {
         display: block !important;
     }
     
-    /* Accordion Content */
-    footer .footer-col:not(.first) ul {
-        max-height: 0 !important;
-        overflow: hidden !important;
-        transition: max-height 0.3s ease, padding 0.3s ease !important;
-        padding: 0 !important;
+    /* Hide static h4 on mobile for accordion sections */
+    footer .footer-accordion > h4 {
+        display: none !important;
     }
     
-    /* Expanded accordion state */
-    footer .footer-col:not(.first).expanded ul {
-        max-height: 500px !important;
+    /* Accordion Content */
+    footer .footer-accordion ul {
         padding-bottom: 20px !important;
     }
     
@@ -413,7 +421,7 @@ footer .footer-col.expanded h4 .accordion-toggle::after {
 }
 
 /* Accessibility - Focus states */
-footer .footer-col h4:focus-visible,
+footer .footer-accordion summary:focus-visible,
 footer .footer-col ul li a:focus-visible,
 footer .sIcons li a:focus-visible {
     outline: 2px solid var(--footer-accent) !important;
