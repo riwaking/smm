@@ -78,47 +78,56 @@ elseif (route(2) == "general"):
       $services_average_time = isset($services_average_time) ? $services_average_time : "0";
       $currency_format = isset($currency_format) ? $currency_format : "1";
 
-      $logo_upload_directory = $_SERVER["DOCUMENT_ROOT"] . '/img/panel';
+      $base_path = dirname(dirname(__DIR__));
+      $logo_upload_directory = $base_path . '/img/panel';
 
       if (!is_dir($logo_upload_directory)) {
-        mkdir($_SERVER["DOCUMENT_ROOT"] . "/img/panel", 0755, true);
+        mkdir($logo_upload_directory, 0755, true);
       }
 
+      $allowed_types = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
 
-      if (isset($_FILES["logo"]) && $_FILES["logo"]["error"] === UPLOAD_ERR_OK && ($_FILES["logo"]["type"] == "image/jpeg" || $_FILES["logo"]["type"] == "image/jpg" || $_FILES["logo"]["type"] == "image/png" || $_FILES["logo"]["type"] == "image/gif")):
-        $logo_name = $_FILES["logo"]["name"];
-        $uzanti = substr($logo_name, -4, 4);
-        $logo_newname = "img/panel/" . md5(rand(10, 999)) . ".png";
-        $upload_logo = move_uploaded_file($_FILES["logo"]["tmp_name"], $logo_newname);
+      if (isset($_FILES["logo"]) && $_FILES["logo"]["error"] === UPLOAD_ERR_OK && in_array($_FILES["logo"]["type"], $allowed_types)):
+        $logo_ext = pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
+        $logo_newname = "img/panel/" . md5(uniqid(rand(), true)) . "." . $logo_ext;
+        $upload_path = $base_path . '/' . $logo_newname;
+        if (!move_uploaded_file($_FILES["logo"]["tmp_name"], $upload_path)) {
+          error_log("Failed to upload logo to: " . $upload_path);
+        }
       elseif (isset($settings["site_logo"]) && $settings["site_logo"] != ""):
         $logo_newname = $settings["site_logo"];
       else:
         $logo_newname = "";
       endif;
-      if (isset($_FILES["favicon"]) && $_FILES["favicon"]["error"] === UPLOAD_ERR_OK && ($_FILES["favicon"]["type"] == "image/jpeg" || $_FILES["favicon"]["type"] == "image/jpg" || $_FILES["favicon"]["type"] == "image/png" || $_FILES["favicon"]["type"] == "image/gif")):
-        $favicon_name = $_FILES["favicon"]["name"];
-        $uzanti = substr($favicon_name, -4, 4);
-        $fv_newname = "img/panel/" . sha1(rand(10, 999)) . ".png";
-        $upload_logo = move_uploaded_file($_FILES["favicon"]["tmp_name"], $fv_newname);
+
+      if (isset($_FILES["favicon"]) && $_FILES["favicon"]["error"] === UPLOAD_ERR_OK && in_array($_FILES["favicon"]["type"], $allowed_types)):
+        $fav_ext = pathinfo($_FILES["favicon"]["name"], PATHINFO_EXTENSION);
+        $fv_newname = "img/panel/" . sha1(uniqid(rand(), true)) . "." . $fav_ext;
+        $upload_path = $base_path . '/' . $fv_newname;
+        if (!move_uploaded_file($_FILES["favicon"]["tmp_name"], $upload_path)) {
+          error_log("Failed to upload favicon to: " . $upload_path);
+        }
       elseif (isset($settings["favicon"]) && $settings["favicon"] != ""):
         $fv_newname = $settings["favicon"];
       else:
         $fv_newname = "";
       endif;
       if (empty($name)):
-        $errorText = "Panel Name cannot be blank";
-        $error = 1;
+        $_SESSION["client"]["data"]["error"] = 1;
+        $_SESSION["client"]["data"]["errorText"] = "Panel Name cannot be blank";
+        header("Location:" . site_url("admin/settings/general"));
+        exit();
       else:
         $update = $conn->prepare("UPDATE settings SET 
                         site_maintenance=:site_maintenance,
                         resetpass_page=:resetpass_page,
-skype_feilds=:skype_feilds,
-name_fileds=:name_fileds,
+                        skype_feilds=:skype_feilds,
+                        name_fileds=:name_fileds,
                         resetpass_sms=:resetpass_sms,
                         resetpass_email=:resetpass_email,
                         site_name=:name,
                         site_logo=:logo,
-email_confirmation=:email_confirmation,
+                        email_confirmation=:email_confirmation,
                         resend_max=:resend_max, 
                         favicon=:fv,
                         ticket_system=:ticket_system,
@@ -131,7 +140,9 @@ email_confirmation=:email_confirmation,
                         silver_statu=:silver_statu,
                         gold_statu=:gold_statu,
                         bayi_statu=:bayi_statu,
-                        fundstransfer_fees=:fundstransfer_fees,services_average_time=:avg_time WHERE id=:id ");
+                        fundstransfer_fees=:fundstransfer_fees,
+                        services_average_time=:avg_time 
+                        WHERE id=:id ");
 
         try {
           $result = $update->execute(
@@ -162,33 +173,26 @@ email_confirmation=:email_confirmation,
               "avg_time" => $services_average_time
             )
           );
-          if (!$result) {
+          
+          if ($result) {
+            $update2 = $conn->prepare("UPDATE General_options SET currency_format=:format WHERE id=:id ");
+            $update2->execute(array("format" => $currency_format, "id" => 1));
+            
+            $_SESSION["client"]["data"]["success"] = 1;
+            $_SESSION["client"]["data"]["successText"] = "Settings updated successfully";
+          } else {
             error_log("Settings update failed: " . print_r($update->errorInfo(), true));
+            $_SESSION["client"]["data"]["error"] = 1;
+            $_SESSION["client"]["data"]["errorText"] = "Failed to update settings";
           }
         } catch (PDOException $e) {
           error_log("Settings update PDO exception: " . $e->getMessage());
+          $_SESSION["client"]["data"]["error"] = 1;
+          $_SESSION["client"]["data"]["errorText"] = "Database error: " . $e->getMessage();
         }
-        $update = $conn->prepare("UPDATE General_options SET currency_format=:format WHERE id=:id ");
-        $update->execute(array("format" => $currency_format, "id" => 1));
-        $referrer = site_url("admin/settings/general");
-        $icon = "success";
-        $error = 1;
-        $errorText = "Success";
-
+        
         header("Location:" . site_url("admin/settings/general"));
-        echo json_encode(["t" => "error", "m" => $errorText, "s" => $icon, "r" => $referrer, "time" => 1]);
-
-        if ($update):
-          header("Location:" . site_url("admin/settings/general"));
-          $_SESSION["client"]["data"]["success"] = 1;
-          $_SESSION["client"]["data"]["successText"] = "Successful";
-        else:
-          $errorText = "Failed";
-          $error = 1;
-
-        endif;
-
-
+        exit();
       endif;
     endif;
     if (route(3) == "delete-logo"):

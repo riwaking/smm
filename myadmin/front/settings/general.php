@@ -2,7 +2,21 @@
   <div class="panel panel-default">
     <div class="panel-body">
     
-      <form action="<?=site_url('admin/settings/general')?>" method="post" enctype="multipart/form-data">
+      <?php if (isset($success) && $success == 1): ?>
+        <div class="alert alert-success alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>Success!</strong> <?= isset($successText) ? $successText : 'Settings updated successfully' ?>
+        </div>
+      <?php endif; ?>
+      
+      <?php if (isset($error) && $error == 1): ?>
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>Error!</strong> <?= isset($errorText) ? $errorText : 'Failed to update settings' ?>
+        </div>
+      <?php endif; ?>
+    
+      <form action="<?=site_url('admin/settings/general')?>" method="post" enctype="multipart/form-data" id="generalSettingsForm">
  
 <div class="alert" style="background-color:rgb(251, 195, 38);">
         <div class="form-group">
@@ -289,8 +303,47 @@
         </div></div>
                 <hr>
                     
-        <button type="submit" class="btn btn-primary">Update Settings</button>
+        <button type="submit" class="btn btn-primary" id="submitBtn">
+          <span class="btn-text">Update Settings</span>
+          <span class="btn-loading" style="display:none;">
+            <i class="fa fa-spinner fa-spin"></i> Saving...
+          </span>
+        </button>
       </form>
+      
+      <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var form = document.getElementById('generalSettingsForm');
+        var submitBtn = document.getElementById('submitBtn');
+        var btnText = submitBtn.querySelector('.btn-text');
+        var btnLoading = submitBtn.querySelector('.btn-loading');
+        
+        form.addEventListener('submit', function(e) {
+          var panelName = form.querySelector('input[name="name"]');
+          if (!panelName || panelName.value.trim() === '') {
+            e.preventDefault();
+            alert('Panel name cannot be empty');
+            panelName.focus();
+            return false;
+          }
+          
+          btnText.style.display = 'none';
+          btnLoading.style.display = 'inline';
+          submitBtn.disabled = true;
+        });
+        
+        var alerts = document.querySelectorAll('.alert-dismissible');
+        alerts.forEach(function(alert) {
+          setTimeout(function() {
+            alert.style.transition = 'opacity 0.5s';
+            alert.style.opacity = '0';
+            setTimeout(function() {
+              alert.remove();
+            }, 500);
+          }, 5000);
+        });
+      });
+      </script>
     </div>
   </div>
 </div>
