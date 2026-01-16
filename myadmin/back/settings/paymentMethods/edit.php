@@ -36,8 +36,8 @@ $methodFee = floatval($_POST["method_fee"]);
 $methodBonusPercentage = floatval($_POST["method_bonus"]);
 $methodBonusStartAmount = intval($_POST["method_bonus_start_amount"]);
 $methodStatus = in_array($_POST["method_status"], [0, 1]) ? $_POST["method_status"] : 1;
-$methodInstructions = htmlspecialchars($_POST["method_instructions"]);
-$methodInstructions = str_replace("&lt;p&gt;&lt;br&gt;&lt;/p&gt;","",$methodInstructions);
+$methodInstructions = $_POST["method_instructions"];
+$methodInstructions = str_replace("<p><br></p>","",$methodInstructions);
 
 if (!in_array($methodId, $allMethods)) {
     errorExit("Invalid payment method");
