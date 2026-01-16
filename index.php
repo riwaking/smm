@@ -242,8 +242,8 @@ if (route(0) != "admin" && route(0) != "ajax_data") {
 
 
 
-  $blogs = $conn->prepare("SELECT * FROM blogs WHERE status=:status ");
-  $blogs->execute(array("status" => 1));
+  $blogs = $conn->prepare("SELECT * FROM blogs WHERE status IN ('1', '2') ORDER BY id DESC");
+  $blogs->execute();
   $blogs = $blogs->fetchAll();
 
   if (is_array($user) && $user["auth"]):
