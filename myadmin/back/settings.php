@@ -6,6 +6,7 @@ if ($admin["access"]["admin_access"] != 1) {
   header("Location:" . site_url("admin"));
   exit();
 }
+global $route;
 if (!route(2)):
   $route[2] = "general";
 endif;
@@ -132,34 +133,41 @@ email_confirmation=:email_confirmation,
                         bayi_statu=:bayi_statu,
                         fundstransfer_fees=:fundstransfer_fees,services_average_time=:avg_time WHERE id=:id ");
 
-        $update->execute(
-          array(
-            "id" => 1,
-            "site_maintenance" => $site_maintenance,
-            "resetpass_page" => $resetpass,
-            "resetpass_sms" => $resetsms,
-            "resetpass_email" => $resetmail,
-            "name" => $name,
-            "logo" => $logo_newname,
-            "fv" => $fv_newname,
-            "resend_max" => $resend_max,
-            "email_confirmation" => $email_confirmation,
-            "name_fileds" => $name_fileds,
-            "skype_feilds" => $skype_feilds,
-            "ticket_system" => $ticket_system,
-            "tickets_per_user" => $tickets_per_user,
-            "registration_page" => $registration_page,
-            "service_list" => $service_list,
-            "custom_footer" => $custom_footer,
-            "custom_header" => $custom_header,
-            "bronz_statu" => $bronz_statu,
-            "silver_statu" => $silver_statu,
-            "gold_statu" => $gold_statu,
-            "bayi_statu" => $bayi_statu,
-            "fundstransfer_fees" => $fundstransfer_fees,
-            "avg_time" => $services_average_time
-          )
-        );
+        try {
+          $result = $update->execute(
+            array(
+              "id" => 1,
+              "site_maintenance" => $site_maintenance,
+              "resetpass_page" => $resetpass,
+              "resetpass_sms" => $resetsms,
+              "resetpass_email" => $resetmail,
+              "name" => $name,
+              "logo" => $logo_newname,
+              "fv" => $fv_newname,
+              "resend_max" => $resend_max,
+              "email_confirmation" => $email_confirmation,
+              "name_fileds" => $name_fileds,
+              "skype_feilds" => $skype_feilds,
+              "ticket_system" => $ticket_system,
+              "tickets_per_user" => $tickets_per_user,
+              "registration_page" => $registration_page,
+              "service_list" => $service_list,
+              "custom_footer" => $custom_footer,
+              "custom_header" => $custom_header,
+              "bronz_statu" => $bronz_statu,
+              "silver_statu" => $silver_statu,
+              "gold_statu" => $gold_statu,
+              "bayi_statu" => $bayi_statu,
+              "fundstransfer_fees" => $fundstransfer_fees,
+              "avg_time" => $services_average_time
+            )
+          );
+          if (!$result) {
+            error_log("Settings update failed: " . print_r($update->errorInfo(), true));
+          }
+        } catch (PDOException $e) {
+          error_log("Settings update PDO exception: " . $e->getMessage());
+        }
         $update = $conn->prepare("UPDATE General_options SET currency_format=:format WHERE id=:id ");
         $update->execute(array("format" => $currency_format, "id" => 1));
         $referrer = site_url("admin/settings/general");

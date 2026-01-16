@@ -2,7 +2,7 @@
   <div class="panel panel-default">
     <div class="panel-body">
     
-      <form action="" method="post" enctype="multipart/form-data">
+      <form action="<?=site_url('admin/settings/general')?>" method="post" enctype="multipart/form-data">
  
 <div class="alert" style="background-color:rgb(251, 195, 38);">
         <div class="form-group">
@@ -102,32 +102,32 @@
         </div>
 */?>
   
-		<div class="form-group">
+                <div class="form-group">
           <label for="" class="control-label">Bronze Member</label>
           <input type="text" class="form-control" name="bronz_statu" value="<?=$settings["bronz_statu"]?>">
         </div>
-		
-		<div class="form-group">
+                
+                <div class="form-group">
           <label for="" class="control-label">Silver Member</label>
           <input type="text" class="form-control" name="silver_statu" value="<?=$settings["silver_statu"]?>">
         </div>
-		
-		<div class="form-group">
+                
+                <div class="form-group">
           <label for="" class="control-label">Gold Member</label>
           <input type="text" class="form-control" name="gold_statu" value="<?=$settings["gold_statu"]?>">
         </div>
-		
+                
 <div class="form-group">
           <label for="" class="control-label">Reseller</label>
           <input type="text" class="form-control" name="bayi_statu" value="<?=$settings["bayi_statu"]?>">
         </div>
-		 <p style="background-color:rgb(255,255,255,0.2)" class="alert help block">
+                 <p style="background-color:rgb(255,255,255,0.2)" class="alert help block">
 <small><i>Just enter the number to determine the amount that the member should spend on the rank. Example: 350</i></small>
 </p>
 </div>
-	<hr>
+        <hr>
 <div style="background-color:rgba(6,122,221);color:#fff;" class="alert">
-        <div class="row">	
+        <div class="row">       
           <div class="form-group col-md-4">
             <?php 
             if($settings["resetpass_page"] == "2"){
@@ -287,7 +287,7 @@
           <label>Footer codes</label>
           <textarea class="form-control" rows="7" name="custom_footer" placeholder='<script>...</script>'><?=$settings["custom_footer"]?></textarea>
         </div></div>
-		<hr>
+                <hr>
                     
         <button type="submit" class="btn btn-primary">Update Settings</button>
       </form>
