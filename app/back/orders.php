@@ -263,10 +263,10 @@ if (!empty(strip_tags($_GET['dripfeed']))) :
 $search .= " AND ( dripfeed_id LIKE '%" . strip_tags($_GET['dripfeed']) . "%'  ) ";
 endif;
 
-$c_id = $user['client_id'];
+$c_id = isset($user['client_id']) && $user['client_id'] !== '' ? intval($user['client_id']) : 0;
 $to = 25;
 $count = $conn->query(
-  "SELECT * FROM orders WHERE client_id='$c_id' AND dripfeed='1' AND subscriptions_type='1' $search "
+  "SELECT * FROM orders WHERE client_id=$c_id AND dripfeed='1' AND subscriptions_type='1' $search "
 );
 if (empty($count)) {
   $count = 0;

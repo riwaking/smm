@@ -1627,6 +1627,406 @@ textarea[name="link"] {
   box-shadow: 0 0 0 3px var(--accent-glow) !important;
 }
 
+/* ============================================
+   PREMIUM ORDERS PAGE STYLING
+   ============================================ */
+
+/* Orders Page Container */
+.order-page {
+  padding: 20px !important;
+}
+
+/* === PREMIUM SEARCH BAR === */
+.order-page .well {
+  background: linear-gradient(145deg, #1e1e2e, #252536) !important;
+  border: 1px solid rgba(124, 58, 237, 0.2) !important;
+  border-radius: 16px !important;
+  padding: 20px !important;
+  margin-bottom: 20px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.order-page #history-search .form-control {
+  background: #12121a !important;
+  border: 1px solid #3a3a4e !important;
+  border-radius: 12px 0 0 12px !important;
+  color: #fff !important;
+  padding: 14px 20px !important;
+  font-size: 15px !important;
+  height: auto !important;
+  transition: all 0.3s ease !important;
+}
+
+.order-page #history-search .form-control:focus {
+  border-color: #7c3aed !important;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2), 0 0 20px rgba(124, 58, 237, 0.15) !important;
+  outline: none !important;
+}
+
+.order-page #history-search .form-control::placeholder {
+  color: #666 !important;
+}
+
+.order-page #history-search .input-group-btn .btn {
+  background: linear-gradient(135deg, #7c3aed, #a855f7) !important;
+  border: none !important;
+  border-radius: 0 12px 12px 0 !important;
+  color: white !important;
+  padding: 14px 20px !important;
+  font-size: 16px !important;
+  transition: all 0.3s ease !important;
+}
+
+.order-page #history-search .input-group-btn .btn:hover {
+  background: linear-gradient(135deg, #8b5cf6, #c084fc) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4) !important;
+}
+
+/* === PREMIUM ORDER TITLE & FILTER TABS === */
+.order-page .order-title {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+  margin-bottom: 25px !important;
+}
+
+.order-page .order-title .dash-title h2 {
+  color: #fff !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.order-page .order-title .dash-title h2 i {
+  color: #7c3aed !important;
+  font-size: 22px !important;
+}
+
+/* Premium Filter Pills */
+.order-page .nav.nav-pills {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  list-style: none !important;
+}
+
+.order-page .nav.nav-pills li {
+  margin: 0 !important;
+  float: none !important;
+}
+
+.order-page .nav.nav-pills li a {
+  background: #1e1e2e !important;
+  border: 1px solid #3a3a4e !important;
+  border-radius: 25px !important;
+  color: #a0a0b0 !important;
+  padding: 10px 18px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+}
+
+.order-page .nav.nav-pills li a:hover {
+  background: #252536 !important;
+  border-color: #7c3aed !important;
+  color: #fff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.2) !important;
+}
+
+.order-page .nav.nav-pills li.active a,
+.order-page .nav.nav-pills li a.active {
+  background: linear-gradient(135deg, #7c3aed, #a855f7) !important;
+  border-color: transparent !important;
+  color: #fff !important;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4) !important;
+}
+
+.order-page .nav.nav-pills li a i {
+  font-size: 12px !important;
+}
+
+/* === PREMIUM DATA TABLE === */
+.order-page .table-responsive {
+  background: linear-gradient(145deg, #1e1e2e, #1a1a28) !important;
+  border-radius: 16px !important;
+  border: 1px solid rgba(124, 58, 237, 0.15) !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+.order-page .table {
+  margin: 0 !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+}
+
+.order-page .table thead tr {
+  background: linear-gradient(135deg, #252536, #1e1e2e) !important;
+}
+
+.order-page .table thead th {
+  color: #a0a0b0 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  padding: 16px 14px !important;
+  border-bottom: 1px solid #3a3a4e !important;
+  border-top: none !important;
+  white-space: nowrap !important;
+}
+
+.order-page .table thead th i {
+  color: #7c3aed !important;
+  margin-right: 6px !important;
+}
+
+.order-page .table tbody tr {
+  background: transparent !important;
+  transition: all 0.2s ease !important;
+}
+
+.order-page .table tbody tr:hover {
+  background: rgba(124, 58, 237, 0.08) !important;
+}
+
+.order-page .table tbody td {
+  color: #e0e0e5 !important;
+  font-size: 13px !important;
+  padding: 14px !important;
+  border-bottom: 1px solid rgba(58, 58, 78, 0.5) !important;
+  vertical-align: middle !important;
+}
+
+.order-page .table tbody tr:last-child td {
+  border-bottom: none !important;
+}
+
+/* Order ID Styling */
+.order-page .table tbody td span[id^="order-"] {
+  font-family: 'SF Mono', 'Monaco', 'Consolas', monospace !important;
+  background: rgba(124, 58, 237, 0.15) !important;
+  color: #c4b5fd !important;
+  padding: 4px 10px !important;
+  border-radius: 6px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+/* Copy Button */
+.order-page .table tbody td .fa-clone {
+  color: #7c3aed !important;
+  cursor: pointer !important;
+  padding: 6px !important;
+  border-radius: 4px !important;
+  transition: all 0.2s ease !important;
+  margin-left: 6px !important;
+}
+
+.order-page .table tbody td .fa-clone:hover {
+  background: rgba(124, 58, 237, 0.2) !important;
+  color: #a855f7 !important;
+}
+
+/* API Badge */
+.order-page .btn-actions {
+  background: linear-gradient(135deg, #3b82f6, #60a5fa) !important;
+  color: white !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  padding: 3px 8px !important;
+  border-radius: 4px !important;
+  text-transform: uppercase !important;
+  margin-left: 8px !important;
+}
+
+/* Link Styling */
+.order-page .table tbody td a[target="_blank"] {
+  color: #60a5fa !important;
+  text-decoration: none !important;
+  max-width: 200px !important;
+  display: inline-block !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  transition: color 0.2s ease !important;
+}
+
+.order-page .table tbody td a[target="_blank"]:hover {
+  color: #93c5fd !important;
+  text-decoration: underline !important;
+}
+
+/* Charge Amount */
+.order-page .table tbody td div[style*="width:90px"] {
+  color: #22c55e !important;
+  font-weight: 600 !important;
+  font-family: 'SF Mono', 'Monaco', 'Consolas', monospace !important;
+}
+
+/* Service Name */
+.order-page .table tbody td .hideextra {
+  color: #d1d5db !important;
+  max-width: 280px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  display: block !important;
+}
+
+/* === STATUS BADGES === */
+.order-page .table tbody td:nth-child(8) {
+  font-weight: 600 !important;
+}
+
+/* Pending Status */
+.order-page .table tbody td:contains("Pending"),
+.order-page .table tbody tr td:nth-child(8) {
+  position: relative !important;
+}
+
+/* Reorder Button */
+.order-page .btn-report a.btn-success,
+.order-page a.btn-success[href*="category_id"] {
+  background: linear-gradient(135deg, #0ea5e9, #38bdf8) !important;
+  border: none !important;
+  color: white !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 6px 12px !important;
+  border-radius: 6px !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+}
+
+.order-page .btn-report a.btn-success:hover,
+.order-page a.btn-success[href*="category_id"]:hover {
+  background: linear-gradient(135deg, #38bdf8, #7dd3fc) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4) !important;
+}
+
+/* Refill Button */
+.order-page .refill-button {
+  background: linear-gradient(135deg, #22c55e, #4ade80) !important;
+  border: none !important;
+  color: white !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 6px 14px !important;
+  border-radius: 6px !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+}
+
+.order-page .refill-button:hover {
+  background: linear-gradient(135deg, #4ade80, #86efac) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4) !important;
+}
+
+/* Cancel Request Button */
+.order-page .btn-danger,
+.order-page button.btn-danger {
+  background: linear-gradient(135deg, #ef4444, #f87171) !important;
+  border: none !important;
+  color: white !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 6px 12px !important;
+  border-radius: 6px !important;
+  transition: all 0.3s ease !important;
+}
+
+.order-page .btn-danger:hover {
+  background: linear-gradient(135deg, #f87171, #fca5a5) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4) !important;
+}
+
+/* Remains Column */
+.order-page .table tbody td:nth-child(9) {
+  color: #fbbf24 !important;
+  font-weight: 600 !important;
+}
+
+/* === MOBILE RESPONSIVE === */
+@media (max-width: 768px) {
+  .order-page {
+    padding: 12px !important;
+  }
+
+  .order-page .well {
+    padding: 15px !important;
+    border-radius: 12px !important;
+  }
+
+  .order-page .order-title {
+    gap: 15px !important;
+  }
+
+  .order-page .order-title .dash-title h2 {
+    font-size: 20px !important;
+  }
+
+  .order-page .nav.nav-pills {
+    gap: 8px !important;
+  }
+
+  .order-page .nav.nav-pills li a {
+    padding: 8px 12px !important;
+    font-size: 11px !important;
+    border-radius: 20px !important;
+  }
+
+  .order-page .table-responsive {
+    border-radius: 12px !important;
+  }
+
+  .order-page .table thead th {
+    font-size: 10px !important;
+    padding: 12px 8px !important;
+  }
+
+  .order-page .table tbody td {
+    font-size: 12px !important;
+    padding: 10px 8px !important;
+  }
+
+  .order-page .table tbody td span[id^="order-"] {
+    font-size: 11px !important;
+    padding: 3px 6px !important;
+  }
+
+  .order-page .table tbody td .hideextra {
+    max-width: 150px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-page .nav.nav-pills li a span:not(.sr-only) {
+    display: none !important;
+  }
+
+  .order-page .nav.nav-pills li a i {
+    margin: 0 !important;
+  }
+}
+
 #select-service-container #order-services {
   color: var(--text-primary) !important;
   flex: 1 !important;
