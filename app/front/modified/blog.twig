@@ -1,72 +1,210 @@
-{% include 'header.twig' %}
-<br><br><br><br><br><br>
-<div class="container my-5">
-    <div class="row">
-        {% for blog in blogs %}
-        <div class="col-md-4 mb-4">
-            <div class="card blog-card h-100">
-                
+{% include 'header1.twig' %}
+
+<link rel="stylesheet" href="/css/modern-ui.css">
+<link rel="stylesheet" href="/css/modern-override.css">
+
+<script>
+window.SKIP_NEW_YEAR_EVENT = true;
+window.NewYearEvent = function() { this.start = function() {}; };
+Object.defineProperty(window, 'NewYearEvent', {
+    value: function() { this.start = function() {}; },
+    writable: false,
+    configurable: false
+});
+</script>
+
+<style>
+.blog-page-container {
+    padding-top: 120px;
+    padding-bottom: 80px;
+    min-height: 100vh;
+    background: var(--bg-primary, #0f0f23);
+}
+
+.blog-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.blog-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.blog-header p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.1rem;
+}
+
+.blog-card {
+    background: linear-gradient(145deg, rgba(30, 30, 60, 0.8), rgba(20, 20, 45, 0.9));
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(124, 58, 237, 0.3);
+    border-color: rgba(124, 58, 237, 0.5);
+}
+
+.blog-card .card-img-top {
+    max-height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+.blog-card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.blog-card .card-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background: transparent;
+}
+
+.blog-card .card-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 16px;
+    line-height: 1.4;
+}
+
+.blog-card .card-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.btn-read-more {
+    background: linear-gradient(135deg, #7c3aed, #5b21b6);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    margin-top: auto;
+}
+
+.btn-read-more:hover {
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+    text-decoration: none;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.no-blogs-message {
+    text-align: center;
+    padding: 60px 20px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.no-blogs-message i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: rgba(124, 58, 237, 0.5);
+}
+
+.no-blogs-message h3 {
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .blog-page-container {
+        padding-top: 100px;
+        padding-bottom: 60px;
+    }
+    
+    .blog-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .blog-card .card-body {
+        padding: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .blog-card .card-title {
+        font-size: 1rem;
+    }
+}
+</style>
+
+<div class="blog-page-container">
+    <div class="container">
+        <div class="blog-header">
+            <h1>Our Blog</h1>
+            <p>Stay updated with the latest news and tips</p>
+        </div>
+        
+        {% if blogs|length > 0 %}
+        <div class="blog-grid">
+            {% for blog in blogs %}
+            <div class="blog-card">
                 {% if blog["image_file"] %}
                 <a href="/blog/{{ blog["blog_get"] }}">
                     <img src="{{ blog["image_file"] }}" alt="{{ blog["title"] }}" class="card-img-top">
                 </a>
                 {% endif %}
 
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title text-center mb-3">{{ blog["title"] }}</h5>
+                <div class="card-body">
+                    <h5 class="card-title">{{ blog["title"] }}</h5>
                     
-                    <div class="mt-auto">
-                        <a href="/blog/{{ blog["blog_get"] }}" class="btn btn-read-more w-100">
-                            Read More →
-                        </a>
-                    </div>
+                    {% if blog["excerpt"] %}
+                    <p class="card-text">{{ blog["excerpt"]|slice(0, 120) }}...</p>
+                    {% endif %}
+                    
+                    <a href="/blog/{{ blog["blog_get"] }}" class="btn-read-more">
+                        Read More <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+                    </a>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        {% else %}
+        <div class="no-blogs-message">
+            <i class="fas fa-newspaper"></i>
+            <h3>No Blog Posts Yet</h3>
+            <p>Check back soon for updates!</p>
+        </div>
+        {% endif %}
     </div>
 </div>
 
-<style>
-.blog-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    transition: all 0.3s ease-in-out;
-    background: #fff;
-}
-.blog-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-}
-.blog-card img {
-    max-height: 200px;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-.blog-card:hover img {
-    transform: scale(1.03);
-}
-.card-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #333;
-}
-.btn-read-more {
-    background: linear-gradient(135deg, #007bff, #0056b3);
-    color: #fff;
-    font-weight: 500;
-    border-radius: 6px;
-    padding: 10px;
-    transition: background 0.3s ease;
-    text-align: center;
-}
-.btn-read-more:hover {
-    background: linear-gradient(135deg, #0056b3, #003f88);
-    color: #fff;
-}
-</style>
-
-<br><br><br><br><br><br><br><br><br>
 {% include 'footer.twig' %}
