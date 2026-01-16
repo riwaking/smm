@@ -10,6 +10,58 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="approvePaymentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="approvePaymentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background: #1a1a2e; border: 1px solid #2a2a4a; color: #fff;">
+      <div class="modal-header" style="border-bottom: 1px solid #2a2a4a;">
+        <h5 class="modal-title" id="approvePaymentModalLabel"><i class="fa fa-check-circle" style="color: #2F86FA;"></i> Verify Payment</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="payment-details">
+          <div class="mb-3 p-3" style="background: #0f0f1a; border-radius: 8px;">
+            <div class="row mb-2">
+              <div class="col-5" style="color: #888;">Payment ID:</div>
+              <div class="col-7"><strong id="modal-payment-id">-</strong></div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-5" style="color: #888;">User:</div>
+              <div class="col-7"><strong id="modal-username">-</strong></div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-5" style="color: #888;">Amount:</div>
+              <div class="col-7"><strong id="modal-amount" style="color: #2F86FA; font-size: 1.2em;">-</strong></div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-5" style="color: #888;">Submitted:</div>
+              <div class="col-7"><strong id="modal-submitted">-</strong></div>
+            </div>
+          </div>
+          <div class="mb-3 p-3" style="background: #0f0f1a; border-radius: 8px; border-left: 3px solid #2F86FA;">
+            <h6 style="color: #2F86FA; margin-bottom: 12px;"><i class="fa fa-receipt"></i> Transaction Details</h6>
+            <div class="row mb-2">
+              <div class="col-5" style="color: #888;">Transaction ID:</div>
+              <div class="col-7"><strong id="modal-transaction-id" style="word-break: break-all;">-</strong></div>
+            </div>
+            <div class="row">
+              <div class="col-5" style="color: #888;">Notes:</div>
+              <div class="col-7"><span id="modal-notes" style="font-style: italic; color: #aaa;">-</span></div>
+            </div>
+          </div>
+          <div class="alert" style="background: rgba(47, 134, 250, 0.1); border: 1px solid #2F86FA; color: #2F86FA;">
+            <i class="fa fa-info-circle"></i> Please verify the transaction ID with your payment provider before approving.
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="border-top: 1px solid #2a2a4a;">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" id="confirmApproveBtn"><i class="fa fa-check"></i> Confirm Approval</button>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
@@ -449,27 +501,104 @@
       });
     }
     
+    var currentApprovePaymentId = null;
+    var currentApproveButton = null;
+    var approvePaymentModal = null;
+    var isProcessingApproval = false;
+    
     $(document).on("click", ".btn-approve-payment", function() {
-      var paymentId = $(this).data("id");
+      if(isProcessingApproval) return;
+      
       var btn = $(this);
-      btn.prop("disabled", true).html('<i class="fa fa-spinner fa-spin"></i> Approving...');
+      var paymentId = btn.data("id");
+      currentApprovePaymentId = paymentId;
+      currentApproveButton = btn;
+      
+      btn.prop("disabled", true);
+      
+      var paymentData = data.find(function(p) { return p.id == paymentId; });
+      if(!paymentData) {
+        alert("Payment data not found.");
+        btn.prop("disabled", false);
+        return;
+      }
+      
+      $("#modal-payment-id").text(paymentData.id);
+      $("#modal-username").text(paymentData.username + " (ID: " + paymentData.cid + ")");
+      $("#modal-amount").text(panel_settings.site_currency_symbol + " " + paymentData.amount);
+      $("#modal-submitted").text(paymentData.created_at);
+      
+      var transactionId = "-";
+      var notes = "-";
+      
+      if(paymentData.extra) {
+        try {
+          var extraData = JSON.parse(paymentData.extra);
+          if(extraData.transaction_ref) {
+            transactionId = extraData.transaction_ref;
+          }
+          if(extraData.payment_note) {
+            notes = extraData.payment_note;
+          }
+        } catch(e) {
+          if(paymentData.extra.trim() !== "") {
+            transactionId = paymentData.extra;
+          }
+        }
+      }
+      
+      $("#modal-transaction-id").text(transactionId);
+      $("#modal-notes").text(notes);
+      
+      if(!approvePaymentModal) {
+        approvePaymentModal = new bootstrap.Modal(document.getElementById('approvePaymentModal'));
+        
+        document.getElementById('approvePaymentModal').addEventListener('hidden.bs.modal', function () {
+          if(currentApproveButton && !isProcessingApproval) {
+            currentApproveButton.prop("disabled", false);
+          }
+          if(!isProcessingApproval) {
+            currentApprovePaymentId = null;
+            currentApproveButton = null;
+          }
+          $("#confirmApproveBtn").prop("disabled", false).html('<i class="fa fa-check"></i> Confirm Approval');
+        });
+      }
+      approvePaymentModal.show();
+    });
+    
+    $(document).on("click", "#confirmApproveBtn", function() {
+      if(!currentApprovePaymentId || isProcessingApproval) return;
+      
+      isProcessingApproval = true;
+      var btn = $(this);
+      btn.prop("disabled", true).html('<i class="fa fa-spinner fa-spin"></i> Processing...');
       
       $.ajax({
         url: "admin/fund-add-history",
         type: "POST",
-        data: { action: "approve_payment", payment_id: paymentId },
+        data: { action: "approve_payment", payment_id: currentApprovePaymentId },
         success: function(response) {
           if(response.success) {
+            approvePaymentModal.hide();
             alert(response.message || "Payment approved successfully!");
             location.reload();
           } else {
+            isProcessingApproval = false;
+            if(currentApproveButton) {
+              currentApproveButton.prop("disabled", false);
+            }
             alert(response.message || "Failed to approve payment.");
-            btn.prop("disabled", false).html('<i class="fa fa-check"></i> Approve');
+            btn.prop("disabled", false).html('<i class="fa fa-check"></i> Confirm Approval');
           }
         },
         error: function() {
+          isProcessingApproval = false;
+          if(currentApproveButton) {
+            currentApproveButton.prop("disabled", false);
+          }
           alert("Error processing request.");
-          btn.prop("disabled", false).html('<i class="fa fa-check"></i> Approve');
+          btn.prop("disabled", false).html('<i class="fa fa-check"></i> Confirm Approval');
         }
       });
     });
