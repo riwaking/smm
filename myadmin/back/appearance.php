@@ -881,7 +881,7 @@ elseif (route(2) == "blog"):
 
 
         $insert = $conn->prepare("INSERT INTO blogs (title, status, content, image_file, published_at, blog_get) VALUES (:title, :status, :content, :link, :published_at, :get)");
-        $insert = $insert->execute(array("title" => $title, "status" => $status, "get" => $blogurl, "content" => $content, "link" => $url, "published_at" => date('Y-m-d h:i:s')));
+        $insert = $insert->execute(array("title" => $title, "status" => $status, "get" => trim($blogurl), "content" => $content, "link" => $url, "published_at" => date('Y-m-d h:i:s')));
         if ($insert):
           $conn->commit();
           header("Location:" . site_url("admin/appearance/blog"));
@@ -936,7 +936,7 @@ elseif (route(2) == "blog"):
 
 
           $update = $conn->prepare("UPDATE blogs SET title=:title , blog_get=:get , status=:status  , updated_at=:at , image_file=:link , content=:content WHERE id=:id ");
-          $update->execute(array("id" => $id, "title" => $title, "link" => $url, "get" => $blogurl, "status" => $status, "at" => date('Y-m-d h:i:s'), "content" => $content));
+          $update->execute(array("id" => $id, "title" => $title, "link" => $url, "get" => trim($blogurl), "status" => $status, "at" => date('Y-m-d h:i:s'), "content" => $content));
 
           if ($update):
             header("Location:" . site_url("admin/appearance/blog"));
