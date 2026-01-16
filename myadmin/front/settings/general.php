@@ -1,322 +1,392 @@
-  <div class="col-md-8">
+<link rel="stylesheet" href="<?=site_url('css/admin/settings-premium.css')?>">
+
+<div class="settings-premium-container">
   <div class="panel panel-default">
     <div class="panel-body">
     
+      <!-- Page Header -->
+      <div class="settings-page-header">
+        <h2><i class="fa fa-cog"></i> General Settings</h2>
+        <p>Configure your panel's core settings, branding, and features</p>
+      </div>
+      
+      <!-- Success/Error Alerts -->
       <?php if (isset($success) && $success == 1): ?>
         <div class="alert alert-success alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <strong>Success!</strong> <?= isset($successText) ? $successText : 'Settings updated successfully' ?>
+          <i class="fa fa-check-circle"></i> <?= isset($successText) ? $successText : 'Settings updated successfully' ?>
         </div>
       <?php endif; ?>
       
       <?php if (isset($error) && $error == 1): ?>
         <div class="alert alert-danger alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <strong>Error!</strong> <?= isset($errorText) ? $errorText : 'Failed to update settings' ?>
+          <i class="fa fa-exclamation-circle"></i> <?= isset($errorText) ? $errorText : 'Failed to update settings' ?>
         </div>
       <?php endif; ?>
     
       <form action="<?=site_url('admin/settings/general')?>" method="post" enctype="multipart/form-data" id="generalSettingsForm">
- 
-<div class="alert" style="background-color:rgb(251, 195, 38);">
-        <div class="form-group">
-        
-          <div class="row">
-            <div class="col-md-10">
-              <label for="preferenceLogo" class="control-label">Site Logo</label>
-              <input type="file" name="logo" id="preferenceLogo">
+
+        <!-- Branding Section -->
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <div class="settings-section-icon">
+              <i class="fa fa-paint-brush"></i>
             </div>
-            <div class="col-md-2">
-              <?php if( $settings["site_logo"] ):  ?>
-                <div class="setting-block__image">
-                      <img class="img-thumbnail" src="<?=$settings["site_logo"]?>">
-                    <div class="setting-block__image-remove">
-                      <a href="" data-toggle="modal" data-target="#confirmChange" data-href="<?=site_url("admin/settings/general/delete-logo")?>"><span class="fa fa-remove"></span></a>
-                    </div>
+            <div class="settings-section-title">
+              <h3>Branding</h3>
+              <p>Customize your panel's logo, favicon, and name</p>
+            </div>
+          </div>
+          <div class="settings-section-body">
+            <!-- Panel Name -->
+            <div class="form-group">
+              <label class="control-label">Panel Name</label>
+              <input type="text" class="form-control" name="name" value="<?=$settings["site_name"]?>" placeholder="Enter your panel name">
+            </div>
+            
+            <div class="settings-divider"></div>
+            
+            <!-- Logo Upload -->
+            <div class="form-group">
+              <label class="control-label">Site Logo</label>
+              <div class="settings-file-upload">
+                <div class="settings-file-dropzone" onclick="document.getElementById('logoInput').click()">
+                  <i class="fa fa-cloud-upload"></i>
+                  <span>Click to upload logo</span>
+                  <input type="file" name="logo" id="logoInput" accept="image/*">
                 </div>
-              <?php endif; ?>
+                <?php if($settings["site_logo"]): ?>
+                  <div class="settings-file-preview">
+                    <img src="<?=$settings["site_logo"]?>" alt="Logo">
+                    <a href="" class="remove-btn" data-toggle="modal" data-target="#confirmChange" data-href="<?=site_url("admin/settings/general/delete-logo")?>">
+                      <i class="fa fa-times"></i>
+                    </a>
+                  </div>
+                <?php endif; ?>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="row">
-            <div class="col-md-11">
-              <label for="preferenceFavicon" class="control-label">Site Favicon</label>
-              <input type="file" name="favicon" id="preferenceFavicon">
-            </div>
-            <div class="col-md-1">
-              <?php if( $settings["favicon"] ):  ?>
-                <div class="setting-block__image">
-                    <img class="img-thumbnail" src="<?=$settings["favicon"]?>">
-                    <div class="setting-block__image-remove">
-                      <a href="" data-toggle="modal" data-target="#confirmChange" data-href="<?=site_url("admin/settings/general/delete-favicon")?>"><span class="fa fa-remove"></span></a>
-                    </div>
+            
+            <!-- Favicon Upload -->
+            <div class="form-group">
+              <label class="control-label">Site Favicon</label>
+              <div class="settings-file-upload">
+                <div class="settings-file-dropzone" onclick="document.getElementById('faviconInput').click()">
+                  <i class="fa fa-cloud-upload"></i>
+                  <span>Click to upload favicon</span>
+                  <input type="file" name="favicon" id="faviconInput" accept="image/*">
                 </div>
-              <?php endif; ?>
+                <?php if($settings["favicon"]): ?>
+                  <div class="settings-file-preview">
+                    <img src="<?=$settings["favicon"]?>" alt="Favicon">
+                    <a href="" class="remove-btn" data-toggle="modal" data-target="#confirmChange" data-href="<?=site_url("admin/settings/general/delete-favicon")?>">
+                      <i class="fa fa-times"></i>
+                    </a>
+                  </div>
+                <?php endif; ?>
+              </div>
             </div>
           </div>
         </div>
-          <hr>
-      
-        <div class="form-group">
-          <label class="control-label">Maintenance mode  
-            </label>
-          <select class="form-control" name="site_maintenance">
-            <option value="2" <?= $settings["site_maintenance"] == 2 ? "selected" : null; ?> >Inactive</option>
-            <option value="1" <?= $settings["site_maintenance"] == 1 ? "selected" : null; ?>>Active</option>
-          </select></div>
-          <hr>
-          
-        <div class="form-group">
-          <label class="control-label">Panel name</label>
-          <input type="text" class="form-control" name="name" value="<?=$settings["site_name"]?>">
-</div></div>
-<?php 
-/*
-<hr>
 
-<div style="background-color:rgba(227,18,76);color:#fff;" class="alert">
-<div class="form-group">
-<div class="input-group">
-<label for="" class="control-label">INR RATE FOR 1 USD</label>
-<input type="text" name="dolar" id="inr_rate" class="form-control" value="">
-<span class="input-group-btn">
-<button style="margin-bottom:-25px;" class="btn btn-default" id="update_inr_rate" type="button"><i class="fa fa-refresh" aria-hidden="true"></i></button>
-   </span>
-   </div>
-<div style="background-color:rgba(255,255,255,0.2);margin-top:4px;" class="alert help block">
-<small><i>The INR exchange rate is updated automatically. You can also update / edit manually.</i></small>
-</div></div>
-
-
-<div class="form-group">
-<label class="control-label">Rates Rounding   <div class="tooltip5">  <span class="fas fa-info-circle"></span><span class="tooltiptext5">When Sync and import</span></div> 
-            </label>
-          <select class="form-control" name="currency_format">
-            <option value="0" <?= $general["currency_format"] == 0 ? "selected" : null; ?> >Ones (1)</option>
-            <option value="2" <?= $general["currency_format"] == 2 ? "selected" : null; ?>>Hundreds (1.12)</option>
-<option value="3" <?= $general["currency_format"] == 3 ? "selected" : null; ?> >Thousands (1.111)</option>
-            <option value="4" <?= $general["currency_format"] == 4 ? "selected" : null; ?>>Ten Thousands (1.1111)</option>
-
-          </select> 
-          </div></div>*/?>
-<hr>
-
-<div class="alert" style="background-color:rgb(113, 34, 250);color:#fff;">
-<?php /*
-<label class="control-label">Snow Falling Effect</label>
-<select class="form-control" name="snow_effect">
-            <option value="2" <?= $settings["snow_effect"] == 2 ? "selected" : null; ?> >Disabled</option>
-            <option value="1" <?= $settings["snow_effect"] == 1 ? "selected" : null; ?>>Enabled</option>
-</select>
-        
-<div class="form-group">
-          <label for="" class="control-label">Snow Colour</label>
-          <input type="text" class="form-control" name="snow_colour" value="<?=$settings["snow_colour"]?>">
-        </div>
-*/?>
-  
-                <div class="form-group">
-          <label for="" class="control-label">Bronze Member</label>
-          <input type="text" class="form-control" name="bronz_statu" value="<?=$settings["bronz_statu"]?>">
-        </div>
-                
-                <div class="form-group">
-          <label for="" class="control-label">Silver Member</label>
-          <input type="text" class="form-control" name="silver_statu" value="<?=$settings["silver_statu"]?>">
-        </div>
-                
-                <div class="form-group">
-          <label for="" class="control-label">Gold Member</label>
-          <input type="text" class="form-control" name="gold_statu" value="<?=$settings["gold_statu"]?>">
-        </div>
-                
-<div class="form-group">
-          <label for="" class="control-label">Reseller</label>
-          <input type="text" class="form-control" name="bayi_statu" value="<?=$settings["bayi_statu"]?>">
-        </div>
-                 <p style="background-color:rgb(255,255,255,0.2)" class="alert help block">
-<small><i>Just enter the number to determine the amount that the member should spend on the rank. Example: 350</i></small>
-</p>
-</div>
-        <hr>
-<div style="background-color:rgba(6,122,221);color:#fff;" class="alert">
-        <div class="row">       
-          <div class="form-group col-md-4">
-            <?php 
-            if($settings["resetpass_page"] == "2"){
-                $respass_active = "selected";
-            }else{
-                $respass_passive = "selected";
-            } ?>  
-            <label class="control-label">Reset Password</label>
-            <select class="form-control" name="resetpass">
-              <option value="2" <?= $respass_active ?> >Enabled</option>
-              <option value="1" <?= $respass_passive ?>>Disabled</option>
-            </select>
+        <!-- Site Settings Section -->
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <div class="settings-section-icon">
+              <i class="fa fa-sliders"></i>
+            </div>
+            <div class="settings-section-title">
+              <h3>Site Settings</h3>
+              <p>Control maintenance mode and service visibility</p>
+            </div>
           </div>
-
-          <div class="form-group col-md-4">
-            <?php 
-            if($settings["resetpass_sms"] == "2"){
-                $ressms_active = "selected";
-            }else{
-                $ressms_passive = "selected";
-            } ?>  
-            <label class="control-label">Reset Using SMS</label>
-            <select class="form-control" name="resetsms">
-              <option value="2" <?= $ressms_active ?> >Enabled</option>
-              <option value="1" <?= $ressms_passive ?>>Disabled</option>
-            </select>
+          <div class="settings-section-body">
+            <div class="settings-row settings-row-2">
+              <div class="form-group">
+                <label class="control-label">Maintenance Mode</label>
+                <select class="form-control" name="site_maintenance">
+                  <option value="2" <?= $settings["site_maintenance"] == 2 ? "selected" : null; ?>>Inactive</option>
+                  <option value="1" <?= $settings["site_maintenance"] == 1 ? "selected" : null; ?>>Active</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <?php 
+                if($settings["service_list"] == "2"){
+                    $servlist_active = "selected";
+                }else {
+                    $servlist_passive = "selected";
+                } ?>
+                <label class="control-label">Service List Visibility</label>
+                <select class="form-control" name="service_list">
+                  <option value="2" <?= $servlist_active ?>>Active for everyone</option>
+                  <option value="1" <?= $servlist_passive ?>>Active for only users</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <?php 
+              if($settings["services_average_time"] == "1"){
+                  $avg_time_active = "selected";
+              }else {
+                  $avg_time_passive = "selected";
+              } ?>
+              <label class="control-label">Show Average Time</label>
+              <select class="form-control" name="services_average_time">
+                <option value="1" <?= $avg_time_active ?>>Enabled</option>
+                <option value="0" <?= $avg_time_passive ?>>Disabled</option>
+              </select>
+            </div>
           </div>
-          <div class="form-group col-md-4">
-            <?php 
-            if($settings["resetpass_email"] == "2"){
-                $resemail_active = "selected";
-            }else{
-                $resemail_passive = "selected";
-            } ?>
-            <label class="control-label">Reset Using Email</label>
-            <select class="form-control" name="resetmail">
-              <option value="2" <?= $resemail_active ?> >Enabled</option>
-              <option value="1" <?= $resemail_passive ?>>Disabled</option>
-            </select>
+        </div>
+
+        <!-- Membership Tiers Section -->
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <div class="settings-section-icon">
+              <i class="fa fa-trophy"></i>
+            </div>
+            <div class="settings-section-title">
+              <h3>Membership Tiers</h3>
+              <p>Set spending thresholds for each membership level</p>
+            </div>
           </div>
-        </div></div>
-        <hr>
-<div class="alert" style="background-color:rgba(252, 98, 56);">
-        <div class="form-group">
-            <?php 
-            if($settings["ticket_system"] == "1"){
-                $ticket_active = "selected";
-            }else{
-                $ticket_passive = "selected";
-            } ?>
-          <label class="control-label">Ticket system</label>
-          <select class="form-control" name="ticket_system">
-            <option value="1" <?= $ticket_active ?> >Enabled</option>
-            <option value="2" <?= $ticket_passive ?>>Disabled</option>
-          </select>
-        </div>
-<div class="form-group">
-          <label class="control-label">Max Pending Tickets per user</label>
-          <select class="form-control" name="tickets_per_user">
-            <option value="1" <?= $settings["tickets_per_user"] == 1 ? "selected" : null; ?> >1</option>
-            <option value="2" <?= $settings["tickets_per_user"] == 2 ? "selected" : null; ?>>2</option>
-<option value="3" <?= $settings["tickets_per_user"] == 3 ? "selected" : null; ?>>3</option>
-<option value="4" <?= $settings["tickets_per_user"] == 4 ? "selected" : null; ?> >4</option>
-            <option value="5" <?= $settings["tickets_per_user"] == 5 ? "selected" : null; ?>>5</option>
-<option value="6" <?= $settings["tickets_per_user"] == 6 ? "selected" : null; ?>>6</option>
-<option value="7" <?= $settings["tickets_per_user"] == 7 ? "selected" : null; ?> >7</option>
-            <option value="8" <?= $settings["tickets_per_user"] == 8 ? "selected" : null; ?>>8</option>
-<option value="9" <?= $settings["tickets_per_user"] == 9 ? "selected" : null; ?>>9</option>
-<option value="10" <?= $settings["tickets_per_user"] == 10 ? "selected" : null; ?> >10</option>
-            <option value="9999999999" <?= $settings["tickets_per_user"] == 9999999999 ? "selected" : null; ?>>Unlimited</option>
-
-          </select>
-        </div></div>
-
-<hr>
-<div class="alert" style="background-color:rgb(255, 150, 197);">
-        <div class="form-group">
-            <?php 
-            if($settings["register_page"] == "2"){
-                $reg_active = "selected";
-            }else{
-                $reg_passive = "selected";
-            } ?>
-<div class="form-group field-editgeneralform-skype_field required" >
-          <label class="control-label" for="editgeneralform-registration_page">Signup page <div class="tooltip5">  <span class="fas fa-info-circle"></span><span class="tooltiptext5">Allows Users to register</span></div></label>
-
-          <select class="form-control"  name="registration_page">
-            <option value="2" <?= $reg_active ?> >Enabled</option>
-            <option value="1" <?= $reg_passive ?>>Disabled</option>
-          </select>
-        </div></div>
-<div class="form-group field-editgeneralform-skype_field required">
-<label class="control-label" for="editgeneralform-skype_field">Name fields <div class="tooltip5">  <span class="fas fa-info-circle"></span><span class="tooltiptext5">Name field on the Signup page</span></div></label>
-          <select class="form-control" name="name_fileds">
-            <option value="1" <?= $settings["name_fileds"] == 1 ? "selected" : null; ?> >Enabled</option>
-            <option value="2" <?= $settings["name_fileds"] == 2 ? "selected" : null; ?>>Disabled</option>
-          </select>
+          <div class="settings-section-body">
+            <div class="settings-row settings-row-4">
+              <div class="form-group">
+                <label class="control-label"><i class="fa fa-medal" style="color: #cd7f32;"></i> Bronze Member</label>
+                <input type="text" class="form-control" name="bronz_statu" value="<?=$settings["bronz_statu"]?>" placeholder="e.g. 100">
+              </div>
+              
+              <div class="form-group">
+                <label class="control-label"><i class="fa fa-medal" style="color: #c0c0c0;"></i> Silver Member</label>
+                <input type="text" class="form-control" name="silver_statu" value="<?=$settings["silver_statu"]?>" placeholder="e.g. 500">
+              </div>
+              
+              <div class="form-group">
+                <label class="control-label"><i class="fa fa-medal" style="color: #ffd700;"></i> Gold Member</label>
+                <input type="text" class="form-control" name="gold_statu" value="<?=$settings["gold_statu"]?>" placeholder="e.g. 1000">
+              </div>
+              
+              <div class="form-group">
+                <label class="control-label"><i class="fa fa-star" style="color: #9333ea;"></i> Reseller</label>
+                <input type="text" class="form-control" name="bayi_statu" value="<?=$settings["bayi_statu"]?>" placeholder="e.g. 5000">
+              </div>
+            </div>
+            <div class="settings-info-box">
+              <i class="fa fa-info-circle"></i>
+              <span>Enter the spending amount required to reach each membership tier (e.g. 350)</span>
+            </div>
           </div>
-<div class="form-group field-editgeneralform-skype_field required">
-<label class="control-label" for="editgeneralform-skype_field">Skype fields <div class="tooltip5">  <span class="fas fa-info-circle"></span><span class="tooltiptext5">Skype field on the Signup page</span></div></label>
-          <select class="form-control" name="skype_feilds">
-            <option value="1" <?= $settings["skype_feilds"] == 1 ? "selected" : null; ?> >Enabled</option>
-            <option value="2" <?= $settings["skype_feilds"] == 2 ? "selected" : null; ?>>Disabled</option>
-          </select>
-          </div>
-<div class="form-group field-editgeneralform-skype_field required">
-<label class="control-label" for="editgeneralform-skype_field">Email Confirmation <div class="tooltip5">  <span class="fas fa-info-circle"></span><span class="tooltiptext5">(Enables mandatory email confirmation for the user after signing up)</span></div> </label>
-          <select class="form-control" name="email_confirmation">
-            <option value="1" <?= $settings["email_confirmation"] == 1 ? "selected" : null; ?> >Enabled</option>
-            <option value="2" <?= $settings["email_confirmation"] == 2 ? "selected" : null; ?>>Disabled</option>
-          </select>
-          </div>
-            <div class="form-group ">
-                <label class="control-label">Transfer funds percentage <span class="fa fa-percent" data-toggle="tooltip" data-placement="top"></span></label>
-                <input type="number" value="<?= $settings["fundstransfer_fees"]; ?>" class="form-control" name="fundstransfer_fees">
-            </div> 
-<div class="form-group">
-          <label for="" class="control-label">Resend link max<h6>(Recommended 2)</h6></label>
-          <input type="text" class="form-control" name="resend_max" value="<?=$settings["resend_max"]?>">
         </div>
-        <div class="form-group">
-            <?php 
-            if($settings["service_list"] == "2"){
-                $servlist_active = "selected";
-            }else {
-                $servlist_passive = "selected";
-            } ?>
-          <label class="control-label">Service List</label>
-          <select class="form-control" name="service_list">
-            <option value="2" <?= $servlist_active ?> >Active for everyone</option>
-            <option value="1" <?= $servlist_passive ?>>Active for only users</option>
-          </select>
-        </div>
-                <div class="form-group">
 
-            <?php 
+        <!-- Security Settings Section -->
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <div class="settings-section-icon">
+              <i class="fa fa-shield"></i>
+            </div>
+            <div class="settings-section-title">
+              <h3>Security Settings</h3>
+              <p>Configure password reset and authentication options</p>
+            </div>
+          </div>
+          <div class="settings-section-body">
+            <div class="settings-row settings-row-3">
+              <div class="form-group">
+                <?php 
+                if($settings["resetpass_page"] == "2"){
+                    $respass_active = "selected";
+                }else{
+                    $respass_passive = "selected";
+                } ?>
+                <label class="control-label">Reset Password</label>
+                <select class="form-control" name="resetpass">
+                  <option value="2" <?= $respass_active ?>>Enabled</option>
+                  <option value="1" <?= $respass_passive ?>>Disabled</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <?php 
+                if($settings["resetpass_sms"] == "2"){
+                    $ressms_active = "selected";
+                }else{
+                    $ressms_passive = "selected";
+                } ?>
+                <label class="control-label">Reset via SMS</label>
+                <select class="form-control" name="resetsms">
+                  <option value="2" <?= $ressms_active ?>>Enabled</option>
+                  <option value="1" <?= $ressms_passive ?>>Disabled</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <?php 
+                if($settings["resetpass_email"] == "2"){
+                    $resemail_active = "selected";
+                }else{
+                    $resemail_passive = "selected";
+                } ?>
+                <label class="control-label">Reset via Email</label>
+                <select class="form-control" name="resetmail">
+                  <option value="2" <?= $resemail_active ?>>Enabled</option>
+                  <option value="1" <?= $resemail_passive ?>>Disabled</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
 
-            if($settings["services_average_time"] == "1"){
-                $avg_time_active = "selected";
-            }else {
-                $avg_time_passive = "selected";
-            } ?>
-          <label class="control-label">Average time</label>
-          <select class="form-control" name="services_average_time">
-            <option value="1" <?= $avg_time_active ?> >Enabled</option>
-            <option value="0" <?= $avg_time_passive ?>>Disabled</option>
-          </select>
+        <!-- Ticket System Section -->
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <div class="settings-section-icon">
+              <i class="fa fa-ticket"></i>
+            </div>
+            <div class="settings-section-title">
+              <h3>Ticket System</h3>
+              <p>Configure customer support ticket settings</p>
+            </div>
+          </div>
+          <div class="settings-section-body">
+            <div class="settings-row settings-row-2">
+              <div class="form-group">
+                <?php 
+                if($settings["ticket_system"] == "1"){
+                    $ticket_active = "selected";
+                }else{
+                    $ticket_passive = "selected";
+                } ?>
+                <label class="control-label">Ticket System</label>
+                <select class="form-control" name="ticket_system">
+                  <option value="1" <?= $ticket_active ?>>Enabled</option>
+                  <option value="2" <?= $ticket_passive ?>>Disabled</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label class="control-label">Max Pending Tickets per User</label>
+                <select class="form-control" name="tickets_per_user">
+                  <?php for($i = 1; $i <= 10; $i++): ?>
+                    <option value="<?= $i ?>" <?= $settings["tickets_per_user"] == $i ? "selected" : null; ?>><?= $i ?></option>
+                  <?php endfor; ?>
+                  <option value="9999999999" <?= $settings["tickets_per_user"] == 9999999999 ? "selected" : null; ?>>Unlimited</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
-</div>
-                  <hr>
-<div class="alert" style="background-color:rgb(22,221,53);color:#fff;">
-        <div class="form-group">
-          <label class="control-label">Header codes</label>
-          <textarea class="form-control" rows="7" name="custom_header" placeholder='<style type="text/css">...</style>'><?=$settings["custom_header"]?></textarea>
+
+        <!-- Registration Settings Section -->
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <div class="settings-section-icon">
+              <i class="fa fa-user-plus"></i>
+            </div>
+            <div class="settings-section-title">
+              <h3>Registration Settings</h3>
+              <p>Configure signup page options and form fields</p>
+            </div>
+          </div>
+          <div class="settings-section-body">
+            <div class="settings-row settings-row-2">
+              <div class="form-group">
+                <?php 
+                if($settings["register_page"] == "2"){
+                    $reg_active = "selected";
+                }else{
+                    $reg_passive = "selected";
+                } ?>
+                <label class="control-label">Signup Page</label>
+                <select class="form-control" name="registration_page">
+                  <option value="2" <?= $reg_active ?>>Enabled</option>
+                  <option value="1" <?= $reg_passive ?>>Disabled</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label class="control-label">Email Confirmation</label>
+                <select class="form-control" name="email_confirmation">
+                  <option value="1" <?= $settings["email_confirmation"] == 1 ? "selected" : null; ?>>Enabled</option>
+                  <option value="2" <?= $settings["email_confirmation"] == 2 ? "selected" : null; ?>>Disabled</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="settings-row settings-row-2">
+              <div class="form-group">
+                <label class="control-label">Name Fields</label>
+                <select class="form-control" name="name_fileds">
+                  <option value="1" <?= $settings["name_fileds"] == 1 ? "selected" : null; ?>>Enabled</option>
+                  <option value="2" <?= $settings["name_fileds"] == 2 ? "selected" : null; ?>>Disabled</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label class="control-label">Skype Fields</label>
+                <select class="form-control" name="skype_feilds">
+                  <option value="1" <?= $settings["skype_feilds"] == 1 ? "selected" : null; ?>>Enabled</option>
+                  <option value="2" <?= $settings["skype_feilds"] == 2 ? "selected" : null; ?>>Disabled</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="settings-row settings-row-2">
+              <div class="form-group">
+                <label class="control-label">Transfer Funds Fee (%)</label>
+                <input type="number" value="<?= $settings["fundstransfer_fees"]; ?>" class="form-control" name="fundstransfer_fees" placeholder="e.g. 5">
+              </div>
+              
+              <div class="form-group">
+                <label class="control-label">Resend Link Max</label>
+                <input type="text" class="form-control" name="resend_max" value="<?=$settings["resend_max"]?>" placeholder="Recommended: 2">
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Footer codes</label>
-          <textarea class="form-control" rows="7" name="custom_footer" placeholder='<script>...</script>'><?=$settings["custom_footer"]?></textarea>
-        </div></div>
-                <hr>
-                    
-        <button type="submit" class="btn btn-primary" id="submitBtn">
-          <span class="btn-text">Update Settings</span>
-          <span class="btn-loading" style="display:none;">
+
+        <!-- Custom Code Section -->
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <div class="settings-section-icon">
+              <i class="fa fa-code"></i>
+            </div>
+            <div class="settings-section-title">
+              <h3>Custom Code</h3>
+              <p>Add custom CSS or JavaScript to your panel</p>
+            </div>
+          </div>
+          <div class="settings-section-body">
+            <div class="form-group">
+              <label class="control-label">Header Codes</label>
+              <textarea class="form-control" rows="5" name="custom_header" placeholder='<style type="text/css">...</style>'><?=$settings["custom_header"]?></textarea>
+              <p class="settings-hint">Add custom CSS styles or meta tags to the header</p>
+            </div>
+            
+            <div class="form-group">
+              <label class="control-label">Footer Codes</label>
+              <textarea class="form-control" rows="5" name="custom_footer" placeholder='<script>...</script>'><?=$settings["custom_footer"]?></textarea>
+              <p class="settings-hint">Add custom JavaScript or tracking scripts to the footer</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="settings-submit-btn" id="submitBtn">
+          <span class="btn-text"><i class="fa fa-save"></i> Save Settings</span>
+          <span class="btn-loading">
             <i class="fa fa-spinner fa-spin"></i> Saving...
           </span>
         </button>
+        
       </form>
       
       <script>
       document.addEventListener('DOMContentLoaded', function() {
         var form = document.getElementById('generalSettingsForm');
         var submitBtn = document.getElementById('submitBtn');
-        var btnText = submitBtn.querySelector('.btn-text');
-        var btnLoading = submitBtn.querySelector('.btn-loading');
         
         form.addEventListener('submit', function(e) {
           var panelName = form.querySelector('input[name="name"]');
@@ -327,11 +397,11 @@
             return false;
           }
           
-          btnText.style.display = 'none';
-          btnLoading.style.display = 'inline';
+          submitBtn.classList.add('loading');
           submitBtn.disabled = true;
         });
         
+        // Auto-dismiss alerts
         var alerts = document.querySelectorAll('.alert-dismissible');
         alerts.forEach(function(alert) {
           setTimeout(function() {
@@ -342,20 +412,40 @@
             }, 500);
           }, 5000);
         });
+        
+        // File upload preview
+        document.querySelectorAll('input[type="file"]').forEach(function(input) {
+          input.addEventListener('change', function(e) {
+            var dropzone = this.closest('.settings-file-dropzone');
+            if (this.files && this.files[0]) {
+              dropzone.querySelector('span').textContent = this.files[0].name;
+            }
+          });
+        });
+        
+        // Modal confirmation handler
+        $('#confirmChange').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget);
+          var href = button.data('href');
+          $('#confirmYes').attr('href', href);
+        });
       });
       </script>
     </div>
   </div>
 </div>
+
+<!-- Confirmation Modal -->
 <div class="modal modal-center fade" id="confirmChange" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
- <div class="modal-dialog modal-dialog-center" role="document">
-   <div class="modal-content">
-     <div class="modal-body text-center">
-       <h4>Are you sure?</h4>
-       <div align="center">
-         <a class="btn btn-primary" href="" id="confirmYes">Yes</a>
-         <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
-       </div>
-     </div>
-   </div>
- </div>
+  <div class="modal-dialog modal-dialog-center" role="document">
+    <div class="modal-content" style="background: #1a1a2e; border: 1px solid #2a2a4a; border-radius: 12px;">
+      <div class="modal-body text-center" style="padding: 30px; color: #fff;">
+        <h4 style="margin-bottom: 20px;">Are you sure?</h4>
+        <div>
+          <a class="btn btn-danger" href="" id="confirmYes" style="margin-right: 10px;">Yes, Delete</a>
+          <button type="button" class="btn btn-default" data-dismiss="modal" style="background: #2a2a4a; color: #fff; border: none;">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
