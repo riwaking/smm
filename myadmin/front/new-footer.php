@@ -423,8 +423,19 @@
                 mode = '<span class="badge bg-warning text-dark">Automatic</span>';
               } else {
                 mode = '<span class="badge bg-secondary">Manual</span>';
-            }
-              tbody += '<tr><td>'+data[i].id+'</td><td><span class="badge bg-secondary">'+data[i].cid+'</span> '+data[i].username+'</td><td>'+data[i].method+' '+mode+'</td><td>'+panel_settings.site_currency_symbol+" "+data[i].user_balance+'</td><td>'+panel_settings.site_currency_symbol+" "+data[i].amount+'</td><td>'+data[i].status+'</td><td>'+data[i].created_at+'</td><td><div class="btn-group dropstart"><button type="button" class="btn btn-secondary dropdown-toggle btn-sm" data-bs-toggle="dropdown" aria-expanded="false">Actions</button><ul class="dropdown-menu"><li><a class="dropdown-item">Details</a></li></ul></div></td></tr>';
+              }
+              
+              var actions = '';
+              if(data[i].is_pending) {
+                actions = '<div class="btn-group">' +
+                  '<button type="button" class="btn btn-success btn-sm btn-approve-payment" data-id="'+data[i].id+'"><i class="fa fa-check"></i> Approve</button> ' +
+                  '<button type="button" class="btn btn-danger btn-sm btn-reject-payment" data-id="'+data[i].id+'"><i class="fa fa-times"></i> Reject</button>' +
+                  '</div>';
+              } else {
+                actions = '<div class="btn-group dropstart"><button type="button" class="btn btn-secondary dropdown-toggle btn-sm" data-bs-toggle="dropdown" aria-expanded="false">Actions</button><ul class="dropdown-menu"><li><a class="dropdown-item">Details</a></li></ul></div>';
+              }
+              
+              tbody += '<tr><td>'+data[i].id+'</td><td><span class="badge bg-secondary">'+data[i].cid+'</span> '+data[i].username+'</td><td>'+data[i].method+' '+mode+'</td><td>'+panel_settings.site_currency_symbol+" "+data[i].user_balance+'</td><td>'+panel_settings.site_currency_symbol+" "+data[i].amount+'</td><td>'+data[i].status+'</td><td>'+data[i].created_at+'</td><td>'+actions+'</td></tr>';
             }
             ready_table();
             $(".table tbody").html(tbody);
@@ -437,6 +448,61 @@
 
       });
     }
+    
+    $(document).on("click", ".btn-approve-payment", function() {
+      var paymentId = $(this).data("id");
+      var btn = $(this);
+      btn.prop("disabled", true).html('<i class="fa fa-spinner fa-spin"></i> Approving...');
+      
+      $.ajax({
+        url: "admin/fund-add-history",
+        type: "POST",
+        data: { action: "approve_payment", payment_id: paymentId },
+        success: function(response) {
+          if(response.success) {
+            alert(response.message || "Payment approved successfully!");
+            location.reload();
+          } else {
+            alert(response.message || "Failed to approve payment.");
+            btn.prop("disabled", false).html('<i class="fa fa-check"></i> Approve');
+          }
+        },
+        error: function() {
+          alert("Error processing request.");
+          btn.prop("disabled", false).html('<i class="fa fa-check"></i> Approve');
+        }
+      });
+    });
+    
+    $(document).on("click", ".btn-reject-payment", function() {
+      var paymentId = $(this).data("id");
+      var btn = $(this);
+      
+      if(!confirm("Are you sure you want to reject this payment?")) {
+        return;
+      }
+      
+      btn.prop("disabled", true).html('<i class="fa fa-spinner fa-spin"></i> Rejecting...');
+      
+      $.ajax({
+        url: "admin/fund-add-history",
+        type: "POST",
+        data: { action: "reject_payment", payment_id: paymentId },
+        success: function(response) {
+          if(response.success) {
+            alert(response.message || "Payment rejected.");
+            location.reload();
+          } else {
+            alert(response.message || "Failed to reject payment.");
+            btn.prop("disabled", false).html('<i class="fa fa-times"></i> Reject');
+          }
+        },
+        error: function() {
+          alert("Error processing request.");
+          btn.prop("disabled", false).html('<i class="fa fa-times"></i> Reject');
+        }
+      });
+    });
 
     $(document).on("click", "#editor > div.ql-editor > p > img", function () {
       var height = prompt('Enter the height of the image (e.g., 200px) , (Enter 0 to remove image):', $(this).attr("height"));
