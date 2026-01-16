@@ -677,52 +677,108 @@ nav.navbar {
 
 /* Counters Section */
 .countersSec {
-    background: var(--landing-bg-primary);
-    padding: 80px 0;
+    background: var(--landing-bg-primary) !important;
+    padding: 80px 0 !important;
+}
+
+.countersSec .container {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+}
+
+.countersSec .row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 24px !important;
+    margin: 0 !important;
+}
+
+.countersSec .col-sm-3 {
+    flex: 0 0 calc(25% - 24px) !important;
+    max-width: calc(25% - 24px) !important;
+    padding: 0 !important;
 }
 
 .countersSec .singleCount {
-    text-align: center;
-    padding: 30px;
-    background: var(--landing-bg-card);
-    border-radius: 20px;
-    border: 1px solid var(--landing-border);
-    transition: all 0.3s ease;
+    text-align: center !important;
+    padding: 40px 30px !important;
+    background: var(--landing-bg-card) !important;
+    border-radius: 20px !important;
+    border: 1px solid var(--landing-border) !important;
+    transition: all 0.3s ease !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .countersSec .singleCount:hover {
-    transform: translateY(-8px);
-    border-color: var(--landing-accent);
-    box-shadow: 0 15px 40px rgba(47, 134, 250, 0.2);
+    transform: translateY(-8px) !important;
+    border-color: var(--landing-accent) !important;
+    box-shadow: 0 15px 40px rgba(47, 134, 250, 0.2) !important;
 }
 
 .countersSec .singleCount .icon {
-    width: 70px;
-    height: 70px;
-    margin: 0 auto 20px;
-    background: var(--landing-gradient);
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 70px !important;
+    height: 70px !important;
+    margin: 0 auto 20px !important;
+    background: var(--landing-gradient) !important;
+    border-radius: 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .countersSec .singleCount .icon i {
-    font-size: 28px;
-    color: var(--landing-text-primary);
+    font-size: 28px !important;
+    color: var(--landing-text-primary) !important;
 }
 
-.countersSec .singleCount h4 {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: var(--landing-text-primary);
-    margin-bottom: 8px;
+.countersSec .singleCount h4,
+.countersSec .singleCount h4.counter {
+    font-size: 2.5rem !important;
+    font-weight: 800 !important;
+    color: var(--landing-text-primary) !important;
+    margin-bottom: 8px !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: var(--landing-text-primary) !important;
 }
 
 .countersSec .singleCount p {
-    color: var(--landing-text-secondary);
-    font-size: 1rem;
-    margin: 0;
+    color: var(--landing-text-secondary) !important;
+    font-size: 1rem !important;
+    margin: 0 !important;
+}
+
+.countersSec .singleCount .text {
+    width: 100% !important;
+}
+
+.countersSec .row .col-sm-3:first-child .singleCount,
+.countersSec .row .col-sm-3:nth-child(2) .singleCount,
+.countersSec .row .col-sm-3:nth-child(3) .singleCount,
+.countersSec .row .col-sm-3:nth-child(4) .singleCount,
+.countersSec .row .col-sm-3:last-child .singleCount {
+    background: var(--landing-bg-card) !important;
+    background-image: none !important;
+    border-radius: 20px !important;
+}
+
+@media (max-width: 991px) {
+    .countersSec .col-sm-3 {
+        flex: 0 0 calc(50% - 24px) !important;
+        max-width: calc(50% - 24px) !important;
+    }
+}
+
+@media (max-width: 575px) {
+    .countersSec .col-sm-3 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
 }
 
 /* About Section */
