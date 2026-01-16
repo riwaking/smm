@@ -1,0 +1,433 @@
+/* Modern Footer Styles - Mobile-First Responsive Design */
+/* ===================================================== */
+
+/* CSS Variables for Footer */
+:root {
+    --footer-bg: #0a0a0a;
+    --footer-bg-alt: #111111;
+    --footer-accent: #2F86FA;
+    --footer-text: #ffffff;
+    --footer-text-muted: rgba(255, 255, 255, 0.6);
+    --footer-border: rgba(47, 134, 250, 0.2);
+    --footer-link-hover: #5ba0fc;
+    --footer-spacing: 20px;
+    --footer-radius: 12px;
+}
+
+/* Base Footer Styles */
+footer {
+    background: var(--footer-bg) !important;
+    color: var(--footer-text) !important;
+    padding: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* Get Started CTA Section */
+footer .getStarted {
+    background: linear-gradient(135deg, var(--footer-accent) 0%, #1a6dd8 100%) !important;
+    border-radius: var(--footer-radius) !important;
+    padding: 30px 40px !important;
+    margin: 40px auto 50px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+    gap: 20px !important;
+    max-width: 1140px !important;
+}
+
+footer .getStarted h2 {
+    color: #fff !important;
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
+}
+
+footer .getStarted .custom-btn {
+    background: #fff !important;
+    color: var(--footer-accent) !important;
+    padding: 12px 28px !important;
+    border-radius: 30px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+    display: inline-block !important;
+    white-space: nowrap !important;
+}
+
+footer .getStarted .custom-btn:hover {
+    background: rgba(255, 255, 255, 0.9) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Footer Main Content - Grid Layout */
+footer > .container > .row:not(.getStarted) {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 40px !important;
+    padding: 0 15px 50px !important;
+}
+
+/* Footer Columns */
+footer .footer-col {
+    padding: 0 !important;
+}
+
+footer .footer-col h4 {
+    color: var(--footer-text) !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 20px !important;
+    padding-bottom: 12px !important;
+    border-bottom: 2px solid var(--footer-border) !important;
+    position: relative !important;
+}
+
+footer .footer-col.first h4 {
+    border-bottom: none !important;
+}
+
+footer .footer-col.first h4 img {
+    max-width: 150px !important;
+    height: auto !important;
+}
+
+footer .footer-col .p-small {
+    color: var(--footer-text-muted) !important;
+    font-size: 0.9rem !important;
+    line-height: 1.7 !important;
+    margin: 0 !important;
+}
+
+/* Footer Links */
+footer .footer-col ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+footer .footer-col ul li {
+    margin-bottom: 12px !important;
+}
+
+footer .footer-col ul li:last-child {
+    margin-bottom: 0 !important;
+}
+
+footer .footer-col ul li.media {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+footer .footer-col ul li i.fas,
+footer .footer-col ul li i.fa {
+    color: var(--footer-accent) !important;
+    font-size: 0.7rem !important;
+    flex-shrink: 0 !important;
+}
+
+footer .footer-col ul li a,
+footer .footer-col ul li .media-body a {
+    color: var(--footer-text-muted) !important;
+    text-decoration: none !important;
+    font-size: 0.9rem !important;
+    transition: color 0.3s ease, padding-left 0.3s ease !important;
+    display: inline-block !important;
+}
+
+footer .footer-col ul li a:hover,
+footer .footer-col ul li .media-body a:hover {
+    color: var(--footer-accent) !important;
+    padding-left: 5px !important;
+}
+
+/* Copyright Section */
+footer .copyright {
+    background: var(--footer-bg-alt) !important;
+    border-top: 1px solid var(--footer-border) !important;
+    padding: 20px 0 !important;
+}
+
+footer .copyright .container {
+    max-width: 1140px !important;
+}
+
+footer .copyright .row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+    gap: 15px !important;
+}
+
+footer .copyright .col-lg-6:first-child {
+    color: var(--footer-text-muted) !important;
+    font-size: 0.85rem !important;
+}
+
+/* Social Icons */
+footer .sIcons {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+footer .sIcons li {
+    margin: 0 !important;
+}
+
+footer .sIcons li a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 38px !important;
+    height: 38px !important;
+    background: rgba(47, 134, 250, 0.1) !important;
+    border: 1px solid var(--footer-border) !important;
+    border-radius: 50% !important;
+    color: var(--footer-text) !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+}
+
+footer .sIcons li a:hover {
+    background: var(--footer-accent) !important;
+    border-color: var(--footer-accent) !important;
+    transform: translateY(-3px) !important;
+}
+
+footer .sIcons li a i {
+    font-size: 0.9rem !important;
+}
+
+/* Mobile Accordion Toggle Button (hidden by default) */
+footer .footer-col h4 .accordion-toggle {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+footer .footer-col h4 .accordion-toggle::before,
+footer .footer-col h4 .accordion-toggle::after {
+    content: '';
+    position: absolute;
+    background: var(--footer-text);
+    transition: transform 0.3s ease;
+}
+
+footer .footer-col h4 .accordion-toggle::before {
+    width: 14px;
+    height: 2px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+footer .footer-col h4 .accordion-toggle::after {
+    width: 2px;
+    height: 14px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Accordion expanded state */
+footer .footer-col.expanded h4 .accordion-toggle::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    opacity: 0;
+}
+
+/* ===================================================== */
+/* TABLET STYLES (768px - 991px) */
+/* ===================================================== */
+@media (max-width: 991px) {
+    footer > .container > .row:not(.getStarted) {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 30px !important;
+    }
+    
+    footer .getStarted {
+        margin: 30px 15px 40px !important;
+        padding: 25px 30px !important;
+    }
+    
+    footer .getStarted h2 {
+        font-size: 1.3rem !important;
+    }
+}
+
+/* ===================================================== */
+/* MOBILE STYLES (below 768px) - Accordion Layout */
+/* ===================================================== */
+@media (max-width: 767px) {
+    footer > .container > .row:not(.getStarted) {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0 !important;
+        padding: 0 15px 30px !important;
+    }
+    
+    footer .col-md-4,
+    footer .col-sm-3 {
+        width: 100% !important;
+        padding: 0 !important;
+    }
+    
+    /* Mobile Footer Columns */
+    footer .footer-col {
+        border-bottom: 1px solid var(--footer-border) !important;
+        padding: 0 !important;
+    }
+    
+    footer .footer-col.first {
+        text-align: center !important;
+        padding: 20px 0 !important;
+        border-bottom: 1px solid var(--footer-border) !important;
+    }
+    
+    footer .footer-col.first h4 {
+        display: flex !important;
+        justify-content: center !important;
+        margin-bottom: 15px !important;
+        padding-bottom: 0 !important;
+    }
+    
+    footer .footer-col.first .p-small {
+        max-width: 300px !important;
+        margin: 0 auto !important;
+    }
+    
+    /* Accordion Header */
+    footer .footer-col:not(.first) h4 {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 18px 0 !important;
+        margin: 0 !important;
+        border-bottom: none !important;
+        cursor: pointer !important;
+        user-select: none !important;
+        position: relative !important;
+    }
+    
+    /* Show accordion toggle on mobile */
+    footer .footer-col:not(.first) h4 .accordion-toggle {
+        display: block !important;
+    }
+    
+    /* Accordion Content */
+    footer .footer-col:not(.first) ul {
+        max-height: 0 !important;
+        overflow: hidden !important;
+        transition: max-height 0.3s ease, padding 0.3s ease !important;
+        padding: 0 !important;
+    }
+    
+    /* Expanded accordion state */
+    footer .footer-col:not(.first).expanded ul {
+        max-height: 500px !important;
+        padding-bottom: 20px !important;
+    }
+    
+    /* Touch-friendly link sizing */
+    footer .footer-col ul li {
+        margin-bottom: 0 !important;
+    }
+    
+    footer .footer-col ul li a,
+    footer .footer-col ul li .media-body a {
+        padding: 12px 0 !important;
+        display: block !important;
+        min-height: 44px !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+    
+    /* Get Started CTA */
+    footer .getStarted {
+        flex-direction: column !important;
+        text-align: center !important;
+        margin: 20px 15px 30px !important;
+        padding: 25px 20px !important;
+    }
+    
+    footer .getStarted h2 {
+        font-size: 1.2rem !important;
+        margin-bottom: 15px !important;
+    }
+    
+    /* Copyright Section Mobile */
+    footer .copyright .row {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 15px !important;
+    }
+    
+    footer .copyright .col-lg-6 {
+        width: 100% !important;
+        text-align: center !important;
+    }
+    
+    footer .copyright .text-right {
+        text-align: center !important;
+    }
+    
+    footer .sIcons {
+        justify-content: center !important;
+    }
+}
+
+/* ===================================================== */
+/* SMALL MOBILE (below 480px) */
+/* ===================================================== */
+@media (max-width: 480px) {
+    footer .getStarted {
+        padding: 20px 15px !important;
+    }
+    
+    footer .getStarted h2 {
+        font-size: 1.1rem !important;
+    }
+    
+    footer .getStarted .custom-btn {
+        padding: 10px 24px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    footer .footer-col.first h4 img {
+        max-width: 120px !important;
+    }
+}
+
+/* Accessibility - Focus states */
+footer .footer-col h4:focus-visible,
+footer .footer-col ul li a:focus-visible,
+footer .sIcons li a:focus-visible {
+    outline: 2px solid var(--footer-accent) !important;
+    outline-offset: 2px !important;
+}
+
+/* Print styles */
+@media print {
+    footer {
+        background: #fff !important;
+        color: #000 !important;
+    }
+    
+    footer .footer-col ul li a {
+        color: #000 !important;
+    }
+}

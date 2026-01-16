@@ -1,5 +1,6 @@
 
                 
+        <link rel="stylesheet" href="/css/footer-modern.css">
         <!-- footer -->
         <footer>
           <div class="container">
@@ -11,14 +12,18 @@
               <div class="col-md-4">
                 <div class="footer-col first">
                   <h4>                
-                   <img class="img-responsive" src="{{ site["logo"] }}"  alt="Logo" width="300" height="400">               
+                        {% if site["logo"] %}
+                            <img src="{{ site['logo'] }}" alt="{{ site['site_name'] }}">
+                        {% else %}
+                            <strong>{{ site["site_name"] }}</strong>
+                        {% endif %}          
                   </h4>
-                  <p class="p-small">{{ site["site_name"] }} #Destination No.1 SMM PANEL Social Media Services Provider - Most trusted smm panel</p>
+                  <p class="p-small">{{ site["site_name"] }} - #1 SMM Panel for Social Media Marketing Services. Fast, reliable, and trusted by thousands.</p>
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="footer-col middle">
-                  <h4>Quick Links</h4>
+                <div class="footer-col middle" onclick="this.classList.toggle('expanded')" role="button" tabindex="0" aria-expanded="false">
+                  <h4>Quick Links<span class="accordion-toggle" aria-hidden="true"></span></h4>
                   <ul class="list-unstyled li-space-lg p-small">
                     <li class="media">
                       <i class="fas fa-chevron-right"></i>
@@ -32,8 +37,8 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="footer-col middle">
-                  <h4>Services Links</h4>
+                <div class="footer-col middle" onclick="this.classList.toggle('expanded')" role="button" tabindex="0" aria-expanded="false">
+                  <h4>Services<span class="accordion-toggle" aria-hidden="true"></span></h4>
                   <ul class="list-unstyled li-space-lg p-small">
                     <li class="media">
                       <i class="fas fa-chevron-right"></i>
@@ -41,51 +46,35 @@
                     </li>
                     <li class="media">
                       <i class="fas fa-chevron-right"></i>
-                      <div class="media-body"> <a class="white" href="/services">instagram</a></div>
+                      <div class="media-body"> <a class="white" href="/services">Instagram</a></div>
                     </li>
                     <li class="media">
                       <i class="fas fa-chevron-right"></i>
-                      <div class="media-body"> <a class="white" href="/services">twitter</a></div>
+                      <div class="media-body"> <a class="white" href="/services">Twitter</a></div>
                     </li>
                     <li class="media">
                       <i class="fas fa-chevron-right"></i>
-                      <div class="media-body"> <a class="white" href="/services">youtube</a></div>
+                      <div class="media-body"> <a class="white" href="/services">YouTube</a></div>
                     </li>            
                     <li class="media">
                       <i class="fas fa-chevron-right"></i>
-                      <div class="media-body"> <a class="white" href="/services">linkedin</a></div>
-                    </li>
-                    <li class="media">
-                      <i class="fas fa-chevron-right"></i>
-                      <div class="media-body"> <a class="white" href="/services">souncloud</a></div>
-                    </li>
-                    <li class="media">
-                      <i class="fas fa-chevron-right"></i>
-                      <div class="media-body"> <a class="white" href="/services">Vimeo</a></div>
-                    </li>
-                    <li class="media">
-                      <i class="fas fa-chevron-right"></i>
-                      <div class="media-body"> <a class="white" href="/services">pinterest</a></div>
+                      <div class="media-body"> <a class="white" href="/services">TikTok</a></div>
                     </li>
                   </ul>
                 </div>
               </div>
-
-
               <div class="col-sm-3">
-                <div class="footer-col last">
-                  <h4>Other Links</h4>
+                <div class="footer-col last" onclick="this.classList.toggle('expanded')" role="button" tabindex="0" aria-expanded="false">
+                  <h4>Support<span class="accordion-toggle" aria-hidden="true"></span></h4>
                   <ul class="list-unstyled li-space-lg p-small">
                     <li class="media">
                       <i class="fas fa-chevron-right"></i>
                       <div class="media-body"> <a class="white" href="/terms">Terms &amp; Conditions</a></div>
                     </li>
-
                     <li class="media">
                       <i class="fas fa-chevron-right"></i>
                       <div class="media-body"> <a class="white" href="/faq">FAQs</a></div>
                     </li>
-
                     <li class="media">
                       <i class="fas fa-chevron-right"></i>
                       <div class="media-body"> <a class="white" href="/api">API Documentation</a></div>
@@ -99,15 +88,14 @@
             <div class="container">
               <div class="row align-items-center">
                 <div class="col-lg-6">
-                  © Copyright 2021. All Rights Reserved.
+                  © Copyright {{ "now"|date("Y") }}. All Rights Reserved.
                 </div>
                 <div class="col-lg-6 text-right">
                   <ul class="sIcons">
-                    <li><a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a></li>
-                    <!-- <li><a href="#0"><i class="fab fa-twitter"></i></a></li> -->
-                    <li><a href="https://www.tiktok.com/"><i class="fab fa-tiktok"></i></a></li>
-                    <li><a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a></li>
-                    <li><a href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a></li>
+                    <li><a href="https://www.facebook.com/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="https://www.tiktok.com/" aria-label="TikTok"><i class="fab fa-tiktok"></i></a></li>
+                    <li><a href="https://www.instagram.com/" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="https://www.youtube.com/" aria-label="YouTube"><i class="fab fa-youtube"></i></a></li>
                   </ul>
                 </div>
               </div>
