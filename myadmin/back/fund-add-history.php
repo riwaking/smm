@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 "status" => $paymentStatus,
                 "mode" => $payments[$i]["payment_mode"],
                 "extra" => $payments[$i]["payment_extra"],
-                "created_at" => date("m-d-Y h:i A", strtotime($payments[$i]["payment_create_date"])),
+                "created_at" => (new DateTime($payments[$i]["payment_create_date"], new DateTimeZone('UTC')))->setTimezone(new DateTimeZone('Asia/Kathmandu'))->format("m-d-Y h:i A"),
                 "is_pending" => $isPending
             ];
         }
