@@ -4,6 +4,7 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-16: Fixed blog slug sanitization - added trim() to INSERT and UPDATE statements in myadmin/back/appearance.php to prevent leading/trailing whitespace in blog_get column, fixed existing blog slugs in database
 - 2026-01-16: Fixed individual blog post view page (/blog/[slug]) to use modern dark theme - switched blogpost.twig to header1.twig, added modern CSS includes, dark card styling with purple accents, fixed blog.php to fetch by slug instead of broken route(2) ID
 - 2026-01-16: Updated /blog listing page to modern dark theme - switched to header1.twig, added CSS Grid responsive layout, dark themed cards with purple accents, blocked NewYearEvent decorations using Object.defineProperty
 - 2026-01-16: Fixed old styling on /services page - commented out CDN stylesheets loading holiday decorations, added targeted CSS and JS to hide particle-snow and christmas-garland elements, restored table header purple gradient styling
