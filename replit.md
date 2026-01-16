@@ -4,6 +4,7 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-16: Fixed old styling on /services page - commented out CDN stylesheets loading holiday decorations, added targeted CSS and JS to hide particle-snow and christmas-garland elements, restored table header purple gradient styling
 - 2026-01-16: Rebuilt /services page with dynamic Twig loops - replaced hardcoded service data with dynamic {% for category in categories %} and {% for service in category.services %} loops fetching from database
 - 2026-01-16: Added premium styling for services page - category rows with purple gradient, service ID badges, rate/min/max badges with color coding, details modal styling, mobile-responsive data-label attributes
 - 2026-01-16: Added copyToClipboard function to services.twig for copying service IDs with visual feedback
