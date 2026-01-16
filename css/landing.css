@@ -913,6 +913,439 @@ footer .social-icons i,
     font-size: 1.1rem;
 }
 
+/* Marketing Section */
+.marketingSection {
+    background: var(--landing-bg-secondary) !important;
+    padding: 100px 0;
+}
+
+.marketingSection .section-header h3 {
+    color: var(--landing-accent-light) !important;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.marketingSection .section-header h2 {
+    color: var(--landing-text-primary) !important;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.marketingSection p,
+.marketingSection .desc p {
+    color: var(--landing-text-secondary) !important;
+    line-height: 1.7;
+}
+
+.marketingSection p b {
+    color: var(--landing-text-primary) !important;
+}
+
+.marketingSection img {
+    filter: drop-shadow(0 10px 30px rgba(124, 58, 237, 0.3));
+}
+
+/* What We Offer Section */
+.whatWeOfrSec {
+    background: var(--landing-bg-primary) !important;
+    padding: 100px 0;
+}
+
+.whatWeOfrSec .section-header h3 {
+    color: var(--landing-accent-light) !important;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.whatWeOfrSec .section-header h2 {
+    color: var(--landing-text-primary) !important;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.whatWeOfrSec .section-header p {
+    color: var(--landing-text-secondary) !important;
+    line-height: 1.7;
+}
+
+.whatWeOfrSec .single-offer,
+.whatWeOfrSec .offer-item {
+    background: var(--landing-bg-card) !important;
+    border: 1px solid var(--landing-border) !important;
+    border-radius: 20px !important;
+    padding: 30px !important;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+}
+
+.whatWeOfrSec .single-offer:hover,
+.whatWeOfrSec .offer-item:hover {
+    border-color: var(--landing-accent) !important;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(124, 58, 237, 0.2);
+}
+
+.whatWeOfrSec .single-offer h4,
+.whatWeOfrSec .offer-item h4,
+.whatWeOfrSec .single-offer h5,
+.whatWeOfrSec .offer-item h5 {
+    color: var(--landing-text-primary) !important;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.whatWeOfrSec .single-offer p,
+.whatWeOfrSec .offer-item p {
+    color: var(--landing-text-secondary) !important;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.whatWeOfrSec .single-offer .icon,
+.whatWeOfrSec .offer-item .icon,
+.whatWeOfrSec .single-offer img,
+.whatWeOfrSec .offer-item img {
+    filter: drop-shadow(0 5px 15px rgba(124, 58, 237, 0.3));
+}
+
+/* Common Questions / FAQ Section */
+.commonQuestionSec,
+.faqSec,
+.accordion-section {
+    background: var(--landing-bg-secondary) !important;
+    padding: 100px 0;
+}
+
+.commonQuestionSec .section-header h3,
+.faqSec .section-header h3 {
+    color: var(--landing-accent-light) !important;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.commonQuestionSec .section-header h2,
+.faqSec .section-header h2 {
+    color: var(--landing-text-primary) !important;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+/* Accordion styling for FAQ */
+.accordion,
+.panel-group {
+    background: transparent !important;
+}
+
+.accordion .card,
+.panel-group .panel,
+.accordion-item {
+    background: var(--landing-bg-card) !important;
+    border: 1px solid var(--landing-border) !important;
+    border-radius: 16px !important;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.accordion .card-header,
+.panel-group .panel-heading,
+.accordion-header {
+    background: var(--landing-bg-card) !important;
+    border-bottom: 1px solid var(--landing-border) !important;
+    padding: 0;
+}
+
+.accordion .card-header a,
+.accordion .card-header button,
+.panel-group .panel-title a,
+.accordion-button {
+    color: var(--landing-text-primary) !important;
+    font-weight: 600;
+    padding: 18px 24px;
+    display: block;
+    width: 100%;
+    text-align: left;
+    text-decoration: none;
+    background: transparent !important;
+    border: none;
+}
+
+.accordion .card-header a:hover,
+.accordion .card-header button:hover,
+.panel-group .panel-title a:hover,
+.accordion-button:hover {
+    color: var(--landing-accent-light) !important;
+}
+
+.accordion .card-body,
+.panel-group .panel-body,
+.accordion-body {
+    background: var(--landing-bg-card) !important;
+    color: var(--landing-text-secondary) !important;
+    padding: 20px 24px;
+    line-height: 1.7;
+}
+
+/* Why Choose / How Does / In What Areas Sections */
+.whyChooseSec,
+.howDoesSec,
+.inWhatAreasSec {
+    background: var(--landing-bg-primary) !important;
+    padding: 80px 0;
+}
+
+.whyChooseSec .section-header h3,
+.howDoesSec .section-header h3,
+.inWhatAreasSec .section-header h3 {
+    color: var(--landing-accent-light) !important;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.whyChooseSec .section-header h2,
+.howDoesSec .section-header h2,
+.inWhatAreasSec .section-header h2 {
+    color: var(--landing-text-primary) !important;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.whyChooseSec p,
+.howDoesSec p,
+.inWhatAreasSec p {
+    color: var(--landing-text-secondary) !important;
+    line-height: 1.7;
+}
+
+.whyChooseSec h2,
+.howDoesSec h2,
+.inWhatAreasSec h2,
+.whyChooseSec h3,
+.howDoesSec h3,
+.inWhatAreasSec h3 {
+    color: var(--landing-text-primary) !important;
+}
+
+/* Single feature items in Why Choose etc */
+.whyChooseSec .single-fea,
+.howDoesSec .single-fea,
+.inWhatAreasSec .single-fea {
+    background: var(--landing-bg-card) !important;
+    border: 1px solid var(--landing-border) !important;
+    border-radius: 20px !important;
+    padding: 30px !important;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    transition: all 0.3s ease;
+}
+
+.whyChooseSec .single-fea:hover,
+.howDoesSec .single-fea:hover,
+.inWhatAreasSec .single-fea:hover {
+    border-color: var(--landing-accent) !important;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(124, 58, 237, 0.2);
+}
+
+.whyChooseSec .single-fea .num,
+.howDoesSec .single-fea .num,
+.inWhatAreasSec .single-fea .num {
+    background: var(--landing-gradient) !important;
+    color: var(--landing-text-primary) !important;
+    font-size: 1.5rem;
+    font-weight: 700;
+    min-width: 60px;
+    height: 60px;
+    border-radius: 16px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.whyChooseSec .single-fea .desc h3,
+.howDoesSec .single-fea .desc h3,
+.inWhatAreasSec .single-fea .desc h3 {
+    color: var(--landing-text-primary) !important;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.whyChooseSec .single-fea .desc p,
+.howDoesSec .single-fea .desc p,
+.inWhatAreasSec .single-fea .desc p {
+    color: var(--landing-text-secondary) !important;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Testimonials / Happy Clients Section */
+.testimonialSec {
+    background: var(--landing-bg-secondary) !important;
+    padding: 100px 0;
+}
+
+.testimonialSec .section-header h3 {
+    color: var(--landing-accent-light) !important;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.testimonialSec .section-header h2 {
+    color: var(--landing-text-primary) !important;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.testimonialSec .section-header p {
+    color: var(--landing-text-secondary) !important;
+    line-height: 1.7;
+}
+
+.testimonialSec .testimonial-item,
+.testimonialSec .single-testimonial,
+.testimonialSec .client-item {
+    background: var(--landing-bg-card) !important;
+    border: 1px solid var(--landing-border) !important;
+    border-radius: 20px !important;
+    padding: 30px !important;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+}
+
+.testimonialSec .testimonial-item:hover,
+.testimonialSec .single-testimonial:hover,
+.testimonialSec .client-item:hover {
+    border-color: var(--landing-accent) !important;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(124, 58, 237, 0.2);
+}
+
+.testimonialSec blockquote {
+    color: var(--landing-text-secondary) !important;
+    font-style: italic;
+    line-height: 1.7;
+    margin: 0 0 20px 0;
+    padding: 0;
+    border: none;
+}
+
+.testimonialSec .client-name,
+.testimonialSec h5,
+.testimonialSec .name {
+    color: var(--landing-text-primary) !important;
+    font-weight: 600;
+}
+
+.testimonialSec .client-title,
+.testimonialSec .title,
+.testimonialSec small {
+    color: var(--landing-accent-light) !important;
+}
+
+.testimonialSec .rating i,
+.testimonialSec .stars i {
+    color: #fbbf24 !important;
+}
+
+.testimonialSec img {
+    border-radius: 50%;
+    border: 3px solid var(--landing-accent) !important;
+}
+
+/* Payment Icons Section */
+.payIconsSec {
+    background: var(--landing-bg-primary) !important;
+    padding: 60px 0;
+    border-top: 1px solid var(--landing-border) !important;
+}
+
+.payIconsSec .section-header h3 {
+    color: var(--landing-accent-light) !important;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.payIconsSec .section-header h2 {
+    color: var(--landing-text-primary) !important;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.payIconsSec img {
+    filter: brightness(0) invert(1);
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    max-height: 40px;
+    margin: 10px 15px;
+}
+
+.payIconsSec img:hover {
+    opacity: 1;
+    filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(168, 85, 247, 0.5));
+}
+
+/* Generic section text overrides */
+section h2,
+section h3,
+section h4 {
+    color: var(--landing-text-primary);
+}
+
+section p {
+    color: var(--landing-text-secondary);
+}
+
+/* Carousel/Slider overrides */
+.owl-carousel .owl-nav button,
+.slick-arrow {
+    background: var(--landing-bg-card) !important;
+    border: 1px solid var(--landing-border) !important;
+    color: var(--landing-text-primary) !important;
+    border-radius: 50% !important;
+    width: 50px !important;
+    height: 50px !important;
+    transition: all 0.3s ease;
+}
+
+.owl-carousel .owl-nav button:hover,
+.slick-arrow:hover {
+    background: var(--landing-gradient) !important;
+    border-color: transparent !important;
+}
+
+.owl-carousel .owl-dots .owl-dot span,
+.slick-dots li button {
+    background: var(--landing-border) !important;
+}
+
+.owl-carousel .owl-dots .owl-dot.active span,
+.slick-dots li.slick-active button {
+    background: var(--landing-accent) !important;
+}
+
 /* Mobile Responsive */
 @media (max-width: 991px) {
     .heroSec {
