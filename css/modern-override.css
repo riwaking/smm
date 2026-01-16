@@ -819,8 +819,7 @@ input[type="submit"]:hover {
 }
 
 @media (max-width: 768px) {
-  /* === HIDE ALL BROKEN/EMPTY ELEMENTS === */
-  .navbar-header .nav-btn,
+  /* === HIDE BROKEN/EMPTY ELEMENTS (but keep hamburger menu) === */
   .navbar-header .sideBarLogo,
   .navbar-header .navbar-brand,
   .navbar-header .full-logo,
@@ -829,14 +828,10 @@ input[type="submit"]:hover {
   .show-in-mob > li:empty,
   .show-in-mob > .sideBarLogo,
   .sidebar-pinner,
-  #menu-toggle,
-  #menu-toggle2,
   #google_translate_element,
   img.full-logo,
   img[src=""],
-  img:not([src]),
-  .navbar-header .navbar-toggle,
-  a.nav-btn {
+  img:not([src]) {
     display: none !important;
     visibility: hidden !important;
     width: 0 !important;
@@ -847,6 +842,50 @@ input[type="submit"]:hover {
     padding: 0 !important;
     overflow: hidden !important;
     border: none !important;
+  }
+
+  /* === MOBILE HAMBURGER MENU BUTTON === */
+  .nav-btn,
+  #menu-toggle,
+  #menu-toggle2,
+  .navbar-toggle,
+  a.nav-btn {
+    display: flex !important;
+    visibility: visible !important;
+    width: 40px !important;
+    height: 40px !important;
+    max-width: 40px !important;
+    max-height: 40px !important;
+    background: #2a2a3e !important;
+    border: 1px solid #3a3a4e !important;
+    border-radius: 8px !important;
+    color: white !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    margin: 5px !important;
+    padding: 8px !important;
+    cursor: pointer !important;
+    z-index: 1000 !important;
+    position: relative !important;
+  }
+
+  .nav-btn:hover,
+  #menu-toggle:hover,
+  .navbar-toggle:hover {
+    background: #3a3a4e !important;
+  }
+
+  .nav-btn .icon-bar,
+  .navbar-toggle .icon-bar,
+  #menu-toggle .icon-bar {
+    display: block !important;
+    width: 18px !important;
+    height: 2px !important;
+    background: white !important;
+    border-radius: 1px !important;
+    margin: 2px 0 !important;
   }
 
   /* Hide broken images */
