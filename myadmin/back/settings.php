@@ -87,31 +87,31 @@ elseif (route(2) == "general"):
 
       $allowed_types = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
 
-      if (isset($_FILES["logo"]) && $_FILES["logo"]["error"] === UPLOAD_ERR_OK && in_array($_FILES["logo"]["type"], $allowed_types)):
+      if (isset($_FILES["logo"]) && $_FILES["logo"]["error"] === UPLOAD_ERR_OK && in_array($_FILES["logo"]["type"], $allowed_types)) {
         $logo_ext = pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
         $logo_newname = "img/panel/" . md5(uniqid(rand(), true)) . "." . $logo_ext;
         $upload_path = $base_path . '/' . $logo_newname;
         if (!move_uploaded_file($_FILES["logo"]["tmp_name"], $upload_path)) {
           error_log("Failed to upload logo to: " . $upload_path);
         }
-      elseif (isset($settings["site_logo"]) && $settings["site_logo"] != ""):
+      } elseif (isset($settings["site_logo"]) && $settings["site_logo"] != "") {
         $logo_newname = $settings["site_logo"];
-      else:
+      } else {
         $logo_newname = "";
-      endif;
+      }
 
-      if (isset($_FILES["favicon"]) && $_FILES["favicon"]["error"] === UPLOAD_ERR_OK && in_array($_FILES["favicon"]["type"], $allowed_types)):
+      if (isset($_FILES["favicon"]) && $_FILES["favicon"]["error"] === UPLOAD_ERR_OK && in_array($_FILES["favicon"]["type"], $allowed_types)) {
         $fav_ext = pathinfo($_FILES["favicon"]["name"], PATHINFO_EXTENSION);
         $fv_newname = "img/panel/" . sha1(uniqid(rand(), true)) . "." . $fav_ext;
         $upload_path = $base_path . '/' . $fv_newname;
         if (!move_uploaded_file($_FILES["favicon"]["tmp_name"], $upload_path)) {
           error_log("Failed to upload favicon to: " . $upload_path);
         }
-      elseif (isset($settings["favicon"]) && $settings["favicon"] != ""):
+      } elseif (isset($settings["favicon"]) && $settings["favicon"] != "") {
         $fv_newname = $settings["favicon"];
-      else:
+      } else {
         $fv_newname = "";
-      endif;
+      }
       if (empty($name)):
         $_SESSION["client"]["data"]["error"] = 1;
         $_SESSION["client"]["data"]["errorText"] = "Panel Name cannot be blank";
