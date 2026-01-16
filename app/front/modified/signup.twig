@@ -1,90 +1,97 @@
-{% if settings['register_page']  ==  2 %} 
+{% if settings['register_page'] == 2 %}
 {% include 'header.twig' %}
-<div class="inner-page ">
-    <section id="sec1" class="signupPage">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <h1 class="text-center">Sign Up Now &amp; Get Digital Services</h1>
-                    <p class="text-center">{{ site["site_name"] }} running with <b style="color:#f36c21; font-weight:bold">35,000</b> Active Users So Why You Wait? Sign Up Now</p>
-                    	 {% if errorText %}
-        <div class="alert alert-dismissible alert-danger">
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
-          {{ errorText }}
+
+<link rel="stylesheet" href="/css/auth-pages.css">
+
+<div class="auth-page">
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-logo">
+          <i class="fas fa-user-plus"></i>
         </div>
+        <h1>Create Account</h1>
+        <p>Join {{ site["site_name"] }} and start growing your social media presence</p>
+      </div>
+      
+      {% if errorText %}
+      <div class="auth-alert auth-alert-error">
+        <i class="fas fa-exclamation-circle"></i>
+        {{ errorText }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
       {% endif %}
+      
       {% if successText %}
-        <div class="alert alert-dismissible alert-success">
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
-          {{ successText }}
-        </div>
+      <div class="auth-alert auth-alert-success">
+        <i class="fas fa-check-circle"></i>
+        {{ successText }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
       {% endif %}
-                    {  <form class="home-form form-inline" action="" method="post" id="yw0">
-                        <div class="form-group inputDiv" style="">
-                            <input type="text" class="form-control" id="firstname" name="name" value="{{ data['name'] }}" placeholder="Full Name">
-                            <p class="help-block help-block-error"></p>
-                        </div>
-                        <div class="form-group inputDiv mr-l">
-                        <input type="text" class="form-control" id="username" name="username" value="{{ data['username'] }}" placeholder="Username" required>
-                            <p class="help-block help-block-error"></p>
-                        </div>
-                        <div class="form-group inputDiv">
-                           <input type="email" class="form-control" id="email" name="email" value="{{ data['email'] }}" placeholder="Email" required>
-                            <p class="help-block help-block-error"></p>
-                        </div>
-                        <div class="form-group inputDiv mr-l noAfter">
-                         <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-                            <p class="help-block help-block-error"></p>
-                        </div>
-                        <div class="form-group inputDiv ">
-                         <input type="password" class="form-control" id="confirm" name="password_again" placeholder="Confirm password">
-                            <p class="help-block help-block-error"></p>
-                        </div>
-                        
-                        <div class="form-group inputDiv mr-l noAfter" style="">
-                          <input type="text" class="form-control" id="skype" name="telephone" value="{{ data['telephone'] }}"placeholder="Phone/Whatsapp Number">
-                            <p class="help-block help-block-error"></p>
-                        </div>
-                       
-                      
-                     <div class="checkbox">
-            <label>
-              <input type="checkbox" name="terms" value="1" checked> {{ lang['signup.accept_terms_text'] }}
-            </label>
+      
+      <form class="auth-form" action="" method="post" id="signupForm">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" class="form-control" id="name" name="name" value="{{ data['name'] }}" placeholder="Enter your full name">
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" value="{{ data['username'] }}" placeholder="Choose username" required>
           </div>
-		   {% if captcha %}
-            <div class="form-group">
-              <div class="g-recaptcha" data-sitekey="{{ captchaKey }}"></div>
-            </div>
-          {% endif %}
-                        <input type="hidden" name="singup" value="Sign Up" />
-                        <button type="submit" class="btn btn-primary">Sign Up</button>
-                       
-                       
-                      <div style="display:none;">
-
-<div class="checkbox text-center" style="color:#ffffff;">
-                            <label>
-                                <input type="checkbox" class="terms-accept-checkbox" name="tnc" value="1"> I have read and agreed with <a href="/terms">Terms</a> 
-                            </label>
-                        </div>
-
-</div>
-                        <div class="text-center" style="color:#ffffff;">Do you have an account? <a href="/">Login</a></div>
-                    </form>
-                </div>
-                <div class="col-sm-12">
-                    <img class="shop-img" src="https://i.imgur.com/W6S4hMS.png" alt="">
-                </div>
-            </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ data['email'] }}" placeholder="Your email" required>
+          </div>
         </div>
-        <div class="cloudy-wrap">
-            <img class="cloudy-img" src="https://i.imgur.com/wkZRJIb.png" alt="">
-            <img class="top-g-img" src="https://i.imgur.com/nI8yt32.png" alt="">
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Create password" required>
+          </div>
+          <div class="form-group">
+            <label for="confirm">Confirm Password</label>
+            <input type="password" class="form-control" id="confirm" name="password_again" placeholder="Confirm password" required>
+          </div>
         </div>
-    </section>
-
-
+        
+        <div class="form-group">
+          <label for="telephone">Phone / WhatsApp</label>
+          <input type="text" class="form-control" id="telephone" name="telephone" value="{{ data['telephone'] }}" placeholder="Your phone number (optional)">
+        </div>
+        
+        <div class="auth-checkbox">
+          <input type="checkbox" name="terms" id="terms" value="1" checked>
+          <label for="terms">{{ lang['signup.accept_terms_text'] }}</label>
+        </div>
+        
+        {% if captcha %}
+        <div class="g-recaptcha" data-sitekey="{{ captchaKey }}"></div>
+        {% endif %}
+        
+        <input type="hidden" name="singup" value="Sign Up">
+        <button type="submit" class="btn-submit">Create Account</button>
+      </form>
+      
+      {% if google_login_content %}
+      <div class="auth-divider">
+        <span>or</span>
+      </div>
+      <button type="button" class="auth-google-btn" onclick="window.location.href='?login-with-google'">
+        <i class="fab fa-google"></i>
+        Sign up with Google
+      </button>
+      {% endif %}
+      
+      <div class="auth-footer">
+        <p>Already have an account? <a href="/auth">Login</a></p>
+      </div>
+    </div>
+  </div>
 </div>
+
 {% include 'footer.twig' %}
-{% endif %} 
+{% endif %}

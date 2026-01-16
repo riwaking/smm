@@ -4,6 +4,8 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-16: Redesigned signup.twig and resetpassword.twig with premium dark theme - created css/auth-pages.css with centered card layout, blue accent (#2F86FA), modern form styling, responsive design with mobile support.
+- 2026-01-16: Fixed forgot password link in login.twig - changed href from "reset-password" to "resetpassword" to match backend route.
 - 2026-01-16: Complete footer redesign with mobile-first responsive layout - created css/footer-modern.css with CSS Grid for 4-column desktop layout, CSS-only accordion using details/summary for mobile collapsible sections, dynamic copyright year, improved typography and spacing.
 - 2026-01-16: Fixed payment icon visibility - applied white filter and opacity to icons for better visibility on black background.
 - 2026-01-16: Removed multiple landing page sections (In What Areas, Happy Clients/Testimonials) to match EliteSMM design.
