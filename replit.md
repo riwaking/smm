@@ -4,6 +4,7 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-16: Fixed payment icon visibility - applied white filter and opacity to icons for better visibility on black background.
 - 2026-01-16: Removed multiple landing page sections (In What Areas, Happy Clients/Testimonials) to match EliteSMM design.
 - 2026-01-16: Streamlined landing page by removing 10 total content sections while keeping core functionality.
 - 2026-01-15: Fixed API service import to capture and save avg_time/average_time field - added hidden input in myadmin/front/api-services.php, updated myadmin/back/api-services.php to capture $service_time and include it in INSERT/UPDATE SQL statements to populate the `time` column (fixes empty "Average time" display on order page)

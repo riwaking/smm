@@ -651,28 +651,32 @@ nav.navbar {
     pointer-events: none;
 }
 
-/* Social Icons Section */
-.socialSec {
-    background: var(--landing-bg-secondary);
-    padding: 40px 0;
-    border-top: 1px solid var(--landing-border);
-    border-bottom: 1px solid var(--landing-border);
+/* Payment Icons Styling */
+.payIconsSec {
+    background: var(--landing-bg-secondary) !important;
+    padding: 60px 0 !important;
+    border-top: 1px solid var(--landing-border) !important;
 }
 
-.socialSec .social-icons-slider div {
-    padding: 10px 20px;
+.payIcons-slider img {
+    filter: brightness(0) invert(1) !important; /* Make icons pure white */
+    opacity: 0.9 !important;
+    transition: all 0.3s ease !important;
+    max-height: 45px !important;
+    width: auto !important;
+    margin: 0 auto !important;
 }
 
-.socialSec .social-icons-slider img {
-    filter: brightness(0) invert(1);
-    opacity: 0.5;
-    transition: all 0.3s ease;
-    max-height: 40px;
+.payIcons-slider img:hover {
+    opacity: 1 !important;
+    filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(47, 134, 250, 0.5)) !important;
 }
 
-.socialSec .social-icons-slider img:hover {
-    opacity: 1;
-    filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(47, 134, 250, 0.5));
+.payIcons-slider .slick-slide {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 20px !important;
 }
 
 /* Counters Section */
