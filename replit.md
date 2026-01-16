@@ -4,6 +4,9 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-16: Redesigned admin Payment Methods page with premium dark theme - added header section, styled search box, scoped CSS for panels/tables/forms while preserving original AJAX functionality and modal dialog styling.
+- 2026-01-16: Redesigned admin General Settings page with premium dark theme - 7 organized sections (Branding, Site Settings, Membership Tiers, Security, Ticket System, Registration, Custom Code), created css/admin/settings-premium.css with card-based layouts.
+- 2026-01-16: Fixed settings.php PHP syntax error (line 97) - converted mixed alternative/curly brace syntax to standard curly braces.
 - 2026-01-16: Redesigned signup.twig and resetpassword.twig with premium dark theme - created css/auth-pages.css with centered card layout, blue accent (#2F86FA), modern form styling, responsive design with mobile support.
 - 2026-01-16: Fixed forgot password link in login.twig - changed href from "reset-password" to "resetpassword" to match backend route.
 - 2026-01-16: Complete footer redesign with mobile-first responsive layout - created css/footer-modern.css with CSS Grid for 4-column desktop layout, CSS-only accordion using details/summary for mobile collapsible sections, dynamic copyright year, improved typography and spacing.
