@@ -2053,3 +2053,299 @@ textarea[name="link"] {
 #select-service-container .dropdown-menu li a:hover {
   background: var(--bg-hover) !important;
 }
+
+/* ==========================================
+   SERVICES PAGE PREMIUM STYLING
+   ========================================== */
+
+body#services,
+body.pricing {
+  background: var(--bg-primary) !important;
+}
+
+body#services .servie-data-panel,
+body.pricing .servie-data-panel {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.03) 0%, rgba(30, 27, 75, 0.95) 100%) !important;
+  border-radius: var(--radius-lg) !important;
+  border: 1px solid var(--border-color) !important;
+  overflow: hidden !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+body#services .table,
+body.pricing .table {
+  background: transparent !important;
+  margin-bottom: 0 !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+}
+
+body#services .table thead,
+body.pricing .table thead {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(124, 58, 237, 0.08) 100%) !important;
+}
+
+body#services .table thead th,
+body.pricing .table thead th {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  padding: 16px 12px !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  white-space: nowrap !important;
+}
+
+/* Category Title Rows */
+body#services .table .cat-title td,
+body.pricing .table .cat-title td {
+  background: linear-gradient(90deg, rgba(124, 58, 237, 0.2) 0%, rgba(124, 58, 237, 0.05) 100%) !important;
+  color: var(--primary) !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  padding: 14px 16px !important;
+  border-top: 1px solid var(--border-color) !important;
+  border-bottom: 1px solid rgba(124, 58, 237, 0.3) !important;
+}
+
+body#services .table .cat-title:first-child td,
+body.pricing .table .cat-title:first-child td {
+  border-top: none !important;
+}
+
+/* Service Rows */
+body#services .table tbody tr.service-row,
+body.pricing .table tbody tr.service-row {
+  background: var(--bg-card) !important;
+  transition: all 0.2s ease !important;
+}
+
+body#services .table tbody tr.service-row:hover,
+body.pricing .table tbody tr.service-row:hover {
+  background: rgba(124, 58, 237, 0.08) !important;
+  transform: translateX(2px) !important;
+}
+
+body#services .table tbody td,
+body.pricing .table tbody td {
+  background: transparent !important;
+  color: var(--text-secondary) !important;
+  padding: 12px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+  vertical-align: middle !important;
+  font-size: 13px !important;
+}
+
+/* Service ID Column */
+body#services .table tbody td.id-td,
+body.pricing .table tbody td.id-td {
+  text-align: center !important;
+  min-width: 100px !important;
+}
+
+body#services .table tbody td.id-td p,
+body.pricing .table tbody td.id-td p {
+  font-family: 'Monaco', 'Consolas', monospace !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: var(--text-primary) !important;
+  margin: 0 0 6px 0 !important;
+  padding: 0 !important;
+}
+
+body#services .table tbody td.id-td button.copy-btn,
+body.pricing .table tbody td.id-td button.copy-btn,
+body#services .table tbody td.id-td button[onclick*="copyToClipboard"],
+body.pricing .table tbody td.id-td button[onclick*="copyToClipboard"] {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 4px 10px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  display: inline-block !important;
+}
+
+body#services .table tbody td.id-td button.copy-btn:hover,
+body.pricing .table tbody td.id-td button.copy-btn:hover,
+body#services .table tbody td.id-td button[onclick*="copyToClipboard"]:hover,
+body.pricing .table tbody td.id-td button[onclick*="copyToClipboard"]:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4) !important;
+}
+
+/* Service ID Badge */
+.service-id-badge {
+  display: inline-block !important;
+  background: rgba(124, 58, 237, 0.15) !important;
+  color: var(--primary) !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  margin-right: 8px !important;
+  font-family: 'Monaco', 'Consolas', monospace !important;
+}
+
+/* Service Name Cell */
+body#services .table tbody td.service-name-cell,
+body.pricing .table tbody td.service-name-cell,
+body#services .table tbody td.mk-icons-sn:not(.cat-title td),
+body.pricing .table tbody td.mk-icons-sn:not(.cat-title td) {
+  color: var(--text-primary) !important;
+  font-weight: 500 !important;
+  max-width: 400px !important;
+}
+
+/* Rate Badges */
+body#services .table tbody .badge.rateper,
+body.pricing .table tbody .badge.rateper {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.1) 100%) !important;
+  color: #34d399 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 6px 10px !important;
+  border-radius: 6px !important;
+  border: 1px solid rgba(16, 185, 129, 0.2) !important;
+}
+
+/* Min/Max Badges */
+body#services .table tbody .badge.minorder,
+body.pricing .table tbody .badge.minorder {
+  background: rgba(59, 130, 246, 0.15) !important;
+  color: #60a5fa !important;
+  font-weight: 600 !important;
+  padding: 5px 10px !important;
+  border-radius: 6px !important;
+}
+
+body#services .table tbody .badge.mxnorder,
+body.pricing .table tbody .badge.mxnorder {
+  background: rgba(244, 63, 94, 0.15) !important;
+  color: #fb7185 !important;
+  font-weight: 600 !important;
+  padding: 5px 10px !important;
+  border-radius: 6px !important;
+}
+
+/* Average Time */
+body#services .table tbody td.average-time,
+body.pricing .table tbody td.average-time {
+  color: var(--text-muted) !important;
+  font-size: 12px !important;
+}
+
+/* Description Button */
+body#services .table tbody .dash-btn.desc-btn,
+body#services .table tbody td.service-description .dash-btn,
+body.pricing .table tbody .dash-btn.desc-btn,
+body.pricing .table tbody td.service-description .dash-btn {
+  background: rgba(124, 58, 237, 0.1) !important;
+  color: var(--primary) !important;
+  border: 1px solid rgba(124, 58, 237, 0.3) !important;
+  border-radius: 6px !important;
+  padding: 6px 12px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap !important;
+}
+
+body#services .table tbody .dash-btn.desc-btn:hover,
+body#services .table tbody td.service-description .dash-btn:hover,
+body.pricing .table tbody .dash-btn.desc-btn:hover,
+body.pricing .table tbody td.service-description .dash-btn:hover {
+  background: var(--primary) !important;
+  color: white !important;
+}
+
+/* Modal Styling */
+body#services .modal-content,
+body.pricing .modal-content {
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+body#services .modal-header,
+body.pricing .modal-header {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(124, 58, 237, 0.05) 100%) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  padding: 16px 20px !important;
+}
+
+body#services .modal-header .modal-title,
+body.pricing .modal-header .modal-title {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+}
+
+body#services .modal-header .close,
+body.pricing .modal-header .close {
+  color: var(--text-muted) !important;
+  opacity: 1 !important;
+}
+
+body#services .modal-body,
+body.pricing .modal-body {
+  background: var(--bg-secondary) !important;
+  color: var(--text-secondary) !important;
+  padding: 20px !important;
+}
+
+/* No Services Message */
+body#services .no-services,
+body.pricing .no-services {
+  color: var(--text-muted) !important;
+  font-style: italic !important;
+  padding: 40px 20px !important;
+}
+
+/* Services Page Header */
+body#services .dash-title h2,
+body.pricing .dash-title h2 {
+  color: var(--text-primary) !important;
+  font-weight: 700 !important;
+  font-size: 24px !important;
+  margin-bottom: 20px !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  body#services .table thead,
+  body.pricing .table thead {
+    display: none !important;
+  }
+  
+  body#services .table tbody tr.service-row,
+  body.pricing .table tbody tr.service-row {
+    display: block !important;
+    margin-bottom: 12px !important;
+    border-radius: var(--radius-md) !important;
+    border: 1px solid var(--border-color) !important;
+    padding: 12px !important;
+  }
+  
+  body#services .table tbody td,
+  body.pricing .table tbody td {
+    display: block !important;
+    border-bottom: none !important;
+    padding: 6px 0 !important;
+  }
+  
+  body#services .table tbody td:before,
+  body.pricing .table tbody td:before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--text-muted);
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+}

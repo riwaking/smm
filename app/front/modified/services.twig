@@ -541,21 +541,21 @@ background: linear-gradient(to right, #f7797d, #FBD786, #C6FFDD); /* W3C, IE 10+
     </tr>
     {% for service in category.services %}
     <tr class="service-row" data-service-name="{{ service.service_name|lower }}">
-      <td class="id-td">
+      <td class="id-td" data-label="ID">
         <p id="svc-{{ service.service_id }}">{{ service.service_id }}</p>
         <button onclick="copyToClipboard('#svc-{{ service.service_id }}')" class="copy-btn">Copy ID</button>
       </td>
-      <td class="service-name-cell">
+      <td class="service-name-cell" data-label="Service">
         <span class="service-id-badge">ID:{{ service.service_id }}</span>
         {{ service.service_name }}
       </td>
-      <td class="rate">
+      <td class="rate" data-label="Rate">
         <span class="badge rateper">{{ service.service_price }}</span>
       </td>
-      <td><span class="badge minorder">{{ service.service_min }}</span></td>
-      <td><span class="badge mxnorder">{{ service.service_max }}</span></td>
-      <td class="average-time">{{ service.time ? service.time : 'N/A' }}</td>
-      <td class="service-description">
+      <td data-label="Min"><span class="badge minorder">{{ service.service_min }}</span></td>
+      <td data-label="Max"><span class="badge mxnorder">{{ service.service_max }}</span></td>
+      <td class="average-time" data-label="Avg Time">{{ service.time ? service.time : 'N/A' }}</td>
+      <td class="service-description" data-label="Details">
         <button type="button" class="dash-btn desc-btn" data-toggle="modal" data-target="#serDesc{{ service.service_id }}">
           <i class="fas fa-info-circle"></i> Details
         </button>
@@ -759,4 +759,24 @@ background: linear-gradient(to right, #f7797d, #FBD786, #C6FFDD); /* W3C, IE 10+
                 
      
         
+<script>
+function copyToClipboard(element) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).text()).select();
+    document.execCommand("copy");
+    $temp.remove();
+    
+    // Visual feedback
+    var btn = event.target;
+    var originalText = btn.textContent;
+    btn.textContent = 'Copied!';
+    btn.style.background = '#10b981';
+    setTimeout(function() {
+        btn.textContent = originalText;
+        btn.style.background = '';
+    }, 1500);
+}
+</script>
+
 {% include 'footer.twig' %}
