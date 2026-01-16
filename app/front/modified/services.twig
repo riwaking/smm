@@ -32,9 +32,10 @@
         <link rel="manifest" href="app-manifest.json">
         <link rel="dns-prefetch" href="//cdn.apanel.link">
         <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
-        <link rel="stylesheet" href="https://cdn.apanel.link/main/css/global.main.v24.18.11.v2.css" media="print" onload="this.media='all'" />
-        <link rel="stylesheet" href="https://cdn.apanel.link/main/fa5151/css/all.min.css"  media="print" onload="this.media='all'" /> 
-                <link rel="stylesheet" href="https://cdn.apanel.link/custom-data/smnp12398238/custom-style.css" />
+        <!-- Removed old CDN stylesheets that contain holiday decorations -->
+        <!-- <link rel="stylesheet" href="https://cdn.apanel.link/main/css/global.main.v24.18.11.v2.css" media="print" onload="this.media='all'" /> -->
+        <link rel="stylesheet" href="https://cdn.apanel.link/main/fa5151/css/all.min.css"  media="print" onload="this.media='all'" />
+        <!-- <link rel="stylesheet" href="https://cdn.apanel.link/custom-data/smnp12398238/custom-style.css" /> -->
       
       <!-- Modern Dark Theme CSS -->
       <link rel="stylesheet" type="text/css" href="/css/modern-ui.css">
@@ -777,6 +778,31 @@ function copyToClipboard(element) {
         btn.style.background = '';
     }, 1500);
 }
+
+// Remove specific decoration elements only (targeted approach)
+function hideDecorations() {
+    // Only target known decoration classes - be specific to avoid breaking legitimate UI
+    var knownDecorations = [
+        '.particle-snow',
+        '.christmas-garland',
+        '.js-confetti',
+        '.js-snow',
+        '#js-confetti',
+        '.falling-snow',
+        '.confetti-container'
+    ];
+    
+    knownDecorations.forEach(function(selector) {
+        document.querySelectorAll(selector).forEach(function(el) {
+            el.style.display = 'none';
+        });
+    });
+}
+
+// Run after page load and with delays for dynamically added elements
+document.addEventListener('DOMContentLoaded', hideDecorations);
+setTimeout(hideDecorations, 1000);
+setTimeout(hideDecorations, 3000);
 </script>
 
 {% include 'footer.twig' %}

@@ -2349,3 +2349,272 @@ body.pricing .dash-title h2 {
     text-transform: uppercase;
   }
 }
+
+/* ==========================================
+   SERVICES PAGE - FIX OLD STYLING
+   ========================================== */
+
+/* Override old header gradient on services page */
+body#services .navbar,
+body.pricing .navbar,
+body#services .navbar-default,
+body.pricing .navbar-default {
+  background: var(--bg-secondary) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+/* Hide holiday decorations */
+body#services .xmas-lights,
+body.pricing .xmas-lights,
+body#services .snow,
+body.pricing .snow,
+body#services [class*="christmas"],
+body.pricing [class*="christmas"],
+body#services [class*="holiday"],
+body.pricing [class*="holiday"],
+body#services .confetti,
+body.pricing .confetti,
+body#services canvas[id*="snow"],
+body.pricing canvas[id*="snow"],
+body#services .particles,
+body.pricing .particles,
+body#services #particles-js,
+body.pricing #particles-js,
+body#services .particle,
+body.pricing .particle {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Social media icons section */
+body#services .social-icons-section,
+body.pricing .social-icons-section,
+body#services .platform-icons,
+body.pricing .platform-icons,
+body#services .well:has(.fa-instagram),
+body.pricing .well:has(.fa-instagram),
+body#services .container > .well:first-of-type,
+body.pricing .container > .well:first-of-type {
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+/* Style all wells on services page */
+body#services .well,
+body.pricing .well {
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* Social media icon links */
+body#services .well a,
+body.pricing .well a,
+body#services .platform-icons a,
+body.pricing .platform-icons a {
+  color: var(--text-secondary) !important;
+  transition: color 0.2s ease !important;
+}
+
+body#services .well a:hover,
+body.pricing .well a:hover,
+body#services .platform-icons a:hover,
+body.pricing .platform-icons a:hover {
+  color: var(--primary) !important;
+  text-decoration: none !important;
+}
+
+/* Search bar styling */
+body#services .search-box,
+body.pricing .search-box,
+body#services input[type="search"],
+body.pricing input[type="search"],
+body#services input[type="text"][placeholder*="Search"],
+body.pricing input[type="text"][placeholder*="Search"],
+body#services .form-control[placeholder*="Search"],
+body.pricing .form-control[placeholder*="Search"] {
+  background: var(--bg-tertiary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--text-primary) !important;
+  padding: 12px 16px !important;
+}
+
+body#services input[type="search"]:focus,
+body.pricing input[type="search"]:focus,
+body#services input[type="text"][placeholder*="Search"]:focus,
+body.pricing input[type="text"][placeholder*="Search"]:focus,
+body#services .form-control[placeholder*="Search"]:focus,
+body.pricing .form-control[placeholder*="Search"]:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15) !important;
+  outline: none !important;
+}
+
+body#services input::placeholder,
+body.pricing input::placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* Hide floating particles/dots animation */
+body#services .floating-particles,
+body.pricing .floating-particles,
+body#services .dots-animation,
+body.pricing .dots-animation,
+body#services .animated-bg,
+body.pricing .animated-bg,
+body#services .bg-animation,
+body.pricing .bg-animation,
+body#services [class*="particle"],
+body.pricing [class*="particle"],
+body#services .bubble,
+body.pricing .bubble,
+body#services .bubbles,
+body.pricing .bubbles {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Override top banner/header area */
+body#services header,
+body.pricing header,
+body#services .top-header,
+body.pricing .top-header,
+body#services .header-banner,
+body.pricing .header-banner {
+  background: var(--bg-secondary) !important;
+}
+
+/* Override any inline gradient styles */
+body#services [style*="gradient"],
+body.pricing [style*="gradient"] {
+  background: var(--bg-secondary) !important;
+}
+
+/* Fix container backgrounds */
+body#services .container,
+body.pricing .container {
+  background: transparent !important;
+}
+
+body#services #wrapper,
+body.pricing #wrapper {
+  background: var(--bg-primary) !important;
+}
+
+/* Override the colorful lights banner at top */
+body#services .lights-banner,
+body.pricing .lights-banner,
+body#services .decorative-banner,
+body.pricing .decorative-banner,
+body#services .top-decoration,
+body.pricing .top-decoration,
+body#services > div:first-child[style*="background"],
+body.pricing > div:first-child[style*="background"] {
+  display: none !important;
+}
+
+/* ==========================================
+   HIDE FLOATING DECORATIONS (Targeted only)
+   ========================================== */
+
+/* Note: Only targeting specific known decoration classes to avoid breaking legitimate UI */
+
+/* Targeting only known decoration class names */
+
+/* Hide the CDN-loaded animation elements */
+body#services .js-confetti,
+body.pricing .js-confetti,
+body#services .js-snow,
+body.pricing .js-snow,
+body#services #js-confetti,
+body.pricing #js-confetti {
+  display: none !important;
+}
+
+/* ==========================================
+   HIDE CHRISTMAS/NEW YEAR DECORATIONS
+   ========================================== */
+
+/* Hide particle snow animation */
+body#services .particle-snow,
+body#services .particle-snow canvas {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Hide christmas garland */
+body#services .christmas-garland,
+body#services .christmas-garland__item {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Hide any NY celebration elements */
+body#services [class*="ny-"],
+body#services [class*="new-year"],
+body#services [class*="celebration"] {
+  display: none !important;
+}
+
+/* Hide falling elements container */
+body#services .falling-elements,
+body#services .falling-container,
+body#services #falling-items {
+  display: none !important;
+}
+
+/* ==========================================
+   RESTORE TABLE HEADER STYLING FOR SERVICES
+   ========================================== */
+
+/* Purple gradient table header for services page */
+body#services .servie-data-panel .table thead,
+body#services .table-responsive .table thead {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.25) 0%, rgba(168, 85, 247, 0.15) 100%) !important;
+}
+
+body#services .servie-data-panel .table thead th,
+body#services .table-responsive .table thead th {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  padding: 14px 12px !important;
+  border-bottom: 1px solid rgba(124, 58, 237, 0.3) !important;
+}
+
+/* Category row gradient */
+body#services .table .cat-title td {
+  background: linear-gradient(90deg, rgba(124, 58, 237, 0.25) 0%, rgba(124, 58, 237, 0.08) 100%) !important;
+  color: #a78bfa !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  padding: 12px 16px !important;
+  border-top: 1px solid rgba(124, 58, 237, 0.2) !important;
+  border-bottom: 1px solid rgba(124, 58, 237, 0.2) !important;
+}
+
+/* Service row styling */
+body#services .table tbody tr:not(.cat-title) {
+  background: var(--bg-card) !important;
+  transition: background 0.2s ease !important;
+}
+
+body#services .table tbody tr:not(.cat-title):hover {
+  background: rgba(124, 58, 237, 0.08) !important;
+}
+
+body#services .table tbody td {
+  color: var(--text-secondary) !important;
+  padding: 12px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+  vertical-align: middle !important;
+}
