@@ -659,17 +659,17 @@ nav.navbar {
 }
 
 .payIcons-slider img {
-    filter: brightness(0) invert(1) !important; /* Make icons pure white */
-    opacity: 0.9 !important;
+    filter: none !important;
+    opacity: 1 !important;
     transition: all 0.3s ease !important;
-    max-height: 45px !important;
+    max-height: 50px !important;
     width: auto !important;
     margin: 0 auto !important;
 }
 
 .payIcons-slider img:hover {
     opacity: 1 !important;
-    filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(47, 134, 250, 0.5)) !important;
+    filter: drop-shadow(0 0 10px rgba(47, 134, 250, 0.5)) !important;
 }
 
 .payIcons-slider .slick-slide {
