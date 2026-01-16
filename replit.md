@@ -4,6 +4,7 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-16: Created EliteSMM-inspired landing page styling in css/landing.css - dark theme (#0a0a1a background, #7c3aed purple accents), hidden holiday decorations, styled form with purple gradient buttons
 - 2026-01-16: Fixed blog post page header overlap - increased top padding from 20px to 120px in blogpost.twig
 - 2026-01-16: Fixed Read More buttons not working for status 2 posts - updated blog.php to query status IN ('1', '2') instead of just status = '1'
 - 2026-01-16: Fixed blog slug sanitization - added trim() to INSERT and UPDATE statements in myadmin/back/appearance.php to prevent leading/trailing whitespace in blog_get column, fixed existing blog slugs in database
