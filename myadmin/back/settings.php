@@ -53,6 +53,29 @@ elseif (route(2) == "general"):
       foreach ($_POST as $key => $value) {
         $$key = htmlspecialchars($value);
       }
+      
+      $site_maintenance = isset($site_maintenance) ? $site_maintenance : "0";
+      $resetpass = isset($resetpass) ? $resetpass : "0";
+      $resetsms = isset($resetsms) ? $resetsms : "0";
+      $resetmail = isset($resetmail) ? $resetmail : "0";
+      $name = isset($name) ? $name : "";
+      $resend_max = isset($resend_max) ? $resend_max : "0";
+      $email_confirmation = isset($email_confirmation) ? $email_confirmation : "0";
+      $name_fileds = isset($name_fileds) ? $name_fileds : "0";
+      $skype_feilds = isset($skype_feilds) ? $skype_feilds : "0";
+      $ticket_system = isset($ticket_system) ? $ticket_system : "0";
+      $tickets_per_user = isset($tickets_per_user) ? $tickets_per_user : "0";
+      $registration_page = isset($registration_page) ? $registration_page : "0";
+      $service_list = isset($service_list) ? $service_list : "0";
+      $custom_footer = isset($custom_footer) ? $custom_footer : "";
+      $custom_header = isset($custom_header) ? $custom_header : "";
+      $bronz_statu = isset($bronz_statu) ? $bronz_statu : "0";
+      $silver_statu = isset($silver_statu) ? $silver_statu : "0";
+      $gold_statu = isset($gold_statu) ? $gold_statu : "0";
+      $bayi_statu = isset($bayi_statu) ? $bayi_statu : "0";
+      $fundstransfer_fees = isset($fundstransfer_fees) ? $fundstransfer_fees : "0";
+      $services_average_time = isset($services_average_time) ? $services_average_time : "0";
+      $currency_format = isset($currency_format) ? $currency_format : "1";
 
       $logo_upload_directory = $_SERVER["DOCUMENT_ROOT"] . '/img/panel';
 
@@ -61,22 +84,22 @@ elseif (route(2) == "general"):
       }
 
 
-      if ($_FILES["logo"] AND ($_FILES["logo"]["type"] == "image/jpeg" || $_FILES["logo"]["type"] == "image/jpg" || $_FILES["logo"]["type"] == "image/png" || $_FILES["logo"]["type"] == "image/gif")):
+      if (isset($_FILES["logo"]) && $_FILES["logo"]["error"] === UPLOAD_ERR_OK && ($_FILES["logo"]["type"] == "image/jpeg" || $_FILES["logo"]["type"] == "image/jpg" || $_FILES["logo"]["type"] == "image/png" || $_FILES["logo"]["type"] == "image/gif")):
         $logo_name = $_FILES["logo"]["name"];
         $uzanti = substr($logo_name, -4, 4);
         $logo_newname = "img/panel/" . md5(rand(10, 999)) . ".png";
         $upload_logo = move_uploaded_file($_FILES["logo"]["tmp_name"], $logo_newname);
-      elseif ($settings["site_logo"] != ""):
+      elseif (isset($settings["site_logo"]) && $settings["site_logo"] != ""):
         $logo_newname = $settings["site_logo"];
       else:
         $logo_newname = "";
       endif;
-      if ($_FILES["favicon"] AND ($_FILES["favicon"]["type"] == "image/jpeg" || $_FILES["favicon"]["type"] == "image/jpg" || $_FILES["favicon"]["type"] == "image/png" || $_FILES["favicon"]["type"] == "image/gif")):
+      if (isset($_FILES["favicon"]) && $_FILES["favicon"]["error"] === UPLOAD_ERR_OK && ($_FILES["favicon"]["type"] == "image/jpeg" || $_FILES["favicon"]["type"] == "image/jpg" || $_FILES["favicon"]["type"] == "image/png" || $_FILES["favicon"]["type"] == "image/gif")):
         $favicon_name = $_FILES["favicon"]["name"];
-        $uzanti = substr($logo_name, -4, 4);
+        $uzanti = substr($favicon_name, -4, 4);
         $fv_newname = "img/panel/" . sha1(rand(10, 999)) . ".png";
         $upload_logo = move_uploaded_file($_FILES["favicon"]["tmp_name"], $fv_newname);
-      elseif ($settings["favicon"] != ""):
+      elseif (isset($settings["favicon"]) && $settings["favicon"] != ""):
         $fv_newname = $settings["favicon"];
       else:
         $fv_newname = "";
