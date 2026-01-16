@@ -4,6 +4,10 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-16: Rebuilt /services page with dynamic Twig loops - replaced hardcoded service data with dynamic {% for category in categories %} and {% for service in category.services %} loops fetching from database
+- 2026-01-16: Added premium styling for services page - category rows with purple gradient, service ID badges, rate/min/max badges with color coding, details modal styling, mobile-responsive data-label attributes
+- 2026-01-16: Added copyToClipboard function to services.twig for copying service IDs with visual feedback
+- 2026-01-16: Added modern-ui.css and modern-override.css includes to services.twig for consistent dark theme
 - 2026-01-15: Fixed API service import to capture and save avg_time/average_time field - added hidden input in myadmin/front/api-services.php, updated myadmin/back/api-services.php to capture $service_time and include it in INSERT/UPDATE SQL statements to populate the `time` column (fixes empty "Average time" display on order page)
 - 2026-01-15: Fixed legacy JavaScript module initialization errors - added proper fieldOptions.fields (empty array), format (min, max, thousands, delimiter), and currencyOptions to window.modules.siteOrder to prevent "Cannot read properties of undefined (reading 'replace')" errors in price formatting
 - 2026-01-14: Converted service dropdown to inline scrollable list - services now display directly in a dark-themed container with search functionality; hidden select syncs with visible list via MutationObserver
