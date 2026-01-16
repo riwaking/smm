@@ -4,6 +4,7 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-16: Fixed HTML rendering in payment instructions - removed htmlspecialchars encoding when saving so links and formatting from rich text editor display properly on Add Funds page.
 - 2026-01-16: Added universal payment method instructions display on Add Funds page - instructions now show for ALL payment methods that have them configured (not just specific gateways), styled with premium dark theme box.
 - 2026-01-16: Added payment verification modal before approving - shows transaction ID, submission time, amount, and notes for verification before adding funds to user balance.
 - 2026-01-16: Fixed manual payment admin functionality - added Approve/Reject buttons for pending payments in fund-add-history, fixed null payment method display, added row locking to prevent double-processing.
