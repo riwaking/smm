@@ -50,22 +50,27 @@ try {
     $mail->IsSMTP();
     $mail->CharSet = 'UTF-8';
     
-    // Use environment variables for SMTP configuration
-    $smtpHost = getenv('SMTP_HOST') ?: 'smtp.gmail.com';
-    $smtpPort = intval(getenv('SMTP_PORT') ?: 587);
-    $smtpUser = getenv('SMTP_USER') ?: '';
-    $smtpPass = getenv('SMTP_PASSWORD') ?: '';
-    $smtpFrom = getenv('SMTP_FROM_EMAIL') ?: $smtpUser;
-    $smtpFromName = getenv('SMTP_FROM_NAME') ?: $_SERVER["HTTP_HOST"];
+    // Use database settings for SMTP configuration (from admin panel)
+    $smtpHost = $settings["smtp_server"] ?? '';
+    $smtpPort = intval($settings["smtp_port"] ?? 587);
+    $smtpUser = $settings["smtp_user"] ?? '';
+    $smtpPass = $settings["smtp_pass"] ?? '';
+    $smtpFrom = $settings["admin_mail"] ?? $smtpUser;
+    $smtpFromName = $settings["site_name"] ?? $_SERVER["HTTP_HOST"];
+    $smtpProtocol = $settings["smtp_protocol"] ?? 'tls';
     
-    // Determine encryption based on port
-    $smtpEncryption = ($smtpPort == 465) ? PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS : PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+    // Determine encryption based on protocol setting or port
+    if ($smtpProtocol == 'ssl' || $smtpPort == 465) {
+        $smtpEncryption = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+    } else {
+        $smtpEncryption = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+    }
     
     // Check if SMTP is configured
-    if (empty($smtpUser) || empty($smtpPass)) {
+    if (empty($smtpHost) || empty($smtpUser) || empty($smtpPass)) {
         $error = 1;
         $errorText = "Email service is not configured. Please contact support.";
-        error_log("Password reset failed: SMTP credentials not configured");
+        error_log("Password reset failed: SMTP credentials not configured in admin settings");
     } else {
         $mail->Host       = $smtpHost;   
         $mail->SMTPDebug  = 0;                     
