@@ -37,3 +37,15 @@ function themeExtras($which) {
     return json_decode($theme["theme_extras"], true);
 }
 $stylesheet = themeExtras('stylesheets');
+
+function getPageBuilderContent($pageName) {
+    global $conn;
+    try {
+        $stmt = $conn->prepare("SELECT content FROM page_builder WHERE page_name = :name");
+        $stmt->execute(['name' => $pageName]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['content'] : '';
+    } catch (Exception $e) {
+        return '';
+    }
+}

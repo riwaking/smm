@@ -129,6 +129,16 @@ if (route(0) != "admin" && $settings["site_maintenance"] == 1):
   exit();
 endif;
 
+if (route(0) == "page" && route(1)):
+  $pageBuilderContent = getPageBuilderContent(route(1));
+  if ($pageBuilderContent):
+    echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>' . $settings["site_title"] . '</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></head><body style="margin:0;font-family:Inter,sans-serif;">';
+    echo $pageBuilderContent;
+    echo '</body></html>';
+    exit();
+  endif;
+endif;
+
 if (route(0) != "admin" && $settings["site_maintenance"] == 1):
   include 'app/views/maintenance.php';
   exit();

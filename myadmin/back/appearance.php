@@ -21,6 +21,7 @@ endif;
 
 $menuList = [
   "Themes" => "themes",
+  "Page Builder" => "pagebuilder",
   "New Year" => "new_year",
   "Pages" => "pages",
   "Announcement" => "news",
@@ -35,6 +36,42 @@ $menuList = [
 if (!array_search(route(2), $menuList)):
   header("Location:" . site_url("admin/appearance"));
 
+elseif (route(2) == "pagebuilder"):
+  $access = $admin["access"]["appearance"];
+  if ($access):
+    if (route(3) == "save"):
+      header('Content-Type: application/json');
+      $input = json_decode(file_get_contents('php://input'), true);
+      $pageName = $input['page_name'] ?? '';
+      $content = $input['content'] ?? '';
+      
+      if (empty($pageName)) {
+        echo json_encode(['success' => false, 'message' => 'Page name is required']);
+        exit();
+      }
+      
+      $conn->beginTransaction();
+      try {
+        $check = $conn->prepare("SELECT id FROM page_builder WHERE page_name = :name");
+        $check->execute(['name' => $pageName]);
+        
+        if ($check->fetch()) {
+          $update = $conn->prepare("UPDATE page_builder SET content = :content, updated_at = CURRENT_TIMESTAMP WHERE page_name = :name");
+          $update->execute(['content' => $content, 'name' => $pageName]);
+        } else {
+          $insert = $conn->prepare("INSERT INTO page_builder (page_name, content) VALUES (:name, :content)");
+          $insert->execute(['name' => $pageName, 'content' => $content]);
+        }
+        
+        $conn->commit();
+        echo json_encode(['success' => true, 'message' => 'Page saved successfully']);
+      } catch (Exception $e) {
+        $conn->rollBack();
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+      }
+      exit();
+    endif;
+  endif;
 
 elseif (route(2) == "pages"):
   $access = $admin["access"]["pages"];
