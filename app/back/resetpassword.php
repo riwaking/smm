@@ -51,28 +51,47 @@ try {
     $mail = new PHPMailer\PHPMailer\PHPMailer(true);
     $mail->IsSMTP();
     $mail->CharSet = 'UTF-8';
-    $mail->Host       = "mail.smmemail.com";   
-    $mail->SMTPDebug  = 0;                     
-    $mail->SMTPAuth   = true;                 
-    $mail->Port       = 587;               
-    $mail->Username   = $from;        
-    $mail->Password   = "tJCz4dcV6FCNSrL";
-    $mail->setFrom($from,$fromName);   
-    $mail->addAddress($to);
-    $mail->isHTML(true); 
-    $mail->Subject = $subject;
-    $mail->Body   = $htmlContent;
     
-    if($mail->send()){ 
-        $success    = 1;
-        $successText= "We've sent the password reset instructions to your email. Don't forget to check your spam folder too.";
-    } else { 
-        $error      = 1;
-        $errorText  = $languageArray["error.resetpassword.fail"];
+    // Use environment variables for SMTP configuration
+    $smtpHost = getenv('SMTP_HOST') ?: 'smtp.gmail.com';
+    $smtpPort = getenv('SMTP_PORT') ?: 587;
+    $smtpUser = getenv('SMTP_USER') ?: '';
+    $smtpPass = getenv('SMTP_PASSWORD') ?: '';
+    $smtpFrom = getenv('SMTP_FROM_EMAIL') ?: $smtpUser;
+    $smtpFromName = getenv('SMTP_FROM_NAME') ?: $_SERVER["HTTP_HOST"];
+    
+    // Check if SMTP is configured
+    if (empty($smtpUser) || empty($smtpPass)) {
+        $error = 1;
+        $errorText = "Email service is not configured. Please contact support.";
+        error_log("Password reset failed: SMTP credentials not configured");
+    } else {
+        $mail->Host       = $smtpHost;   
+        $mail->SMTPDebug  = 0;                     
+        $mail->SMTPAuth   = true;                 
+        $mail->Port       = $smtpPort;
+        $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Username   = $smtpUser;        
+        $mail->Password   = $smtpPass;
+        $mail->setFrom($smtpFrom, $smtpFromName);   
+        $mail->addAddress($to);
+        $mail->isHTML(true); 
+        $mail->Subject = $subject;
+        $mail->Body   = $htmlContent;
+        
+        if($mail->send()){ 
+            $success    = 1;
+            $successText= "We've sent the password reset instructions to your email. Don't forget to check your spam folder too.";
+        } else { 
+            $error      = 1;
+            $errorText  = "Failed to send email. Please try again later.";
+            error_log("Password reset email failed: " . $mail->ErrorInfo);
+        }
     }
 } catch (Exception $e) {
     $error      = 1;
-    $errorText  = $languageArray["error.resetpassword.fail"];
+    $errorText  = "Failed to send email. Please try again later.";
+    error_log("Password reset exception: " . $e->getMessage());
 }    
         
 
