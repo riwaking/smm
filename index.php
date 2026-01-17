@@ -145,7 +145,7 @@ if (route(0) != "admin" && $settings["site_maintenance"] == 1):
 endif;
 
 
-$paidRent = $conn->prepare("SELECT paidRent FROM admin_constants WHERE id=?");
+$paidRent = $conn->prepare("SELECT paidrent FROM admin_constants WHERE id=?");
 $paidRent->execute([
   1
 ]);
