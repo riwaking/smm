@@ -46,26 +46,34 @@ $fromName = $_SERVER["HTTP_HOST"];
 $from =  "noreply@smmemail.com"; 
 
 $subject = "Password Reset"; 
-$mail->IsSMTP();
-$mail->CharSet = 'UTF-8';
-$mail->Host       = "mail.smmemail.com";   
-$mail->SMTPDebug  = 0;                     
-$mail->SMTPAuth   = true;                 
-$mail->Port       = 587;               
-$mail->Username   = $from;        
-$mail->Password   = "tJCz4dcV6FCNSrL";
-$mail->setFrom($from,$fromName);   
-$mail->addAddress($to);
-$mail->isHTML(true); 
-$mail->Subject = $subject;
-$mail->Body   = $htmlContent;
-if($mail->send()){ 
-$success    = 1;
-$successText= "We've sent the password reset instructions to your email. Don't forget to check your spam folder too.";
-}else{ 
-$error      = 1;
- $errorText  = $languageArray["error.resetpassword.fail"];
- }    
+
+try {
+    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+    $mail->IsSMTP();
+    $mail->CharSet = 'UTF-8';
+    $mail->Host       = "mail.smmemail.com";   
+    $mail->SMTPDebug  = 0;                     
+    $mail->SMTPAuth   = true;                 
+    $mail->Port       = 587;               
+    $mail->Username   = $from;        
+    $mail->Password   = "tJCz4dcV6FCNSrL";
+    $mail->setFrom($from,$fromName);   
+    $mail->addAddress($to);
+    $mail->isHTML(true); 
+    $mail->Subject = $subject;
+    $mail->Body   = $htmlContent;
+    
+    if($mail->send()){ 
+        $success    = 1;
+        $successText= "We've sent the password reset instructions to your email. Don't forget to check your spam folder too.";
+    } else { 
+        $error      = 1;
+        $errorText  = $languageArray["error.resetpassword.fail"];
+    }
+} catch (Exception $e) {
+    $error      = 1;
+    $errorText  = $languageArray["error.resetpassword.fail"];
+}    
         
 
 

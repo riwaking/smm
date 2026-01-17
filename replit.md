@@ -4,6 +4,7 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-17: Fixed password reset functionality - added PHPMailer initialization (was using $mail object without creating it), wrapped in try-catch for error handling.
 - 2026-01-17: Expanded to 3-tier membership system (NEW, PREMIUM, RESELLER) - NEW has basic support, PREMIUM unlocks 5-15% discounts + priority support, RESELLER gets 15% fixed discount + own website option. Backend uses bronz_statu for PREMIUM and bayi_statu for RESELLER thresholds with misconfiguration protection. Progress bar shows 0-50% (NEW→PREMIUM) and 50-100% (PREMIUM→RESELLER). Default thresholds: ₹5000 PREMIUM, ₹25000 RESELLER.
 - 2026-01-17: Added visual page builder (GrapesJS) for designing custom landing pages - accessible at /admin/appearance/pagebuilder, pages viewable at /page/{pagename}.
 - 2026-01-16: Fixed HTML rendering in payment instructions - removed htmlspecialchars encoding when saving so links and formatting from rich text editor display properly on Add Funds page.
