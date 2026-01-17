@@ -153,11 +153,6 @@ window.location.href = href;
 
 })();
 
-  if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("app-services-worker.js")
-          .then(() => console.log("Service Worker Registered"))
-          .catch((err) => console.log("Service Worker Failed", err));
-  }
 </script>
 
 
