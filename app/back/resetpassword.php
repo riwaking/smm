@@ -42,8 +42,6 @@ $row= $conn->prepare("SELECT * FROM clients WHERE username=:email ");
      $htmlContent = "Hello,
 You requested a password change. To change your password follow the link below: ". site_url()."resetpassword/$token";  
 $to = $row["email"]; 
-$fromName = $_SERVER["HTTP_HOST"]; 
-$from =  "noreply@smmemail.com"; 
 
 $subject = "Password Reset"; 
 
@@ -54,11 +52,14 @@ try {
     
     // Use environment variables for SMTP configuration
     $smtpHost = getenv('SMTP_HOST') ?: 'smtp.gmail.com';
-    $smtpPort = getenv('SMTP_PORT') ?: 587;
+    $smtpPort = intval(getenv('SMTP_PORT') ?: 587);
     $smtpUser = getenv('SMTP_USER') ?: '';
     $smtpPass = getenv('SMTP_PASSWORD') ?: '';
     $smtpFrom = getenv('SMTP_FROM_EMAIL') ?: $smtpUser;
     $smtpFromName = getenv('SMTP_FROM_NAME') ?: $_SERVER["HTTP_HOST"];
+    
+    // Determine encryption based on port
+    $smtpEncryption = ($smtpPort == 465) ? PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS : PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
     
     // Check if SMTP is configured
     if (empty($smtpUser) || empty($smtpPass)) {
@@ -70,7 +71,7 @@ try {
         $mail->SMTPDebug  = 0;                     
         $mail->SMTPAuth   = true;                 
         $mail->Port       = $smtpPort;
-        $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->SMTPSecure = $smtpEncryption;
         $mail->Username   = $smtpUser;        
         $mail->Password   = $smtpPass;
         $mail->setFrom($smtpFrom, $smtpFromName);   
