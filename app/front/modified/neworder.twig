@@ -554,353 +554,103 @@ display:none !important;
                 var services_array = {{ services_array_json|raw }}; 
                 var category_array = {{ category_array_json|raw }}; </script>
 
-<!-- modal -->
+<!-- Account Status Modal - 2 Tier System -->
 <div class="modal fade" id="exampleModalnew" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <img src="https://imgur.com/2N3uf5j.png"  alt="ftr-logo" width="300" height="150" title="SmmNepal.com" style="margin: auto;display: block;">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="background: #000; border: 1px solid #1a1a2e; border-radius: 16px;">
+            <div class="modal-header" style="border-bottom: 1px solid #1a1a2e; padding: 20px 30px;">
+                <h4 style="color: #fff; margin: 0; font-weight: 600;"><i class="fas fa-crown" style="color: #2F86FA;"></i> Account Status</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #fff; opacity: 0.7;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="padding: 30px;">
+                <!-- Status Tabs -->
+                <div class="status-tabs" style="display: flex; gap: 10px; margin-bottom: 30px;">
+                    <button class="status-tab {% if statu == 'NEW' %}active{% endif %}" data-tier="new" style="flex: 1; padding: 12px 20px; background: {% if statu == 'NEW' %}#2F86FA{% else %}#1a1a2e{% endif %}; border: {% if statu == 'NEW' %}none{% else %}1px solid #2a2a4e{% endif %}; border-radius: 25px; color: {% if statu == 'NEW' %}#fff{% else %}#888{% endif %}; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+                        <i class="fas fa-check-circle"></i> NEW
+                    </button>
+                    <button class="status-tab {% if statu == 'PREMIUM' %}active{% endif %}" data-tier="premium" style="flex: 1; padding: 12px 20px; background: {% if statu == 'PREMIUM' %}#7c3aed{% else %}#1a1a2e{% endif %}; border: {% if statu == 'PREMIUM' %}none{% else %}1px solid #2a2a4e{% endif %}; border-radius: 25px; color: {% if statu == 'PREMIUM' %}#fff{% else %}#888{% endif %}; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+                        <i class="fas fa-star"></i> PREMIUM
+                    </button>
+                </div>
+                <p style="color: #888; text-align: center; margin-bottom: 20px; font-size: 14px;">CURRENT STATUS</p>
+                
+                <!-- Progress Bar -->
+                <div style="background: #1a1a2e; height: 6px; border-radius: 3px; margin-bottom: 40px; overflow: hidden;">
+                    <div style="background: linear-gradient(90deg, #2F86FA, #7c3aed); height: 100%; width: {{ tier_progress|default(0)|round }}%; border-radius: 3px;"></div>
+                </div>
+                
+                <!-- Tier Content -->
                 <div class="row">
-                    <div class="col-sm-3">
-                        <div class="acc-status-wrap">
-                            <p class="top-txt">HAVEN'T SPENT MORE THAN</p>
-                            <div class="acc-status-iiner">
-                                <div class="acc-status-head">
-                                    <p>NEW</p>
-                                    <p>$50</p>
+                    <!-- NEW Tier -->
+                    <div class="col-md-6">
+                        <div style="background: #0a0a12; border: 2px solid {% if statu == 'NEW' %}#2F86FA{% else %}#1a1a2e{% endif %}; border-radius: 16px; padding: 25px; height: 100%;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #2F86FA, #1a5fd4); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-user" style="color: #fff; font-size: 20px;"></i>
                                 </div>
-                                <div class="acc-status-mid">
-                                    <div class="acc-status-mid-left">
-                                        <span><i class="fas fa-check-circle"></i></span>
-                                    </div>
-                                    <div class="acc-status-mid-right">
-                                        <p>Active</p>
-                                        <div class="acc-p-bar"><span class="acc-p-bar-inner"></span></div>
-                                    </div>
+                                <div>
+                                    <h3 style="color: #fff; margin: 0; font-size: 24px; font-weight: 700;">NEW</h3>
+                                    <p style="color: #2F86FA; margin: 0; font-size: 13px;">{% if statu == 'NEW' %}Current Status{% else %}Starter Tier{% endif %}</p>
                                 </div>
-                                <!-- <div class="acc-status-body">
-                  <p>24/7 Ticket Support</p>
-                  <p>5% Payments Bonus**</p>
-                  <p class="no">Paypal Auto Enabled</p>
-                  <p class="no">500$ Montly Lottery***</p>
-                  <p class="no">24/7 Phone / Whatsapp / Skype Support</p>
-                  <p class="no">Custom Services </p>
-                  <p class="no">Early Notification On New Services</p>
-                  <p class="no">Support Handled By The Admins</p>
-                </div> -->
-                                <div class="acc-status-body">
-                                    <p>24/7 Ticket Support </p>
-                                    <p>5% bonus (if Available)</p>
-                                    <p class="no">Priority Ticket Support By Team</p>
-                                    <!-- <p class="no">Free Child Panel For 1 Month🔥 (Website Like Ours</p> -->
-                                    <p class="no">7% bonus instead of 5% for regular if available</p>
-                                    <p class="no">2-5% Discount Available</p>
-                                    <p class="no">VIP Whatsapp / Calling support</p>
-                                    <p class="no">20$ Monthly Lottery for 5 Random Users</p>
-                                    <p class="no">Paypal Manual/Auto Accepted</p>
-                                    
-                                    <p class="no">Personal Assistance</p>
-                                    <p class="no">Early Notification On New Services</p>
-                                    <p class="no">Hidden Services</p>
-                                    <p class="no">Special Discount By The Admins</p>
-                                    <p class="no">Support Handled By The Admins</p>
-                                  
-                                  
-
-                                </div>
+                            </div>
+                            <div style="border-top: 1px solid #1a1a2e; padding-top: 20px;">
+                                <p style="color: #4ade80; margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> 24/7 Ticket Support</p>
+                                <p style="color: #4ade80; margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> 5% Bonus on Deposits</p>
+                                <p style="color: #666; margin-bottom: 12px;"><i class="fas fa-times-circle" style="margin-right: 8px;"></i> Priority Support</p>
+                                <p style="color: #666; margin-bottom: 12px;"><i class="fas fa-times-circle" style="margin-right: 8px;"></i> Special Discounts</p>
+                                <p style="color: #666; margin-bottom: 12px;"><i class="fas fa-times-circle" style="margin-right: 8px;"></i> WhatsApp Support</p>
+                                <p style="color: #666; margin-bottom: 12px;"><i class="fas fa-times-circle" style="margin-right: 8px;"></i> Early Access to Services</p>
+                                <p style="color: #666; margin-bottom: 12px;"><i class="fas fa-times-circle" style="margin-right: 8px;"></i> Hidden Services</p>
+                                <p style="color: #666; margin-bottom: 0;"><i class="fas fa-times-circle" style="margin-right: 8px;"></i> Admin Support</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="acc-status-wrap">
-                            <p class="top-txt">HAVE SPENT MORE THAN</p>
-                            <div class="acc-status-iiner">
-                                <div class="acc-status-head">
-                                    <p>JUNIOR</p>
-                                    <p>$100</p>
+                    
+                    <!-- PREMIUM Tier -->
+                    <div class="col-md-6">
+                        <div style="background: #0a0a12; border: 2px solid {% if statu == 'PREMIUM' %}#7c3aed{% else %}#1a1a2e{% endif %}; border-radius: 16px; padding: 25px; height: 100%; position: relative;">
+                            {% if statu != 'PREMIUM' %}
+                            <div style="position: absolute; top: -12px; right: 20px; background: linear-gradient(135deg, #7c3aed, #a855f7); padding: 5px 15px; border-radius: 20px; font-size: 11px; color: #fff; font-weight: 600;">
+                                SPEND {{ tier_currency_symbol|default('₹') }}{{ premium_threshold|default(5000)|number_format(0) }} TO UNLOCK
+                            </div>
+                            {% endif %}
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #7c3aed, #a855f7); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-crown" style="color: #ffd700; font-size: 20px;"></i>
                                 </div>
-                                <div class="acc-status-mid">
-                                    <div class="acc-status-mid-left">
-                                        <span><i class="fas fa-check-circle"></i></span>
-                                    </div>
-                                    <div class="acc-status-mid-right">
-                                        <p>Active</p>
-                                        <div class="acc-p-bar"><span class="acc-p-bar-inner"></span></div>
-                                    </div>
-                                </div>
-                                <div class="acc-status-body">
-                                    <p>24/7 Ticket Support </p>
-                                    <p>5% bonus (if Available)</p>
-                                    <p class="no">Priority Ticket Support By Team</p>
-                                    <!-- <p class="no">Free Child Panel For 1 Month🔥 (Website Like Ours</p> -->
-                                    <p class="no">7% bonus instead of 5% for regular if available</p>
-                                    <p class="no">2-5% Discount Available</p>
-                                    <p class="no">VIP Whatsapp / Calling support</p>
-                                    <p class="no">20$ Monthly Lottery for 5 Random Users</p>
-                                    <p class="no">Paypal Manual/Auto Accepted</p>
-                                    
-                                    <p class="no">Personal Assistance</p>
-                                    <p class="no">Early Notification On New Services</p>
-                                    <p class="no">Hidden Services</p>
-                                    <p class="no">Special Discount By The Admins</p>
-                                    <p class="no">Support Handled By The Admins</p>
+                                <div>
+                                    <h3 style="color: #fff; margin: 0; font-size: 24px; font-weight: 700;">PREMIUM</h3>
+                                    <p style="color: #7c3aed; margin: 0; font-size: 13px;">{% if statu == 'PREMIUM' %}Current Status{% else %}Next Status{% endif %}</p>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="acc-status-wrap">
-                            <p class="top-txt">HAVE SPENT MORE THAN</p>
-                            <div class="acc-status-iiner">
-                                <div class="acc-status-head">
-                                    <p>Regular</p>
-                                    <p>$1000</p>
-                                </div>
-                                <div class="acc-status-mid">
-                                    <div class="acc-status-mid-left">
-                                        <span><i class="fas fa-check-circle"></i></span>
-                                    </div>
-                                    <div class="acc-status-mid-right">
-                                        <p>Active</p>
-                                        <div class="acc-p-bar"><span class="acc-p-bar-inner"></span></div>
-                                    </div>
-                                </div>
-                                <div class="acc-status-body">
-                                     <p>24/7 Ticket Support </p>
-                                    <p>5% bonus (if Available)</p>
-                                    <p>Priority Ticket Support By Team</p>
-                                   <!--  <p class="no">Free Child Panel For 1 Month🔥 (Website Like Ours</p> -->
-                                    <p class="no">7% bonus instead of 5% for regular if available</p>
-                                    <p class="no">2-5% Discount Available</p>
-                                    <p class="no">VIP Whatsapp / Calling support</p>
-                                    <p class="no">20$ Monthly Lottery for 5 Random Users</p>
-                                    <p class="no">Paypal Manual/Auto Accepted</p>
-                                    
-                                    <p class="no">Personal Assistance</p>
-                                    <p class="no">Early Notification On New Services</p>
-                                    <p class="no">Hidden Services</p>
-                                    <p class="no">Special Discount By The Admins</p>
-                                    <p class="no">Support Handled By The Admins</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="acc-status-wrap">
-                            <p class="top-txt">HAVE SPENT MORE THAN</p>
-                            <div class="acc-status-iiner">
-                                <div class="acc-status-head">
-                                    <p>Frequent</p>
-                                    <p>$2500</p>
-                                </div>
-                                <div class="acc-status-mid">
-                                    <div class="acc-status-mid-left">
-                                        <span><i class="fas fa-check-circle"></i></span>
-                                    </div>
-                                    <div class="acc-status-mid-right">
-                                        <p>Active</p>
-                                        <div class="acc-p-bar"><span class="acc-p-bar-inner"></span></div>
-                                    </div>
-                                </div>
-                                <div class="acc-status-body">
-                                     <p>24/7 Ticket Support </p>
-                                    <p>5% bonus (if Available)</p>
-                                    <p>Priority Ticket Support By Team</p>
-                                    <!-- <p>Free Child Panel For 1 Month🔥 (Website Like Ours</p> -->
-                                    <p class="no">7% bonus instead of 5% for regular if available</p>
-                                    <p class="no">2-5% Discount Available</p>
-                                    <p class="no">VIP Whatsapp / Calling support</p>
-                                    <p class="no">20$ Monthly Lottery for 5 Random Users</p>
-                                    <p class="no">Paypal Manual/Auto Accepted</p>
-                                    
-                                    <p class="no">Personal Assistance</p>
-                                    <p class="no">Early Notification On New Services</p>
-                                    <p class="no">Hidden Services</p>
-                                    <p class="no">Special Discount By The Admins</p>
-                                    <p class="no">Support Handled By The Admins</p>
-                                </div>
+                            <div style="border-top: 1px solid #1a1a2e; padding-top: 20px;">
+                                <p style="color: #4ade80; margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> 24/7 Ticket Support</p>
+                                <p style="color: #4ade80; margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> 7% Bonus on Deposits</p>
+                                <p style="color: #4ade80; margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> Priority Support</p>
+                                <p style="color: #4ade80; margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> 5-15% Special Discounts</p>
+                                <p style="color: #4ade80; margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> WhatsApp/Call Support</p>
+                                <p style="color: #4ade80; margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> Early Access to Services</p>
+                                <p style="color: #4ade80; margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> Hidden Services Access</p>
+                                <p style="color: #4ade80; margin-bottom: 0;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> Direct Admin Support</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <br>
-                <br>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="acc-status-wrap">
-                            <p class="top-txt">HAVE SPENT MORE THAN</p>
-                            <div class="acc-status-iiner">
-                                <div class="acc-status-head">
-                                    <p>Elite</p>
-                                    <p>$10000</p>
-                                </div>
-                                <div class="acc-status-mid">
-                                    <div class="acc-status-mid-left">
-                                        <span><i class="fas fa-check-circle"></i></span>
-                                    </div>
-                                    <div class="acc-status-mid-right">
-                                        <p>Active</p>
-                                        <div class="acc-p-bar"><span class="acc-p-bar-inner"></span></div>
-                                    </div>
-                                </div>
-                                <div class="acc-status-body">
-                                    <p>24/7 Ticket Support </p>
-                                    <p>5% bonus (if Available)</p>
-                                    <p>Priority Ticket Support By Team</p>
-                                   <!--  <p>Free Child Panel For 1 Month🔥 (Website Like Ours</p> -->
-                                    <p>7% bonus instead of 5% for regular if available</p>
-                                    <p class="no">2-5% Discount Available</p>
-                                    <p class="no">VIP Whatsapp / Calling support</p>
-                                    <p class="no">20$ Monthly Lottery for 5 Random Users</p>
-                                    <p class="no">Paypal Manual/Auto Accepted</p>
-                                    
-                                    <p class="no">Personal Assistance</p>
-                                    <p class="no">Early Notification On New Services</p>
-                                    <p class="no">Hidden Services</p>
-                                    <p class="no">Special Discount By The Admins</p>
-                                    <p class="no">Support Handled By The Admins</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="acc-status-wrap">
-                            <p class="top-txt">HAVE SPENT MORE THAN</p>
-                            <div class="acc-status-iiner">
-                                <div class="acc-status-head">
-                                    <p>VIP</p>
-                                    <p>$15000</p>
-                                </div>
-                                <div class="acc-status-mid">
-                                    <div class="acc-status-mid-left">
-                                        <span><i class="fas fa-check-circle"></i></span>
-                                    </div>
-                                    <div class="acc-status-mid-right">
-                                        <p>Active</p>
-                                        <div class="acc-p-bar"><span class="acc-p-bar-inner"></span></div>
-                                    </div>
-                                </div>
-                                <div class="acc-status-body">
-                                     <p>24/7 Ticket Support </p>
-                                    <p>5% bonus (if Available)</p>
-                                    <p>Priority Ticket Support By Team</p>
-                                   <!--  <p>Free Child Panel For 1 Month🔥 (Website Like Ours</p> -->
-                                    <p>7% bonus instead of 5% for regular if available</p>
-                                    <p>2-5% Discount Available</p>
-                                    <p>VIP Whatsapp / Calling support</p>
-                                    <p>20$ Monthly Lottery for 5 Random Users</p>
-                                    <p class="no">Paypal Manual/Auto Accepted</p>
-                                    
-                                    <p class="no">Personal Assistance</p>
-                                    <p class="no">Early Notification On New Services</p>
-                                    <p class="no">Hidden Services</p>
-                                    <p class="no">Special Discount By The Admins</p>
-                                    <p class="no">Support Handled By The Admins</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="acc-status-wrap">
-                            <p class="top-txt">HAVE SPENT MORE THAN</p>
-                            <div class="acc-status-iiner">
-                                <div class="acc-status-head">
-                                    <p>Master</p>
-                                    <p>$50000</p>
-                                </div>
-                                <div class="acc-status-mid">
-                                    <div class="acc-status-mid-left">
-                                        <span><i class="fas fa-check-circle"></i></span>
-                                    </div>
-                                    <div class="acc-status-mid-right">
-                                        <p>Active</p>
-                                        <div class="acc-p-bar"><span class="acc-p-bar-inner"></span></div>
-                                    </div>
-                                </div>
-                                <div class="acc-status-body">
-                                     <p>24/7 Ticket Support </p>
-                                    <p>5% bonus (if Available)</p>
-                                    <p>Priority Ticket Support By Team</p>
-                                  <!--   <p>Free Child Panel For 1 Month🔥 (Website Like Ours</p> -->
-                                    <p>7% bonus instead of 5% for regular if available</p>
-                                    <p>2-5% Discount Available</p>
-                                    <p>VIP Whatsapp / Calling support</p>
-                                    <p>20$ Monthly Lottery for 5 Random Users</p>
-                                    <p>Paypal Manual/Auto Accepted</p>
-                                    
-                                    <p>Personal Assistance</p>
-                                    <p>Early Notification On New Services</p>
-                                    <p class="no">Hidden Services</p>
-                                    <p class="no">Special Discount By The Admins</p>
-                                    <p class="no">Support Handled By The Admins</p>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="col-sm-3">
-                        <div class="acc-status-wrap">
-                            <p class="top-txt">HAVE SPENT MORE THAN</p>
-                            <div class="acc-status-iiner">
-                                <div class="acc-status-head">
-                                    <p>PRO Master</p>
-                                    <p>$90000</p>
-                                </div>
-                                <div class="acc-status-mid">
-                                    <div class="acc-status-mid-left">
-                                        <span><i class="fas fa-check-circle"></i></span>
-                                    </div>
-                                    <div class="acc-status-mid-right">
-                                        <p>Active</p>
-                                        <div class="acc-p-bar"><span class="acc-p-bar-inner"></span></div>
-                                    </div>
-                                </div>
-                                <div class="acc-status-body">
-                                     <p>24/7 Ticket Support </p>
-                                    <p>5% bonus (if Available)</p>
-                                    <p>Priority Ticket Support By Team</p>
-                                <!--     <p>Free Child Panel For 1 Month🔥 (Website Like Ours</p> -->
-                                    <p>7% bonus instead of 5% for regular if available</p>
-                                    <p>2-5% Discount Available</p>
-                                    <p>VIP Whatsapp / Calling support</p>
-                                    <p>20$ Monthly Lottery for 5 Random Users</p>
-                                    <p>Paypal Manual/Auto Accepted</p>
-                                    
-                                    <p>Personal Assistance</p>
-                                    <p>Early Notification On New Services</p>
-                                    <p>Hidden Services</p>
-                                    <p>Special Discount By The Admins</p>
-                                    <p>Support Handled By The Admins</p>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                 <!-- Code by Rajesh Sah -->
-                </div>
-                <div class="row acc-status-exp">
-                    <div class="col-sm-12">
-                        <h2 class="text-center">EXPLANATION IN DETAILS</h2>
-                        <p><b>SHORTCUTS TRICK TO GET VIP</b><br> You may purchase VIP status for a month from our services under the VIP section.</p>
-                        <p><b>NEW USER</b><br> You can get 24/7 support and 5-7% fund load bonus via Esewa, Khalti, Ime Pay, Bank, Payoneer, Paypal, Paytime Wallet, Etc... JUNIOR USER => All New user facilities and Whatsapp
-                            Support also.
-                        </p>
-                        <p><b>REGULAR USER</b><br> All Junior user facilities and You will get a Child Panel like ours! which is connected only with us and Child panel is a website like ours, Also 2-4% discount on all our
-                            services for selling on your own panel, also 7% bonus instead of 5%. In this way, you also can sell services at a very affordable price :)</p>
-                        <p><b>FREQUENT USER</b><br> All Regular user facilities and VIP Whatsapp or calling support by our agents, and Each month we will pick 5 random Frequent, Elite, VIP or Master user to win $20 to be used on the panel!
-                        </p>
-                        <p><b>ELITE USER</b><br> All Frequent user facilities and We will provide Auto/Manual PayPal payment Option, Also Best Theme Design for your child panel.</p>
-                        <p><b>VIP USER</b><br> All Elite user facilities and We will provide you Personal Assistance for your any type of help in our Website, also Early Notification on new services.</p>
-                        <p><b>PRO MASTER USER</b><br> All VIP user facilities and We will enable some Hidden Services for Master Users also admin will manage support for master users by Whatsapp or ticket anything as per Master user requirements :)</p>
-                    </div>
+                
+                <!-- Spending Progress Info -->
+                <div style="margin-top: 30px; background: #0a0a12; border-radius: 12px; padding: 25px; border: 1px solid #1a1a2e;">
+                    <h4 style="color: #fff; margin-bottom: 15px;"><i class="fas fa-chart-line" style="color: #2F86FA; margin-right: 8px;"></i> Your Progress</h4>
+                    <p style="color: #aaa; margin-bottom: 10px; line-height: 1.6;">
+                        {% if statu == 'PREMIUM' %}
+                            <span style="color: #4ade80;"><i class="fas fa-check-circle"></i></span> Congratulations! You are a <b style="color: #7c3aed;">PREMIUM</b> member with all benefits unlocked.
+                        {% else %}
+                            You have spent <b style="color: #2F86FA;">{{ tier_currency_symbol|default('₹') }}{{ user_spent_raw|default(0)|number_format(2) }}</b> so far. Spend <b style="color: #7c3aed;">{{ tier_currency_symbol|default('₹') }}{{ (premium_threshold|default(5000) - user_spent_raw|default(0))|abs|number_format(2) }}</b> more to unlock <b style="color: #7c3aed;">PREMIUM</b> status!
+                        {% endif %}
+                    </p>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

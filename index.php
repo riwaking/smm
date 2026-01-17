@@ -477,25 +477,21 @@ if (route(0) != "admin" && route(0) != "ajax_data") {
     $statubul = $statubul->fetch(PDO::FETCH_ASSOC);
 
 
-    if ($statubul["toplam"] <= $bronz_statu):
-      $statusu = "VIP";
-    endif;
-
-    if ($statubul["toplam"] > $bronz_statu and $statubul["toplam"] <= $silver_statu):
-      $statusu = "JUNIOR";
-    endif;
-
-    if ($statubul["toplam"] > $silver_statu and $statubul["toplam"] <= $gold_statu):
-      $statusu = "REGULAR";
-    endif;
-
-    if ($statubul["toplam"] > $gold_statu and $statubul["toplam"] <= $bayi_statu):
+    // 2-tier system: NEW and PREMIUM
+    $premium_threshold = isset($settings["bronz_statu"]) && floatval($settings["bronz_statu"]) > 0 ? floatval($settings["bronz_statu"]) : 5000;
+    $user_spent_raw = isset($statubul["toplam"]) && $statubul["toplam"] !== null ? floatval($statubul["toplam"]) : 0;
+    
+    if ($user_spent_raw >= $premium_threshold):
+      $statusu = "PREMIUM";
+    else:
       $statusu = "NEW";
     endif;
-
-    if ($statubul["toplam"] > $bayi_statu):
-      $statusu = "NEW";
-    endif;
+    
+    // Calculate progress towards PREMIUM (0-100%) with division by zero protection
+    $tier_progress = $premium_threshold > 0 ? min(100, ($user_spent_raw / $premium_threshold) * 100) : 0;
+    
+    // Get base currency symbol for consistent display
+    $tier_currency_symbol = isset($settings["site_base_currency"]) ? get_currency_symbol_by_code($settings["site_base_currency"]) : '₹';
 
     $ref_content = $conn->prepare("SELECT * FROM referral WHERE referral_code=:referral_code ");
     $ref_content->execute(array("referral_code" => $user['ref_code']));
@@ -610,6 +606,10 @@ if (route(0) != "admin" && route(0) != "ajax_data") {
         'user' => $user,
         'data' => $_SESSION["data"],
         'statu' => $statusu,
+        'tier_progress' => isset($tier_progress) ? $tier_progress : 0,
+        'premium_threshold' => isset($premium_threshold) ? $premium_threshold : 5000,
+        'user_spent_raw' => isset($user_spent_raw) ? $user_spent_raw : 0,
+        'tier_currency_symbol' => isset($tier_currency_symbol) ? $tier_currency_symbol : '₹',
         'settings' => $settings,
         'total_orders' => $totalorder,
         'search' => urldecode($_GET["search"]),

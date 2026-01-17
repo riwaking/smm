@@ -4,6 +4,8 @@
 This is a PHP-based Social Media Marketing (SMM) Panel application. It allows users to manage social media marketing services, process payments, and interact with various social media APIs.
 
 ## Recent Changes
+- 2026-01-17: Simplified membership tier system from 6 tiers to 2 tiers (NEW and PREMIUM) - dynamic modal shows user's actual status, spending progress bar, and remaining amount to upgrade. Backend calculates tier from SUM(payment_amount) vs bronz_statu threshold with null/zero protection. All payment amounts stored in base currency (no normalization needed). Default PREMIUM threshold set to ₹5000.
+- 2026-01-17: Added visual page builder (GrapesJS) for designing custom landing pages - accessible at /admin/appearance/pagebuilder, pages viewable at /page/{pagename}.
 - 2026-01-16: Fixed HTML rendering in payment instructions - removed htmlspecialchars encoding when saving so links and formatting from rich text editor display properly on Add Funds page.
 - 2026-01-16: Added universal payment method instructions display on Add Funds page - instructions now show for ALL payment methods that have them configured (not just specific gateways), styled with premium dark theme box.
 - 2026-01-16: Added payment verification modal before approving - shows transaction ID, submission time, amount, and notes for verification before adding funds to user balance.

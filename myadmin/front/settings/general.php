@@ -149,34 +149,31 @@
             </div>
             <div class="settings-section-title">
               <h3>Membership Tiers</h3>
-              <p>Set spending thresholds for each membership level</p>
+              <p>Set the spending threshold to upgrade from NEW to PREMIUM</p>
             </div>
           </div>
           <div class="settings-section-body">
-            <div class="settings-row settings-row-4">
+            <div class="settings-row settings-row-2">
               <div class="form-group">
-                <label class="control-label"><i class="fa fa-medal" style="color: #cd7f32;"></i> Bronze Member</label>
-                <input type="text" class="form-control" name="bronz_statu" value="<?=$settings["bronz_statu"]?>" placeholder="e.g. 100">
+                <label class="control-label"><i class="fa fa-user" style="color: #2F86FA;"></i> NEW (Default)</label>
+                <input type="text" class="form-control" value="0" disabled placeholder="Default tier for all users">
+                <small class="text-muted">All new users start at this tier</small>
               </div>
               
               <div class="form-group">
-                <label class="control-label"><i class="fa fa-medal" style="color: #c0c0c0;"></i> Silver Member</label>
-                <input type="text" class="form-control" name="silver_statu" value="<?=$settings["silver_statu"]?>" placeholder="e.g. 500">
-              </div>
-              
-              <div class="form-group">
-                <label class="control-label"><i class="fa fa-medal" style="color: #ffd700;"></i> Gold Member</label>
-                <input type="text" class="form-control" name="gold_statu" value="<?=$settings["gold_statu"]?>" placeholder="e.g. 1000">
-              </div>
-              
-              <div class="form-group">
-                <label class="control-label"><i class="fa fa-star" style="color: #9333ea;"></i> Reseller</label>
-                <input type="text" class="form-control" name="bayi_statu" value="<?=$settings["bayi_statu"]?>" placeholder="e.g. 5000">
+                <label class="control-label"><i class="fa fa-crown" style="color: #7c3aed;"></i> PREMIUM Threshold</label>
+                <input type="text" class="form-control" name="bronz_statu" value="<?=$settings["bronz_statu"]?>" placeholder="e.g. 5000">
+                <small class="text-muted">Amount required to unlock PREMIUM status</small>
               </div>
             </div>
+            <!-- Hidden fields to maintain database compatibility -->
+            <input type="hidden" name="silver_statu" value="<?=$settings["silver_statu"]?>">
+            <input type="hidden" name="gold_statu" value="<?=$settings["gold_statu"]?>">
+            <input type="hidden" name="bayi_statu" value="<?=$settings["bayi_statu"]?>">
+            
             <div class="settings-info-box">
               <i class="fa fa-info-circle"></i>
-              <span>Enter the spending amount required to reach each membership tier (e.g. 350)</span>
+              <span>Users who spend more than this amount will automatically upgrade to PREMIUM status with all benefits</span>
             </div>
           </div>
         </div>
