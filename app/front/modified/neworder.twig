@@ -311,15 +311,14 @@ display:none !important;
                   <div class="col-sm-3 stat-wrap">
                       <div class="media">
                           <div class="media-left">
-                              <img class="media-object" src="https://i.postimg.cc/xCdkkZMt/Layer-111.png" alt="">
+                              <div class="stat-icon" style="width: 50px; height: 50px; background: linear-gradient(135deg, #2F86FA, #1a5fd4); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                  <i class="fas fa-shopping-cart" style="color: #fff; font-size: 20px;"></i>
+                              </div>
                           </div>
 
                           <div class="media-body">
                               <h4 class="media-heading">Total Orders</h4>
-                              <!-- <p class="media-desc">6926</p> -->
                               <p class="media-desc"style="margin-bottom: 0;">{{ totalorders }}</p>
-
-
                           </div>
                           <div class="bottom-grad grad1 "></div>
                       </div>
@@ -328,7 +327,9 @@ display:none !important;
                   <div class="col-sm-3 stat-wrap">
                       <div class="media">
                           <div class="media-left">
-                              <img class="media-object" src="https://i.postimg.cc/TwHKnccG/Layer-111231.png" alt="">
+                              <div class="stat-icon" style="width: 50px; height: 50px; background: linear-gradient(135deg, #f97316, #ea580c); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                  <i class="fas fa-wallet" style="color: #fff; font-size: 20px;"></i>
+                              </div>
                           </div>
                           <div class="media-body">
                               <h4 class="media-heading">You Have Spent</h4>
@@ -342,7 +343,9 @@ display:none !important;
 
                       <div class="media">
                           <div class="media-left">
-                              <img class="media-object" src="https://i.postimg.cc/zvbV7Rdh/Layer-111213231.png" alt="">
+                              <div class="stat-icon" style="width: 50px; height: 50px; background: linear-gradient(135deg, #7c3aed, #a855f7); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                  <i class="fas fa-hand-holding-usd" style="color: #fff; font-size: 20px;"></i>
+                              </div>
                           </div>
                           <div class="media-body">
                               <h4 class="media-heading">Resellers Program</h4>
@@ -351,27 +354,19 @@ display:none !important;
                           </div>
                           <div class="bottom-grad grad3"></div>
                       </div>
-                      <!-- <a href="/giveaway" class="reseller-box">Get your own panel!</a> -->
                   </div>
 
                   <div class="col-sm-3 stat-wrap acct-status">
                       <a type="button" data-toggle="modal" data-target="#exampleModalnew">
                           <div class="media">
                               <div class="media-left">
-                                  <img class="media-object" src="https://i.postimg.cc/Y05jsqVs/Layer-11121321134531.png" alt="">
+                                  <div class="stat-icon" style="width: 50px; height: 50px; background: linear-gradient(135deg, #22c55e, #16a34a); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                      <i class="fas fa-crown" style="color: #ffd700; font-size: 20px;"></i>
+                                  </div>
                               </div>
                               <div class="media-body">
                                   <h4 class="media-heading">Account Status</h4>
-                                  <p class="media-desc account_status_span" style="text-transform: uppercase;margin-bottom: 0;">
-                                      <!-- New - 50$
-                        Junior - 100$
-                        Regular - 1K$
-                        frequent - 2.5K
-                        Elite - 10K
-                        VIP - 15K
-                        Master - 50k -->
-
-                                  </p>
+                                  <p class="media-desc account_status_span" style="text-transform: uppercase;margin-bottom: 0;">{{ statu }}</p>
                               </div>
                               <div class="bottom-grad grad4"></div>
                           </div>
