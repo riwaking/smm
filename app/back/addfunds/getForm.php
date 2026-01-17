@@ -9,7 +9,21 @@ $methodInfo->execute(["id" => $selectedMethod]);
 $methodData = $methodInfo->fetch(PDO::FETCH_ASSOC);
 $instructions = '';
 if ($methodData && !empty(trim($methodData["methodinstructions"] ?? ''))) {
-    $instructionsText = htmlspecialchars_decode($methodData["methodinstructions"]);
+    $instructionsText = $methodData["methodinstructions"];
+    
+    // Remove Quill code block wrapper if present
+    $instructionsText = preg_replace('/<pre[^>]*class="ql-syntax"[^>]*>(.*?)<\/pre>/s', '$1', $instructionsText);
+    
+    // Decode HTML entities (multiple times for double-encoding)
+    $instructionsText = html_entity_decode($instructionsText, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    $instructionsText = html_entity_decode($instructionsText, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    
+    // Convert &nbsp; to regular spaces
+    $instructionsText = str_replace('&nbsp;', ' ', $instructionsText);
+    
+    // Clean up excessive whitespace from code formatting
+    $instructionsText = preg_replace('/^\s+/m', '', $instructionsText);
+    
     $instructions = '<div class="payment-instructions" style="margin-bottom: 20px;">' . $instructionsText . '</div>';
 }
 
