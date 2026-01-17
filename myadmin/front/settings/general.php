@@ -149,31 +149,36 @@
             </div>
             <div class="settings-section-title">
               <h3>Membership Tiers</h3>
-              <p>Set the spending threshold to upgrade from NEW to PREMIUM</p>
+              <p>Set spending thresholds for tier upgrades: NEW → PREMIUM → RESELLER</p>
             </div>
           </div>
           <div class="settings-section-body">
-            <div class="settings-row settings-row-2">
+            <div class="settings-row settings-row-3">
               <div class="form-group">
                 <label class="control-label"><i class="fa fa-user" style="color: #2F86FA;"></i> NEW (Default)</label>
                 <input type="text" class="form-control" value="0" disabled placeholder="Default tier for all users">
-                <small class="text-muted">All new users start at this tier</small>
+                <small class="text-muted">All new users start here</small>
               </div>
               
               <div class="form-group">
                 <label class="control-label"><i class="fa fa-crown" style="color: #7c3aed;"></i> PREMIUM Threshold</label>
                 <input type="text" class="form-control" name="bronz_statu" value="<?=$settings["bronz_statu"]?>" placeholder="e.g. 5000">
-                <small class="text-muted">Amount required to unlock PREMIUM status</small>
+                <small class="text-muted">5-15% discounts, priority support</small>
+              </div>
+              
+              <div class="form-group">
+                <label class="control-label"><i class="fa fa-rocket" style="color: #f59e0b;"></i> RESELLER Threshold</label>
+                <input type="text" class="form-control" name="bayi_statu" value="<?=$settings["bayi_statu"]?>" placeholder="e.g. 25000">
+                <small class="text-muted">15% discount, own website access</small>
               </div>
             </div>
             <!-- Hidden fields to maintain database compatibility -->
             <input type="hidden" name="silver_statu" value="<?=$settings["silver_statu"]?>">
             <input type="hidden" name="gold_statu" value="<?=$settings["gold_statu"]?>">
-            <input type="hidden" name="bayi_statu" value="<?=$settings["bayi_statu"]?>">
             
             <div class="settings-info-box">
               <i class="fa fa-info-circle"></i>
-              <span>Users who spend more than this amount will automatically upgrade to PREMIUM status with all benefits</span>
+              <span>Users automatically upgrade tiers based on total spending. RESELLER unlocks 15% discount and ability to get their own website.</span>
             </div>
           </div>
         </div>

@@ -477,18 +477,44 @@ if (route(0) != "admin" && route(0) != "ajax_data") {
     $statubul = $statubul->fetch(PDO::FETCH_ASSOC);
 
 
-    // 2-tier system: NEW and PREMIUM
+    // 3-tier system: NEW, PREMIUM, RESELLER
     $premium_threshold = isset($settings["bronz_statu"]) && floatval($settings["bronz_statu"]) > 0 ? floatval($settings["bronz_statu"]) : 5000;
+    $reseller_threshold = isset($settings["bayi_statu"]) && floatval($settings["bayi_statu"]) > 0 ? floatval($settings["bayi_statu"]) : 25000;
+    
+    // Ensure RESELLER threshold is always >= PREMIUM threshold to prevent misconfiguration
+    if ($reseller_threshold < $premium_threshold) {
+      $reseller_threshold = $premium_threshold * 5; // Default to 5x PREMIUM if misconfigured
+    }
+    
     $user_spent_raw = isset($statubul["toplam"]) && $statubul["toplam"] !== null ? floatval($statubul["toplam"]) : 0;
     
-    if ($user_spent_raw >= $premium_threshold):
+    // Tier logic: must qualify for lower tiers first
+    if ($user_spent_raw >= $reseller_threshold && $user_spent_raw >= $premium_threshold):
+      $statusu = "RESELLER";
+    elseif ($user_spent_raw >= $premium_threshold):
       $statusu = "PREMIUM";
     else:
       $statusu = "NEW";
     endif;
     
-    // Calculate progress towards PREMIUM (0-100%) with division by zero protection
-    $tier_progress = $premium_threshold > 0 ? min(100, ($user_spent_raw / $premium_threshold) * 100) : 0;
+    // Calculate overall progress (0-100%) with division by zero protection
+    // Progress goes: 0% -> 50% (NEW to PREMIUM) -> 100% (PREMIUM to RESELLER)
+    if ($reseller_threshold > 0 && $premium_threshold > 0 && $reseller_threshold > $premium_threshold) {
+      if ($user_spent_raw >= $reseller_threshold) {
+        $tier_progress = 100;
+      } elseif ($user_spent_raw >= $premium_threshold) {
+        // Between PREMIUM and RESELLER: 50% to 100%
+        $tier_gap = $reseller_threshold - $premium_threshold;
+        $progress_in_premium = $tier_gap > 0 ? ($user_spent_raw - $premium_threshold) / $tier_gap : 0;
+        $tier_progress = 50 + ($progress_in_premium * 50);
+      } else {
+        // Below PREMIUM: 0% to 50%
+        $tier_progress = ($user_spent_raw / $premium_threshold) * 50;
+      }
+    } else {
+      // Fallback if thresholds are invalid
+      $tier_progress = $statusu == 'RESELLER' ? 100 : ($statusu == 'PREMIUM' ? 50 : 0);
+    }
     
     // Get base currency symbol for consistent display
     $tier_currency_symbol = isset($settings["site_base_currency"]) ? get_currency_symbol_by_code($settings["site_base_currency"]) : '₹';
@@ -608,6 +634,7 @@ if (route(0) != "admin" && route(0) != "ajax_data") {
         'statu' => $statusu,
         'tier_progress' => isset($tier_progress) ? $tier_progress : 0,
         'premium_threshold' => isset($premium_threshold) ? $premium_threshold : 5000,
+        'reseller_threshold' => isset($reseller_threshold) ? $reseller_threshold : 25000,
         'user_spent_raw' => isset($user_spent_raw) ? $user_spent_raw : 0,
         'tier_currency_symbol' => isset($tier_currency_symbol) ? $tier_currency_symbol : '₹',
         'settings' => $settings,

@@ -554,9 +554,9 @@ display:none !important;
                 var services_array = {{ services_array_json|raw }}; 
                 var category_array = {{ category_array_json|raw }}; </script>
 
-<!-- Account Status Modal - 2 Tier System -->
+<!-- Account Status Modal - 3 Tier System -->
 <div class="modal fade" id="exampleModalnew" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content" style="background: #000; border: 1px solid #1a1a2e; border-radius: 16px;">
             <div class="modal-header" style="border-bottom: 1px solid #1a1a2e; padding: 20px 30px;">
                 <h4 style="color: #fff; margin: 0; font-weight: 600;"><i class="fas fa-crown" style="color: #2F86FA;"></i> Account Status</h4>
@@ -566,87 +566,134 @@ display:none !important;
             </div>
             <div class="modal-body" style="padding: 30px;">
                 <!-- Status Tabs -->
-                <div class="status-tabs" style="display: flex; gap: 10px; margin-bottom: 30px;">
-                    <button class="status-tab {% if statu == 'NEW' %}active{% endif %}" data-tier="new" style="flex: 1; padding: 12px 20px; background: {% if statu == 'NEW' %}#2F86FA{% else %}#1a1a2e{% endif %}; border: {% if statu == 'NEW' %}none{% else %}1px solid #2a2a4e{% endif %}; border-radius: 25px; color: {% if statu == 'NEW' %}#fff{% else %}#888{% endif %}; font-weight: 600; cursor: pointer; transition: all 0.3s;">
-                        <i class="fas fa-check-circle"></i> NEW
+                <div class="status-tabs" style="display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap;">
+                    <button class="status-tab" style="flex: 1; min-width: 100px; padding: 12px 20px; background: {% if statu == 'NEW' %}#2F86FA{% else %}#1a1a2e{% endif %}; border: {% if statu == 'NEW' %}none{% else %}1px solid #2a2a4e{% endif %}; border-radius: 25px; color: {% if statu == 'NEW' %}#fff{% else %}#888{% endif %}; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+                        <i class="fas fa-user"></i> NEW
                     </button>
-                    <button class="status-tab {% if statu == 'PREMIUM' %}active{% endif %}" data-tier="premium" style="flex: 1; padding: 12px 20px; background: {% if statu == 'PREMIUM' %}#7c3aed{% else %}#1a1a2e{% endif %}; border: {% if statu == 'PREMIUM' %}none{% else %}1px solid #2a2a4e{% endif %}; border-radius: 25px; color: {% if statu == 'PREMIUM' %}#fff{% else %}#888{% endif %}; font-weight: 600; cursor: pointer; transition: all 0.3s;">
-                        <i class="fas fa-star"></i> PREMIUM
+                    <button class="status-tab" style="flex: 1; min-width: 100px; padding: 12px 20px; background: {% if statu == 'PREMIUM' %}#7c3aed{% else %}#1a1a2e{% endif %}; border: {% if statu == 'PREMIUM' %}none{% else %}1px solid #2a2a4e{% endif %}; border-radius: 25px; color: {% if statu == 'PREMIUM' %}#fff{% else %}#888{% endif %}; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+                        <i class="fas fa-crown"></i> PREMIUM
+                    </button>
+                    <button class="status-tab" style="flex: 1; min-width: 100px; padding: 12px 20px; background: {% if statu == 'RESELLER' %}#f59e0b{% else %}#1a1a2e{% endif %}; border: {% if statu == 'RESELLER' %}none{% else %}1px solid #2a2a4e{% endif %}; border-radius: 25px; color: {% if statu == 'RESELLER' %}#fff{% else %}#888{% endif %}; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+                        <i class="fas fa-rocket"></i> RESELLER
                     </button>
                 </div>
-                <p style="color: #888; text-align: center; margin-bottom: 20px; font-size: 14px;">CURRENT STATUS</p>
+                <p style="color: #888; text-align: center; margin-bottom: 20px; font-size: 14px;">CURRENT STATUS: <b style="color: {% if statu == 'NEW' %}#2F86FA{% elseif statu == 'PREMIUM' %}#7c3aed{% else %}#f59e0b{% endif %};">{{ statu }}</b></p>
                 
-                <!-- Progress Bar -->
-                <div style="background: #1a1a2e; height: 6px; border-radius: 3px; margin-bottom: 40px; overflow: hidden;">
-                    <div style="background: linear-gradient(90deg, #2F86FA, #7c3aed); height: 100%; width: {{ tier_progress|default(0)|round }}%; border-radius: 3px;"></div>
+                <!-- Progress Bar with tier markers -->
+                <div style="position: relative; margin-bottom: 50px;">
+                    <div style="background: #1a1a2e; height: 8px; border-radius: 4px; overflow: hidden;">
+                        <div style="background: linear-gradient(90deg, #2F86FA, #7c3aed, #f59e0b); height: 100%; width: {{ tier_progress|default(0)|round }}%; border-radius: 4px; transition: width 0.5s ease;"></div>
+                    </div>
+                    <!-- Tier markers -->
+                    <div style="position: absolute; left: 0; top: 15px; text-align: center; width: 60px;">
+                        <span style="color: #2F86FA; font-size: 11px;">NEW</span>
+                    </div>
+                    <div style="position: absolute; left: calc(50% - 30px); top: 15px; text-align: center; width: 60px;">
+                        <span style="color: #7c3aed; font-size: 11px;">PREMIUM</span>
+                    </div>
+                    <div style="position: absolute; right: 0; top: 15px; text-align: center; width: 60px;">
+                        <span style="color: #f59e0b; font-size: 11px;">RESELLER</span>
+                    </div>
                 </div>
                 
-                <!-- Tier Content -->
+                <!-- Tier Content - 3 columns -->
                 <div class="row">
                     <!-- NEW Tier -->
-                    <div class="col-md-6">
-                        <div style="background: #0a0a12; border: 2px solid {% if statu == 'NEW' %}#2F86FA{% else %}#1a1a2e{% endif %}; border-radius: 16px; padding: 25px; height: 100%;">
-                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-                                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #2F86FA, #1a5fd4); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                                    <i class="fas fa-user" style="color: #fff; font-size: 20px;"></i>
+                    <div class="col-md-4">
+                        <div style="background: #0a0a12; border: 2px solid {% if statu == 'NEW' %}#2F86FA{% else %}#1a1a2e{% endif %}; border-radius: 16px; padding: 20px; height: 100%;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                                <div style="width: 45px; height: 45px; background: linear-gradient(135deg, #2F86FA, #1a5fd4); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-user" style="color: #fff; font-size: 18px;"></i>
                                 </div>
                                 <div>
-                                    <h3 style="color: #fff; margin: 0; font-size: 24px; font-weight: 700;">NEW</h3>
-                                    <p style="color: #2F86FA; margin: 0; font-size: 13px;">{% if statu == 'NEW' %}Current Status{% else %}Starter Tier{% endif %}</p>
+                                    <h3 style="color: #fff; margin: 0; font-size: 20px; font-weight: 700;">NEW</h3>
+                                    <p style="color: #2F86FA; margin: 0; font-size: 12px;">{% if statu == 'NEW' %}Current{% else %}Starter{% endif %}</p>
                                 </div>
                             </div>
-                            <div style="border-top: 1px solid #1a1a2e; padding-top: 20px;">
-                                <p style="color: #4ade80; margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> 24/7 Ticket Support</p>
-                                <p style="color: #4ade80; margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> 5% Bonus on Deposits</p>
-                                <p style="color: #666; margin-bottom: 12px;"><i class="fas fa-times-circle" style="margin-right: 8px;"></i> Priority Support</p>
-                                <p style="color: #666; margin-bottom: 12px;"><i class="fas fa-times-circle" style="margin-right: 8px;"></i> Special Discounts</p>
-                                <p style="color: #666; margin-bottom: 12px;"><i class="fas fa-times-circle" style="margin-right: 8px;"></i> WhatsApp Support</p>
-                                <p style="color: #666; margin-bottom: 12px;"><i class="fas fa-times-circle" style="margin-right: 8px;"></i> Early Access to Services</p>
-                                <p style="color: #666; margin-bottom: 12px;"><i class="fas fa-times-circle" style="margin-right: 8px;"></i> Hidden Services</p>
-                                <p style="color: #666; margin-bottom: 0;"><i class="fas fa-times-circle" style="margin-right: 8px;"></i> Admin Support</p>
+                            <div style="border-top: 1px solid #1a1a2e; padding-top: 15px; font-size: 13px;">
+                                <p style="color: #4ade80; margin-bottom: 10px;"><i class="fas fa-check-circle" style="margin-right: 6px;"></i> 24/7 Ticket Support</p>
+                                <p style="color: #4ade80; margin-bottom: 10px;"><i class="fas fa-check-circle" style="margin-right: 6px;"></i> 5% Deposit Bonus</p>
+                                <p style="color: #666; margin-bottom: 10px;"><i class="fas fa-times-circle" style="margin-right: 6px;"></i> Priority Support</p>
+                                <p style="color: #666; margin-bottom: 10px;"><i class="fas fa-times-circle" style="margin-right: 6px;"></i> Special Discounts</p>
+                                <p style="color: #666; margin-bottom: 10px;"><i class="fas fa-times-circle" style="margin-right: 6px;"></i> WhatsApp Support</p>
+                                <p style="color: #666; margin-bottom: 10px;"><i class="fas fa-times-circle" style="margin-right: 6px;"></i> Hidden Services</p>
+                                <p style="color: #666; margin-bottom: 10px;"><i class="fas fa-times-circle" style="margin-right: 6px;"></i> Own Website</p>
+                                <p style="color: #666; margin-bottom: 0;"><i class="fas fa-times-circle" style="margin-right: 6px;"></i> Admin Support</p>
                             </div>
                         </div>
                     </div>
                     
                     <!-- PREMIUM Tier -->
-                    <div class="col-md-6">
-                        <div style="background: #0a0a12; border: 2px solid {% if statu == 'PREMIUM' %}#7c3aed{% else %}#1a1a2e{% endif %}; border-radius: 16px; padding: 25px; height: 100%; position: relative;">
-                            {% if statu != 'PREMIUM' %}
-                            <div style="position: absolute; top: -12px; right: 20px; background: linear-gradient(135deg, #7c3aed, #a855f7); padding: 5px 15px; border-radius: 20px; font-size: 11px; color: #fff; font-weight: 600;">
-                                SPEND {{ tier_currency_symbol|default('₹') }}{{ premium_threshold|default(5000)|number_format(0) }} TO UNLOCK
+                    <div class="col-md-4">
+                        <div style="background: #0a0a12; border: 2px solid {% if statu == 'PREMIUM' %}#7c3aed{% else %}#1a1a2e{% endif %}; border-radius: 16px; padding: 20px; height: 100%; position: relative;">
+                            {% if statu == 'NEW' %}
+                            <div style="position: absolute; top: -12px; right: 15px; background: linear-gradient(135deg, #7c3aed, #a855f7); padding: 4px 12px; border-radius: 15px; font-size: 10px; color: #fff; font-weight: 600;">
+                                {{ tier_currency_symbol|default('₹') }}{{ premium_threshold|default(5000)|number_format(0) }}
                             </div>
                             {% endif %}
-                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-                                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #7c3aed, #a855f7); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                                    <i class="fas fa-crown" style="color: #ffd700; font-size: 20px;"></i>
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                                <div style="width: 45px; height: 45px; background: linear-gradient(135deg, #7c3aed, #a855f7); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-crown" style="color: #ffd700; font-size: 18px;"></i>
                                 </div>
                                 <div>
-                                    <h3 style="color: #fff; margin: 0; font-size: 24px; font-weight: 700;">PREMIUM</h3>
-                                    <p style="color: #7c3aed; margin: 0; font-size: 13px;">{% if statu == 'PREMIUM' %}Current Status{% else %}Next Status{% endif %}</p>
+                                    <h3 style="color: #fff; margin: 0; font-size: 20px; font-weight: 700;">PREMIUM</h3>
+                                    <p style="color: #7c3aed; margin: 0; font-size: 12px;">{% if statu == 'PREMIUM' %}Current{% elseif statu == 'NEW' %}Next{% else %}Active{% endif %}</p>
                                 </div>
                             </div>
-                            <div style="border-top: 1px solid #1a1a2e; padding-top: 20px;">
-                                <p style="color: #4ade80; margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> 24/7 Ticket Support</p>
-                                <p style="color: #4ade80; margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> 7% Bonus on Deposits</p>
-                                <p style="color: #4ade80; margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> Priority Support</p>
-                                <p style="color: #4ade80; margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> 5-15% Special Discounts</p>
-                                <p style="color: #4ade80; margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> WhatsApp/Call Support</p>
-                                <p style="color: #4ade80; margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> Early Access to Services</p>
-                                <p style="color: #4ade80; margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> Hidden Services Access</p>
-                                <p style="color: #4ade80; margin-bottom: 0;"><i class="fas fa-check-circle" style="margin-right: 8px;"></i> Direct Admin Support</p>
+                            <div style="border-top: 1px solid #1a1a2e; padding-top: 15px; font-size: 13px;">
+                                <p style="color: #4ade80; margin-bottom: 10px;"><i class="fas fa-check-circle" style="margin-right: 6px;"></i> 24/7 Ticket Support</p>
+                                <p style="color: #4ade80; margin-bottom: 10px;"><i class="fas fa-check-circle" style="margin-right: 6px;"></i> 7% Deposit Bonus</p>
+                                <p style="color: #4ade80; margin-bottom: 10px;"><i class="fas fa-check-circle" style="margin-right: 6px;"></i> Priority Support</p>
+                                <p style="color: #4ade80; margin-bottom: 10px;"><i class="fas fa-check-circle" style="margin-right: 6px;"></i> <b>5-15% Discounts</b></p>
+                                <p style="color: #4ade80; margin-bottom: 10px;"><i class="fas fa-check-circle" style="margin-right: 6px;"></i> WhatsApp Support</p>
+                                <p style="color: #4ade80; margin-bottom: 10px;"><i class="fas fa-check-circle" style="margin-right: 6px;"></i> Hidden Services</p>
+                                <p style="color: #666; margin-bottom: 10px;"><i class="fas fa-times-circle" style="margin-right: 6px;"></i> Own Website</p>
+                                <p style="color: #4ade80; margin-bottom: 0;"><i class="fas fa-check-circle" style="margin-right: 6px;"></i> Admin Support</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- RESELLER Tier -->
+                    <div class="col-md-4">
+                        <div style="background: #0a0a12; border: 2px solid {% if statu == 'RESELLER' %}#f59e0b{% else %}#1a1a2e{% endif %}; border-radius: 16px; padding: 20px; height: 100%; position: relative;">
+                            {% if statu != 'RESELLER' %}
+                            <div style="position: absolute; top: -12px; right: 15px; background: linear-gradient(135deg, #f59e0b, #fbbf24); padding: 4px 12px; border-radius: 15px; font-size: 10px; color: #000; font-weight: 600;">
+                                {{ tier_currency_symbol|default('₹') }}{{ reseller_threshold|default(25000)|number_format(0) }}
+                            </div>
+                            {% endif %}
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                                <div style="width: 45px; height: 45px; background: linear-gradient(135deg, #f59e0b, #fbbf24); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-rocket" style="color: #fff; font-size: 18px;"></i>
+                                </div>
+                                <div>
+                                    <h3 style="color: #fff; margin: 0; font-size: 20px; font-weight: 700;">RESELLER</h3>
+                                    <p style="color: #f59e0b; margin: 0; font-size: 12px;">{% if statu == 'RESELLER' %}Current{% else %}Ultimate{% endif %}</p>
+                                </div>
+                            </div>
+                            <div style="border-top: 1px solid #1a1a2e; padding-top: 15px; font-size: 13px;">
+                                <p style="color: #4ade80; margin-bottom: 10px;"><i class="fas fa-check-circle" style="margin-right: 6px;"></i> 24/7 Ticket Support</p>
+                                <p style="color: #4ade80; margin-bottom: 10px;"><i class="fas fa-check-circle" style="margin-right: 6px;"></i> 10% Deposit Bonus</p>
+                                <p style="color: #4ade80; margin-bottom: 10px;"><i class="fas fa-check-circle" style="margin-right: 6px;"></i> Priority Support</p>
+                                <p style="color: #f59e0b; margin-bottom: 10px;"><i class="fas fa-star" style="margin-right: 6px;"></i> <b>15% Fixed Discount</b></p>
+                                <p style="color: #4ade80; margin-bottom: 10px;"><i class="fas fa-check-circle" style="margin-right: 6px;"></i> WhatsApp + Call</p>
+                                <p style="color: #4ade80; margin-bottom: 10px;"><i class="fas fa-check-circle" style="margin-right: 6px;"></i> All Hidden Services</p>
+                                <p style="color: #f59e0b; margin-bottom: 10px;"><i class="fas fa-star" style="margin-right: 6px;"></i> <b>Get Own Website!</b></p>
+                                <p style="color: #4ade80; margin-bottom: 0;"><i class="fas fa-check-circle" style="margin-right: 6px;"></i> Direct Admin Line</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Spending Progress Info -->
-                <div style="margin-top: 30px; background: #0a0a12; border-radius: 12px; padding: 25px; border: 1px solid #1a1a2e;">
-                    <h4 style="color: #fff; margin-bottom: 15px;"><i class="fas fa-chart-line" style="color: #2F86FA; margin-right: 8px;"></i> Your Progress</h4>
-                    <p style="color: #aaa; margin-bottom: 10px; line-height: 1.6;">
-                        {% if statu == 'PREMIUM' %}
-                            <span style="color: #4ade80;"><i class="fas fa-check-circle"></i></span> Congratulations! You are a <b style="color: #7c3aed;">PREMIUM</b> member with all benefits unlocked.
+                <div style="margin-top: 25px; background: #0a0a12; border-radius: 12px; padding: 20px; border: 1px solid #1a1a2e;">
+                    <h4 style="color: #fff; margin-bottom: 12px; font-size: 16px;"><i class="fas fa-chart-line" style="color: #2F86FA; margin-right: 8px;"></i> Your Progress</h4>
+                    <p style="color: #aaa; margin-bottom: 0; line-height: 1.6; font-size: 14px;">
+                        {% if statu == 'RESELLER' %}
+                            <span style="color: #f59e0b;"><i class="fas fa-star"></i></span> You are a <b style="color: #f59e0b;">RESELLER</b> with maximum benefits! Contact admin to set up your own website.
+                        {% elseif statu == 'PREMIUM' %}
+                            <span style="color: #4ade80;"><i class="fas fa-check-circle"></i></span> You are <b style="color: #7c3aed;">PREMIUM</b>! Spend <b style="color: #f59e0b;">{{ tier_currency_symbol|default('₹') }}{{ (reseller_threshold|default(25000) - user_spent_raw|default(0))|abs|number_format(0) }}</b> more to become a <b style="color: #f59e0b;">RESELLER</b> with 15% discount and your own website!
                         {% else %}
-                            You have spent <b style="color: #2F86FA;">{{ tier_currency_symbol|default('₹') }}{{ user_spent_raw|default(0)|number_format(2) }}</b> so far. Spend <b style="color: #7c3aed;">{{ tier_currency_symbol|default('₹') }}{{ (premium_threshold|default(5000) - user_spent_raw|default(0))|abs|number_format(2) }}</b> more to unlock <b style="color: #7c3aed;">PREMIUM</b> status!
+                            You've spent <b style="color: #2F86FA;">{{ tier_currency_symbol|default('₹') }}{{ user_spent_raw|default(0)|number_format(0) }}</b>. Spend <b style="color: #7c3aed;">{{ tier_currency_symbol|default('₹') }}{{ (premium_threshold|default(5000) - user_spent_raw|default(0))|abs|number_format(0) }}</b> more to unlock <b style="color: #7c3aed;">PREMIUM</b> with 5-15% discounts!
                         {% endif %}
                     </p>
                 </div>
